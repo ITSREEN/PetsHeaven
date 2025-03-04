@@ -19,7 +19,10 @@ const LoginForm = () => {
                 <img src="" alt="" />
             </picture>
             <form className="login" onSubmit={handleSubmit(onSubmit)}>
-                <span>
+                <span className="title">
+                    <h1>Login</h1>
+                </span>
+                <span className="campo-formulario">
                     <p>Documento o Email</p>
                     <input type="text" name="docEmail" id="docEmail" {
                         ...register("docEmail",{
@@ -32,7 +35,7 @@ const LoginForm = () => {
                     }/>
                     { errors.docEmail && <p>{errors.docEmail.message}</p> }
                 </span>
-                <span>
+                <span className="campo-formulario">
                     <p>Password</p>
                     <input type="password" name="password" id="password" {...register("passw",{
                         required: "Este campo es obligatorio",
