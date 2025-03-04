@@ -132,7 +132,20 @@ function FormularioRegistro() {
                   />
                   {errors.fechaNacimiento && <span className="error">{errors.fechaNacimiento.message}</span>}
                 </div>
-
+                <div className="campo-formulario">
+                  <label>Genero</label>
+                  <select
+                    {...register("genero", {
+                      required: "El genero es obligatorio",
+                    })}
+                  >
+                    <option value="">Seleccione...</option>
+                    <option value="CC">Femenino</option>
+                    <option value="CE">Masculino</option>
+                    <option value="CE">Otro</option>
+                  </select>
+                  {errors.genero && <span className="error">{errors.genero.message}</span>}
+                </div>
                 <div className="campo-formulario">
                   <label>Teléfono</label>
                   <input
@@ -148,9 +161,7 @@ function FormularioRegistro() {
                   />
                   {errors.telefono && <span className="error">{errors.telefono.message}</span>}
                 </div>
-              </div>
-
-              <div className="campo-formulario campo-ancho-completo">
+                <div className="campo-formulario campo-ancho-completo">
                 <label>Dirección</label>
                 <input
                   type="text"
@@ -164,6 +175,7 @@ function FormularioRegistro() {
                   })}
                 />
                 {errors.direccion && <span className="error">{errors.direccion.message}</span>}
+                </div>
               </div>
 
               <div className="botones-navegacion">
@@ -268,4 +280,3 @@ function FormularioRegistro() {
 }
 
 export default FormularioRegistro;
-
