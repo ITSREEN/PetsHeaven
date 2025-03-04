@@ -279,8 +279,4 @@ const FormularioRegistro = () => {
   )
 }
 
-<<<<<<< HEAD
 export default FormularioRegistro;
-=======
-export default FormularioRegistro
->>>>>>> 17c2795c0c729418afbd300ac571097e2ec9b50e
