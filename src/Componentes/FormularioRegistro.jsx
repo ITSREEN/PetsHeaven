@@ -1,6 +1,7 @@
 import React from "react"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
+import "boxicons"
 import "../../public/styles/formulario-registro.css"
 
 const FormularioRegistro = () => {
@@ -30,8 +31,13 @@ const FormularioRegistro = () => {
     alert("Formulario enviado con éxito")
   }
 
+  const handlePaste = (e) => {
+    e.preventDefault(); // Previene la acción de pegar
+  };
   return (
     <div className="page-container">
+      <img src="../../public/imgs/1.png" alt="foto" className="logo-register"/>
+      <box-icon name='left-arrow-alt' className="icon-arrow"></box-icon>
       <div className="formulario-container">
         <div className="formulario-header">
           <h2>Registro de Usuario</h2>
@@ -65,9 +71,10 @@ const FormularioRegistro = () => {
                   <label>Número de documento</label>
                   <input
                     type="text"
-                    placeholder="Número de documento"
+                    placeholder="Ej: 65642312"
                     {...register("numeroDocumento", {
                       required: "El número de documento es obligatorio",
+                      minLength: "6",
                       pattern: {
                         value: /^[0-9]+$/,
                         message: "Solo se permiten números",
@@ -81,13 +88,14 @@ const FormularioRegistro = () => {
                   <label>Nombres</label>
                   <input
                     type="text"
-                    placeholder="Nombres"
+                    placeholder="Ej: Pepito Juan"
                     {...register("nombres", {
                       required: "El nombre es obligatorio",
                       minLength: {
                         value: 3,
                         message: "El nombre debe tener al menos 3 caracteres",
                       },
+                      maxLength: "40",
                       pattern: {
                         value: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/,
                         message: "El nombre solo puede contener letras y espacios",
@@ -101,7 +109,7 @@ const FormularioRegistro = () => {
                   <label>Apellidos</label>
                   <input
                     type="text"
-                    placeholder="Apellidos"
+                    placeholder="Ej: Lopez Perez"
                     {...register("apellidos", {
                       required: "El apellido es obligatorio",
                       minLength: {
@@ -151,7 +159,7 @@ const FormularioRegistro = () => {
                   <label>Teléfono</label>
                   <input
                     type="text"
-                    placeholder="Teléfono"
+                    placeholder="Eje: 65642312"
                     {...register("telefono", {
                       required: "El teléfono es obligatorio",
                       pattern: {
@@ -166,7 +174,7 @@ const FormularioRegistro = () => {
                 <label>Dirección</label>
                 <input
                   type="text"
-                  placeholder="Dirección"
+                  placeholder="Eje: Calle 123, Nro. 456"
                   {...register("direccion", {
                     required: "La dirección es obligatoria",
                     minLength: {
@@ -192,7 +200,8 @@ const FormularioRegistro = () => {
                   <label>Email</label>
                   <input
                     type="email"
-                    placeholder="Correo electrónico"
+                    placeholder="ej: juan.lopez@example.com"
+                    onPaste={handlePaste}
                     {...register("email", {
                       required: "El correo electrónico es obligatorio",
                       pattern: {
@@ -207,10 +216,11 @@ const FormularioRegistro = () => {
                 <div className="campo-formulario">
                   <label>Confirmación Email</label>
                   <input
-                    type="email"
+                    type="email"  
                     placeholder="Confirmar correo electrónico"
+                    onPaste={handlePaste}
                     {...register("confirmEmail", {
-                      required: "La confirmación de correo es obligatoria",
+                      required: "La confirmación de correo es obligatoria",  
                       validate: (value) => value === email || "Los correos electrónicos no coinciden",
                     })}
                   />
@@ -222,6 +232,7 @@ const FormularioRegistro = () => {
                   <input
                     type="password"
                     placeholder="Contraseña"
+                    onPaste={handlePaste}
                     {...register("contrasena", {
                       required: "La contraseña es obligatoria",
                       minLength: {
@@ -243,6 +254,7 @@ const FormularioRegistro = () => {
                   <input
                     type="password"
                     placeholder="Confirmar contraseña"
+                    onPaste={handlePaste}
                     {...register("confirmContrasena", {
                       required: "La confirmación de contraseña es obligatoria",
                       validate: (value) => value === password || "Las contraseñas no coinciden",
