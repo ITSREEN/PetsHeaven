@@ -2,25 +2,24 @@
   display: flex;
   min-height: 100vh;
   padding: 20px;
-  background-color: var(--white);
+  background-color: #f5f7fa;
 }
 
 .formulario-container {
-  width: 40vw;
-  padding: 30px;
+  width: 36vw;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  margin-left: 20vw;
+  margin-left: 50vw;
+  height: 75vh;
+  margin-top: 2vh;
 }
 
 .formulario-header {
   text-align: center;
-  margin-bottom: 30px;
 }
 
 .formulario-header h2 {
-  margin-bottom: 20px;
   color: #333;
   font-size: 28px;
 }
@@ -70,7 +69,7 @@
 .campos-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 15px;
 }
 
 .campo-formulario {
@@ -214,4 +213,3 @@
     padding: 15px;
   }
 }
-
