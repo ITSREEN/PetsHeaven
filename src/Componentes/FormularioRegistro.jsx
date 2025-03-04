@@ -5,10 +5,7 @@ import "../Stylos/formulario-registro.css"
 function FormularioRegistro() {
   const [paso, setPaso] = useState(1)
 
-  const {
-    register,
-    handleSubmit,
-    watch,
+  const {register,handleSubmit,watch,
     formState: { errors },
   } = useForm({
     mode: "onChange",

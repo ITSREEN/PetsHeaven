@@ -5,6 +5,7 @@ const RegistroMascota = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm();
 
@@ -17,29 +18,121 @@ const RegistroMascota = () => {
     <div className="registro-mascota-container">
       <h2>Registro de Mascota</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="campo-formulario">
         <label>Foto:</label>
-        <input type="file" {...register("foto", { required: true })} />
-        {errors.foto && <span className="error">La foto es obligatoria</span>}
+        <input
+          type="file"
+          {...register("foto", {
+            required: "La foto es obligatoria",
+          })}
+        />
+        {errors.foto && (
+          <span className="error">{errors.foto.message}</span>
+        )}
+      </div>
 
+      <div className="campo-formulario">
         <label>Nombre:</label>
-        <input type="text" {...register("nombre", { required: true })} />
-        {errors.nombre && <span className="error">El nombre es obligatorio</span>}
+        <input
+          type="text"
+          placeholder="Nombre"
+          {...register("nombre", {
+            required: "El nombre es obligatorio",
+            minLength: {
+              value: 3,
+              message: "El nombre debe tener al menos 3 caracteres",
+            },
+            pattern: {
+              value: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/,
+              message: "El nombre solo puede contener letras y espacios",
+            },
+          })}
+        />
+        {errors.nombre && (
+          <span className="error">{errors.nombre.message}</span>
+        )}
+      </div>
 
+      <div className="campo-formulario">
         <label>Especie:</label>
-        <input type="text" {...register("especie", { required: true })} />
-        {errors.especie && <span className="error">La especie es obligatoria</span>}
+        <input
+          type="text"
+          placeholder="Especie"
+          {...register("especie", {
+            required: "La especie es obligatoria",
+            minLength: {
+              value: 3,
+              message: "La especie debe tener al menos 3 caracteres",
+            },
+            pattern: {
+              value: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/,
+              message: "La especie solo puede contener letras y espacios",
+            },
+          })}
+        />
+        {errors.especie && (
+          <span className="error">{errors.especie.message}</span>
+        )}
+      </div>
 
+      <div className="campo-formulario">
         <label>Raza:</label>
-        <input type="text" {...register("raza", { required: true })} />
-        {errors.raza && <span className="error">La raza es obligatoria</span>}
+        <input
+          type="text"
+          placeholder="Raza"
+          {...register("raza", {
+            required: "La raza es obligatoria",
+            minLength: {
+              value: 3,
+              message: "La raza debe tener al menos 3 caracteres",
+            },
+            pattern: {
+              value: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/,
+              message: "La raza solo puede contener letras y espacios",
+            },
+          })}
+        />
+        {errors.raza && (
+          <span className="error">{errors.raza.message}</span>
+        )}
+      </div>
 
+      <div className="campo-formulario">
         <label>Edad:</label>
-        <input type="number" {...register("edad", { required: true, min: 0 })} />
-        {errors.edad && <span className="error">Ingrese una edad válida</span>}
+        <input
+          type="number"
+          placeholder="Edad"
+          {...register("edad", {
+            required: "La edad es obligatoria",
+            min: {
+              value: 0,
+              message: "La edad debe ser un número válido",
+            },
+          })}
+        />
+        {errors.edad && (
+          <span className="error">{errors.edad.message}</span>
+        )}
+      </div>
 
+      <div className="campo-formulario">
         <label>Peso (kg):</label>
-        <input type="number" step="0.1" {...register("peso", { required: true, min: 0 })} />
-        {errors.peso && <span className="error">Ingrese un peso válido</span>}
+        <input
+          type="number"
+          step="0.1"
+          placeholder="Peso"
+          {...register("peso", {
+            required: "El peso es obligatorio",
+            min: {
+              value: 0,
+              message: "El peso debe ser un número válido",
+            },
+          })}
+        />
+        {errors.peso && (
+          <span className="error">{errors.peso.message}</span>
+        )}
+      </div>
 
         <button type="submit">Registrar</button>
       </form>
