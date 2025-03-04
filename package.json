@@ -6,6 +6,7 @@
   "main": "index.js",
   "dependencies": {
     "acorn": "^8.14.0",
+    "boxicons": "^2.1.4",
     "buffer-from": "^1.1.2",
     "esbuild": "^0.25.0",
     "jiti": "^1.21.7",
