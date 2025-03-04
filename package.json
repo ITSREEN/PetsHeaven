@@ -1,9 +1,27 @@
 {
   "name": "petsheaven",
   "version": "1.0.0",
+  "type": "module",
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
-  "type": "module",
+  "dependencies": {
+    "acorn": "^8.14.0",
+    "buffer-from": "^1.1.2",
+    "esbuild": "^0.25.0",
+    "jiti": "^1.21.7",
+    "nanoid": "^3.3.8",
+    "picocolors": "^1.1.1",
+    "postcss": "^8.5.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "scheduler": "^0.25.0",
+    "source-map-js": "^1.2.1",
+    "source-map-support": "^0.5.21",
+    "terser": "^5.39.0",
+    "undici-types": "^6.20.0",
+    "vite": "^6.2.0",
+    "yaml": "^2.7.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,10 +35,5 @@
   "bugs": {
     "url": "https://github.com/ITSREEN/PetsHeaven/issues"
   },
-  "homepage": "https://github.com/ITSREEN/PetsHeaven#readme",
-  "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "vite": "^6.2.0"
-  }
+  "homepage": "https://github.com/ITSREEN/PetsHeaven#readme"
 }
