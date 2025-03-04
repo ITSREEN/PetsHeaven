@@ -8,7 +8,7 @@
 body {
   height: 100vh;
   width: 100vw;
-  background: var(--gris);
+  background: var(--white);
 }
 main {
     display: grid;
@@ -22,8 +22,9 @@ picture {
 }
 .login{
     display: flex;
-    padding: 20px;
+    padding: 30px;
     flex-direction: column;
+    place-content: center;
     height: 70%;
     width: 90%;
     gap: 20px;
@@ -36,6 +37,13 @@ picture {
     width: 100%;
     text-align: center;
     color: var(--azulturquesa);
+}
+.campo-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: relative;
+    width: 100%;
 }
 .campo-formulario p {
     font-weight: bold;
@@ -56,14 +64,54 @@ picture {
   border-color: #4a90e2;
   box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
 }
+.link:first-child() {
+    width: 100%;
+    text-align: right;
+}
+.link a {
+    text-decoration: none;
+    color: var(--gris);
+    font-weight: bold;
+}
+.link:hover {
+    color: var(--azulturquesa);
+}
+.boton-enviar {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.boton-enviar:hover {
+    background-color: #00BCD4;
+    transform: translateY(-2px);
+}
+.icon {
+    position: absolute;
+    right: 2%;
+    bottom: 15%;
+    size: 3rem;
+}
 .error {
     color: #e53935;
     font-size: 14px;
     margin-top: 5px;
     display: block;
 }
+@media (800px < width) {
+    .login {
+        height: 60%;
+        width: 70%;
+    }
+}
 @media (600px < width) {
     main {
         grid-template-columns: repeat(2,50%);
+    }
+    picture {
+        display: flex;
     }
 }
