@@ -270,5 +270,5 @@ function FormularioRegistro() {
   )
 }
 
-export default FormularioRegistro
+export default FormularioRegistro;
 
