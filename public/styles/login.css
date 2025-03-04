@@ -1,0 +1,69 @@
+@import url("./vars.css");
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body {
+  height: 100vh;
+  width: 100vw;
+  background: var(--gris);
+}
+main {
+    display: grid;
+    height: 100vh;
+    width: 100vw;
+    place-items: center;
+    place-items: center;
+}
+picture {
+    display: none;
+}
+.login{
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+    height: 70%;
+    width: 90%;
+    gap: 20px;
+    border: none;
+    border-radius: 10px;
+    background: var(--white);
+    box-shadow: 5px 5px 15px var(--black-box);
+}
+.title {
+    width: 100%;
+    text-align: center;
+    color: var(--azulturquesa);
+}
+.campo-formulario p {
+    font-weight: bold;
+    font-size: var(--font-size);
+}
+.campo-formulario input{
+    padding: 12px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    font-size: var(--font-size);
+    box-shadow: 5px 5px 15px var(--black-box);
+    transition: all 0.3s ease;
+}
+
+.campo-formulario input:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+.error {
+    color: #e53935;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+}
+@media (600px < width) {
+    main {
+        grid-template-columns: repeat(2,50%);
+    }
+}

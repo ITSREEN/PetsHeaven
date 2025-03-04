@@ -4,4 +4,9 @@
     --azulturquesa : #00BCD4;
     --verdeaguamarina : #0097A7;
     --gris: #666;
+    --black-box: #00000025;
+    --font-size: 1.1rem;
+}
+html {
+    font-size: 16px;
 }

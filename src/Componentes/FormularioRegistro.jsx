@@ -1,7 +1,6 @@
 import React from "react"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
-import "../../public/styles/formulario-registro.css"
 
 const FormularioRegistro = () => {
   const [paso, setPaso] = useState(1)
