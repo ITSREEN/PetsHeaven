@@ -6,38 +6,40 @@ const Footer = () => {
     return (
         <main className="main-container">
             <div className="data-container">
-                <img src="../../public/imgs/1.png" alt="Logo PetsHeaven" />
-                <section className="redes">
-                    <ul className="canales">
-                        <li className="social">1</li>
-                        <li className="social">2</li>
-                        <li className="social">3</li>
-                        <li className="social">4</li>
-                    </ul>
-                </section>
+                <div className="logo-redes">
+                    <img src="../../public/imgs/1.png" alt="Logo PetsHeaven" />
+                    <section className="redes">
+                        <ul className="canales">
+                            <li className="social">1</li>
+                            <li className="social">2</li>
+                            <li className="social">3</li>
+                            <li className="social">4</li>
+                        </ul>
+                    </section>
+                </div>
                 <p className="fecha-act">
-                    2025
+                    © 2025 PetsHeaven   
                 </p>
             </div>
             <div className="data-container">
-                <h3 className="title-conocenos">Conocenos</h3>
-                <a className="parra-conocenos">Linea de atencion</a>
-                <a className="parra-conocenos">Cel 32131231212/Whatsapp</a>
-                <a className="parra-conocenos">Linea Gratuita Nacional</a>
-                <a className="parra-conocenos">petsHeaven@sena.edu.co</a>
-                <a className="parra-conocenos">Trabaje con nosotros</a>
-                <a className="parra-conocenos">Ingreso corporativo</a>
+                <h2 className="title">Conocenos</h2>
+                <a className="redireccionable">Linea de atencion</a>
+                <a className="redireccionable">Cel 32131231212/Whatsapp</a>
+                <a className="redireccionable">Linea Gratuita Nacional</a>
+                <a className="redireccionable">petsHeaven@sena.edu.co</a>
+                <a className="redireccionable">Trabaje con nosotros</a>
+                <a className="redireccionable">Ingreso corporativo</a>
             </div>
             <div className="data-container">
-                <h3 className="title-conocenos">Terminos y condiciones</h3>
-                <a className="parra-conocenos">Quienes somos</a>
-                <a className="parra-conocenos">Nuestra historia</a>
-                <a className="parra-conocenos">Sedes</a>
-                <a className="parra-conocenos">Contactenos</a>
-                <a className="parra-conocenos">Preguntas Frecuentes</a>
-                <a className="parra-conocenos">Politcas de cambio y garantia</a>
-                <a className="parra-conocenos">Politica de tratamiento de datos</a>
-                <a className="parra-conocenos">Area Legal</a>
+                <h2 className="title">Terminos y condiciones</h2>
+                <a className="redireccionable">Quienes somos</a>
+                <a className="redireccionable">Nuestra historia</a>
+                <a className="redireccionable">Sedes</a>
+                <a className="redireccionable">Contactenos</a>
+                <a className="redireccionable">Preguntas Frecuentes</a>
+                <a className="redireccionable">Politcas de cambio y garantia</a>
+                <a className="redireccionable">Politica de tratamiento de datos</a>
+                <a className="redireccionable">Area Legal</a>
             </div>
         </main>
     );
