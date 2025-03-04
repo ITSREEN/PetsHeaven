@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { useForm } from "react-hook-form"
-import "../Stylos/formulario-registro.css"
+import "../../public/styles/formulario-registro.css"
 
-function FormularioRegistro() {
+const FormularioRegistro = () => {
   const [paso, setPaso] = useState(1)
 
   const {register,handleSubmit,watch,
@@ -279,4 +279,8 @@ function FormularioRegistro() {
   )
 }
 
+<<<<<<< HEAD
 export default FormularioRegistro;
+=======
+export default FormularioRegistro
+>>>>>>> 17c2795c0c729418afbd300ac571097e2ec9b50e
