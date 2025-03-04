@@ -216,6 +216,14 @@ html, body {
   margin-right: 15vw;
   width: 30vw;
 }
+.icon-arrow {
+  position: absolute;
+  top: 7vh;  /* Distancia desde la parte superior */
+  left: 5vw; /* Distancia desde la parte izquierda */
+  font-size: 30px; /* Ajusta el tamaño del icono */
+  color: #333; /* Cambia el color si lo necesitas */
+  cursor: pointer; /* Cambia el cursor para indicar que es interactivo */
+}
 
 @keyframes fadeIn {
   from {
@@ -229,7 +237,7 @@ html, body {
 }
 
 
-/* Estilos responsivos
+
 @media (max-width: 850px) {
   .formulario-container {
     width: 100%;
@@ -262,4 +270,4 @@ html, body {
   .formulario-container {
     padding: 15px;
   }
-} */
+}
