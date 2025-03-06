@@ -37,10 +37,10 @@ const FormularioRegistro = () => {
   return (
     <div className="page-container">
       <img src="../../public/imgs/1.png" alt="foto" className="logo-register"/>
-      <box-icon name='left-arrow-alt' className="icon-arrow"></box-icon>
+      <a href="index.jsx"><box-icon name='left-arrow-alt' className="icon-arrow" ></box-icon></a>
       <div className="formulario-container">
         <div className="formulario-header">
-          <h2>Registro de Usuario</h2>
+          <h2>Registrarse</h2>
           <div className="pasos-indicador">
             <div className={`paso ${paso >= 1 ? "activo" : ""}`}>1</div>
             <div className="linea"></div>
@@ -55,12 +55,12 @@ const FormularioRegistro = () => {
               <div className="campos-grid">
                 <div className="campo-formulario">
                   <label>Tipo de documento</label>
-                  <select
+                  <select 
                     {...register("tipoDocumento", {
                       required: "El tipo de documento es obligatorio",
                     })}
                   >
-                    <option value="">Seleccione...</option>
+                    <option value="" selected disabled>Seleccione...</option>
                     <option value="CC">Cédula de Ciudadanía (CC)</option>
                     <option value="CE">Cédula de Extranjería (CE)</option>
                   </select>
@@ -148,7 +148,7 @@ const FormularioRegistro = () => {
                       required: "El genero es obligatorio",
                     })}
                   >
-                    <option value="">Seleccione...</option>
+                    <option value="" selected disabled>Seleccione...</option>
                     <option value="CC">Femenino</option>
                     <option value="CE">Masculino</option>
                     <option value="CE">Otro</option>

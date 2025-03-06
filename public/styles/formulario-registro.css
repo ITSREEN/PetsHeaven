@@ -1,3 +1,5 @@
+
+
 * {
   margin: 0;
   padding: 0;
@@ -19,12 +21,12 @@ html, body {
 }
 
 .formulario-container {
-  width: 40vw;
+  width: 35vw;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  height: 75vh;
-  margin-right: 5vw;
+  height: 80vh;
+  margin-right: 10vw;
 }
 
 .formulario-header {
@@ -33,9 +35,9 @@ html, body {
 }
 
 .formulario-header h2 {
-  color: #333;
-  font-size: 28px;
-  font-family: sans-serif;
+  color: var(--verdeaguamarina);
+  font-size: 40px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
 }
 
 .pasos-indicador {
@@ -56,6 +58,8 @@ html, body {
   align-items: center;
   font-weight: bold;
   color: #666;
+  font-family: var(--font-general);
+  font-size: 2vh;
 }
 
 .paso.activo {
@@ -71,10 +75,11 @@ html, body {
 }
 
 .paso-descripcion {
-  font-size: 16px;
+  font-size: 2vh;
   color: #666;
   margin-bottom: 20px;
   margin-top: 1vh;
+  font-family: var(--font-general);
 }
 
 .paso-contenido {
@@ -85,7 +90,7 @@ html, body {
 .campos-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 15px;
+  gap: 2px;
   padding-left: 2.5vw;
 }
 
@@ -96,19 +101,20 @@ html, body {
 .campo-formulario label {
   display: block;
   margin-bottom: 8px;
-  font-weight: 500;
   color: #333;
-  width: 15vw;
+  font-family: var(--font-general);
+  font-size: 2.3vh;
 }
 
 .campo-formulario input,
 .campo-formulario select {
-  width: 15vw;
+  width: 14vw;
   padding: 12px;
   border: 1px solid #ddd;
   border-radius: 6px;
-  font-size: 16px;
+  font-size: 2vh;
   transition: all 0.3s ease;
+  font-family: var(--font-general);
 }
 
 .campo-formulario input:focus,
@@ -123,6 +129,7 @@ html, body {
   font-size: 14px;
   margin-top: 5px;
   display: block;
+  font-family: var(--font-general);
 }
 
 .checkbox {
@@ -147,15 +154,16 @@ html, body {
 }
 
 .boton-siguiente {
-  padding: 12px 30px;
+  padding: 10px 20px;
   border: none;
   border-radius: 6px;
-  font-size: 16px;
+  font-size: 2vh;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
   margin-left: 2.5vw;
-  width: 36vw;
+  width: 31vw;
+  font-family: var(--font-general);
 }
 
 .boton-anterior {
@@ -187,11 +195,15 @@ html, body {
 .boton-enviar {
   background-color: #00BCD4;
   color: white;
+  font-family: var(--font-general);
+  font-size: 2vh;
 }
 
 .boton-anterior {
   background-color: #f5f5f5;
   color: #333;
+  font-family: var(--font-general);
+  font-size: 2vh;
 }
 
 .boton-siguiente:hover,
@@ -215,6 +227,19 @@ html, body {
   margin-right: 15vw;
   width: 30vw;
 }
+.icon-arrow {
+  position: absolute;
+  top: 10vh;  
+  left: 5vw;  
+  font-size: 30px;  
+  color: #333;  
+  cursor: pointer;  
+  z-index: 10;  
+}
+
+.icon-arrow:hover {
+  color: #00BCD4;  /* Cambia el color al pasar el mouse */
+}
 
 @keyframes fadeIn {
   from {
@@ -228,37 +253,101 @@ html, body {
 }
 
 
-/* Estilos responsivos
-@media (max-width: 850px) {
-  .formulario-container {
-    width: 100%;
-    padding: 20px;
-  }
-}
-
 @media (max-width: 768px) {
-  .campos-grid {
-    grid-template-columns: 1fr;
+
+  .page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center; 
+    background-color: #fff;
+    min-height: 100vh;
+    padding: 20px;
+    overflow-y: auto; 
+  }
+  
+  .formulario-container {
+    width: 85vw; 
+    max-width: 500px; 
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    height: auto;
+    overflow-y: auto;
+    padding: 20px;
+    margin-top: 20px;
+    max-height: 80vh;
+    margin-left: 10vw;
   }
 
-  .linea {
-    width: 60px;
+  .campos-grid {
+    grid-template-columns: 1fr; /* Una sola columna */
   }
+
+  .paso-descripcion {
+    font-size: 14px;
+  }
+
+  .botones-navegacion {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .boton-siguiente{
+    width: 70vw;
+    font-size: 1rem;
+  }
+  .boton-anterior{
+    width: 70vw;
+  }
+  .boton-enviar {
+    width: 70vw;
+    font-size: 1rem;
+  }
+
+  .campo-formulario label,
+  .campo-formulario input,
+  .campo-formulario select{
+    font-size: 1rem;
+  }
+  .checkbox {
+    display: flex;
+    margin-right: 25vh;
+  }
+  
+  .checkbox input {
+    width: auto;
+    margin-right: 10px;
+    margin-left: 2.5vw;
+  }
+  
+  .checkbox label {
+    margin-bottom: 0;
+    
+  }
+  
 }
 
 @media (max-width: 480px) {
-  .botones-navegacion {
-    flex-direction: column;
-    gap: 10px;
+  .formulario-header h2 {
+    font-size: 20px;
   }
 
-  .boton-siguiente,
-  .boton-anterior,
-  .boton-enviar {
+  .paso {
+    width: 25px;
+    height: 25px;
+  }
+
+  .linea {
+    width: 50px;
+  }
+
+  .campos-grid {
+    padding-left: 0;
+  }
+
+  .campo-formulario input,
+  .campo-formulario select {
     width: 100%;
   }
-
-  .formulario-container {
-    padding: 15px;
-  }
-} */
+}
