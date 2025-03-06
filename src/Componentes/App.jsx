@@ -2,11 +2,14 @@ import React from "react"
 
 const App = () => {
   return (
-    <div className="App">
-      <button><a href="login-usuario.html">Login</a></button>
-      <button><a href="registro-usuario.html">Register</a></button>
+    <main className="App">
+      <h1>Pa onde vamos?</h1>
+      <div>
+        <button><a href="login-usuario.html">Login</a></button>
+        <button><a href="registro-usuario.html">Register</a></button>
+      </div>
       <button></button>
-    </div>
+    </main>
   )
 }
 

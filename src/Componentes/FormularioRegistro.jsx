@@ -2,6 +2,7 @@ import React from "react"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import "boxicons"
+import Footer from "../Componentes/Footer"
 import "../../public/styles/formulario-registro.css"
 
 const FormularioRegistro = () => {

@@ -12,3 +12,9 @@ body {
   width: 100vw;
   background: var(--white);
 }
+div {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  width: 20vw;
+  gap: 10px;
+}
