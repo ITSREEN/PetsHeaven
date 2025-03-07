@@ -1,16 +1,30 @@
+/* Imports */
 @import url("./vars.css");
+@import url("global.css");
+
 *{
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+:focus {
+    outline: none;
+}
+::selection {
+    outline: none;
+}
+::-webkit-scrollbar {
+    display: none;
+}
 body {
   height: 100vh;
   width: 100vw;
-  background: var(--white);
+  background: var(--background);
+  overflow: auto;
 }
 main {
+    position: relative;
     display: grid;
     height: 100vh;
     width: 100vw;
@@ -20,14 +34,17 @@ main {
 picture {
     display: none;
 }
+
+/* Login Form  */
 .login{
     display: flex;
     padding: 30px;
     flex-direction: column;
     place-content: center;
-    height: 70%;
+    place-items: center;
     width: 90%;
-    gap: 20px;
+    gap: 25px;
+    color: var(--gris);
     border: none;
     border-radius: 10px;
     background: var(--white);
@@ -49,61 +66,22 @@ picture {
     font-weight: bold;
     font-size: var(--font-size);
 }
-.campo-formulario input{
-    padding: 12px;
-    width: 100%;
-    border: none;
-    border-radius: 5px;
-    font-size: var(--font-size);
-    box-shadow: 5px 5px 15px var(--black-box);
-    transition: all 0.3s ease;
-}
-
-.campo-formulario input:focus {
-  outline: none;
-  border-color: #4a90e2;
-  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
-}
-.link:first-child() {
-    width: 100%;
-    text-align: right;
-}
-.link a {
-    text-decoration: none;
-    color: var(--gris);
-    font-weight: bold;
-}
-.link:hover {
-    color: var(--azulturquesa);
-}
-.boton-enviar {
-    padding: 12px 30px;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-.boton-enviar:hover {
-    background-color: #00BCD4;
-    transform: translateY(-2px);
-}
 .icon {
+    cursor: pointer;
     position: absolute;
     right: 2%;
     bottom: 15%;
     size: 3rem;
 }
-.error {
-    color: #e53935;
-    font-size: 14px;
-    margin-top: 5px;
-    display: block;
+
+/* Dynamic class */
+.inactive {
+    display: none;
 }
+
+/* Medias  */
 @media (800px < width) {
     .login {
-        height: 60%;
         width: 70%;
     }
 }
@@ -113,5 +91,8 @@ picture {
     }
     picture {
         display: flex;
+    }
+    .logo {
+        width: 100%;
     }
 }
