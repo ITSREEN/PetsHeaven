@@ -1,7 +1,12 @@
+// Librarys
 import { useForm } from "react-hook-form";
+
+// Imports 
 import "../Stylos/RegistroMascota.css";
 
+// Component
 const RegistroMascota = () => {
+  // Functions
   const {
     register,
     handleSubmit,
@@ -13,6 +18,7 @@ const RegistroMascota = () => {
     console.log("Datos de la mascota:", data);
   };
 
+  // Labels
   return (
     <div className="conteiner"> 
     <div className="registro-mascota-container">

@@ -1,11 +1,15 @@
-import React from "react";
+// Librarys
+import React from "react"
+import 'boxicons'
+
+// Imports
 import "../../public/styles/footer.css"
 
-
+// Component
 const Footer = () => {
     return (
         <main className="main-container">
-            <div className="data-container">
+            <section className="data-container">
                 <img src="../../public/imgs/1.png" alt="Logo PetsHeaven" />
                 <section className="redes">
                     <ul className="canales">
@@ -18,7 +22,7 @@ const Footer = () => {
                 <p className="fecha-act">
                     2025
                 </p>
-            </div>
+            </section>
             <div className="data-container">
                 <h3 className="title-conocenos">Conocenos</h3>
                 <a className="parra-conocenos">Linea de atencion</a>
