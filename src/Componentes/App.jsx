@@ -1,6 +1,8 @@
+// Librarys
 import React from "react"
 
-const App = () => {
+// Component 
+export const App = () => {
   return (
     <main className="App">
       <h1>Pa onde vamos?</h1>
@@ -12,5 +14,3 @@ const App = () => {
     </main>
   )
 }
-
-export default App

@@ -1,9 +1,13 @@
+// Librarys
 import React from "react"
 import { useForm } from "react-hook-form"
 import "boxicons"
 
-const LoginForm = () => {
-    const {register,handleSubmit,watch,
+// Components 
+export const LoginForm = () => {
+    // Functions
+    const {
+        register,handleSubmit,watch,
         formState: { errors },
     } = useForm({
         mode: "onChange",
@@ -18,6 +22,7 @@ const LoginForm = () => {
         pass.type === "text"?pass.type = "password":pass.type = "text"
     }
 
+    // Labels
     return (
         <main>
             <picture>
@@ -50,7 +55,8 @@ const LoginForm = () => {
                     <span className="icon" onClick={showPass}>
                         <box-icon type='solid' name='lock'></box-icon>
                     </span>
-                    <input className="input" type="password" placeholder="Contraseña" name="password" id="password" {...register("passw",{
+                    <input className="input" type="password" placeholder="Contraseña" name="password" id="password" {...
+                    register("passw",{  // Validate 
                         required: "Este campo es obligatorio",
                         minLength:{
                             value:8,
@@ -72,5 +78,3 @@ const LoginForm = () => {
         </main>
     )
 }
-
-export default LoginForm
