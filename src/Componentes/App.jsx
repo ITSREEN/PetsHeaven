@@ -7,10 +7,9 @@ export const App = () => {
     <main className="App">
       <h1>Pa onde vamos?</h1>
       <div>
-        <button><a href="login-usuario.html">Login</a></button>
-        <button><a href="registro-usuario.html">Register</a></button>
+        <a className="link" href="login-usuario.html">Login</a>
+        <a className="link" href="registro-usuario.html">Register</a>
       </div>
-      <button></button>
     </main>
   )
 }
