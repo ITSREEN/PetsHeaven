@@ -1,23 +1,26 @@
+// Librarys
 import React from "react"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import "boxicons"
-import Footer from "../Componentes/Footer"
+
+// Imports 
 import "../../public/styles/formulario-registro.css"
 
+// Component 
 const FormularioRegistro = () => {
+  // Vars 
   const [paso, setPaso] = useState(1)
+  const password = watch("contrasena")
+  const email = watch("email")
 
+  // Functions
   const {register,handleSubmit,watch,
     formState: { errors },
   } = useForm({
     mode: "onChange",
   })
 
-  // Para validar que las contraseñas coincidan
-  const password = watch("contrasena")
-  // Para validar que los emails coincidan
-  const email = watch("email")
 
   const avanzarPaso = () => {
     setPaso(2)
@@ -33,8 +36,8 @@ const FormularioRegistro = () => {
   }
 
   const handlePaste = (e) => {
-    e.preventDefault(); // Previene la acción de pegar
-  };
+    e.preventDefault()
+  }
   return (
     <main className="page-container">
       <img src="../../public/imgs/1.png" alt="foto" className="logo-register"/>
