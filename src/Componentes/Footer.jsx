@@ -7,8 +7,11 @@ import "../../public/styles/footer.css"
 
 // Component
 const Footer = () => {
+    // Vars 
+    const todayFec = new Date().toLocaleDateString()
+
     return (
-        <main className="main-container">
+        <footer className="main-container">
             <section className="data-container">
                 <img src="../../public/imgs/1.png" alt="Logo PetsHeaven" />
                 <section className="redes">
@@ -20,7 +23,7 @@ const Footer = () => {
                     </ul>
                 </section>
                 <p className="fecha-act">
-                    2025
+                    { todayFec }
                 </p>
             </section>
             <div className="data-container">
@@ -43,7 +46,7 @@ const Footer = () => {
                 <a className="parra-conocenos">Politica de tratamiento de datos</a>
                 <a className="parra-conocenos">Area Legal</a>
             </div>
-        </main>
+        </footer>
     );
 }
 

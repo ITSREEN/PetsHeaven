@@ -4,22 +4,21 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import "boxicons"
 
-// Imports 
-import "../../public/styles/formulario-registro.css"
-
 // Component 
 const FormularioRegistro = () => {
   // Vars 
   const [paso, setPaso] = useState(1)
-  const password = watch("contrasena")
-  const email = watch("email")
-
+  
   // Functions
   const {register,handleSubmit,watch,
     formState: { errors },
   } = useForm({
     mode: "onChange",
   })
+
+  const password = watch("contrasena")
+
+  const email = watch("email")
 
 
   const avanzarPaso = () => {
@@ -36,8 +35,8 @@ const FormularioRegistro = () => {
   }
 
   const handlePaste = (e) => {
-    e.preventDefault()
-  }
+    e.preventDefault(); // Previene la acción de pegar
+  };
   return (
     <main className="page-container">
       <img src="../../public/imgs/1.png" alt="foto" className="logo-register"/>
