@@ -36,7 +36,7 @@ const FormularioRegistro = () => {
     e.preventDefault(); // Previene la acción de pegar
   };
   return (
-    <div className="page-container">
+    <main className="page-container">
       <img src="../../public/imgs/1.png" alt="foto" className="logo-register"/>
       <a href="index.jsx"><box-icon name='left-arrow-alt' className="icon-arrow" ></box-icon></a>
       <div className="formulario-container">
@@ -289,7 +289,7 @@ const FormularioRegistro = () => {
           )}
         </form>
       </div>
-    </div>
+    </main>
   )
 }
 
