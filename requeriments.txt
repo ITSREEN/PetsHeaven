@@ -9,3 +9,12 @@ vite
 
 npm i react react-dom react-hook-form boxicons
 npm i -D vite
+
+// Ignorar
+devDependencies: {
+    "@eslint/js": "^9.21.0",
+    "@vitejs/plugin-react-swc": "^3.8.0",
+    "eslint": "^9.21.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^15.15.0",
+}
