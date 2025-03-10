@@ -19,3 +19,13 @@
 html {
     font-size: 16px;
 }
+@media (2500px < width) {
+    html {
+        font-size: 24px;
+    }
+}
+@media (3500px < width) {
+    html {
+        font-size: 32px;
+    }
+}
