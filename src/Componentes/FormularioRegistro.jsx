@@ -5,167 +5,281 @@ import { useForm } from "react-hook-form" // Librería para manejar formularios 
 import "../../public/styles/formulario-registro.css"
 import "boxicons"
 
+
 const FormularioRegistro = () => {
-  // Estados para controlar la navegación entre pasos del formulario
-  const [paso, setPaso] = useState(1) // Estado para controlar en qué paso del formulario estamos (1 o 2)
+  // Estado para controlar el paso actual (ahora con 3 pasos)
+  const [paso, setPaso] = useState(1)
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [showPasswordRequirements, setShowPasswordRequirements] = useState(false)
+  const [showDateRequirements, setShowDateRequirements] = useState(false)
 
-  // Estados para controlar la visibilidad de las contraseñas
-  const [showPassword, setShowPassword] = useState(false) // Controla si se muestra la contraseña en texto plano
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false) // Controla si se muestra la confirmación de contraseña
+  // Estado para almacenar el email del usuario para la verificación
+  const [userEmail, setUserEmail] = useState("")
 
-  // Estados para mostrar/ocultar los requisitos de campos
-  const [showPasswordRequirements, setShowPasswordRequirements] = useState(false) // Muestra requisitos de contraseña
-  const [showDateRequirements, setShowDateRequirements] = useState(false) // Muestra requisitos de fecha
+  // Estado para el código de verificación
+  const [verificationCode, setVerificationCode] = useState("")
+  const [userInputCode, setUserInputCode] = useState(["", "", "", "", "", ""])
+  const [codeError, setCodeError] = useState(false)
+  const [remainingTime, setRemainingTime] = useState(300) // 5 minutos en segundos
+  const [timerActive, setTimerActive] = useState(false)
 
-  // Configuración del formulario para el paso 1 usando React Hook Form
+  // Configuración del formulario para el paso 1
   const {
-    register: registerPaso1, // Función para registrar campos del paso 1
-    handleSubmit: handleSubmitPaso1, // Manejador de envío del paso 1
-    formState: { errors: errorsPaso1 }, // Estado de errores del paso 1
+    register: registerPaso1,
+    handleSubmit: handleSubmitPaso1,
+    formState: { errors: errorsPaso1 },
+    reset: resetPaso1,
   } = useForm({
-    mode: "onChange", // Validar al cambiar los campos
+    mode: "onChange",
   })
 
   // Configuración del formulario para el paso 2
   const {
-    register: registerPaso2, // Función para registrar campos del paso 2
-    handleSubmit: handleSubmitPaso2, // Manejador de envío del paso 2
-    watch: watchPaso2, // Función para observar valores de campos en tiempo real
-    reset: resetPaso2, // Función para resetear el formulario
-    formState: { errors: errorsPaso2 }, // Estado de errores del paso 2
+    register: registerPaso2,
+    handleSubmit: handleSubmitPaso2,
+    watch: watchPaso2,
+    reset: resetPaso2,
+    formState: { errors: errorsPaso2 },
   } = useForm({
-    mode: "onChange", // Validar al cambiar los campos
+    mode: "onChange",
   })
 
   // Efecto para limpiar el formulario del paso 2 cuando se cambia entre pasos
   useEffect(() => {
     if (paso === 1) {
-      // Si estamos en el paso 1, resetear el formulario del paso 2
       resetPaso2()
-    } else if (paso === 2) {
-      // Si estamos en el paso 2, limpiar explícitamente los campos
-      const formularioPaso2 = document.getElementById("formularioPaso2")
-      if (formularioPaso2) {
-        const inputs = formularioPaso2.querySelectorAll("input")
-        inputs.forEach((input) => {
-          input.value = "" // Limpiar cada campo de entrada
-        })
+
+      setTimeout(() => {
+        const formularioPaso2 = document.getElementById("formularioPaso2")
+        if (formularioPaso2) {
+          const inputs = formularioPaso2.querySelectorAll("input")
+          inputs.forEach((input) => {
+            input.value = ""
+          })
+
+          const checkbox = formularioPaso2.querySelector('input[type="checkbox"]')
+          if (checkbox) {
+            checkbox.checked = false
+          }
+        }
+      }, 0)
+    }
+  }, [paso, resetPaso2])
+
+  // Efecto para el temporizador de código de verificación
+  useEffect(() => {
+    let interval = null
+
+    if (timerActive && remainingTime > 0) {
+      interval = setInterval(() => {
+        setRemainingTime((prevTime) => prevTime - 1)
+      }, 1000)
+    } else if (remainingTime === 0) {
+      setTimerActive(false)
+      // Generar un nuevo código cuando expire el tiempo
+      if (paso === 3) {
+        generateVerificationCode()
       }
     }
-  }, [paso, resetPaso2]) // Ejecutar cuando cambie el paso o la función resetPaso2
 
-  // Variables para validación de campos que deben coincidir
-  const password = watchPaso2("contrasena") // Observar el valor de la contraseña en tiempo real
-  const email = watchPaso2("email") // Observar el valor del email en tiempo real
+    return () => clearInterval(interval)
+  }, [timerActive, remainingTime, paso])
+
+  // Variables para validación
+  const password = watchPaso2("contrasena")
+  const email = watchPaso2("email")
 
   // Función para avanzar al paso 2
   const avanzarPaso = () => {
-    setPaso(2) // Cambiar al paso 2
-    // Limpiar explícitamente los campos del formulario del paso 2 después de renderizar
+    setPaso(2)
     setTimeout(() => {
       const formularioPaso2 = document.getElementById("formularioPaso2")
       if (formularioPaso2) {
         const inputs = formularioPaso2.querySelectorAll("input")
         inputs.forEach((input) => {
-          input.value = "" // Limpiar cada campo de entrada
+          input.value = ""
         })
       }
-    }, 0) // Timeout de 0ms para ejecutar después del renderizado
+    }, 0)
   }
 
-  // Función para retroceder al paso 1
+  // Función para retroceder al paso anterior
   const retrocederPaso = () => {
-    setPaso(1)
+    if (paso === 3) {
+      setPaso(2)
+    } else if (paso === 2) {
+      setPaso(1)
+    }
   }
 
   // Manejador de envío del paso 1
   const onSubmitPaso1 = (data) => {
-    console.log("Datos del paso 1:", data) // Registrar datos en consola
-    avanzarPaso() // Avanzar al paso 2
+    console.log("Datos del paso 1:", data)
+    avanzarPaso()
   }
 
   // Manejador de envío del paso 2
   const onSubmitPaso2 = (data) => {
-    console.log("Datos del paso 2:", data) // Registrar datos en consola
-    alert("Formulario enviado con éxito") // Mostrar alerta de éxito
-    resetPaso2() // Resetear el formulario del paso 2
-    setPaso(1) // Volver al paso 1
+    console.log("Datos del paso 2:", data)
+
+    // Guardar el email para la verificación
+    setUserEmail(data.email)
+
+    // Generar código de verificación
+    generateVerificationCode()
+
+    // Avanzar al paso 3 (verificación de correo)
+    setPaso(3)
+
+    // Iniciar el temporizador
+    setRemainingTime(300) // 5 minutos
+    setTimerActive(true)
   }
 
-  // Función para prevenir pegar en campos de confirmación
+  // Función para generar un código de verificación aleatorio
+  const generateVerificationCode = () => {
+    const code = Math.floor(100000 + Math.random() * 900000).toString()
+    setVerificationCode(code)
+    console.log("Código de verificación generado:", code) // En producción, esto se enviaría por email
+
+    // Resetear el input del usuario
+    setUserInputCode(["", "", "", "", "", ""])
+    setCodeError(false)
+  }
+
+  // Función para manejar el cambio en los inputs del código
+  const handleCodeInputChange = (index, value) => {
+    // Solo permitir números
+    if (!/^\d*$/.test(value)) return
+
+    const newCode = [...userInputCode]
+    newCode[index] = value
+    setUserInputCode(newCode)
+
+    // Mover al siguiente input si se ingresó un dígito
+    if (value !== "" && index < 5) {
+      const nextInput = document.getElementById(`code-input-${index + 1}`)
+      if (nextInput) nextInput.focus()
+    }
+  }
+
+  // Función para manejar el pegado del código
+  const handleCodePaste = (e) => {
+    e.preventDefault()
+    const pastedData = e.clipboardData.getData("text")
+
+    // Verificar si lo pegado son 6 dígitos
+    if (/^\d{6}$/.test(pastedData)) {
+      const digits = pastedData.split("")
+      setUserInputCode(digits)
+
+      // Enfocar el último input
+      const lastInput = document.getElementById("code-input-5")
+      if (lastInput) lastInput.focus()
+    }
+  }
+
+  // Función para verificar el código
+  const verifyCode = () => {
+    const inputCode = userInputCode.join("")
+
+    if (inputCode === verificationCode) {
+      // Código correcto
+      alert("¡Verificación exitosa! Tu cuenta ha sido activada.")
+
+      // Resetear formularios y volver al paso 1
+      resetPaso1()
+      resetPaso2()
+      setPaso(1)
+    } else {
+      // Código incorrecto
+      setCodeError(true)
+    }
+  }
+
+  // Función para reenviar el código
+  const resendCode = () => {
+    generateVerificationCode()
+    setRemainingTime(300) // Reiniciar el temporizador
+    setTimerActive(true)
+    alert(`Se ha enviado un nuevo código de verificación a ${userEmail}`)
+  }
+
+  // Funciones auxiliares
   const handlePaste = (e) => {
-    e.preventDefault() // Previene la acción de pegar
+    e.preventDefault()
   }
 
-  // Funciones para mostrar/ocultar contraseñas
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword) // Alternar visibilidad de contraseña
+    setShowPassword(!showPassword)
   }
 
   const toggleConfirmPasswordVisibility = () => {
-    setShowConfirmPassword(!showConfirmPassword) // Alternar visibilidad de confirmación de contraseña
+    setShowConfirmPassword(!showConfirmPassword)
   }
 
-  // Funciones para mostrar/ocultar requisitos de contraseña
   const handlePasswordFocus = () => {
-    setShowPasswordRequirements(true) // Mostrar requisitos al enfocar
+    setShowPasswordRequirements(true)
   }
 
   const handlePasswordBlur = () => {
-    setShowPasswordRequirements(false) // Ocultar requisitos al perder foco
+    setShowPasswordRequirements(false)
   }
 
-  // Funciones para mostrar/ocultar requisitos de fecha
   const handleDateFocus = () => {
-    setShowDateRequirements(true) // Mostrar requisitos al enfocar
+    setShowDateRequirements(true)
   }
 
   const handleDateBlur = () => {
-    setShowDateRequirements(false) // Ocultar requisitos al perder foco
+    setShowDateRequirements(false)
   }
 
-  // Renderizado del componente
+  // Formatear el tiempo restante
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60)
+    const secs = seconds % 60
+    return `${mins}:${secs < 10 ? "0" : ""}${secs}`
+  }
+
   return (
     <div className="page-container">
-      {/* Sección de fondo (izquierda) */}
       <div className="background-section">
         <div className="background-quote">
-          <h2>"Dedicados a la salud y felicidad de tu mascota en cada etapa de su vida"</h2>
+          <h2>"El amor por los animales es el reflejo de nuestra humanidad"</h2>
           <p>En PetsHeaven cuidamos de quienes más amas</p>
         </div>
         <img src="../../public/imgs/fondo.png" alt="" className="fondo-patron" />
       </div>
 
-      {/* Sección de contenido (derecha) */}
       <div className="content-section">
-        {/* Logo */}
         <div className="logo-container">
           <a href="index.jsx">
             <img src="../../public/imgs/3.png" alt="Logo" className="logo-register" />
           </a>
         </div>
 
-        {/* Contenedor del formulario */}
         <div className="formulario-container">
-          {/* Encabezado del formulario */}
           <div className="formulario-header">
             <h2>Registrarse</h2>
-            {/* Indicador de pasos */}
             <div className="pasos-indicador">
               <div className={`paso ${paso >= 1 ? "activo" : ""}`}>1</div>
               <div className="linea"></div>
               <div className={`paso ${paso >= 2 ? "activo" : ""}`}>2</div>
+              <div className="linea"></div>
+              <div className={`paso ${paso >= 3 ? "activo" : ""}`}>3</div>
             </div>
-            <p className="paso-descripcion">{paso === 1 ? "Información Personal" : "Datos de Acceso"}</p>
+            <p className="paso-descripcion">
+              {paso === 1 ? "Información Personal" : paso === 2 ? "Datos de Acceso" : "Verificación de Correo"}
+            </p>
           </div>
 
-          {/* Renderizado condicional según el paso actual */}
           {paso === 1 ? (
             // Formulario del paso 1: Información Personal
             <form onSubmit={handleSubmitPaso1(onSubmitPaso1)}>
               <div className="paso-contenido">
                 <div className="campos-grid">
-                  {/* Campo: Tipo de documento */}
+                  {/* Campos del paso 1 (igual que antes) */}
                   <div className="campo-formulario">
                     <label>
                       Tipo de documento
@@ -174,7 +288,7 @@ const FormularioRegistro = () => {
                     <select
                       className={errorsPaso1.tipoDocumento ? "campo-error" : ""}
                       {...registerPaso1("tipoDocumento", {
-                        required: true, // Campo obligatorio
+                        required: true,
                       })}
                     >
                       <option value="" selected disabled>
@@ -185,7 +299,6 @@ const FormularioRegistro = () => {
                     </select>
                   </div>
 
-                  {/* Campo: Número de documento */}
                   <div className="campo-formulario">
                     <label>
                       Número de documento
@@ -196,17 +309,17 @@ const FormularioRegistro = () => {
                       placeholder="Ej: 65642312"
                       className={errorsPaso1.numeroDocumento ? "campo-error" : ""}
                       {...registerPaso1("numeroDocumento", {
-                        required: true, // Campo obligatorio
-                        minLength: "6", // Mínimo 6 caracteres
+                        required: true,
+                        minLength: "6",
                         pattern: {
-                          value: /^[0-9]+$/, // Solo números
+                          value: /^[0-9]+$/,
                           message: "Solo se permiten números",
                         },
                       })}
                     />
                   </div>
 
-                  {/* Campo: Nombres */}
+                  {/* Resto de campos del paso 1... */}
                   <div className="campo-formulario">
                     <label>
                       Nombres
@@ -217,21 +330,20 @@ const FormularioRegistro = () => {
                       placeholder="Ej: Pepito Juan"
                       className={errorsPaso1.nombres ? "campo-error" : ""}
                       {...registerPaso1("nombres", {
-                        required: true, // Campo obligatorio
+                        required: true,
                         minLength: {
-                          value: 3, // Mínimo 3 caracteres
+                          value: 3,
                           message: "El nombre debe tener al menos 3 caracteres",
                         },
-                        maxLength: "40", // Máximo 40 caracteres
+                        maxLength: "40",
                         pattern: {
-                          value: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/, // Solo letras y espacios
+                          value: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/,
                           message: "El nombre solo puede contener letras y espacios",
                         },
                       })}
                     />
                   </div>
 
-                  {/* Campo: Apellidos */}
                   <div className="campo-formulario">
                     <label>
                       Apellidos
@@ -242,20 +354,19 @@ const FormularioRegistro = () => {
                       placeholder="Ej: Lopez Perez"
                       className={errorsPaso1.apellidos ? "campo-error" : ""}
                       {...registerPaso1("apellidos", {
-                        required: true, // Campo obligatorio
+                        required: true,
                         minLength: {
-                          value: 3, // Mínimo 3 caracteres
+                          value: 3,
                           message: "El apellido debe tener al menos 3 caracteres",
                         },
                         pattern: {
-                          value: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/, // Solo letras y espacios
+                          value: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/,
                           message: "El apellido solo puede contener letras y espacios",
                         },
                       })}
                     />
                   </div>
 
-                  {/* Campo: Fecha de nacimiento */}
                   <div className="campo-formulario">
                     <label>
                       Fecha de nacimiento
@@ -264,12 +375,11 @@ const FormularioRegistro = () => {
                     <input
                       type="date"
                       className={errorsPaso1.fechaNacimiento ? "campo-error" : ""}
-                      onFocus={handleDateFocus} // Mostrar requisitos al enfocar
-                      onBlur={handleDateBlur} // Ocultar requisitos al perder foco
+                      onFocus={handleDateFocus}
+                      onBlur={handleDateBlur}
                       {...registerPaso1("fechaNacimiento", {
-                        required: true, // Campo obligatorio
+                        required: true,
                         validate: (value) => {
-                          // Validar que sea mayor de 18 años
                           const fecha = new Date(value)
                           const hoy = new Date()
                           const edad = hoy.getFullYear() - fecha.getFullYear()
@@ -277,13 +387,11 @@ const FormularioRegistro = () => {
                         },
                       })}
                     />
-                    {/* Mostrar requisitos de fecha si el campo está enfocado */}
                     {showDateRequirements && (
                       <p className="info-message">Debes ser mayor de 18 años para registrarte</p>
                     )}
                   </div>
 
-                  {/* Campo: Género */}
                   <div className="campo-formulario">
                     <label>
                       Genero
@@ -292,7 +400,7 @@ const FormularioRegistro = () => {
                     <select
                       className={errorsPaso1.genero ? "campo-error" : ""}
                       {...registerPaso1("genero", {
-                        required: true, // Campo obligatorio
+                        required: true,
                       })}
                     >
                       <option value="" selected disabled>
@@ -304,7 +412,6 @@ const FormularioRegistro = () => {
                     </select>
                   </div>
 
-                  {/* Campo: Teléfono */}
                   <div className="campo-formulario">
                     <label>
                       Teléfono
@@ -315,16 +422,15 @@ const FormularioRegistro = () => {
                       placeholder="Eje: 65642312"
                       className={errorsPaso1.telefono ? "campo-error" : ""}
                       {...registerPaso1("telefono", {
-                        required: true, // Campo obligatorio
+                        required: true,
                         pattern: {
-                          value: /^[0-9]{10}$/, // 10 dígitos numéricos
+                          value: /^[0-9]{10}$/,
                           message: "El teléfono debe tener 10 dígitos numéricos",
                         },
                       })}
                     />
                   </div>
 
-                  {/* Campo: Dirección */}
                   <div className="campo-formulario">
                     <label>
                       Dirección
@@ -335,9 +441,9 @@ const FormularioRegistro = () => {
                       placeholder="Eje: Calle 123, Nro. 456"
                       className={errorsPaso1.direccion ? "campo-error" : ""}
                       {...registerPaso1("direccion", {
-                        required: true, // Campo obligatorio
+                        required: true,
                         minLength: {
-                          value: 5, // Mínimo 5 caracteres
+                          value: 5,
                           message: "La dirección debe tener al menos 5 caracteres",
                         },
                       })}
@@ -345,7 +451,6 @@ const FormularioRegistro = () => {
                   </div>
                 </div>
 
-                {/* Botones de navegación del paso 1 */}
                 <div className="botones-navegacion">
                   <button type="submit" className="boton-siguiente">
                     Siguiente
@@ -353,12 +458,12 @@ const FormularioRegistro = () => {
                 </div>
               </div>
             </form>
-          ) : (
+          ) : paso === 2 ? (
             // Formulario del paso 2: Datos de Acceso
             <form onSubmit={handleSubmitPaso2(onSubmitPaso2)} id="formularioPaso2">
               <div className="paso-contenido">
                 <div className="campos-grid">
-                  {/* Campo: Email */}
+                  {/* Campos del paso 2 (igual que antes) */}
                   <div className="campo-formulario">
                     <label>
                       Email
@@ -368,18 +473,17 @@ const FormularioRegistro = () => {
                       type="email"
                       placeholder="ej: juan.lopez@example.com"
                       className={errorsPaso2.email ? "campo-error" : ""}
-                      onPaste={handlePaste} // Prevenir pegar
+                      onPaste={handlePaste}
                       {...registerPaso2("email", {
-                        required: true, // Campo obligatorio
+                        required: true,
                         pattern: {
-                          value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, // Formato de email válido
+                          value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                           message: "El correo electrónico es inválido",
                         },
                       })}
                     />
                   </div>
 
-                  {/* Campo: Confirmación Email */}
                   <div className="campo-formulario">
                     <label>
                       Confirmación Email
@@ -389,23 +493,20 @@ const FormularioRegistro = () => {
                       type="email"
                       placeholder="Confirmar correo electrónico"
                       className={errorsPaso2.confirmEmail ? "campo-error" : ""}
-                      onPaste={handlePaste} // Prevenir pegar
+                      onPaste={handlePaste}
                       {...registerPaso2("confirmEmail", {
-                        required: true, // Campo obligatorio
+                        required: true,
                         validate: (value) => {
-                          // Validar que coincida con el email
                           const emailValue = watchPaso2("email")
                           return value === emailValue || "Los correos electrónicos no coinciden"
                         },
                       })}
                     />
-                    {/* Mostrar mensaje de error si los emails no coinciden */}
                     {errorsPaso2.confirmEmail && errorsPaso2.confirmEmail.type === "validate" && (
                       <p className="error-message">Los correos electrónicos no coinciden</p>
                     )}
                   </div>
 
-                  {/* Campo: Contraseña */}
                   <div className="campo-formulario">
                     <label>
                       Contraseña
@@ -413,30 +514,27 @@ const FormularioRegistro = () => {
                     </label>
                     <div className="password-input-container">
                       <input
-                        type={showPassword ? "text" : "password"} // Mostrar como texto o contraseña
+                        type={showPassword ? "text" : "password"}
                         placeholder="Contraseña"
                         className={errorsPaso2.contrasena ? "campo-error" : ""}
-                        onPaste={handlePaste} // Prevenir pegar
-                        onFocus={handlePasswordFocus} // Mostrar requisitos al enfocar
-                        onBlur={handlePasswordBlur} // Ocultar requisitos al perder foco
+                        onPaste={handlePaste}
+                        onFocus={handlePasswordFocus}
+                        onBlur={handlePasswordBlur}
                         {...registerPaso2("contrasena", {
-                          required: true, // Campo obligatorio
+                          required: true,
                           minLength: {
-                            value: 8, // Mínimo 8 caracteres
+                            value: 8,
                             message: "La contraseña debe tener al menos 8 caracteres",
                           },
                           pattern: {
-                            // Patrón complejo para contraseña segura
                             value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
                             message:
                               "La contraseña debe tener al menos una letra mayúscula, una minúscula, un número y un carácter especial",
                           },
                         })}
                       />
-                      {/* Botón para mostrar/ocultar contraseña */}
                       <button type="button" className="toggle-password-button" onClick={togglePasswordVisibility}>
                         {showPassword ? (
-                          // Icono de ojo tachado (contraseña visible)
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="20"
@@ -453,7 +551,6 @@ const FormularioRegistro = () => {
                             <line x1="1" y1="1" x2="23" y2="23"></line>
                           </svg>
                         ) : (
-                          // Icono de ojo (contraseña oculta)
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="20"
@@ -472,7 +569,6 @@ const FormularioRegistro = () => {
                         )}
                       </button>
                     </div>
-                    {/* Mostrar requisitos de contraseña si el campo está enfocado */}
                     {showPasswordRequirements && (
                       <p className="info-message">
                         La contraseña debe contener: al menos 8 caracteres, una mayúscula, una minúscula, un número y un
@@ -481,7 +577,6 @@ const FormularioRegistro = () => {
                     )}
                   </div>
 
-                  {/* Campo: Confirmación Contraseña */}
                   <div className="campo-formulario">
                     <label>
                       Confirmación Contraseña
@@ -489,23 +584,21 @@ const FormularioRegistro = () => {
                     </label>
                     <div className="password-input-container">
                       <input
-                        type={showConfirmPassword ? "text" : "password"} // Mostrar como texto o contraseña
+                        type={showConfirmPassword ? "text" : "password"}
                         placeholder="Confirmar contraseña"
                         className={errorsPaso2.confirmContrasena ? "campo-error" : ""}
-                        onPaste={handlePaste} // Prevenir pegar
+                        onPaste={handlePaste}
                         {...registerPaso2("confirmContrasena", {
-                          required: true, // Campo obligatorio
-                          validate: (value) => value === password || "Las contraseñas no coinciden", // Validar que coincida
+                          required: true,
+                          validate: (value) => value === password || "Las contraseñas no coinciden",
                         })}
                       />
-                      {/* Botón para mostrar/ocultar confirmación de contraseña */}
                       <button
                         type="button"
                         className="toggle-password-button"
                         onClick={toggleConfirmPasswordVisibility}
                       >
                         {showConfirmPassword ? (
-                          // Icono de ojo tachado (contraseña visible)
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="20"
@@ -522,7 +615,6 @@ const FormularioRegistro = () => {
                             <line x1="1" y1="1" x2="23" y2="23"></line>
                           </svg>
                         ) : (
-                          // Icono de ojo (contraseña oculta)
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="20"
@@ -541,21 +633,19 @@ const FormularioRegistro = () => {
                         )}
                       </button>
                     </div>
-                    {/* Mostrar mensaje de error si las contraseñas no coinciden */}
                     {errorsPaso2.confirmContrasena && errorsPaso2.confirmContrasena.type === "validate" && (
                       <p className="error-message">Las contraseñas no coinciden</p>
                     )}
                   </div>
                 </div>
 
-                {/* Campo: Términos y condiciones */}
                 <div className="campo-formulario checkbox campo-ancho-completo">
                   <input
                     type="checkbox"
                     id="terminos"
                     className={errorsPaso2.terminos ? "campo-error" : ""}
                     {...registerPaso2("terminos", {
-                      required: true, // Campo obligatorio
+                      required: true,
                     })}
                   />
                   <label htmlFor="terminos">
@@ -564,7 +654,6 @@ const FormularioRegistro = () => {
                   </label>
                 </div>
 
-                {/* Botones de navegación del paso 2 */}
                 <div className="botones-navegacion">
                   <button type="button" className="boton-anterior" onClick={retrocederPaso}>
                     Anterior
@@ -575,6 +664,82 @@ const FormularioRegistro = () => {
                 </div>
               </div>
             </form>
+          ) : (
+            // Paso 3: Verificación de correo electrónico
+            <div className="paso-contenido">
+              <div className="verificacion-email">
+                <div className="verificacion-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="64"
+                    height="64"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#00bcd4"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M22 2L11 13"></path>
+                    <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+                  </svg>
+                </div>
+
+                <h3 className="verificacion-titulo">Verifica tu correo electrónico</h3>
+
+                <p className="verificacion-descripcion">
+                  Hemos enviado un código de verificación a <strong>{userEmail}</strong>. Por favor, introduce el código
+                  de 6 dígitos para verificar tu cuenta.
+                </p>
+
+                <div className="codigo-container">
+                  {userInputCode.map((digit, index) => (
+                    <input
+                      key={index}
+                      id={`code-input-${index}`}
+                      type="text"
+                      maxLength="1"
+                      className={`codigo-input ${codeError ? "codigo-error" : ""}`}
+                      value={digit}
+                      onChange={(e) => handleCodeInputChange(index, e.target.value)}
+                      onPaste={index === 0 ? handleCodePaste : null}
+                      autoFocus={index === 0}
+                    />
+                  ))}
+                </div>
+
+                {codeError && (
+                  <p className="error-message codigo-error-mensaje">
+                    El código ingresado no es válido. Por favor, intenta nuevamente.
+                  </p>
+                )}
+
+                <div className="timer-container">
+                  <p className="timer-text">
+                    Tiempo restante: <span className="timer-count">{formatTime(remainingTime)}</span>
+                  </p>
+                </div>
+
+                <div className="verificacion-botones">
+                  <button type="button" className="boton-verificar" onClick={verifyCode}>
+                    Verificar
+                  </button>
+
+                  <button
+                    type="button"
+                    className="boton-reenviar"
+                    onClick={resendCode}
+                    disabled={timerActive && remainingTime > 240} // Deshabilitar por 1 minuto
+                  >
+                    Reenviar código
+                  </button>
+                </div>
+
+                <p className="verificacion-ayuda">
+                  ¿No recibiste el código? Revisa tu carpeta de spam o solicita un nuevo código.
+                </p>
+              </div>
+            </div>
           )}
         </div>
 
@@ -593,4 +758,3 @@ const FormularioRegistro = () => {
 }
 
 export default FormularioRegistro
-
