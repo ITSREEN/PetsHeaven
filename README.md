@@ -1,7 +1,7 @@
 # Pets Heaven
 
 # Creadores
-Juana Violeta /n
-Julian Velez /n
-Kevin Palacios /n
+Juana Violeta 
+Julian Velez 
+Kevin Palacios 
 Cristian Arrieta
