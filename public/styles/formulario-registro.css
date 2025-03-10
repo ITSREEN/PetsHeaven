@@ -587,6 +587,9 @@ body {
 
 /* Responsive - Móviles pequeños */
 @media (max-width: 375px) {
+  .formulario-container{
+    margin-right: 1rem;
+  }
   .background-section {
     height: 150px;
   }
@@ -597,6 +600,7 @@ body {
 
   .logo-register {
     max-width: 120px;
+    margin-right: 5rem;
   }
 
   .formulario-header h2 {

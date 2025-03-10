@@ -72,7 +72,7 @@ const FormularioRegistro = () => {
   useEffect(() => {
     let interval = null
 
-    if (timerActive && remainingTime > 0) {
+    if (timerActive && remainingTime >0 ) {
       interval = setInterval(() => {
         setRemainingTime((prevTime) => prevTime - 1)
       }, 1000)
