@@ -1,10 +1,10 @@
 >[!IMPORTANT]
 > # Pets Heaven
-> Home Page: "In dev"
+> To run project: "npx vite"
 
 >[!NOTE]
 > # Creadores
-> * Juana Violeta 
+> * Violeta Rojas 
 > * Julian Velez 
 > * Kevin Palacios 
 > * Cristian Arrieta
