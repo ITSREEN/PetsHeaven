@@ -244,7 +244,7 @@ const FormularioRegistro = () => {
   }
 
   return (
-    <div className="page-container">
+    <main className="page-container">
       <div className="background-section">
         <div className="background-quote">
           <h2>"El amor por los animales es el reflejo de nuestra humanidad"</h2>
