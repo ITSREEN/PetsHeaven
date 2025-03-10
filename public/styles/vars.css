@@ -1,6 +1,8 @@
 /* Fuente general */
 @import url('https://fonts.googleapis.com/css2?family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap');
 
+/* slogan */
+/* "Dedicados a la salud y felicidad de tu mascota en cada etapa de su vida." */
 
 :root {
     --white: #fff;
@@ -11,6 +13,7 @@
     --black-box: #00000025;
     --font-size: 1.1rem;
     --font-general: "Zain", sans-serif;
+    --font-titulos:  :
 }
 html {
     font-size: 16px;

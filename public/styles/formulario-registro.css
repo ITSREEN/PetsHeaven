@@ -1,3 +1,4 @@
+/* Estilos generales y reset */
 * {
   margin: 0;
   padding: 0;
@@ -11,6 +12,7 @@ body {
   height: 100%;
 }
 
+/* Contenedor principal de la página */
 .page-container {
   display: flex;
   width: 100%;
@@ -55,6 +57,7 @@ body {
   font-style: italic;
 }
 
+/* Imagen de fondo */
 .fondo-patron {
   position: fixed;
   transform: translate(-50%, -50%);
@@ -87,8 +90,7 @@ body {
 .logo-register {
   width: 20vw;
   height: auto;
-  max-width: 220px;
-  min-width: 150px;
+  margin-left: 10vh;
 }
 
 /* Contenedor del formulario */
@@ -103,6 +105,7 @@ body {
   margin-left: 5vw;
 }
 
+/* Encabezado del formulario */
 .formulario-header {
   text-align: center;
   margin-bottom: 2rem;
@@ -114,6 +117,7 @@ body {
   margin-bottom: 1rem;
 }
 
+/* Indicador de pasos */
 .pasos-indicador {
   display: flex;
   justify-content: center;
@@ -152,6 +156,7 @@ body {
   margin-bottom: 1.5rem;
 }
 
+/* Animación para el contenido del paso */
 .paso-contenido {
   animation: fadeIn 0.5s ease;
 }
@@ -160,11 +165,13 @@ body {
 .campos-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
+/* Estilos para los campos del formulario */
 .campo-formulario {
   margin-bottom: 1.5rem;
+  position: relative;
 }
 
 .campo-ancho-completo {
@@ -188,13 +195,38 @@ body {
   transition: all 0.3s ease;
 }
 
+/* Estilos para el foco en los campos (sin color azul persistente) */
 .campo-formulario input:focus,
 .campo-formulario select:focus {
   outline: none;
-  border-color: #4a90e2;
-  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+  border-color: #00BCD4; /* Color neutro en lugar de azul */
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1); /* Sombra sutil */
 }
 
+/* Estilos para campos con error */
+.campo-error {
+  border-color: #e53935 !important;
+}
+
+.campo-error:hover {
+  border-color: #e53935 !important;
+  box-shadow: 0 0 0 2px rgba(229, 57, 53, 0.2) !important;
+}
+
+/* Asterisco de error */
+.asterisco-error {
+  color: #e53935;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-left: 5px;
+  display: inline-block;
+}
+
+.checkbox .asterisco-error {
+  margin-left: 5px;
+}
+
+/* Mensajes de error */
 .error {
   color: #e53935;
   font-size: 0.875rem;
@@ -202,6 +234,14 @@ body {
   display: block;
 }
 
+.error-message {
+  color: #e53935;
+  font-size: 0.85rem;
+  margin-top: 5px;
+  display: block;
+}
+
+/* Estilos para checkbox */
 .checkbox {
   display: flex;
   align-items: center;
@@ -216,6 +256,7 @@ body {
   margin-bottom: 0;
 }
 
+/* Botones de navegación */
 .botones-navegacion {
   display: flex;
   justify-content: space-between;
@@ -301,6 +342,7 @@ body {
   transform: translateY(-2px);
 }
 
+/* Animación de aparición */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -405,7 +447,7 @@ body {
 /* Responsive - Tablets pequeñas y móviles grandes */
 @media (max-width: 768px) {
   .page-container {
-    flex-direction: column-reverse; /* Cambiado a column-reverse para que la imagen vaya abajo */
+    flex-direction: column-reverse; /* Imagen abajo en móviles */
   }
 
   .background-section {
@@ -435,7 +477,7 @@ body {
   .logo-container {
     width: 45%;
     margin-bottom: 1rem;
-    margin-top: 1rem; /* Ajustado para que no necesite posicionamiento negativo */
+    margin-top: 1rem;
     position: relative;
   }
 
@@ -450,7 +492,7 @@ body {
   }
 
   .campos-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* Una sola columna en móviles */
   }
 
   .campo-ancho-completo {
@@ -540,6 +582,10 @@ body {
   .background-quote h2 {
     font-size: 1.3rem;
   }
+
+  .asterisco-error {
+    font-size: 1rem;
+  }
 }
 
 /* Responsive - Móviles pequeños */
@@ -577,5 +623,49 @@ body {
     padding: 0.6rem 1rem;
     font-size: 0.9rem;
   }
+
+  .asterisco-error {
+    font-size: 0.9rem;
+  }
 }
+
+/* Estilos para los campos de contraseña */
+.password-input-container {
+  position: relative;
+  width: 100%;
+}
+
+.toggle-password-button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: #666;
+  z-index: 10;
+}
+
+.toggle-password-button:hover {
+  color: #00bcd4;
+}
+
+.eye-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Estilos para mensajes informativos */
+.info-message {
+  font-size: 0.75rem;
+  color: #4a5568;
+  margin-top: 4px;
+  line-height: 1.2;
+}
+
 
