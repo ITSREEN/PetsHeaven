@@ -192,11 +192,10 @@ body {
   transition: all 0.3s ease;
 }
 
-/* Estilos para el foco en los campos (sin color azul persistente) */
 .campo-formulario input:focus,
 .campo-formulario select:focus {
   outline: none;
-  border-color: #ddd; /* Color neutro en lugar de azul */
+    border-color: var(--azulturquesa); /* Color neutro en lugar de azul */
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1); /* Sombra sutil */
 }
 
