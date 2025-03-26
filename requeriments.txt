@@ -9,6 +9,7 @@ vite
 
 npm i react react-dom react-hook-form boxicons
 npm i -D vite
+npm install next@latest
 
 // Ignorar
 devDependencies: {

@@ -1,10 +1,8 @@
-"use client"
-
 import { useState, useEffect, useRef } from "react"
+import { MapPin, Star, ChevronUp, Menu, X, Phone, Mail, Clock } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { MapPin, Star, ChevronUp, Menu, X, Phone, Mail, Clock } from "lucide-react"
-import "./VeterinariaPage.css"
+import "/public/styles/VeterinariaPage.css"
 
 // Hook personalizado para detectar cuando un elemento es visible en el viewport
 function useIntersectionObserver(options = {}) {
