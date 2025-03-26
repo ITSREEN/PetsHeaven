@@ -38,6 +38,9 @@
     font-weight: bold;
     transition: all .3s ease-in-out;
 }
+.link.active{
+    color: var(--azulturquesa);
+}
 .link::before {
     content: "";
     position: absolute;
