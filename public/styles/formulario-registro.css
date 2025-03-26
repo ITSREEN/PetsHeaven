@@ -4,7 +4,6 @@
   width: 100%;
   min-height: 100vh;
   overflow-y: auto;
-  background: black;
 }
 
 /* Sección de fondo (izquierda) */
@@ -789,7 +788,7 @@
   .codigo-container {
     gap: 0.3rem;
   }
-
+  
   .codigo-input {
     width: 2.5rem;
     height: 3rem;

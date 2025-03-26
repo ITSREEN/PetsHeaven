@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef } from "react"
 import React from "react"
 import { MapPin, Star, ChevronUp, Menu, X, Phone, Mail, Clock } from "lucide-react"
-// import Image from "next/image"
-// import Link from "next/link"
 import "../../public/styles/VeterinariaPage.css"
 
 export default function VeterinariaPage() {
