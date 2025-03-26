@@ -1,8 +1,9 @@
+import React from "react"
 import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
-import "../public/styles/formulario-registro.css"
+import "../../public/styles/formulario-registro.css"
 
-const Registro = () => {
+export const Registro = () => {
   // Rutas de imágenes definidas directamente en el componente
   const imagenFondo = "img/fondo.png" // Ruta desde la carpeta public
   const logoUrl = "img/3.png" // Ruta desde la carpeta public
@@ -867,5 +868,4 @@ const Registro = () => {
   )
 }
 
-export default Registro
 

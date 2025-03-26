@@ -8,6 +8,7 @@ boxicons
 vite
 
 npm i react react-dom react-hook-form boxicons
+npm i react-router
 npm i -D vite
 npm install next@latest
 

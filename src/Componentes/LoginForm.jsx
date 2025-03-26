@@ -3,6 +3,9 @@ import React from "react"
 import { useForm } from "react-hook-form"
 import "boxicons"
 
+// Style
+// import "../../public/styles/login.css"
+
 // Components 
 export const LoginForm = () => {
     // Functions
