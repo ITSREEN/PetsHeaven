@@ -1,6 +1,9 @@
+// Librarys 
 import React from "react"
 import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
+
+// Imports 
 import "../../public/styles/formulario-registro.css"
 
 export const Registro = () => {
@@ -857,7 +860,7 @@ export const Registro = () => {
           {paso === 1 && (
             <div className="seccion-login">
               <p className="texto-login">¿Ya haces parte de PetsHeaven?</p>
-              <a href="#" className="enlace">
+              <a href="/login" className="link">
                 Inicia sesión
               </a>
             </div>

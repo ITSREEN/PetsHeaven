@@ -1,10 +1,11 @@
 // Librarys
 import React from "react"
 import { useForm } from "react-hook-form"
+import { Link } from "react-router"
 import "boxicons"
 
 // Style
-// import "../../public/styles/login.css"
+import "../../public/styles/login.css"
 
 // Components 
 export const LoginForm = () => {
@@ -27,8 +28,8 @@ export const LoginForm = () => {
 
     // Labels
     return (
-        <main>
-            <picture>
+        <main className="main-container">
+            <picture className="img-container">
                 <img className="logo" src="../../public/imgs/1.png" alt="logo"/>
             </picture>
             <form className="login" onSubmit={handleSubmit(onSubmit)}>
@@ -72,9 +73,10 @@ export const LoginForm = () => {
                     })}/>
                     { errors.passw && <span className="error">{errors.passw.message}</span> }
                 </span>
-                <a className="link" href="#">¿Olvidaste tu contraseña?</a>
+                <Link to="/login" className="link">¿Olvidaste tu contraseña?</Link>
+                <a className="link" href="#"></a>
                 <button type="submit" className="boton-enviar">Entrar</button>
-                <a className="link" href="registro-usuario.html">¿No tienes una cuenta?</a>
+                <Link to="/register" className="link">¿No tienes una cuenta?</Link>
             </form>
             <form className="inactive">
             </form>

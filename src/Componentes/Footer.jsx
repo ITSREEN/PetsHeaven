@@ -13,7 +13,7 @@ const Footer = () => {
     return (
         <footer className="main-container">
             <section className="data-container">
-                <img src="../../public/imgs/1.png" alt="Logo PetsHeaven" />
+                <img className="img" src="../../public/imgs/1.png" alt="Logo PetsHeaven" />
                 <section className="redes">
                     <ul className="canales">
                         <li className="social">1</li>

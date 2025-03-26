@@ -3,29 +3,8 @@
 @import url("global.css");
 
 /* Desactive default browser style */
-*{
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-:focus {
-    outline: none;
-}
-::selection {
-    outline: none;
-}
-::-webkit-scrollbar {
-    display: none;
-}
 
-body {
-  height: 100vh;
-  width: 100vw;
-  background: var(--background);
-  overflow: auto;
-}
-main {
+.main-container {
     position: relative;
     display: grid;
     height: 100vh;
@@ -33,7 +12,7 @@ main {
     place-items: center;
     place-items: center;
 }
-picture {
+.img-container {
     display: none;
 }
 
@@ -88,10 +67,10 @@ picture {
     }
 }
 @media (600px < width) {
-    main {
+    .main-container {
         grid-template-columns: repeat(2,50%);
     }
-    picture {
+    .img-container {
         display: flex;
     }
     .logo {

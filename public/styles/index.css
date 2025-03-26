@@ -35,9 +35,3 @@ main {
   height: 90vh;
   width: 100vw;
 }
-main div {
-  display: flex;
-  width: 20vw;
-  gap: 10px;
-  place-content: space-around;
-}

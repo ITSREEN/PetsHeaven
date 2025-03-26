@@ -1,10 +1,4 @@
 @import url("./vars.css");
-*{
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 .main-container{
     background-color: #c9c6c6;
     display: grid;
@@ -19,7 +13,7 @@
     justify-content: center;
     gap: 30px;
 }
-img{
+.img{
     width: 200px;
 }
 .canales{

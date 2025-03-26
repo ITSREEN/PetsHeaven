@@ -2,7 +2,7 @@
 import { useForm } from "react-hook-form";
 
 // Imports 
-import "../Stylos/RegistroMascota.css";
+import "../../public/styles/RegistroMascota.css";
 
 // Component
 const RegistroMascota = () => {
