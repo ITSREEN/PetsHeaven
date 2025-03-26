@@ -1,32 +1,9 @@
 import { useState, useEffect, useRef } from "react"
+import React from "react"
 import { MapPin, Star, ChevronUp, Menu, X, Phone, Mail, Clock } from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
+// import Image from "next/image"
+// import Link from "next/link"
 import "/public/styles/VeterinariaPage.css"
-
-// Hook personalizado para detectar cuando un elemento es visible en el viewport
-function useIntersectionObserver(options = {}) {
-  const [isIntersecting, setIsIntersecting] = useState(false)
-  const ref = useRef(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      setIsIntersecting(entry.isIntersecting)
-    }, options)
-
-    if (ref.current) {
-      observer.observe(ref.current)
-    }
-
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current)
-      }
-    }
-  }, [ref, options])
-
-  return [ref, isIntersecting]
-}
 
 export default function VeterinariaPage() {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -35,6 +12,30 @@ export default function VeterinariaPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [testimoniosSlides, setTestimoniosSlides] = useState([])
   const navRef = useRef(null)
+
+  // Hook personalizado para detectar cuando un elemento es visible en el viewport
+  function useIntersectionObserver(options = {}) {
+    const [isIntersecting, setIsIntersecting] = useState(false)
+    const ref = useRef(null)
+
+    useEffect(() => {
+      const observer = new IntersectionObserver(([entry]) => {
+        setIsIntersecting(entry.isIntersecting)
+      }, options)
+
+      if (ref.current) {
+        observer.observe(ref.current)
+      }
+
+      return () => {
+        if (ref.current) {
+          observer.unobserve(ref.current)
+        }
+      }
+    }, [ref, options])
+
+    return [ref, isIntersecting]
+  }
 
   // Referencias para animaciones de scroll
   const [aboutRef, aboutVisible] = useIntersectionObserver({ threshold: 0.2 })
@@ -218,7 +219,7 @@ export default function VeterinariaPage() {
       <header className="header" ref={navRef}>
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center">
-            <Image
+            <img
               src="/placeholder.svg?height=50&width=50"
               alt="PetsHeaven Logo"
               width={50}
@@ -226,25 +227,25 @@ export default function VeterinariaPage() {
               className="mr-2 animate-pulse-slow"
             />
             <span className="logo-text">PetsHeaven</span>
-          </div>
+          </div> 
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href="#" className="nav-link" onClick={(e) => handleNavLinkClick(e, "")}>
+            <a href="#" className="nav-link" onClick={(e) => handleNavLinkClick(e, "")}>
               Home
-            </Link>
-            <Link href="#nosotros" className="nav-link" onClick={(e) => handleNavLinkClick(e, "nosotros")}>
+            </a>
+            <a href="#nosotros" className="nav-link" onClick={(e) => handleNavLinkClick(e, "nosotros")}>
               Nosotros
-            </Link>
-            <Link href="#servicios" className="nav-link" onClick={(e) => handleNavLinkClick(e, "servicios")}>
+            </a>
+            <a href="#servicios" className="nav-link" onClick={(e) => handleNavLinkClick(e, "servicios")}>
               Servicios
-            </Link>
-            <Link href="#testimonios" className="nav-link" onClick={(e) => handleNavLinkClick(e, "testimonios")}>
+            </a>
+            <a href="#testimonios" className="nav-link" onClick={(e) => handleNavLinkClick(e, "testimonios")}>
               Testimonios
-            </Link>
-            <Link href="#contacto" className="nav-link" onClick={(e) => handleNavLinkClick(e, "contacto")}>
+            </a>
+            <a href="#contacto" className="nav-link" onClick={(e) => handleNavLinkClick(e, "contacto")}>
               Contáctanos
-            </Link>
+            </a>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -263,33 +264,33 @@ export default function VeterinariaPage() {
             <button className="register-button">Registrarse</button>
             <button className="login-button">Iniciar Sesión</button>
           </div>
-        </div>
+        </div> 
 
         {/* Mobile Navigation */}
-        <div className={`mobile-menu md:hidden ${mobileMenuOpen ? "active" : ""}`}>
+         <div className={`mobile-menu md:hidden ${mobileMenuOpen ? "active" : ""}`}>
           <nav className="container mx-auto px-4 py-4 flex flex-col space-y-4">
-            <Link href="#" className="mobile-nav-link" onClick={(e) => handleNavLinkClick(e, "")}>
+            <a href="#" className="mobile-nav-link" onClick={(e) => handleNavLinkClick(e, "")}>
               Home
-            </Link>
-            <Link href="#nosotros" className="mobile-nav-link" onClick={(e) => handleNavLinkClick(e, "nosotros")}>
+            </a>
+            <a href="#nosotros" className="mobile-nav-link" onClick={(e) => handleNavLinkClick(e, "nosotros")}>
               Nosotros
-            </Link>
-            <Link href="#servicios" className="mobile-nav-link" onClick={(e) => handleNavLinkClick(e, "servicios")}>
+            </a>
+            <a href="#servicios" className="mobile-nav-link" onClick={(e) => handleNavLinkClick(e, "servicios")}>
               Servicios
-            </Link>
-            <Link href="#testimonios" className="mobile-nav-link" onClick={(e) => handleNavLinkClick(e, "testimonios")}>
+            </a>
+            <a href="#testimonios" className="mobile-nav-link" onClick={(e) => handleNavLinkClick(e, "testimonios")}>
               Testimonios
-            </Link>
-            <Link href="#contacto" className="mobile-nav-link" onClick={(e) => handleNavLinkClick(e, "contacto")}>
+            </a>
+            <a href="#contacto" className="mobile-nav-link" onClick={(e) => handleNavLinkClick(e, "contacto")}>
               Contáctanos
-            </Link>
+            </a>
             {/* Botones de login en la navegación móvil */}
             <div className="flex flex-col space-y-2">
               <button className="register-button-mobile">Registrarse</button>
               <button className="login-button-mobile">Iniciar Sesión</button>
             </div>
           </nav>
-        </div>
+        </div> 
       </header>
 
       {/* Carousel */}
@@ -297,7 +298,7 @@ export default function VeterinariaPage() {
         <div className="carousel-overlay"></div>
         {slides.map((slide, index) => (
           <div key={index} className={`carousel-slide ${index === currentSlide ? "active" : ""}`}>
-            <Image src={slide.image || "/placeholder.svg"} alt={slide.title} fill className="object-cover" />
+            <img src={slide.image || "/placeholder.svg"} alt={slide.title} fill className="object-cover" />
           </div>
         ))}
         <div className="carousel-indicators">
@@ -325,7 +326,7 @@ export default function VeterinariaPage() {
         <div className={`container mx-auto px-4 ${aboutVisible ? "animate-fade-in" : ""}`}>
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className={`md:w-1/2 w-full ${aboutVisible ? "animate-slide-right" : ""}`}>
-              <Image
+              <img
                 src="/placeholder.svg?height=400&width=400"
                 alt="Veterinario con mascotas"
                 width={400}
@@ -365,7 +366,7 @@ export default function VeterinariaPage() {
                 className={`service-card ${servicesVisible ? `animate-pop-in animation-delay-${index}` : ""}`}
               >
                 <div className="relative h-48">
-                  <Image
+                  <img
                     src={servicio.image || "/placeholder.svg"}
                     alt={servicio.title}
                     fill
@@ -400,7 +401,7 @@ export default function VeterinariaPage() {
                       className={`testimonial-card ${testimoniosVisible ? `animate-float animation-delay-${testimonioIndex}` : ""}`}
                     >
                       <div className="flex items-center mb-4">
-                        <Image
+                        <img
                           src={testimonio.imagen || "/placeholder.svg"}
                           alt={testimonio.nombre}
                           width={60}
@@ -559,7 +560,7 @@ export default function VeterinariaPage() {
       <div className="simple-footer bg-white">
         <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
           <div className="flex items-center mb-4 md:mb-0">
-            <Image
+            <img
               src="/placeholder.svg?height=30&width=30"
               alt="PetsHeaven Logo"
               width={30}
@@ -571,15 +572,15 @@ export default function VeterinariaPage() {
             </span>
           </div>
           <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-6">
-            <Link href="#" className="text-gray-600 hover:text-gray-900">
+            <a href="#" className="text-gray-600 hover:text-gray-900">
               Política de Privacidad
-            </Link>
-            <Link href="#" className="text-gray-600 hover:text-gray-900">
+            </a>
+            <a href="#" className="text-gray-600 hover:text-gray-900">
               Términos de Servicio
-            </Link>
-            <Link href="#" className="text-gray-600 hover:text-gray-900">
+            </a>
+            <a href="#" className="text-gray-600 hover:text-gray-900">
               Cookies
-            </Link>
+            </a>
           </div>
         </div>
       </div>
@@ -591,6 +592,5 @@ export default function VeterinariaPage() {
         </button>
       )}
     </div>
-  )
+  ) 
 }
-

@@ -12,6 +12,7 @@ import VeterinariaPage from './Componentes/VeterinariaPage'
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
+    {/* <App /> */}
     <VeterinariaPage />
     {/* <Footer /> */}
   </React.StrictMode>
