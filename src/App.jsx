@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router"
 import { NavBar } from "./Componentes/NavBar"
 import {LoginForm} from "./Componentes/LoginForm"
 import { NotFound } from "./Componentes/NotFound"
-import { Registro } from "./Componentes/Registro"
+import Registro from "./Componentes/Registro"
 import VeterinariaPage from "./Componentes/VeterinariaPage"
 
 // Component 
@@ -20,6 +20,7 @@ export default function App () {
         <Route path="/register" element={<Registro />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      
     </BrowserRouter>
   )
 }

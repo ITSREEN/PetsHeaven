@@ -1,7 +1,5 @@
-import { useState, useEffect, useRef } from "react"
-import Link from "next/link"
+import React,{ useState, useEffect, useRef } from "react"
 import { MapPin, Star, Phone, Mail, Clock, ChevronUp, Menu, X, Instagram, Facebook } from "lucide-react"
-import Footer from "../Componentes/Footer"
 import "../../public/styles/VeterinariaPage.css"
 
 
@@ -17,17 +15,17 @@ export default function VeterinariaPage() {
   // Datos para el carrusel principal
   const diapositivas = [
     {
-      imagen: "/img/carru1.png",
+      imagen: "/imgs/carru1.png",
       titulo: "",
       descripcion: "",
     },
     {
-      imagen: "/img/carru2.png",
+      imagen: "/imgs/carru2.png",
       titulo: "",
       descripcion: "",
     },
     {
-      imagen: "/img/carru3.png",
+      imagen: "/imgs/carru3.png",
       titulo: "",
       descripcion: "",
     },
@@ -38,27 +36,27 @@ export default function VeterinariaPage() {
     {
       titulo: "Consulta General",
       descripcion: "Examen completo de salud para tu mascota con recomendaciones personalizadas.",
-      imagen: "/img/consulta.png",
+      imagen: "/imgs/consulta.png",
     },
     {
       titulo: "Vacunación",
       descripcion: "Programa completo de vacunación para prevenir enfermedades comunes.",
-      imagen: "/img/vacunacion.png",
+      imagen: "/imgs/vacunacion.png",
     },
     {
       titulo: "Cirugía",
       descripcion: "Procedimientos quirúrgicos realizados por especialistas con equipos de última generación.",
-      imagen: "/img/cirugia.png",
+      imagen: "/imgs/cirugia.png",
     },
     {
       titulo: "Emergencias 24h",
       descripcion: "Atención inmediata para situaciones urgentes a cualquier hora del día.",
-      imagen: "/img/urgencias.png",
+      imagen: "/imgs/urgencias.png",
     },
     {
       titulo: "Spa y Baño",
       descripcion: "Servicio completo de baño, corte de pelo, limpieza de oídos y corte de uñas para tu mascota.",
-      imagen: "/img/baño.png",
+      imagen: "/imgs/baño.png",
     },
   ]
 
@@ -68,19 +66,19 @@ export default function VeterinariaPage() {
       titulo: "Servicio de Profilaxis",
       descripcion:
         "Cuidado dental profesional para tu mascota. Agenda tu cita y mantén la salud bucal de tu compañero.",
-      imagen: "/img/pos1.png",
+      imagen: "/imgs/pos1.png",
       fechaVencimiento: "Permanente",
     },
     {
       titulo: "Jornada de Esterilización",
       descripcion: "Precios especiales para esterilización de perros y gatos. Incluye exámenes previos.",
-      imagen: "/img/pos2.png",
+      imagen: "/imgs/pos2.png",
       fechaVencimiento: "16 de Noviembre",
     },
     {
       titulo: "Jornada de Adopción",
       descripcion: "Ven y adopta un amigo para toda la vida. Te esperamos en nuestra sede principal.",
-      imagen: "/img/pos3.png",
+      imagen: "/imgs/pos3.png",
       fechaVencimiento: "10 de agosto de 2025",
     },
   ]
@@ -92,42 +90,42 @@ export default function VeterinariaPage() {
       texto:
         "Excelente atención para mi perrito Max. Los veterinarios son muy profesionales y cariñosos con las mascotas.",
       calificacion: 5,
-      imagen: "/img/perfil2.png",
+      imagen: "/imgs/perfil2.png",
     },
     {
       nombre: "Carlos Rodríguez",
       texto:
         "Mi gata recibió un tratamiento excepcional. El personal está muy bien capacitado y las instalaciones son impecables.",
       calificacion: 5,
-      imagen: "/img/perfil3.png",
+      imagen: "/imgs/perfil3.png",
     },
     {
       nombre: "Laura Martínez",
       texto:
         "Siempre confío en PetsHeaven para el cuidado de mis mascotas. El servicio de emergencia 24h nos salvó en más de una ocasión.",
       calificacion: 4,
-      imagen: "/img/perfil4.png",
+      imagen: "/imgs/perfil4.png",
     },
     {
       nombre: "Javier Sánchez",
       texto:
         "El servicio de spa para mi perro fue increíble. Quedó limpio, perfumado y muy feliz. Definitivamente volveremos.",
       calificacion: 5,
-      imagen: "/img/perfil1.png",
+      imagen: "/imgs/perfil1.png",
     },
     {
       nombre: "Ana Pérez",
       texto:
         "Llevé a mi conejo para una revisión y quedé impresionada con el conocimiento y cuidado del veterinario. Recomiendo totalmente.",
       calificacion: 5,
-      imagen: "/img/perfil5.png",
+      imagen: "/imgs/perfil5.png",
     },
     {
       nombre: "Roberto Gómez",
       texto:
         "Mi perro necesitaba una cirugía complicada y el equipo de PetsHeaven fue excepcional. Ahora está completamente recuperado.",
       calificacion: 5,
-      imagen: "/img/perfil6.png",
+      imagen: "/imgs/perfil6.png",
     },
   ]
 
@@ -228,30 +226,30 @@ export default function VeterinariaPage() {
       <header className="encabezado" ref={refNav}>
         <div className="contenedor-header">
           <div className="logo-container">
-            <img src="/img/2.png" alt="PetsHeaven Logo" width={50} height={50} className="logo-img" />
+            <img src="/imgs/2.png" alt="PetsHeaven Logo" width={50} height={50} className="logo-img" />
             <span className="texto-logo">PetsHeaven</span>
           </div>
 
           {/* Navegación Escritorio */}
           <nav className="nav-escritorio">
-            <Link href="#" className="enlace-nav" onClick={(e) => irASeccion(e, "")}>
+            <a href="#" className="enlace-nav" onClick={(e) => irASeccion(e, "")}>
               Inicio
-            </Link>
-            <Link href="#nosotros" className="enlace-nav" onClick={(e) => irASeccion(e, "nosotros")}>
+            </a>
+            <a href="#nosotros" className="enlace-nav" onClick={(e) => irASeccion(e, "nosotros")}>
               Nosotros
-            </Link>
-            <Link href="#servicios" className="enlace-nav" onClick={(e) => irASeccion(e, "servicios")}>
+            </a>
+            <a href="#servicios" className="enlace-nav" onClick={(e) => irASeccion(e, "servicios")}>
               Servicios
-            </Link>
-            <Link href="#promociones" className="enlace-nav" onClick={(e) => irASeccion(e, "promociones")}>
+            </a>
+            <a href="#promociones" className="enlace-nav" onClick={(e) => irASeccion(e, "promociones")}>
               Promociones
-            </Link>
-            <Link href="#testimonios" className="enlace-nav" onClick={(e) => irASeccion(e, "testimonios")}>
+            </a>
+            <a href="#testimonios" className="enlace-nav" onClick={(e) => irASeccion(e, "testimonios")}>
               Testimonios
-            </Link>
-            <Link href="#contacto" className="enlace-nav" onClick={(e) => irASeccion(e, "contacto")}>
+            </a>
+            <a href="#contacto" className="enlace-nav" onClick={(e) => irASeccion(e, "contacto")}>
               Contáctanos
-            </Link>
+            </a>
           </nav>
 
           {/* Botón Menú Móvil */}
@@ -267,9 +265,9 @@ export default function VeterinariaPage() {
 
           {/* Botones para escritorio */}
           <div className="botones-escritorio">
-            <Link href="/registro" className="boton-registro">
+            <a href="/registro" className="boton-registro">
               Registrarse
-            </Link>
+            </a>
             <button className="boton-login">Iniciar Sesión</button>
           </div>
         </div>
@@ -277,29 +275,29 @@ export default function VeterinariaPage() {
         {/* Navegación Móvil */}
         <div className={`menu-movil ${menuAbierto ? "activo" : ""}`}>
           <nav className="nav-movil">
-            <Link href="#" className="enlace-nav-movil" onClick={(e) => irASeccion(e, "")}>
+            <a href="#" className="enlace-nav-movil" onClick={(e) => irASeccion(e, "")}>
               Inicio
-            </Link>
-            <Link href="#nosotros" className="enlace-nav-movil" onClick={(e) => irASeccion(e, "nosotros")}>
+            </a>
+            <a href="#nosotros" className="enlace-nav-movil" onClick={(e) => irASeccion(e, "nosotros")}>
               Nosotros
-            </Link>
-            <Link href="#servicios" className="enlace-nav-movil" onClick={(e) => irASeccion(e, "servicios")}>
+            </a>
+            <a href="#servicios" className="enlace-nav-movil" onClick={(e) => irASeccion(e, "servicios")}>
               Servicios
-            </Link>
-            <Link href="#promociones" className="enlace-nav-movil" onClick={(e) => irASeccion(e, "promociones")}>
+            </a>
+            <a href="#promociones" className="enlace-nav-movil" onClick={(e) => irASeccion(e, "promociones")}>
               Promociones
-            </Link>
-            <Link href="#testimonios" className="enlace-nav-movil" onClick={(e) => irASeccion(e, "testimonios")}>
+            </a>
+            <a href="#testimonios" className="enlace-nav-movil" onClick={(e) => irASeccion(e, "testimonios")}>
               Testimonios
-            </Link>
-            <Link href="#contacto" className="enlace-nav-movil" onClick={(e) => irASeccion(e, "contacto")}>
+            </a>
+            <a href="#contacto" className="enlace-nav-movil" onClick={(e) => irASeccion(e, "contacto")}>
               Contáctanos
-            </Link>
+            </a>
             {/* Botones para móvil */}
             <div className="botones-movil">
-              <Link href="/registro" className="boton-registro-movil">
+              <a href="/registro" className="boton-registro-movil">
                 Registrarse
-              </Link>
+              </a>
               <button className="boton-login-movil">Iniciar Sesión</button>
             </div>
           </nav>
@@ -330,7 +328,7 @@ export default function VeterinariaPage() {
         <div className="contenedor">
           <div className="contenedor-nosotros">
             <div className="imagen-nosotros">
-              <img src="/img/quienes-somos.png" alt="Veterinarios con mascota" className="img-nosotros" />
+              <img src="/imgs/quienes-somos.png" alt="Veterinarios con mascota" className="img-nosotros" />
             </div>
             <div className="texto-nosotros">
               <h2 className="titulo-seccion">Quienes somos</h2>
@@ -609,9 +607,6 @@ export default function VeterinariaPage() {
           </div>
         </div>
       </section>
-
-      {/* COMPONENTE: Footer */}
-      <Footer />
 
       {/* Botón para subir */}
       {mostrarBoton && (
