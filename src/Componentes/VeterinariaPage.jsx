@@ -1,350 +1,350 @@
 import { useState, useEffect, useRef } from "react"
-import React from "react"
-import { MapPin, Star, ChevronUp, Menu, X, Phone, Mail, Clock } from "lucide-react"
+import Link from "next/link"
+import { MapPin, Star, Phone, Mail, Clock, ChevronUp, Menu, X, Instagram, Facebook } from "lucide-react"
+import Footer from "../Componentes/Footer"
 import "../../public/styles/VeterinariaPage.css"
 
+
 export default function VeterinariaPage() {
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const [currentTestimonioSlide, setCurrentTestimonioSlide] = useState(0)
-  const [showScrollTop, setShowScrollTop] = useState(false)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [testimoniosSlides, setTestimoniosSlides] = useState([])
-  const navRef = useRef(null)
+  // Estados para los diferentes componentes
+  const [diaActual, setDiaActual] = useState(0)
+  const [testActual, setTestActual] = useState(0)
+  const [mostrarBoton, setMostrarBoton] = useState(false)
+  const [menuAbierto, setMenuAbierto] = useState(false)
+  const [gruposTest, setGruposTest] = useState([])
+  const refNav = useRef(null)
 
-  // Hook personalizado para detectar cuando un elemento es visible en el viewport
-  function useIntersectionObserver(options = {}) {
-    const [isIntersecting, setIsIntersecting] = useState(false)
-    const ref = useRef(null)
-
-    useEffect(() => {
-      const observer = new IntersectionObserver(([entry]) => {
-        setIsIntersecting(entry.isIntersecting)
-      }, options)
-
-      if (ref.current) {
-        observer.observe(ref.current)
-      }
-
-      return () => {
-        if (ref.current) {
-          observer.unobserve(ref.current)
-        }
-      }
-    }, [ref, options])
-
-    return [ref, isIntersecting]
-  }
-
-  // Referencias para animaciones de scroll
-  const [aboutRef, aboutVisible] = useIntersectionObserver({ threshold: 0.2 })
-  const [servicesRef, servicesVisible] = useIntersectionObserver({ threshold: 0.1 })
-  const [testimoniosRef, testimoniosVisible] = useIntersectionObserver({ threshold: 0.1 })
-  const [contactRef, contactVisible] = useIntersectionObserver({ threshold: 0.1 })
-
-  const slides = [
+  // Datos para el carrusel principal
+  const diapositivas = [
     {
-      image: "/placeholder.svg?height=500&width=1200",
-      title: "Atendimento 24h",
-      description:
-        "Cuidamos de tus mascotas cuando más lo necesitan, con servicio veterinario disponible las 24 horas del día.",
+      imagen: "/img/carru1.png",
+      titulo: "",
+      descripcion: "",
     },
     {
-      image: "/placeholder.svg?height=500&width=1200",
-      title: "Médicos Especialistas",
-      description:
-        "Contamos con un equipo de veterinarios especializados para atender todas las necesidades de tu mascota.",
+      imagen: "/img/carru2.png",
+      titulo: "",
+      descripcion: "",
     },
     {
-      image: "/placeholder.svg?height=500&width=1200",
-      title: "Instalaciones Modernas",
-      description:
-        "Nuestras instalaciones están equipadas con la última tecnología para diagnósticos precisos y tratamientos efectivos.",
+      imagen: "/img/carru3.png",
+      titulo: "",
+      descripcion: "",
     },
   ]
 
+  // Datos para la sección de servicios
   const servicios = [
     {
-      title: "Consulta General",
-      description: "Examen completo de salud para tu mascota con recomendaciones personalizadas.",
-      image: "/placeholder.svg?height=200&width=300",
+      titulo: "Consulta General",
+      descripcion: "Examen completo de salud para tu mascota con recomendaciones personalizadas.",
+      imagen: "/img/consulta.png",
     },
     {
-      title: "Vacunación",
-      description: "Programa completo de vacunación para prevenir enfermedades comunes.",
-      image: "/placeholder.svg?height=200&width=300",
+      titulo: "Vacunación",
+      descripcion: "Programa completo de vacunación para prevenir enfermedades comunes.",
+      imagen: "/img/vacunacion.png",
     },
     {
-      title: "Cirugía",
-      description: "Procedimientos quirúrgicos realizados por especialistas con equipos de última generación.",
-      image: "/placeholder.svg?height=200&width=300",
+      titulo: "Cirugía",
+      descripcion: "Procedimientos quirúrgicos realizados por especialistas con equipos de última generación.",
+      imagen: "/img/cirugia.png",
     },
     {
-      title: "Emergencias 24h",
-      description: "Atención inmediata para situaciones urgentes a cualquier hora del día.",
-      image: "/placeholder.svg?height=200&width=300",
+      titulo: "Emergencias 24h",
+      descripcion: "Atención inmediata para situaciones urgentes a cualquier hora del día.",
+      imagen: "/img/urgencias.png",
     },
     {
-      title: "Spa y Baño",
-      description: "Servicio completo de baño, corte de pelo, limpieza de oídos y corte de uñas para tu mascota.",
-      image: "/placeholder.svg?height=200&width=300",
+      titulo: "Spa y Baño",
+      descripcion: "Servicio completo de baño, corte de pelo, limpieza de oídos y corte de uñas para tu mascota.",
+      imagen: "/img/baño.png",
     },
   ]
 
+  // Datos para la sección de promociones
+  const promociones = [
+    {
+      titulo: "Servicio de Profilaxis",
+      descripcion:
+        "Cuidado dental profesional para tu mascota. Agenda tu cita y mantén la salud bucal de tu compañero.",
+      imagen: "/img/pos1.png",
+      fechaVencimiento: "Permanente",
+    },
+    {
+      titulo: "Jornada de Esterilización",
+      descripcion: "Precios especiales para esterilización de perros y gatos. Incluye exámenes previos.",
+      imagen: "/img/pos2.png",
+      fechaVencimiento: "16 de Noviembre",
+    },
+    {
+      titulo: "Jornada de Adopción",
+      descripcion: "Ven y adopta un amigo para toda la vida. Te esperamos en nuestra sede principal.",
+      imagen: "/img/pos3.png",
+      fechaVencimiento: "10 de agosto de 2025",
+    },
+  ]
+
+  // Datos para la sección de testimonios
   const testimonios = [
     {
       nombre: "María García",
       texto:
         "Excelente atención para mi perrito Max. Los veterinarios son muy profesionales y cariñosos con las mascotas.",
       calificacion: 5,
-      imagen: "/placeholder.svg?height=60&width=60",
+      imagen: "/img/perfil2.png",
     },
     {
       nombre: "Carlos Rodríguez",
       texto:
         "Mi gata recibió un tratamiento excepcional. El personal está muy bien capacitado y las instalaciones son impecables.",
       calificacion: 5,
-      imagen: "/placeholder.svg?height=60&width=60",
+      imagen: "/img/perfil3.png",
     },
     {
       nombre: "Laura Martínez",
       texto:
         "Siempre confío en PetsHeaven para el cuidado de mis mascotas. El servicio de emergencia 24h nos salvó en más de una ocasión.",
       calificacion: 4,
-      imagen: "/placeholder.svg?height=60&width=60",
+      imagen: "/img/perfil4.png",
     },
     {
       nombre: "Javier Sánchez",
       texto:
         "El servicio de spa para mi perro fue increíble. Quedó limpio, perfumado y muy feliz. Definitivamente volveremos.",
       calificacion: 5,
-      imagen: "/placeholder.svg?height=60&width=60",
+      imagen: "/img/perfil1.png",
     },
     {
       nombre: "Ana Pérez",
       texto:
         "Llevé a mi conejo para una revisión y quedé impresionada con el conocimiento y cuidado del veterinario. Recomiendo totalmente.",
       calificacion: 5,
-      imagen: "/placeholder.svg?height=60&width=60",
+      imagen: "/img/perfil5.png",
     },
     {
       nombre: "Roberto Gómez",
       texto:
         "Mi perro necesitaba una cirugía complicada y el equipo de PetsHeaven fue excepcional. Ahora está completamente recuperado.",
       calificacion: 5,
-      imagen: "/placeholder.svg?height=60&width=60",
+      imagen: "/img/perfil6.png",
     },
   ]
 
-  // Agrupar testimonios en grupos de 3 para pantallas grandes y 1 para móviles
-  const getTestimoniosSlides = () => {
-    const isMobile = window.innerWidth < 768
-    const testimoniosPorSlide = isMobile ? 1 : 3
-    const slides = []
+  // Función para agrupar testimonios en diapositivas
+  const agruparTest = () => {
+    if (typeof window === "undefined") return []
 
-    for (let i = 0; i < testimonios.length; i += testimoniosPorSlide) {
-      slides.push(testimonios.slice(i, i + testimoniosPorSlide))
+    const esMovil = window.innerWidth < 768
+    const testPorGrupo = esMovil ? 1 : 3
+    const grupos = []
+
+    for (let i = 0; i < testimonios.length; i += testPorGrupo) {
+      grupos.push(testimonios.slice(i, i + testPorGrupo))
     }
 
-    return slides
+    return grupos
   }
 
+  // Efecto para inicializar y actualizar los grupos de testimonios
   useEffect(() => {
-    // Inicializar los slides
-    setTestimoniosSlides(getTestimoniosSlides())
+    setGruposTest(agruparTest())
 
-    // Actualizar los slides cuando cambie el tamaño de la ventana
-    const handleResize = () => {
-      setTestimoniosSlides(getTestimoniosSlides())
+    const cambiarTamaño = () => {
+      setGruposTest(agruparTest())
     }
 
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
+    window.addEventListener("resize", cambiarTamaño)
+    return () => window.removeEventListener("resize", cambiarTamaño)
   }, [])
 
+  // Efecto para el carrusel principal
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1))
+    const intervalo = setInterval(() => {
+      setDiaActual((anterior) => (anterior === diapositivas.length - 1 ? 0 : anterior + 1))
     }, 5000)
-    return () => clearInterval(interval)
-  }, [slides.length])
+    return () => clearInterval(intervalo)
+  }, [diapositivas.length])
 
+  // Efecto para el carrusel de testimonios
   useEffect(() => {
-    if (testimoniosSlides.length > 0) {
-      const interval = setInterval(() => {
-        setCurrentTestimonioSlide((prev) => (prev === testimoniosSlides.length - 1 ? 0 : prev + 1))
+    if (gruposTest.length > 0) {
+      const intervalo = setInterval(() => {
+        setTestActual((anterior) => (anterior === gruposTest.length - 1 ? 0 : anterior + 1))
       }, 7000)
-      return () => clearInterval(interval)
+      return () => clearInterval(intervalo)
     }
-  }, [testimoniosSlides.length])
+  }, [gruposTest.length])
 
+  // Efecto para mostrar/ocultar el botón de scroll
   useEffect(() => {
-    const handleScroll = () => {
+    const manejarScroll = () => {
       if (window.scrollY > 300) {
-        setShowScrollTop(true)
+        setMostrarBoton(true)
       } else {
-        setShowScrollTop(false)
+        setMostrarBoton(false)
       }
     }
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", manejarScroll)
+    return () => window.removeEventListener("scroll", manejarScroll)
   }, [])
 
-  const scrollToTop = () => {
+  // Función para scroll al inicio
+  const subirInicio = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     })
   }
 
-  const handleNavLinkClick = (e, id) => {
+  // Función para manejar el scroll a secciones
+  const irASeccion = (e, id) => {
     e.preventDefault()
-    setMobileMenuOpen(false)
-    const element = document.getElementById(id)
-    if (element) {
-      const headerHeight = navRef.current?.offsetHeight || 0
-      const elementPosition = element.getBoundingClientRect().top + window.scrollY
+    setMenuAbierto(false)
+
+    if (!id) {
       window.scrollTo({
-        top: elementPosition - headerHeight,
+        top: 0,
+        behavior: "smooth",
+      })
+      return
+    }
+
+    const elemento = document.getElementById(id)
+    if (elemento) {
+      const alturaNav = refNav.current?.offsetHeight || 0
+      const posicion = elemento.getBoundingClientRect().top + window.scrollY
+      window.scrollTo({
+        top: posicion - alturaNav,
         behavior: "smooth",
       })
     }
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Navigation Bar */}
-      <header className="header" ref={navRef}>
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center">
-            <img
-              src="/placeholder.svg?height=50&width=50"
-              alt="PetsHeaven Logo"
-              width={50}
-              height={50}
-              className="mr-2 animate-pulse-slow"
-            />
-            <span className="logo-text">PetsHeaven</span>
-          </div> 
+    <div className="pagina">
+      {/* COMPONENTE: Header/Nav */}
+      <header className="encabezado" ref={refNav}>
+        <div className="contenedor-header">
+          <div className="logo-container">
+            <img src="/img/2.png" alt="PetsHeaven Logo" width={50} height={50} className="logo-img" />
+            <span className="texto-logo">PetsHeaven</span>
+          </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <a href="#" className="nav-link" onClick={(e) => handleNavLinkClick(e, "")}>
-              Home
-            </a>
-            <a href="#nosotros" className="nav-link" onClick={(e) => handleNavLinkClick(e, "nosotros")}>
+          {/* Navegación Escritorio */}
+          <nav className="nav-escritorio">
+            <Link href="#" className="enlace-nav" onClick={(e) => irASeccion(e, "")}>
+              Inicio
+            </Link>
+            <Link href="#nosotros" className="enlace-nav" onClick={(e) => irASeccion(e, "nosotros")}>
               Nosotros
-            </a>
-            <a href="#servicios" className="nav-link" onClick={(e) => handleNavLinkClick(e, "servicios")}>
+            </Link>
+            <Link href="#servicios" className="enlace-nav" onClick={(e) => irASeccion(e, "servicios")}>
               Servicios
-            </a>
-            <a href="#testimonios" className="nav-link" onClick={(e) => handleNavLinkClick(e, "testimonios")}>
+            </Link>
+            <Link href="#promociones" className="enlace-nav" onClick={(e) => irASeccion(e, "promociones")}>
+              Promociones
+            </Link>
+            <Link href="#testimonios" className="enlace-nav" onClick={(e) => irASeccion(e, "testimonios")}>
               Testimonios
-            </a>
-            <a href="#contacto" className="nav-link" onClick={(e) => handleNavLinkClick(e, "contacto")}>
+            </Link>
+            <Link href="#contacto" className="enlace-nav" onClick={(e) => irASeccion(e, "contacto")}>
               Contáctanos
-            </a>
+            </Link>
           </nav>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
+          {/* Botón Menú Móvil */}
+          <div className="contenedor-boton-menu">
             <button
-              className="mobile-menu-button"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
+              className="boton-menu"
+              onClick={() => setMenuAbierto(!menuAbierto)}
+              aria-label={menuAbierto ? "Cerrar menú" : "Abrir menú"}
             >
-              {mobileMenuOpen ? <X className="h-6 w-6 text-gray-800" /> : <Menu className="h-6 w-6 text-gray-800" />}
+              {menuAbierto ? <X className="icono-menu" /> : <Menu className="icono-menu" />}
             </button>
           </div>
 
-          {/* Botones de login en la navegación de escritorio */}
-          <div className="hidden md:flex items-center space-x-3">
-            <button className="register-button">Registrarse</button>
-            <button className="login-button">Iniciar Sesión</button>
+          {/* Botones para escritorio */}
+          <div className="botones-escritorio">
+            <Link href="/registro" className="boton-registro">
+              Registrarse
+            </Link>
+            <button className="boton-login">Iniciar Sesión</button>
           </div>
-        </div> 
+        </div>
 
-        {/* Mobile Navigation */}
-         <div className={`mobile-menu md:hidden ${mobileMenuOpen ? "active" : ""}`}>
-          <nav className="container mx-auto px-4 py-4 flex flex-col space-y-4">
-            <a href="#" className="mobile-nav-link" onClick={(e) => handleNavLinkClick(e, "")}>
-              Home
-            </a>
-            <a href="#nosotros" className="mobile-nav-link" onClick={(e) => handleNavLinkClick(e, "nosotros")}>
+        {/* Navegación Móvil */}
+        <div className={`menu-movil ${menuAbierto ? "activo" : ""}`}>
+          <nav className="nav-movil">
+            <Link href="#" className="enlace-nav-movil" onClick={(e) => irASeccion(e, "")}>
+              Inicio
+            </Link>
+            <Link href="#nosotros" className="enlace-nav-movil" onClick={(e) => irASeccion(e, "nosotros")}>
               Nosotros
-            </a>
-            <a href="#servicios" className="mobile-nav-link" onClick={(e) => handleNavLinkClick(e, "servicios")}>
+            </Link>
+            <Link href="#servicios" className="enlace-nav-movil" onClick={(e) => irASeccion(e, "servicios")}>
               Servicios
-            </a>
-            <a href="#testimonios" className="mobile-nav-link" onClick={(e) => handleNavLinkClick(e, "testimonios")}>
+            </Link>
+            <Link href="#promociones" className="enlace-nav-movil" onClick={(e) => irASeccion(e, "promociones")}>
+              Promociones
+            </Link>
+            <Link href="#testimonios" className="enlace-nav-movil" onClick={(e) => irASeccion(e, "testimonios")}>
               Testimonios
-            </a>
-            <a href="#contacto" className="mobile-nav-link" onClick={(e) => handleNavLinkClick(e, "contacto")}>
+            </Link>
+            <Link href="#contacto" className="enlace-nav-movil" onClick={(e) => irASeccion(e, "contacto")}>
               Contáctanos
-            </a>
-            {/* Botones de login en la navegación móvil */}
-            <div className="flex flex-col space-y-2">
-              <button className="register-button-mobile">Registrarse</button>
-              <button className="login-button-mobile">Iniciar Sesión</button>
+            </Link>
+            {/* Botones para móvil */}
+            <div className="botones-movil">
+              <Link href="/registro" className="boton-registro-movil">
+                Registrarse
+              </Link>
+              <button className="boton-login-movil">Iniciar Sesión</button>
             </div>
           </nav>
-        </div> 
+        </div>
       </header>
 
-      {/* Carousel */}
-      <section className="carousel">
-        <div className="carousel-overlay"></div>
-        {slides.map((slide, index) => (
-          <div key={index} className={`carousel-slide ${index === currentSlide ? "active" : ""}`}>
-            <img src={slide.image || "/placeholder.svg"} alt={slide.title} fill className="object-cover" />
+      {/* COMPONENTE: Carrusel */}
+      <section className="carrusel">
+        {diapositivas.map((dia, indice) => (
+          <div key={indice} className={`dia-carrusel ${indice === diaActual ? "activo" : ""}`}>
+            <img src={dia.imagen || "/placeholder.svg"} alt="Imagen de carrusel" className="imagen-carrusel" />
           </div>
         ))}
-        <div className="carousel-indicators">
-          {slides.map((_, index) => (
+        <div className="indicadores">
+          {diapositivas.map((_, indice) => (
             <button
-              key={index}
-              onClick={() => setCurrentSlide(index)}
-              className={`carousel-indicator ${index === currentSlide ? "active" : ""}`}
-              aria-label={`Ir al slide ${index + 1}`}
+              key={indice}
+              onClick={() => setDiaActual(indice)}
+              className={`indicador ${indice === diaActual ? "activo" : ""}`}
+              aria-label={`Ir a diapositiva ${indice + 1}`}
             />
           ))}
         </div>
-        <div className="carousel-content container mx-auto px-4">
-          <h1 className="carousel-title animate-fade-in">{slides[currentSlide].title}</h1>
-          <p className="carousel-description animate-slide-up">{slides[currentSlide].description}</p>
-          <button className="carousel-button animate-bounce-in">
-            <MapPin className="mr-2 h-5 w-5" />
-            Como Llegar
-          </button>
-        </div>
       </section>
 
-      {/* About Us Section */}
-      <section id="nosotros" className="about-section" ref={aboutRef}>
-        <div className={`container mx-auto px-4 ${aboutVisible ? "animate-fade-in" : ""}`}>
-          <div className="flex flex-col md:flex-row items-center gap-12">
-            <div className={`md:w-1/2 w-full ${aboutVisible ? "animate-slide-right" : ""}`}>
-              <img
-                src="/placeholder.svg?height=400&width=400"
-                alt="Veterinario con mascotas"
-                width={400}
-                height={400}
-                className="rounded-lg w-full h-auto object-cover"
-              />
+      {/* COMPONENTE: Sobre Nosotros */}
+      <section id="nosotros" className="seccion-nosotros">
+        <div className="contenedor">
+          <div className="contenedor-nosotros">
+            <div className="imagen-nosotros">
+              <img src="/img/quienes-somos.png" alt="Veterinarios con mascota" className="img-nosotros" />
             </div>
-            <div className={`md:w-1/2 w-full ${aboutVisible ? "animate-slide-left" : ""}`}>
-              <h2 className="section-title">Quienes somos</h2>
-              <p className="section-text mb-4">
+            <div className="texto-nosotros">
+              <h2 className="titulo-seccion">Quienes somos</h2>
+              <p className="texto-seccion mb-4">
                 En PetsHeaven, nos dedicamos a proporcionar atención veterinaria de la más alta calidad para tus
                 mascotas. Nuestro equipo de veterinarios altamente capacitados y personal de apoyo está comprometido con
                 el bienestar y la salud de tus compañeros peludos.
               </p>
-              <p className="section-text mb-4">
+              <p className="texto-seccion mb-4">
                 Fundada hace más de 10 años, nuestra clínica ha crecido para convertirse en un centro de referencia en
                 medicina veterinaria, ofreciendo servicios integrales desde chequeos rutinarios hasta procedimientos
                 quirúrgicos complejos.
               </p>
-              <p className="section-text">
+              <p className="texto-seccion">
                 Entendemos que tus mascotas son parte de tu familia, por eso nos esforzamos por brindar un ambiente
                 acogedor y un trato personalizado para cada paciente.
               </p>
@@ -353,27 +353,19 @@ export default function VeterinariaPage() {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="servicios" className="services-section" ref={servicesRef}>
-        <div className={`container mx-auto px-4 ${servicesVisible ? "animate-fade-in" : ""}`}>
-          <h2 className="section-title text-center mb-12">Nuestros Servicios</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 md:gap-8">
-            {servicios.map((servicio, index) => (
-              <div
-                key={index}
-                className={`service-card ${servicesVisible ? `animate-pop-in animation-delay-${index}` : ""}`}
-              >
-                <div className="relative h-48">
-                  <img
-                    src={servicio.image || "/placeholder.svg"}
-                    alt={servicio.title}
-                    fill
-                    className="object-cover"
-                  />
+      {/* COMPONENTE: Servicios */}
+      <section id="servicios" className="seccion-servicios">
+        <div className="contenedor">
+          <h2 className="titulo-seccion titulo-centrado">Nuestros Servicios</h2>
+          <div className="grid-servicios">
+            {servicios.map((servicio, indice) => (
+              <div key={indice} className="tarjeta-servicio">
+                <div className="imagen-servicio">
+                  <img src={servicio.imagen || "/placeholder.svg"} alt={servicio.titulo} className="img-servicio" />
                 </div>
-                <div className="p-6">
-                  <h3 className="service-title">{servicio.title}</h3>
-                  <p className="service-description">{servicio.description}</p>
+                <div className="contenido-servicio">
+                  <h3 className="titulo-servicio">{servicio.titulo}</h3>
+                  <p className="descripcion-servicio">{servicio.descripcion}</p>
                 </div>
               </div>
             ))}
@@ -381,57 +373,65 @@ export default function VeterinariaPage() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section id="testimonios" className="testimonials-section" ref={testimoniosRef}>
-        <div className={`container mx-auto px-4 ${testimoniosVisible ? "animate-fade-in" : ""}`}>
-          <h2 className="section-title text-center mb-12">Testimonios</h2>
+      {/* COMPONENTE: Promociones (SECCIÓN ESTÁTICA) */}
+      <section id="promociones" className="seccion-promociones">
+        <div className="contenedor">
+          <h2 className="titulo-seccion titulo-centrado">Promociones Especiales</h2>
 
-          <div className="testimonios-carousel relative">
-            {testimoniosSlides.map((grupo, index) => (
-              <div
-                key={index}
-                className={`testimonios-slide transition-opacity duration-500 ${index === currentTestimonioSlide ? "opacity-100" : "opacity-0 absolute inset-0"}`}
-              >
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
-                  {grupo.map((testimonio, testimonioIndex) => (
-                    <div
-                      key={testimonioIndex}
-                      className={`testimonial-card ${testimoniosVisible ? `animate-float animation-delay-${testimonioIndex}` : ""}`}
-                    >
-                      <div className="flex items-center mb-4">
-                        <img
-                          src={testimonio.imagen || "/placeholder.svg"}
-                          alt={testimonio.nombre}
-                          width={60}
-                          height={60}
-                          className="rounded-full mr-4"
-                        />
-                        <div>
-                          <h3 className="font-semibold">{testimonio.nombre}</h3>
-                          <div className="flex">
+          <div className="grid-promociones">
+            {promociones.map((promocion, indice) => (
+              <div key={indice} className="tarjeta-promocion">
+                <div className="imagen-promocion">
+                  <img src={promocion.imagen || "/placeholder.svg"} alt={promocion.titulo} className="img-promocion" />
+                  <div className="etiqueta-fecha">Válido hasta: {promocion.fechaVencimiento}</div>
+                </div>
+                <div className="contenido-promocion">
+                  <h3 className="titulo-promocion">{promocion.titulo}</h3>
+                  <p className="descripcion-promocion">{promocion.descripcion}</p>
+                  <button className="boton-promocion">Aprovechar oferta</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* COMPONENTE: Testimonios */}
+      <section id="testimonios" className="seccion-test">
+        <div className="contenedor">
+          <h2 className="titulo-seccion titulo-centrado">Testimonios</h2>
+
+          <div className="carrusel-test">
+            {gruposTest.map((grupo, indice) => (
+              <div key={indice} className={`slide-test ${indice === testActual ? "activo" : "inactivo"}`}>
+                <div className="grid-test">
+                  {grupo.map((test, idxTest) => (
+                    <div key={idxTest} className="tarjeta-test">
+                      <div className="cabecera-test">
+                        <img src={test.imagen || "/placeholder.svg"} alt={test.nombre} className="foto-perfil" />
+                        <div className="info-test">
+                          <h3 className="nombre-test">{test.nombre}</h3>
+                          <div className="estrellas">
                             {[...Array(5)].map((_, i) => (
-                              <Star
-                                key={i}
-                                className={`h-4 w-4 ${i < testimonio.calificacion ? "star-active" : "star-inactive"}`}
-                              />
+                              <Star key={i} className={`estrella ${i < test.calificacion ? "activa" : "inactiva"}`} />
                             ))}
                           </div>
                         </div>
                       </div>
-                      <p className="testimonial-text">"{testimonio.texto}"</p>
+                      <p className="texto-test">"{test.texto}"</p>
                     </div>
                   ))}
                 </div>
               </div>
             ))}
 
-            <div className="testimonios-indicators flex justify-center mt-8 gap-2">
-              {testimoniosSlides.map((_, index) => (
+            <div className="indicadores-test">
+              {gruposTest.map((_, indice) => (
                 <button
-                  key={index}
-                  onClick={() => setCurrentTestimonioSlide(index)}
-                  className={`testimonios-indicator ${index === currentTestimonioSlide ? "active" : ""}`}
-                  aria-label={`Ir al grupo de testimonios ${index + 1}`}
+                  key={indice}
+                  onClick={() => setTestActual(indice)}
+                  className={`indicador-test ${indice === testActual ? "activo" : ""}`}
+                  aria-label={`Ir al grupo de testimonios ${indice + 1}`}
                 />
               ))}
             </div>
@@ -439,38 +439,89 @@ export default function VeterinariaPage() {
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contacto" className="contact-section" ref={contactRef}>
-        <div className={`container mx-auto px-4 ${contactVisible ? "animate-fade-in" : ""}`}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-            <div className={contactVisible ? "animate-slide-right" : ""}>
-              <h2 className="contact-title">Contáctanos</h2>
-              <p className="contact-description">
+      {/* COMPONENTE: Contacto */}
+      <section id="contacto" className="seccion-contacto">
+        <div className="contenedor">
+          <div className="grid-contacto">
+            <div className="columna-info">
+              <h2 className="titulo-contacto">Contáctanos</h2>
+              <p className="descripcion-contacto">
                 Estamos aquí para responder tus preguntas y proporcionar la mejor atención para tus mascotas
               </p>
-              <div className="contact-info">
-                <div className="contact-item animate-on-hover">
-                  <MapPin className="h-5 w-5" />
+              <div className="info-contacto">
+                <div className="item-contacto">
+                  <MapPin className="icono-contacto" />
                   <span>Transversal 45 #3-54</span>
                 </div>
-                <div className="contact-item animate-on-hover">
-                  <Phone className="h-5 w-5" />
+                <div className="item-contacto">
+                  <Phone className="icono-contacto" />
                   <span>322 452 3961</span>
                 </div>
-                <div className="contact-item animate-on-hover">
-                  <Mail className="h-5 w-5" />
+                <div className="item-contacto">
+                  <Mail className="icono-contacto" />
                   <span>petsheaven@gmail.com</span>
                 </div>
-                <div className="contact-item animate-on-hover">
-                  <Clock className="h-5 w-5" />
-                  <div>
+                <div className="item-contacto">
+                  <Clock className="icono-contacto" />
+                  <div className="horarios">
                     <div>Lunes - Viernes: 8am - 8pm</div>
                     <div>Sábados: 8am - 5pm</div>
                     <div>Domingos: Cerrado</div>
                   </div>
                 </div>
               </div>
-              <div className="contact-map">
+
+              {/* Redes Sociales */}
+              <div className="redes-sociales">
+                <h3 className="titulo-redes">Síguenos en redes sociales</h3>
+                <div className="iconos-redes">
+                  <a
+                    href="https://www.instagram.com/petsheaven"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="enlace-red"
+                    aria-label="Instagram"
+                  >
+                    <Instagram className="icono-red" />
+                  </a>
+                  <a
+                    href="https://www.facebook.com/petsheaven"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="enlace-red"
+                    aria-label="Facebook"
+                  >
+                    <Facebook className="icono-red" />
+                  </a>
+                  <a
+                    href="https://wa.me/573224523961"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="enlace-red"
+                    aria-label="WhatsApp"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="icono-red"
+                    >
+                      <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
+                      <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1Z" />
+                      <path d="M14 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1Z" />
+                      <path d="M9.5 13.5c.5 1.5 2.5 2 4 1" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <div className="mapa-contacto">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.9728971442!2d-74.07800742426815!3d4.598916042707592!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f99a7eccfe58f%3A0x9620f171953c6c95!2sTransversal%2045%2C%20Bogot%C3%A1%2C%20Colombia!5e0!3m2!1ses!2sco!4v1710798850813!5m2!1ses!2sco"
                   width="100%"
@@ -480,53 +531,58 @@ export default function VeterinariaPage() {
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   title="Ubicación de PetsHeaven"
-                  className="rounded-lg"
+                  className="iframe-mapa"
                 ></iframe>
               </div>
             </div>
-            <div className={contactVisible ? "animate-slide-left" : ""}>
-              <div className="appointment-card">
-                <h3 className="appointment-title">Agendar una Cita</h3>
-                <p className="appointment-description">
+            <div className="columna-formulario">
+              <div className="tarjeta-cita">
+                <h3 className="titulo-cita">Agendar una Cita</h3>
+                <p className="descripcion-cita">
                   Completa el formulario a continuación y nos pondremos en contacto contigo lo antes posible
                 </p>
-                <form>
-                  <div className="form-row flex-col sm:flex-row">
-                    <div className="form-group">
-                      <label htmlFor="nombre" className="form-label">
+                <form className="formulario-cita">
+                  <div className="fila-formulario">
+                    <div className="grupo-formulario">
+                      <label htmlFor="nombre" className="etiqueta-formulario">
                         Nombre
                       </label>
-                      <input type="text" id="nombre" className="form-input" placeholder="Ingresa tu nombre" />
+                      <input type="text" id="nombre" className="campo-formulario" placeholder="Ingresa tu nombre" />
                     </div>
-                    <div className="form-group">
-                      <label htmlFor="apellido" className="form-label">
+                    <div className="grupo-formulario">
+                      <label htmlFor="apellido" className="etiqueta-formulario">
                         Apellido
                       </label>
-                      <input type="text" id="apellido" className="form-input" placeholder="Ingresa tu apellido" />
+                      <input type="text" id="apellido" className="campo-formulario" placeholder="Ingresa tu apellido" />
                     </div>
                   </div>
-                  <div className="form-group">
-                    <label htmlFor="email" className="form-label">
+                  <div className="grupo-formulario">
+                    <label htmlFor="email" className="etiqueta-formulario">
                       Correo Electrónico
                     </label>
-                    <input type="email" id="email" className="form-input" placeholder="Ingresa tu correo electrónico" />
+                    <input
+                      type="email"
+                      id="email"
+                      className="campo-formulario"
+                      placeholder="Ingresa tu correo electrónico"
+                    />
                   </div>
-                  <div className="form-group">
-                    <label htmlFor="telefono" className="form-label">
+                  <div className="grupo-formulario">
+                    <label htmlFor="telefono" className="etiqueta-formulario">
                       Teléfono
                     </label>
                     <input
                       type="tel"
                       id="telefono"
-                      className="form-input"
+                      className="campo-formulario"
                       placeholder="Ingresa tu número de teléfono"
                     />
                   </div>
-                  <div className="form-group">
-                    <label htmlFor="tipo-mascota" className="form-label">
+                  <div className="grupo-formulario">
+                    <label htmlFor="tipo-mascota" className="etiqueta-formulario">
                       Tipo de Mascota
                     </label>
-                    <select id="tipo-mascota" className="form-select">
+                    <select id="tipo-mascota" className="selector-formulario">
                       <option value="perro">Perro</option>
                       <option value="gato">Gato</option>
                       <option value="ave">Ave</option>
@@ -534,17 +590,17 @@ export default function VeterinariaPage() {
                       <option value="otro">Otro</option>
                     </select>
                   </div>
-                  <div className="form-group">
-                    <label htmlFor="mensaje" className="form-label">
+                  <div className="grupo-formulario">
+                    <label htmlFor="mensaje" className="etiqueta-formulario">
                       Mensaje
                     </label>
                     <textarea
                       id="mensaje"
-                      className="form-textarea"
+                      className="area-texto-formulario"
                       placeholder="Cuéntanos sobre tu mascota y el motivo de tu visita"
                     ></textarea>
                   </div>
-                  <button type="submit" className="appointment-button animate-pulse-on-hover">
+                  <button type="submit" className="boton-cita">
                     Agendar Cita
                   </button>
                 </form>
@@ -554,41 +610,16 @@ export default function VeterinariaPage() {
         </div>
       </section>
 
-      {/* Simple Footer */}
-      <div className="simple-footer bg-white">
-        <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
-          <div className="flex items-center mb-4 md:mb-0">
-            <img
-              src="/placeholder.svg?height=30&width=30"
-              alt="PetsHeaven Logo"
-              width={30}
-              height={30}
-              className="mr-2"
-            />
-            <span className="text-gray-600">
-              © {new Date().getFullYear()} PetsHeaven. Todos los derechos reservados.
-            </span>
-          </div>
-          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-6">
-            <a href="#" className="text-gray-600 hover:text-gray-900">
-              Política de Privacidad
-            </a>
-            <a href="#" className="text-gray-600 hover:text-gray-900">
-              Términos de Servicio
-            </a>
-            <a href="#" className="text-gray-600 hover:text-gray-900">
-              Cookies
-            </a>
-          </div>
-        </div>
-      </div>
+      {/* COMPONENTE: Footer */}
+      <Footer />
 
-      {/* Scroll to top button */}
-      {showScrollTop && (
-        <button onClick={scrollToTop} className="scroll-top-button animate-bounce-slow" aria-label="Volver arriba">
-          <ChevronUp className="h-6 w-6" />
+      {/* Botón para subir */}
+      {mostrarBoton && (
+        <button onClick={subirInicio} className="boton-subir" aria-label="Volver arriba">
+          <ChevronUp className="icono-subir" />
         </button>
       )}
     </div>
-  ) 
+  )
 }
+
