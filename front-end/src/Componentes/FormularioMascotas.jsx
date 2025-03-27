@@ -23,7 +23,7 @@ const RegistroMascota = () => {
 
     const result = await response.json();
     if (result.success) {
-      setImageUrl(result.imageUrl); // Guardar la URL de la imagen
+      setImageUrl(result.imageUrl); 
     } else {
       console.log("Error al cargar la imagen");
     }
