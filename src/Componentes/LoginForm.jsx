@@ -26,12 +26,26 @@ export const LoginForm = () => {
         pass.type === "text"?pass.type = "password":pass.type = "text"
     }
 
+    const LoginFondo = "/imgs/fondo.png" 
+
     // Labels
     return (
         <main className="main-container">
-            <picture className="img-container">
-                <img className="logo" src="../../public/imgs/1.png" alt="logo"/>
-            </picture>
+
+            {/* foto derecha login  */}
+            <div className="login-imagen-container">
+                <div className="login-fondo-contenedor">
+                    <img src={LoginFondo || "/placeholder.svg"} alt="Imagen de fondo" className="login-fondo" />
+                </div>
+                <div className="overlay-login"></div>
+                <div className="contenedor-login">
+                    <h2 className="texto-login">"El amor por los animales es el reflejo de nuestra humanidad"</h2>
+                    <p className="subtexto-login">En PetsHeaven cuidamos de quienes más amas</p>
+                </div>
+            </div>
+
+
+            {/* inicio formulario */}
             <form className="login" onSubmit={handleSubmit(onSubmit)}>
                 <span className="title">
                     <h1>Iniciar Sesion</h1>

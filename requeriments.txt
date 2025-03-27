@@ -11,10 +11,6 @@ npm i react react-dom react-hook-form boxicons
 npm i react-router lucide-react
 npm i -D vite
 npm install next@latest
-
-npm install next react react-dom
-npm install lucide-react
-npm install react-hook-form
  
 
 // Ignorar
