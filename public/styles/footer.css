@@ -1,22 +1,64 @@
-@import url("./vars.css");
-.main-container{
-    background-color: #c9c6c6;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    padding: 20px;
-}
-
-.data-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
-}
-.img{
-    width: 200px;
-}
-.canales{
-    display: flex;
-    gap: 35px;
-}
+:root {
+    --blanco: #fff;
+    --azul-claro: #b2ebf2;
+    --azul-turquesa: #00bcd4;
+    --verde-aguamarina: #0097a7;
+  }
+  
+  /* Estilos del Pie de Página */
+  .pie-pagina {
+    background-color: var(--blanco);
+    padding: 1rem 0;
+    border-top: 1px solid #e5e7eb;
+  }
+  
+  .enlace-pie {
+    color: #4b5563;
+    transition: color 0.3s ease;
+  }
+  
+  .enlace-pie:hover {
+    color: var(--verde-aguamarina);
+  }
+  
+  .fondo-blanco {
+    background-color: var(--blanco);
+  }
+  
+  .texto-gris {
+    color: #4b5563;
+  }
+  
+  .contenedor {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  @media (min-width: 640px) {
+    .contenedor {
+      max-width: 640px;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .contenedor {
+      max-width: 768px;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .contenedor {
+      max-width: 1024px;
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .contenedor {
+      max-width: 1280px;
+    }
+  }
+  
+  

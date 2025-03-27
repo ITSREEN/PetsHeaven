@@ -12,6 +12,11 @@ npm i react-router lucide-react
 npm i -D vite
 npm install next@latest
 
+npm install next react react-dom
+npm install lucide-react
+npm install react-hook-form
+ 
+
 // Ignorar
 devDependencies: {
     "@eslint/js": "^9.21.0",
