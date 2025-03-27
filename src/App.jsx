@@ -8,12 +8,13 @@ import {LoginForm} from "./Componentes/LoginForm"
 import { NotFound } from "./Componentes/NotFound"
 import Registro from "./Componentes/Registro"
 import VeterinariaPage from "./Componentes/VeterinariaPage"
+import { Header } from "./Componentes/Header"
 
 // Component 
 export default function App () {
   return (
     <BrowserRouter>
-      <NavBar />
+      <Header />
       <Routes>
         <Route path="/" element={<VeterinariaPage />} />
         <Route path="/login" element={<LoginForm />} />
