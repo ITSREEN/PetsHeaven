@@ -111,7 +111,7 @@
   .pet-home-button:hover {
     background: var(--verdeaguamarina);
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+    box-shadow: 0 8px 20px rgba(107, 139, 255, 0.4);
   }
   
   .pet-home-button i {
