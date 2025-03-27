@@ -6,8 +6,8 @@ import "../../public/styles/Registro.css"
 
 const Registro = () => {
   // Rutas de imágenes definidas directamente en el componente
-  const imagenFondo = "/img/fondo.png" // Ruta desde la carpeta public
-  const logoUrl = "/img/1.png" // Ruta desde la carpeta public
+  const imagenFondo = "/imgs/fondo.png" // Ruta desde la carpeta public
+  const logoUrl = "/imgs/1.png" // Ruta desde la carpeta public
 
   // Estados para controlar el paso actual y visibilidad de contraseñas
   const [paso, setPaso] = useState(1)

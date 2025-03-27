@@ -232,7 +232,7 @@ export default function VeterinariaPage() {
 
           {/* Navegación Escritorio */}
           <nav className="nav-escritorio">
-            <a href="#" className="enlace-nav" onClick={(e) => irASeccion(e, "")}>
+            <a href="/" className="enlace-nav" onClick={(e) => irASeccion(e, "")}>
               Inicio
             </a>
             <a href="#nosotros" className="enlace-nav" onClick={(e) => irASeccion(e, "nosotros")}>
@@ -265,10 +265,10 @@ export default function VeterinariaPage() {
 
           {/* Botones para escritorio */}
           <div className="botones-escritorio">
-            <a href="/registro" className="boton-registro">
+            <a href="/register" className="boton-registro">
               Registrarse
             </a>
-            <button className="boton-login">Iniciar Sesión</button>
+            <a href="/login" className="boton-login">Iniciar Sesión</a>
           </div>
         </div>
 
