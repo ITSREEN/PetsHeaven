@@ -1,8 +1,0 @@
-@import url('vars.css');
-@import url('global.css');
-
-.nav-container {
-    display: flex;
-    padding: 10px;
-    gap: 20px;
-}
