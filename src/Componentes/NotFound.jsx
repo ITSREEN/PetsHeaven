@@ -13,9 +13,9 @@ export const NotFound = () => {
         <div className="particles">
           {[...Array(30)].map((_, i) => <div key={i} className="particle"></div>)}
         </div>
-        <button className="home-button">
+        <a className="home-button" href="/">
           Volver al inicio
-        </button>
+        </a>
       </div>
     </section>
   );
