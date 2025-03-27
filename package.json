@@ -9,5 +9,23 @@
   },
   "devDependencies": {
     "vite": "^6.2.3"
-  }
+  },
+  "name": "petsheaven",
+  "version": "1.0.0",
+  "description": ">[!IMPORTANT]\r > # Pets Heaven\r > To run project: \"npx vite\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ITSREEN/PetsHeaven.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ITSREEN/PetsHeaven/issues"
+  },
+  "homepage": "https://github.com/ITSREEN/PetsHeaven#readme"
 }
