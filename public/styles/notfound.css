@@ -1,30 +1,173 @@
-@import url('vars.css');
-@import url('global.css');
-
+/* Efecto base */
 .notfound-container {
     display: flex;
     flex-direction: column;
-    place-content: center;
-    place-items: center;
-    padding: 20px;
-    height: 80vh;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     width: 100%;
-    background: var(--notfoundimg);
-    background-size: cover;
-    background-attachment: fixed;
-}
-.title-num {
-    font-size: 10rem;
-    color: var(--white);
-    text-shadow: 7px 7px 7px #0000005d;
-}
-.sub-title {
-    font-size: 2rem;
-    color: var(--white);
-    text-shadow: 4px 4px 4px #0000005d;
-}
-.text {
-    font-size: var(--font-size);
-    color: var(--white);
-    text-shadow: 3px 3px 3px #0000005d;
-}
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .glitch-container {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  /* Efecto glitch para el 404 */
+  .title-num {
+    font-size: 12rem;
+    font-weight: 900;
+    color: #fff;
+    position: relative;
+    margin: 0;
+    line-height: 1;
+    text-shadow: 3px 3px 0 #ff00cc, -3px -3px 0 #00ffff;
+    animation: glitch 2s infinite alternate;
+  }
+  
+  .title-num::before,
+  .title-num::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .title-num::before {
+    color: #ff00cc;
+    z-index: -1;
+    animation: glitch-effect 3s infinite;
+  }
+  
+  .title-num::after {
+    color: #00ffff;
+    z-index: -2;
+    animation: glitch-effect 2s infinite reverse;
+  }
+  
+  @keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-3px, 3px); }
+    40% { transform: translate(-3px, -3px); }
+    60% { transform: translate(3px, 3px); }
+    80% { transform: translate(3px, -3px); }
+    100% { transform: translate(0); }
+  }
+  
+  @keyframes glitch-effect {
+    0% { transform: translate(0); }
+    20% { transform: translate(-5px, 5px); }
+    40% { transform: translate(-5px, -5px); }
+    60% { transform: translate(5px, 5px); }
+    80% { transform: translate(5px, -5px); }
+    100% { transform: translate(0); }
+  }
+  
+  /* Texto */
+  .sub-title {
+    font-size: 2.5rem;
+    color: #fff;
+    margin: 1rem 0;
+    font-weight: 300;
+    letter-spacing: 2px;
+  }
+  
+  .text {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 500px;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+  }
+  
+  /* Partículas flotantes */
+  .particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+  
+  .particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    animation: float 15s infinite linear;
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-1000px) rotate(720deg);
+      opacity: 0;
+    }
+  }
+  
+  /* Botón moderno */
+  .home-button {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+    padding: 12px 30px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+  }
+  
+  .home-button:hover {
+    background: white;
+    color: #16213e;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  }
+  
+  .home-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+  }
+  
+  .home-button:hover::before {
+    left: 100%;
+  }
+  
+  /* Generar partículas dinámicas */
+  .particle:nth-child(1) {
+    top: 20%;
+    left: 10%;
+    width: 5px;
+    height: 5px;
+    animation-delay: 0s;
+    animation-duration: 20s;
+  }
+  
+  .particle:nth-child(2) {
+    top: 60%;
+    left: 25%;
+    width: 3px;
+    height: 3px;
+    animation-delay: 2s;
+    animation-duration: 15s;
+  }
+  
