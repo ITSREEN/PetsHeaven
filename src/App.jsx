@@ -21,7 +21,6 @@ export default function App () {
         <Route path="/register" element={<Registro />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      
     </BrowserRouter>
   )
 }

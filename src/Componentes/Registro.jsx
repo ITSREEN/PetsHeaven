@@ -860,7 +860,7 @@ const Registro = () => {
           {paso === 1 && (
             <div className="seccion-login">
               <p className="texto-login">¿Ya haces parte de PetsHeaven?</p>
-              <a href="#" className="enlace">
+              <a href="/login" className="enlace">
                 Inicia sesión
               </a>
             </div>
