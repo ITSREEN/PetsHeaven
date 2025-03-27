@@ -9,6 +9,7 @@ import { NotFound } from "./Componentes/NotFound"
 import Registro from "./Componentes/Registro"
 import VeterinariaPage from "./Componentes/VeterinariaPage"
 import { Header } from "./Componentes/Header"
+import ForgotPassword from "./Componentes/ForgotPassword"
 
 // Component 
 export default function App () {
@@ -19,6 +20,7 @@ export default function App () {
         <Route path="/" element={<VeterinariaPage />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<Registro />} />
+        <Route path="/recuperar" element={<ForgotPassword />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
