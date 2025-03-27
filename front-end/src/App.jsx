@@ -10,6 +10,7 @@ import Registro from "./Componentes/Registro"
 import VeterinariaPage from "./Componentes/VeterinariaPage"
 import RegistroMascota from "./Componentes/FormularioMascotas"
 import { Header } from "./Componentes/Header"
+import ForgotPassword from "./Componentes/ForgotPassword"
 
 // Component 
 export default function App () {
@@ -20,7 +21,11 @@ export default function App () {
         <Route path="/" element={<VeterinariaPage />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<Registro />} />
+<<<<<<< HEAD
         <Route path="/registerM" element={<RegistroMascota />} />
+=======
+        <Route path="/recuperar" element={<ForgotPassword />} />
+>>>>>>> 7414b7ac8c7fabdef313a4f6bdcedd80e5e2de52
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
