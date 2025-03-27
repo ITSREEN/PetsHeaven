@@ -2,6 +2,10 @@
 @import url("vars.css");
 
 /* Dynamic class */
+.text {
+    font-weight: bold;
+    font-size: var(--font-size);
+}
 .i-back{
     position: fixed;
     top: 5vh;

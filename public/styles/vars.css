@@ -15,7 +15,7 @@
     --black-box: #00000025;
     --font-size: 1.1rem;
     --font-general: "Zain", sans-serif;
-    --font-titulos:  :
+    --notfoundimg: url("../imgs/notfound.jpg") center no-repeat;
 }
 html {
     font-size: 16px;
