@@ -1,77 +1,65 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import "../../public/styles/RegistroMascota.css";
+import React, { useState } from 'react';
+import { supabase } from '../supabaseClient';
 
-const RegistroMascota = () => {
-  const [imageUrl, setImageUrl] = useState("");
-  const { register, handleSubmit, formState: { errors } } = useForm();
+function FormularioMascotas() {
+  const [imagen, setImagen] = useState(null);
+  const [urlImagen, setUrlImagen] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmit = async (data) => {
-    const formData = new FormData();
-    formData.append("foto", data.foto[0]); // Suponiendo que el input se llama "foto"
-    formData.append("nombre", data.nombre);
-    formData.append("especie", data.especie);
-    formData.append("raza", data.raza);
-    formData.append("edad", data.edad);
-    formData.append("peso", data.peso);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!imagen) return;
 
-    // Enviar la imagen al backend
-    const response = await fetch("http://localhost:5000/api/upload", {
-      method: "POST",
-      body: formData,
-    });
+    setIsLoading(true);
+    try {
+      // Genera un nombre único para el archivo
+      const fileExt = imagen.name.split('.').pop();
+      const fileName = `${Math.random()}.${fileExt}`;
+      const filePath = `${fileName}`;
 
-    const result = await response.json();
-    if (result.success) {
-      setImageUrl(result.imageUrl); 
-    } else {
-      console.log("Error al cargar la imagen");
+      // Sube el archivo directamente al bucket 'mascotas'
+      const { data, error: uploadError } = await supabase.storage
+        .from('mascotas')
+        .upload(filePath, imagen);
+
+      if (uploadError) {
+        throw uploadError;
+      }
+
+      // Obtiene la URL pública
+      const { data: { publicUrl } } = supabase.storage
+        .from('mascotas')
+        .getPublicUrl(data.path);
+
+      setUrlImagen(publicUrl);
+      alert('¡Imagen subida con éxito!');
+    } catch (error) {
+      console.error('Error completo:', error);
+      alert(`Error al subir: ${error.message}`);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="conteiner">
-      <div className="registro-mascota-container">
-        <h2>Registro de Mascota</h2>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          {/* Campos de formulario para la mascota */}
-          <div className="campo-formulario">
-            <label>Foto:</label>
-            <input
-              type="file"
-              {...register("foto", { required: "La foto es obligatoria" })}
-            />
-            {errors.foto && <span className="error">{errors.foto.message}</span>}
-          </div>
-
-          <div className="campo-formulario">
-            <label>Nombre:</label>
-            <input
-              type="text"
-              placeholder="Nombre"
-              {...register("nombre", {
-                required: "El nombre es obligatorio",
-                minLength: { value: 3, message: "El nombre debe tener al menos 3 caracteres" },
-              })}
-            />
-            {errors.nombre && <span className="error">{errors.nombre.message}</span>}
-          </div>
-
-          {/* Otros campos de formulario */}
-          
-          <button type="submit">Registrar</button>
-        </form>
-
-        {/* Mostrar imagen cargada */}
-        {imageUrl && (
-          <div>
-            <h3>Foto de la mascota</h3>
-            <img src={imageUrl} alt="Foto de la mascota" />
-          </div>
-        )}
-      </div>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="file"
+        onChange={(e) => setImagen(e.target.files[0])}
+        accept="image/*"
+        disabled={isLoading}
+      />
+      <button type="submit" disabled={isLoading}>
+        {isLoading ? 'Subiendo...' : 'Subir imagen'}
+      </button>
+      {urlImagen && (
+        <div>
+          <img src={urlImagen} alt="Mascota" width="200" />
+          <p>URL: {urlImagen}</p>
+        </div>
+      )}
+    </form>
   );
-};
+}
 
-export default RegistroMascota;
+export default FormularioMascotas;

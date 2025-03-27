@@ -21,6 +21,9 @@ export const Header = () => {
             <NavLink to="/products" className="link">
               Products
             </NavLink>
+            <NavLink to="/registerM" className="link">
+              Registro mascota
+            </NavLink>
           </nav>
 
           {/* Botones para escritorio */}
