@@ -1,0 +1,30 @@
+@import url('vars.css');
+@import url('global.css');
+
+.notfound-container {
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+    place-items: center;
+    padding: 20px;
+    height: 80vh;
+    width: 100%;
+    background: var(--notfoundimg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+.title-num {
+    font-size: 10rem;
+    color: var(--white);
+    text-shadow: 7px 7px 7px #0000005d;
+}
+.sub-title {
+    font-size: 2rem;
+    color: var(--white);
+    text-shadow: 4px 4px 4px #0000005d;
+}
+.text {
+    font-size: var(--font-size);
+    color: var(--white);
+    text-shadow: 3px 3px 3px #0000005d;
+}
