@@ -1,21 +1,26 @@
 import React from 'react';
+import { Link } from 'react-router';
 import '../../public/styles/notfound.css';
 
 export const NotFound = () => {
   return (
     <section className="notfound-container">
-      <div className="glitch-container">
+      <div className="pet-glitch-container">
         <h1 className="title-num glitch" data-text="404">404</h1>
-        <h2 className="sub-title">Página no encontrada</h2>
+        <h2 className="sub-title">¡Huellita no encontrada!</h2>
         <p className="text">
-          La página que estás buscando no existe o ha sido movida.
+          La página que buscas se fue de paseo con las mascotas.
         </p>
-        <div className="particles">
-          {[...Array(30)].map((_, i) => <div key={i} className="particle"></div>)}
+        
+        <div className="pet-elements">
+          <span className="paw-icon">🐾</span>
+          <span className="pet-icon">🐕</span>
+          <span className="pet-icon">🐈</span>
         </div>
-        <button className="home-button">
-          Volver al inicio
-        </button>
+        
+        <Link to="/" className="pet-home-button">
+          <i className="fas fa-bone"></i> Volver al hogar
+        </Link>
       </div>
     </section>
   );
