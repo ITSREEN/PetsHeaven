@@ -1,6 +1,5 @@
 DELIMITER //
-
-CREATE PROCEDURE SearchPeoples()
+CREATE PROCEDURE pets_heaven.SearchPeoples()
 BEGIN
     SELECT
         u.nom_usu,
@@ -19,7 +18,7 @@ BEGIN
     LIMIT 40;
 END //
 
-CREATE PROCEDURE SearchRoles(
+CREATE PROCEDURE pets_heaven.SearchRoles(
     IN p_attribue VARCHAR(100)
 )
 BEGIN

@@ -1,6 +1,29 @@
+// Imports
 const db = require('./database')
+
+// Main class
 class User{
-    // constructor() {}
+    constructor(
+        nom = String = null,
+        ape = String = null,
+        tip_doc = String = null,
+        doc = String = null,
+        dir = String = null,
+        cel = String = null,
+        cel2 = String = null,
+        email = String = null,
+        cont = String = null,
+    ) {
+        this.nom = nom
+        this.ape = ape
+        this.tip_doc = tip_doc
+        this.doc = doc
+        this.dir = dir
+        this.cel = cel
+        this.cel2 = cel2
+        this.email = email
+        this.cont = cont
+    }
 
     // function to find One 
     async findOne(name) {
@@ -12,7 +35,7 @@ class User{
     // function to find all
     async findAll() {
         return new Promise((res,rej) => {
-            db.query("",(err,result) => {
+            db.query("SearchPeoples",(err,result) => {
                 if(err) {
                     rej({ message: err })
                 } else setTimeout(() => {

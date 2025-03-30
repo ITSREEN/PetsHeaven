@@ -17,11 +17,11 @@ CREATE TABLE pets_heaven.usuarios(
     nom_usu VARCHAR(100) NOT NULL,
     ape_usu VARCHAR(100) NOT NULL,
     tip_doc_usu VARCHAR(10) NOT NULL,
-    doc_usu VARCHAR(20) UNIQUE NOT NULL,INDEX(doc_usu)
+    doc_usu VARCHAR(20) UNIQUE NOT NULL,INDEX(doc_usu),
     dir_usu VARCHAR(100) NOT NULL,
     cel_usu VARCHAR(20) NOT NULL,
     cel2_usu VARCHAR(20),
-    email_usu VARCHAR(100) UNIQUE NOT NULL,INDEX(email_usu)
+    email_usu VARCHAR(100) UNIQUE NOT NULL,INDEX(email_usu),
     cont_usu VARCHAR(255) NOT NULL,
     estado BOOLEAN DEFAULT(1)
 );
