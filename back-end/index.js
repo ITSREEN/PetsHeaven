@@ -3,12 +3,11 @@ const express = require('express')
 const cors = require('cors')
 
 // Imports 
-const User = require('./services/users.services')
+const userRoute = require('./routes/user.route')
 
 // vars
 const app = express()
-const port = 3000
-const user = new User()
+const port = process.env.PORT ||3000
 
 // desativar header extra 
 app.disable('x-powered-by')
@@ -22,21 +21,6 @@ app.get('/',(req,res) => {
     res.status(200).send("<a href='/register'>register</a>")
 })
 
-app.get('/user', async (req,res) => {
-    let search = await user.findAll()
-    res.status(200).json(search)
-})
-
-// app.get('/user/:name', async (req,res) => {
-//     const { name } = req.params
-//     let searchOne = await user.findOne(name)
-//     res.status(200).json(searchOne)
-// })
-
-app.post('/user/register', async (req,res) => {
-    let data = req.body
-    let crear = await user.create(data)
-    res.status(201).json(crear)
-})
+app.use('/user',userRoute)
 
 app.listen(port,() => console.log("Host is: http://localhost:" + port))

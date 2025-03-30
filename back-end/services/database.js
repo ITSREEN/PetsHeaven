@@ -1,14 +1,36 @@
 // Librarys 
 const mysql = require('mysql')
 
-// Conect function
-const db = mysql.createConnection({
-    host: "127.0.0.1",
-    database: "mascotas_db",
-    user: "root",
-    password: "",
-    port: 3306
-})
+class DataBase {
+    constructor() {
+        this.conection = null
+        this.createConnection()
+    }
+    
+    // Create conection function
+    createConnection() {
+        return this.conection = mysql.createConnection({
+            host: "127.0.0.1",
+            database: "pets_heaven",
+            user: "root",
+            password: "",
+            port: 3306
+        })
+    }
+
+    // Conect function
+    conect = () => {
+        this.conection.connect((err) => {
+            if (err) {
+                // throw Error(err)
+                console.log(err)
+                return
+            }
+            return true
+        })
+    }
+}
+
 
 // Exports 
-module.exports = db
+module.exports = DataBase

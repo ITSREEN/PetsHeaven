@@ -29,3 +29,5 @@ INSERT INTO pets_heaven.otorgar_permisos (id_per, id_usu) VALUES
 ('PER003', 'USU003'),
 ('PER004', 'USU004'),
 ('PER005', 'USU005');
+
+CALL `SearchPeoples`;

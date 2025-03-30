@@ -4,7 +4,7 @@ BEGIN
     SELECT
         u.nom_usu,
         u.ape_usu,
-        u.tip_usu,
+        u.tip_doc_usu,
         u.doc_usu,
         u.dir_usu,
         u.cel_usu,
@@ -25,7 +25,7 @@ BEGIN
     SELECT
         u.nom_usu,
         u.ape_usu,
-        u.tip_usu,
+        u.tip_doc_usu,
         u.doc_usu,
         u.dir_usu,
         u.cel_usu,
