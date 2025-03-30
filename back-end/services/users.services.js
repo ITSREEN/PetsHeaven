@@ -2,15 +2,17 @@ const db = require('./database')
 class User{
     // constructor() {}
 
+    // function to find One 
     async findOne(name) {
         return new Promise((res,rej) => {
             db.query()
         })
     }
-
+    
+    // function to find all
     async findAll() {
         return new Promise((res,rej) => {
-            db.query("SELECT * FROM usuarios;",(err,result) => {
+            db.query("",(err,result) => {
                 if(err) {
                     rej({ message: err })
                 } else setTimeout(() => {
@@ -22,14 +24,15 @@ class User{
             })
         })
     }
-
+    
+    // function to register
     async create(data) {
         return new Promise((res,rej) => {
+            // data 
             const newUser = {...data}
-            let typeUser = newUser.tipUser === 3?"InsertarAdministrador":newUser.tipUser === 2?"InsertarVeterinario":"InsertarPropietario"
-            let procedure = "CALL " + typeUser + "(?,?,?,?,?,?)"
 
-            db.query(procedure,[newUser.nom,newUser.ape,newUser.dir,newUser.tel,newUser.email,newUser.cont],(err,result) => { 
+            // call procedure
+            db.query.call(procedure,[newUser.nom,newUser.ape,newUser.dir,newUser.tel,newUser.email,newUser.cont],(err,result) => { 
                 if(err) {
                     rej(err) 
                 } else setTimeout(() => res({
