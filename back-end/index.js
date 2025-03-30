@@ -4,6 +4,7 @@ const cors = require('cors')
 
 // Imports 
 const userRoute = require('./routes/user.route')
+const petRoute = require('./routes/pets.route')
 
 // vars
 const app = express()
@@ -21,6 +22,8 @@ app.get('/',(req,res) => {
     res.status(200).send("<a href='/register'>register</a>")
 })
 
+// Routes
 app.use('/user',userRoute)
+app.use('/pet',petRoute)
 
 app.listen(port,() => console.log("Host is: http://localhost:" + port))

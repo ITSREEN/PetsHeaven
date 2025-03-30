@@ -1,5 +1,5 @@
 // Imports
-const DataBase = require('./database')
+const DataBase = require('./DataBase')
 
 // Main class
 class User{

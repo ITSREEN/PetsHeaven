@@ -2,16 +2,16 @@
 const { Router } = require('express')
 
 // Imports
-const User = require('../services/Users.services')
+const Pet = require('../services/Pets.services')
 
 // vars
-const user = new User()
+const pet = new Pet()
 let Route = Router()
 
-// Routes
+// Routes 
 Route.get('/all', async (req,res) => {
-    let search = await user.findAll()
-    res.status(200).json(search)
+    let pets = await pet.findAll()
+    res.status(200).json(pets)
 })
 
 // Export 
