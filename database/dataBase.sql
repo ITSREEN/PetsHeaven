@@ -49,6 +49,7 @@ CREATE TABLE pets_heaven.propietarios(
     id_pro VARCHAR(20) PRIMARY KEY NOT NULL,INDEX(id_pro),FOREIGN KEY (id_pro) REFERENCES usuarios(id_usu) ON DELETE CASCADE ON UPDATE CASCADE,
     barrio VARCHAR(100) NOT NULL
 );
+/* TABLA SIN FUNCIONALIDAD DEBERIA SER ELIMINADA*/
 CREATE TABLE pets_heaven.administradores(
     id_admin VARCHAR(20) PRIMARY KEY,INDEX(id_admin),FOREIGN KEY (id_admin) REFERENCES usuarios(id_usu) ON DELETE CASCADE
     ON UPDATE CASCADE,
