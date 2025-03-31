@@ -2,7 +2,7 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
-import "../../public/styles/Registro.css"
+import "../../../public/styles/Registro.css"
 
 const Registro = () => {
 
