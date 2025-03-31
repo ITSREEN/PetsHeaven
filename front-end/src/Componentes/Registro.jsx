@@ -2,6 +2,7 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
+import emailjs from "emailjs-com"
 import "../../public/styles/Registro.css"
 
 const Registro = () => {
@@ -9,252 +10,219 @@ const Registro = () => {
   const imagenFondo = "/imgs/fondo.png" // Ruta desde la carpeta public
   const logoUrl = "/imgs/1.png" // Ruta desde la carpeta public
 
-  // Estados para controlar el paso actual y visibilidad de contraseñas
-  const [paso, setPaso] = useState(1)
-  const [verPassword, setVerPassword] = useState(false)
-  const [verConfirmarPassword, setVerConfirmarPassword] = useState(false)
-  const [mostrarRequisitosPassword, setMostrarRequisitosPassword] = useState(false)
-  const [mostrarRequisitosFecha, setMostrarRequisitosFecha] = useState(false)
-
-  // Estado para el email y verificación
-  const [correoUsuario, setCorreoUsuario] = useState("")
-  const [codigoVerificacion, setCodigoVerificacion] = useState("")
-  const [codigoIngresado, setCodigoIngresado] = useState(["", "", "", "", "", ""])
-  const [errorCodigo, setErrorCodigo] = useState(false)
-  const [tiempoRestante, setTiempoRestante] = useState(300) // 5 minutos en segundos
-  const [timerActivo, setTimerActivo] = useState(false)
-
-  // Configuración del formulario para el paso 1
-  const {
-    register: registrarPaso1,
-    handleSubmit: manejarEnvioPaso1,
-    formState: { errors: erroresPaso1 },
-    reset: resetearPaso1,
-  } = useForm({
-    mode: "onChange",
-  })
-
-  // Configuración del formulario para el paso 2
-  const {
-    register: registrarPaso2,
-    handleSubmit: manejarEnvioPaso2,
-    watch: observarPaso2,
-    reset: resetearPaso2,
-    formState: { errors: erroresPaso2 },
-  } = useForm({
-    mode: "onChange",
-  })
-
-  // Efecto para limpiar el formulario del paso 2 cuando se cambia entre pasos
-  useEffect(() => {
-    if (paso === 1) {
-      resetearPaso2()
-
-      setTimeout(() => {
-        const formularioPaso2 = document.getElementById("formularioPaso2")
-        if (formularioPaso2) {
-          const inputs = formularioPaso2.querySelectorAll("input")
-          inputs.forEach((input) => {
-            input.value = ""
-          })
-
-          const checkbox = formularioPaso2.querySelector('input[type="checkbox"]')
-          if (checkbox) {
-            checkbox.checked = false
+  const FormularioRegistro = () => {
+    // Estado principal consolidado
+    const [formData, setFormData] = useState({
+      // Paso 1: Información personal
+      tipoDocumento: "",
+      numeroDocumento: "",
+      nombres: "",
+      apellidos: "",
+      fechaNacimiento: "",
+      genero: "",
+      telefono: "",
+      direccion: "",
+  
+      // Paso 2: Datos de cuenta
+      email: "",
+      password: "",
+      confirmarPassword: "",
+  
+      // Verificación
+      codigoVerificacion: "",
+      codigoIngresado: ["", "", "", "", "", ""]
+    });
+  
+    // Estados de UI (no son datos del formulario)
+    const [paso, setPaso] = useState(1);
+    const [verPassword, setVerPassword] = useState(false);
+    const [verConfirmarPassword, setVerConfirmarPassword] = useState(false);
+    const [mostrarRequisitosPassword, setMostrarRequisitosPassword] = useState(false);
+    const [mostrarRequisitosFecha, setMostrarRequisitosFecha] = useState(false);
+    const [errorCodigo, setErrorCodigo] = useState(false);
+    const [tiempoRestante, setTiempoRestante] = useState(300);
+    const [timerActivo, setTimerActivo] = useState(false);
+    const [status, setStatus] = useState("");
+  
+    // Configuración de react-hook-form
+    const {
+      register: registrarPaso1,
+      handleSubmit: manejarEnvioPaso1,
+      formState: { errors: erroresPaso1 },
+      reset: resetearPaso1,
+    } = useForm({ mode: "onChange" });
+  
+    const {
+      register: registrarPaso2,
+      handleSubmit: manejarEnvioPaso2,
+      watch: observarPaso2,
+      reset: resetearPaso2,
+      formState: { errors: erroresPaso2 },
+    } = useForm({ mode: "onChange" });
+  
+    // Efectos
+    useEffect(() => {
+      if (paso === 1) {
+        resetearPaso2();
+        setTimeout(() => {
+          const formularioPaso2 = document.getElementById("formularioPaso2");
+          if (formularioPaso2) {
+            const inputs = formularioPaso2.querySelectorAll("input");
+            inputs.forEach((input) => (input.value = ""));
+            const checkbox = formularioPaso2.querySelector('input[type="checkbox"]');
+            if (checkbox) checkbox.checked = false;
           }
-        }
-      }, 0)
-    }
-  }, [paso, resetearPaso2])
-
-  // Efecto para el temporizador de código de verificación
-  useEffect(() => {
-    let intervalo = null
-
-    if (timerActivo && tiempoRestante > 0) {
-      intervalo = setInterval(() => {
-        setTiempoRestante((prevTime) => prevTime - 1)
-      }, 1000)
-    } else if (tiempoRestante === 0) {
-      setTimerActivo(false)
-      // Generar un nuevo código cuando expire el tiempo
-      if (paso === 3) {
-        generarCodigoVerificacion()
+        }, 0);
       }
-    }
-
-    return () => clearInterval(intervalo)
-  }, [timerActivo, tiempoRestante, paso])
-
-  // Variables para validación
-  const password = observarPaso2("password")
-  const email = observarPaso2("email")
-
-  // Función para avanzar al paso 2
-  const avanzarPaso = () => {
-    setPaso(2)
-    setTimeout(() => {
-      const formularioPaso2 = document.getElementById("formularioPaso2")
-      if (formularioPaso2) {
-        const inputs = formularioPaso2.querySelectorAll("input")
-        inputs.forEach((input) => {
-          input.value = ""
-        })
+    }, [paso, resetearPaso2]);
+  
+    useEffect(() => {
+      let intervalo = null;
+      if (timerActivo && tiempoRestante > 0) {
+        intervalo = setInterval(() => {
+          setTiempoRestante((prev) => prev - 1);
+        }, 1000);
+      } else if (tiempoRestante === 0) {
+        setTimerActivo(false);
+        if (paso === 3) generarCodigoVerificacion();
       }
-    }, 0)
-  }
-
-  // Función para retroceder al paso anterior
-  const retrocederPaso = () => {
-    if (paso === 3) {
-      setPaso(2)
-    } else if (paso === 2) {
-      setPaso(1)
-    }
-  }
-
-  // Manejador de envío del paso 1
-  const enviarPaso1 = (datos) => {
-    console.log("Datos del paso 1:", datos)
-    avanzarPaso()
-  }
-
-  // Manejador de envío del paso 2
-  const enviarPaso2 = (datos) => {
-    console.log("Datos del paso 2:", datos)
-
-    // Guardar el email para la verificación
-    setCorreoUsuario(datos.email)
-
-    // Generar código de verificación
-    generarCodigoVerificacion()
-
-    // Avanzar al paso 3 (verificación de correo)
-    setPaso(3)
-
-    // Iniciar el temporizador
-    setTiempoRestante(300) // 5 minutos
-    setTimerActivo(true)
-  }
-
-  // Función para generar un código de verificación aleatorio
-  const generarCodigoVerificacion = () => {
-    const codigo = Math.floor(100000 + Math.random() * 900000).toString()
-    setCodigoVerificacion(codigo)
-    console.log("Código de verificación generado:", codigo) // En producción, esto se enviaría por email
-
-    // Resetear el input del usuario para que esté vacío
-    setCodigoIngresado(["", "", "", "", "", ""])
-    setErrorCodigo(false)
-  }
-
-  // Función para manejar el cambio en los inputs del código
-  const manejarCambioCodigo = (indice, valor) => {
-    // Solo permitir números
-    if (!/^\d*$/.test(valor)) return
-
-    const nuevoCodigo = [...codigoIngresado]
-    nuevoCodigo[indice] = valor
-    setCodigoIngresado(nuevoCodigo)
-
-    // Mover al siguiente input si se ingresó un dígito
-    if (valor !== "" && indice < 5) {
-      const siguienteInput = document.getElementById(`codigo-input-${indice + 1}`)
-      if (siguienteInput) siguienteInput.focus()
-    }
-  }
-
-  // Función para manejar el pegado del código
-  const manejarPegadoCodigo = (e) => {
-    e.preventDefault()
-    const datoPegado = e.clipboardData.getData("text")
-
-    // Verificar si lo pegado son 6 dígitos
-    if (/^\d{6}$/.test(datoPegado)) {
-      const digitos = datoPegado.split("")
-      setCodigoIngresado(digitos)
-
-      // Enfocar el último input
-      const ultimoInput = document.getElementById("codigo-input-5")
-      if (ultimoInput) ultimoInput.focus()
-    }
-  }
-
-  // Función para verificar el código
-  const verificarCodigo = () => {
-    const codigoInput = codigoIngresado.join("")
-
-    if (codigoInput === codigoVerificacion) {
-      // Código correcto
-      alert("¡Verificación exitosa! Tu cuenta ha sido activada.")
-
-      // Resetear formularios y volver al paso 1
-      resetearPaso1()
-      resetearPaso2()
-      setPaso(1)
-    } else {
-      // Código incorrecto
-      setErrorCodigo(true)
-    }
-  }
-
-  // Función para reenviar el código
-  const reenviarCodigo = () => {
-    generarCodigoVerificacion()
-    setTiempoRestante(300) // Reiniciar el temporizador
-    setTimerActivo(true)
-    alert(`Se ha enviado un nuevo código de verificación a ${correoUsuario}`)
-  }
-
-  // Función para permitir solo números en los campos
-  const permitirSoloNumeros = (e) => {
-    const charCode = e.which ? e.which : e.keyCode
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      e.preventDefault()
-    }
-  }
-
-  // Función para permitir solo letras y espacios en los campos de texto
-  const permitirSoloLetras = (e) => {
-    const charCode = e.which ? e.which : e.keyCode
-    if (
-      !(charCode >= 65 && charCode <= 90) &&
-      !(charCode >= 97 && charCode <= 122) &&
-      !(charCode === 32) && // espacio
-      !(charCode >= 192 && charCode <= 255) // letras acentuadas
-    ) {
-      e.preventDefault()
-    }
-  }
-
-  // Funciones auxiliares
-  const evitarPegado = (e) => {
-    e.preventDefault()
-  }
-
-  const cambiarVisibilidadPassword = () => {
-    setVerPassword(!verPassword)
-  }
-
-  const cambiarVisibilidadConfirmarPassword = () => {
-    setVerConfirmarPassword(!verConfirmarPassword)
-  }
-
-  const mostrarRequisitosPasswordAlFocus = () => {
-    setMostrarRequisitosPassword(true)
-  }
-
-  const ocultarRequisitosPasswordAlBlur = () => {
-    setMostrarRequisitosPassword(false)
-  }
-
-  const mostrarRequisitosFechaAlFocus = () => {
-    setMostrarRequisitosFecha(true)
-  }
-
-  const ocultarRequisitosFechaAlBlur = () => {
-    setMostrarRequisitosFecha(false)
-  }
+      return () => clearInterval(intervalo);
+    }, [timerActivo, tiempoRestante, paso]);
+  
+    // Funciones principales
+    const enviarPaso1 = (datos) => {
+      setFormData({
+        ...formData,
+        tipoDocumento: datos.tipoDocumento,
+        numeroDocumento: datos.numeroDocumento,
+        nombres: datos.nombres,
+        apellidos: datos.apellidos,
+        fechaNacimiento: datos.fechaNacimiento,
+        genero: datos.genero,
+        telefono: datos.telefono,
+        direccion: datos.direccion
+      });
+      setPaso(2);
+    };
+  
+    const enviarPaso2 = (datos) => {
+      setFormData({
+        ...formData,
+        email: datos.email,
+        password: datos.password,
+        confirmarPassword: datos.confirmarPassword
+      });
+      
+      generarCodigoVerificacion();
+      setPaso(3);
+      setTiempoRestante(300);
+      setTimerActivo(true);
+    };
+  
+    const generarCodigoVerificacion = () => {
+      const codigo = Math.floor(100000 + Math.random() * 900000).toString();
+      setFormData(prev => ({
+        ...prev,
+        codigoVerificacion: codigo,
+        codigoIngresado: ["", "", "", "", "", ""]
+      }));
+      setErrorCodigo(false);
+      console.log("Código generado:", codigo);
+    };
+  
+    const enviarEmail = () => {
+      const Params = {
+        name: formData.nombres,
+        email: formData.email,
+        message: "Por favor ingresa el código de verificación",
+        codigoVerificacion: formData.codigoVerificacion
+      };
+  
+      emailjs.send(
+        "service_uxyihs4",
+        "template_qro23i8",
+        Params,
+        "c_HuA2dqs1UP1L1J0"
+      ).then(
+        (result) => {
+          setStatus("Mensaje enviado con éxito!");
+          setFormData(prev => ({ ...prev, email: "", password: "" }));
+        },
+        (error) => setStatus("Hubo un error. Intenta de nuevo.")
+      );
+    };
+  
+    // Funciones auxiliares
+    const manejarCambioCodigo = (indice, valor) => {
+      if (!/^\d*$/.test(valor)) return;
+      const nuevoCodigo = [...formData.codigoIngresado];
+      nuevoCodigo[indice] = valor;
+      setFormData(prev => ({ ...prev, codigoIngresado: nuevoCodigo }));
+      if (valor !== "" && indice < 5) {
+        const siguienteInput = document.getElementById(`codigo-input-${indice + 1}`);
+        if (siguienteInput) siguienteInput.focus();
+      }
+    };
+  
+    const manejarPegadoCodigo = (e) => {
+      e.preventDefault();
+      const datoPegado = e.clipboardData.getData("text");
+      if (/^\d{6}$/.test(datoPegado)) {
+        setFormData(prev => ({ ...prev, codigoIngresado: datoPegado.split("") }));
+        document.getElementById("codigo-input-5")?.focus();
+      }
+    };
+  
+    const verificarCodigo = () => {
+      const codigoInput = formData.codigoIngresado.join("");
+      if (codigoInput === formData.codigoVerificacion) {
+        alert("¡Verificación exitosa!");
+        resetearPaso1();
+        resetearPaso2();
+        setPaso(1);
+      } else {
+        setErrorCodigo(true);
+      }
+    };
+  
+    const reenviarCodigo = () => {
+      generarCodigoVerificacion();
+      setTiempoRestante(300);
+      setTimerActivo(true);
+      alert(`Nuevo código enviado a ${formData.email}`);
+    };
+  
+    const retrocederPaso = () => setPaso(paso === 3 ? 2 : 1);
+  
+    // Funciones de UI
+    const cambiarVisibilidadPassword = () => setVerPassword(!verPassword);
+    const cambiarVisibilidadConfirmarPassword = () => setVerConfirmarPassword(!verConfirmarPassword);
+    const mostrarRequisitosPasswordAlFocus = () => setMostrarRequisitosPassword(true);
+    const ocultarRequisitosPasswordAlBlur = () => setMostrarRequisitosPassword(false);
+    const mostrarRequisitosFechaAlFocus = () => setMostrarRequisitosFecha(true);
+    const ocultarRequisitosFechaAlBlur = () => setMostrarRequisitosFecha(false);
+  
+    // Funciones de validación
+    const permitirSoloNumeros = (e) => {
+      const charCode = e.which || e.keyCode;
+      if (charCode > 31 && (charCode < 48 || charCode > 57)) e.preventDefault();
+    };
+  
+    const permitirSoloLetras = (e) => {
+      const charCode = e.which || e.keyCode;
+      if (!(charCode >= 65 && charCode <= 90) &&
+          !(charCode >= 97 && charCode <= 122) &&
+          !(charCode === 32) &&
+          !(charCode >= 192 && charCode <= 255)) {
+        e.preventDefault();
+      }
+    };
+  
+    const evitarPegado = (e) => e.preventDefault();
+  
+    // Variables observables
+    const password = observarPaso2("password");
+    const email = observarPaso2("email");
 
   // Formatear el tiempo restante
   const formatearTiempo = (segundos) => {
@@ -771,7 +739,7 @@ const Registro = () => {
                     <button type="button" className="boton-anterior" onClick={retrocederPaso}>
                       Anterior
                     </button>
-                    <button type="submit" className="boton-enviar">
+                    <button type="submit" className="boton-enviar" onClick={enviarEmail}>
                       Registrarse
                     </button>
                   </div>
@@ -870,6 +838,7 @@ const Registro = () => {
     </div>
   )
 }
+}
 
-export default Registro
+export default Registro;
 
