@@ -43,7 +43,9 @@ CREATE TABLE pets_heaven.otorgar_permisos(
 CREATE TABLE pets_heaven.veterinarios(
     id_vet VARCHAR(20) PRIMARY KEY NOT NULL,INDEX(id_vet),FOREIGN KEY(id_vet)  REFERENCES usuarios(id_usu) ON DELETE CASCADE ON UPDATE CASCADE,
     especialidad VARCHAR(100) NOT NULL,
-    horarios VARCHAR(100) NOT NULL
+    horarios VARCHAR(100) NOT NULL,
+    cat_vet VARCHAR(20) NOT NULL,INDEX (cat_vet) FOREIGN KEY(cat_vet) REFERENCES categorias_veterinario(id_cat) ON DELETE CASCADE ON UPDATE CASCADE,
+    fot_vet TEXT DEFAULT("https://img.freepik.com/vector-gratis/lindo-perro-medico-estetoscopio-dibujos-animados-vector-icono-ilustracion-animal-salud-icono-aislado_138676-5182.jpg") NOT NULL
 );
 CREATE TABLE pets_heaven.propietarios(
     id_pro VARCHAR(20) PRIMARY KEY NOT NULL,INDEX(id_pro),FOREIGN KEY (id_pro) REFERENCES usuarios(id_usu) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -65,7 +67,8 @@ CREATE TABLE pets_heaven.mascotas(
     pes_mas FLOAT(12,10) UNSIGNED NOT NULL,
     sexo ENUM('F','M') NOT NULL,
     id_pro_mas VARCHAR(20) NOT NULL,INDEX(id_pro_mas),FOREIGN KEY (id_pro_mas) REFERENCES propietarios(id_pro) ON DELETE CASCADE ON UPDATE CASCADE,
-    estado BOOLEAN DEFAULT(1)
+    estado BOOLEAN DEFAULT(1),
+    fot_mas TEXT NOT NULL
 );
 
 CREATE TABLE pets_heaven.historiales_medicos(
@@ -87,8 +90,11 @@ CREATE TABLE pets_heaven.servicios(
     cat_ser VARCHAR(20) NOT NULL,INDEX(cat_ser), FOREIGN KEY(cat_ser) REFERENCES categorias_ser(id_cat) ON DELETE CASCADE ON UPDATE CASCADE,
     nom_ser VARCHAR(100) NOT NULL,
     pre_ser DECIMAL(10,2) NOT NULL,
-    des_ser TEXT NOT NULL
+    des_ser TEXT NOT NULL,
+    tec_des_ser TEXT NOT NULL,
+    img_ser TEXT NOT NULL
 );
+
 CREATE TABLE pets_heaven.citas(
     id_cit VARCHAR(20),
     fec_reg_cit DATE NOT NULL,
