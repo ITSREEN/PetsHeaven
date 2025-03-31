@@ -70,11 +70,14 @@ CREATE TABLE pets_heaven.mascotas(
     id_mas INT AUTO_INCREMENT PRIMARY KEY,
     nom_mas VARCHAR(100) NOT NULL,
     esp_mas VARCHAR(100) NOT NULL,
+    col_mas VARCHAR(100) NOT NULL,
     raz_mas VARCHAR(100) NOT NULL,
-    eda_mas FLOAT(12,10) UNSIGNED NOT NULL,
+    ali_mas VARCHAR(100) NOT NULL,
+    fec_nac_mas DATE NOT NULL,
     pes_mas FLOAT(12,10) UNSIGNED NOT NULL,
-    sexo ENUM('F','M') NOT NULL,
+    gen_mas ENUM('F','M') NOT NULL,
     id_pro_mas INT NOT NULL,INDEX(id_pro_mas),FOREIGN KEY (id_pro_mas) REFERENCES propietarios(id_pro) ON DELETE CASCADE ON UPDATE CASCADE,
+    est_rep_mas VARCHAR(100) NOT NULL,
     estado BOOLEAN DEFAULT(1),
     fot_mas TEXT NOT NULL
 );
