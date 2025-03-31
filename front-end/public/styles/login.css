@@ -17,19 +17,19 @@
     padding: 1rem;
   }
   
-  /* Logo externo al formulario */
-  .contenedor-logo-externo {
+  /* Logo externo-login al formulario */
+  .contenedor-logo-externo-login {
     text-align: center;
     margin-bottom: 1.5rem;
   }
   
-  .logo-veterinaria {
+  .logo-veterinaria-login {
     max-width: 200px;
     height: auto;
   }
   
   /* Contenedor del formulario */
-  .formulario-card {
+  .formulario-card-login {
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -38,33 +38,33 @@
     padding: 2rem;
   }
   
-  .contenido-formulario {
+  .contenido-formulario-login {
     width: 100%;
   }
   
-  .encabezado-formulario {
+  .encabezado-formulario-login {
     text-align: center;
     margin-bottom: 2rem;
   }
   
-  .titulo-formulario {
+  .titulo-formulario-login {
     color: #00bcd4;
     font-size: 1.5rem;
     margin-bottom: 1rem;
   }
   
-  .subtitulo-formulario {
+  .subtitulo-formulario-login {
     font-size: 0.875rem;
     color: #757575;
     margin-top: 0.5rem;
   }
   
   /* Estilos del formulario */
-  .contenido-paso {
+  .contenido-paso-login {
     margin-bottom: 1.5rem;
   }
   
-  .grupo-campo {
+  .grupo-campo-login {
     display: flex;
     flex-direction: column;
     margin-bottom: 1.5rem;
@@ -78,7 +78,7 @@
     font-weight: bold;
   }
   
-  .obligatorio {
+  .obligatorio-login {
     color: #f44336;
   }
   
@@ -98,28 +98,28 @@
     box-shadow: 0 0 0 2px rgba(0, 188, 212, 0.1);
   }
   
-  .campo-error {
+  .campo-error-login {
     border-color: #f44336;
   }
   
-  .mensaje-error {
+  .mensaje-error-login {
     color: #f44336;
     font-size: 0.75rem;
     margin-top: 0.25rem;
   }
   
   /* Estilos para el contenedor de contraseña */
-  .contenedor-input-password {
+  .contenedor-input-password-login {
     position: relative;
   }
   
-  .contenedor-input-password input {
+  .contenedor-input-password-login input {
     padding-right: 2.5rem; /* Espacio para el icono del ojo */
     width: 100%;
     box-sizing: border-box;
   }
   
-  .boton-toggle-password {
+  .boton-toggle-password-login {
     position: absolute;
     right: 0.5rem;
     top: 50%;
@@ -136,7 +136,7 @@
     padding: 0 0.5rem;
   }
   
-  .icono-ojo {
+  .icono-ojo-login {
     display: block;
   }
   
@@ -162,7 +162,7 @@
   }
   
   /* Enlaces */
-  .enlaces-container {
+  .enlaces-container-login {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -170,13 +170,13 @@
     margin-top: 0.5rem;
   }
   
-  .enlace {
+  .enlace-login {
     color: #00bcd4;
     text-decoration: none;
     font-size: 0.875rem;
   }
   
-  .enlace:hover {
+  .enlace-login:hover {
     text-decoration: underline;
   }
   
@@ -190,7 +190,7 @@
     overflow: hidden;
   }
   
-  .imagen-fondo-contenedor {
+  .imagen-fondo-contenedor-login {
     position: absolute;
     top: 0;
     left: 0;
@@ -199,14 +199,14 @@
     z-index: 0;
   }
   
-  .imagen-fondo {
+  .imagen-fondo-login {
     width: 100%;
     height: 100%;
     object-fit: cover;
     filter: brightness(0.7);
   }
   
-  .overlay-imagen {
+  .overlay-imagen-login {
     position: absolute;
     top: 0;
     left: 0;
@@ -216,7 +216,7 @@
     z-index: 1;
   }
   
-  .contenedor-cita {
+  .contenedor-cita-login {
     position: relative;
     z-index: 2;
     padding: 2rem;
@@ -226,38 +226,38 @@
     margin-left: 5rem;
   }
   
-  .texto-cita {
+  .texto-cita-login {
     font-size: 1.75rem;
     font-weight: bold;
     margin-bottom: 1rem;
     line-height: 1.2;
   }
   
-  .subtexto-cita {
+  .subtexto-cita-login {
     font-size: 0.875rem;
   }
   
   /* Estilos responsivos */
   @media (max-width: 992px) {
-    .formulario-card {
+    .formulario-card-login {
       padding: 1.5rem;
     }
   
-    .texto-cita {
+    .texto-cita-login {
       font-size: 1.5rem;
     }
   
-    .contenedor-cita {
+    .contenedor-cita-login {
       margin-bottom: 10rem;
     }
   
-    .logo-veterinaria {
+    .logo-veterinaria-login {
       max-width: 180px;
     }
   }
   
   @media (max-width: 768px) {
-    .login-container {
+    .login-container-login {
       flex-direction: column-reverse;
     }
   
@@ -266,23 +266,23 @@
       max-height: 300px;
     }
   
-    .imagen-fondo {
+    .imagen-fondo-login {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
   
-    .contenedor-cita {
+    .contenedor-cita-login {
       margin-bottom: 2rem;
       max-width: 90%;
       padding: 1rem;
     }
   
-    .texto-cita {
+    .texto-cita-login {
       font-size: 1.25rem;
     }
   
-    .formulario-card {
+    .formulario-card-login {
       padding: 1.25rem;
     }
   }
@@ -292,19 +292,19 @@
       padding: 1rem;
     }
   
-    .formulario-card {
+    .formulario-card-login {
       padding: 1rem;
     }
   
-    .contenedor-logo-externo {
+    .contenedor-logo-externo-login {
       margin-bottom: 1rem;
     }
   
-    .logo-veterinaria {
+    .logo-veterinaria-login {
       max-width: 150px;
     }
   
-    .titulo-formulario {
+    .titulo-formulario-login {
       font-size: 1.25rem;
     }
   
@@ -312,17 +312,17 @@
       min-height: 200px;
     }
   
-    .contenedor-cita {
+    .contenedor-cita-login {
       margin-bottom: 1rem;
     }
   
-    .texto-cita {
+    .texto-cita-login {
       font-size: 1.1rem;
     }
   }
   
   @media (max-width: 360px) {
-    .formulario-card {
+    .formulario-card-login {
       padding: 0.75rem;
     }
   }
