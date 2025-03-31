@@ -45,7 +45,7 @@ CREATE TABLE pets_heaven.veterinarios(
     especialidad VARCHAR(100) NOT NULL,
     horarios VARCHAR(100) NOT NULL,
     cat_vet VARCHAR(20) NOT NULL,INDEX (cat_vet) FOREIGN KEY(cat_vet) REFERENCES categorias_veterinario(id_cat) ON DELETE CASCADE ON UPDATE CASCADE,
-    fot_vet TEXT DEFAULT("https://img.freepik.com/vector-gratis/lindo-perro-medico-estetoscopio-dibujos-animados-vector-icono-ilustracion-animal-salud-icono-aislado_138676-5182.jpg") NOT NULL
+    fot_vet TEXT DEFAULT("https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/default_veterinario.png") NOT NULL
 );
 CREATE TABLE pets_heaven.propietarios(
     id_pro VARCHAR(20) PRIMARY KEY NOT NULL,INDEX(id_pro),FOREIGN KEY (id_pro) REFERENCES usuarios(id_usu) ON DELETE CASCADE ON UPDATE CASCADE,
