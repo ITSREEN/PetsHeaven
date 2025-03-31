@@ -49,13 +49,15 @@ CREATE TABLE pets_heaven.veterinarios(
 );
 CREATE TABLE pets_heaven.propietarios(
     id_pro VARCHAR(20) PRIMARY KEY NOT NULL,INDEX(id_pro),FOREIGN KEY (id_pro) REFERENCES usuarios(id_usu) ON DELETE CASCADE ON UPDATE CASCADE,
-    barrio VARCHAR(100) NOT NULL
+    barrio VARCHAR(100) NOT NULL,
+    fot_pro TEXT DEFAULT("https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/default_veterinario.png") NOT NULL
 );
 /* TABLA SIN FUNCIONALIDAD DEBERIA SER ELIMINADA*/
 CREATE TABLE pets_heaven.administradores(
     id_admin VARCHAR(20) PRIMARY KEY,INDEX(id_admin),FOREIGN KEY (id_admin) REFERENCES usuarios(id_usu) ON DELETE CASCADE
     ON UPDATE CASCADE,
     fec_ing DATE NOT NULL
+    fot_admin TEXT DEFAULT("https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/default_veterinario.png") NOT NULL
 );
 
 CREATE TABLE pets_heaven.mascotas(
