@@ -64,7 +64,7 @@
   margin-left: auto;
   margin-right: auto;
   padding: 1rem;
-  max-width: 1280px;
+  max-width: 1800px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -73,17 +73,15 @@
 .logo-container {
   display: flex;
   align-items: center;
+  width: 15vw;
 }
 
 .logo-img {
   margin-right: 0.5rem;
+  width: 15vw;
+  height: 7vh;
 }
 
-.texto-logo {
-  color: var(--verde-aguamarina);
-  font-size: 1.25rem;
-  font-weight: 600;
-}
 
 .nav-escritorio {
   display: none;
@@ -198,6 +196,7 @@
   transition: background-color 0.3s ease;
   border: none;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .boton-login:hover {
@@ -258,7 +257,7 @@
 /* Estilos del Carrusel */
 .carrusel {
   position: relative;
-  height: 500px;
+  height: 600px;
 }
 
 @media (max-width: 768px) {
