@@ -4,11 +4,12 @@ import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import emailjs from "emailjs-com"
 import "../../public/styles/Registro.css"
+import "../../../public/styles/Registro.css"
 
 const Registro = () => {
-  // Rutas de imágenes definidas directamente en el componente
-  const imagenFondo = "/imgs/fondo.png" // Ruta desde la carpeta public
-  const logoUrl = "/imgs/1.png" // Ruta desde la carpeta public
+
+  const imagenFondo = "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Fondos/fondo.png" 
+  const logoUrl = "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/1.png"
 
   const FormularioRegistro = () => {
     // Estado principal consolidado
