@@ -56,7 +56,7 @@ CREATE TABLE pets_heaven.propietarios(
 CREATE TABLE pets_heaven.administradores(
     id_admin VARCHAR(20) PRIMARY KEY,INDEX(id_admin),FOREIGN KEY (id_admin) REFERENCES usuarios(id_usu) ON DELETE CASCADE
     ON UPDATE CASCADE,
-    fec_ing DATE NOT NULL
+    fec_ing DATE NOT NULL,
     fot_admin TEXT DEFAULT("https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/default_veterinario.png") NOT NULL
 );
 
