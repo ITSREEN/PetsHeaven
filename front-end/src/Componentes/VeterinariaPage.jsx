@@ -1,6 +1,7 @@
 import React,{ useState, useEffect, useRef } from "react"
 import { MapPin, Star, Phone, Mail, Clock, ChevronUp, Menu, X, Instagram, Facebook } from "lucide-react"
 import "../../public/styles/VeterinariaPage.css"
+import Footer from "../Componentes/Footer2"
 
 
 export default function VeterinariaPage() {
@@ -15,17 +16,17 @@ export default function VeterinariaPage() {
   // Datos para el carrusel principal
   const diapositivas = [
     {
-      imagen: "/imgs/carru1.png",
+      imagen: "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Carrucel/carru1.png",
       titulo: "",
       descripcion: "",
     },
     {
-      imagen: "/imgs/carru2.png",
+      imagen: "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Carrucel/carru2.png",
       titulo: "",
       descripcion: "",
     },
     {
-      imagen: "/imgs/carru3.png",
+      imagen: "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Carrucel/carru3.png",
       titulo: "",
       descripcion: "",
     },
@@ -66,19 +67,19 @@ export default function VeterinariaPage() {
       titulo: "Servicio de Profilaxis",
       descripcion:
         "Cuidado dental profesional para tu mascota. Agenda tu cita y mantén la salud bucal de tu compañero.",
-      imagen: "/imgs/pos1.png",
+      imagen: "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Post/pos1.png",
       fechaVencimiento: "Permanente",
     },
     {
       titulo: "Jornada de Esterilización",
       descripcion: "Precios especiales para esterilización de perros y gatos. Incluye exámenes previos.",
-      imagen: "/imgs/pos2.png",
+      imagen: "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Post/pos2.png",
       fechaVencimiento: "16 de Noviembre",
     },
     {
       titulo: "Jornada de Adopción",
       descripcion: "Ven y adopta un amigo para toda la vida. Te esperamos en nuestra sede principal.",
-      imagen: "/imgs/pos3.png",
+      imagen: "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Post/pos3.png",
       fechaVencimiento: "10 de agosto de 2025",
     },
   ]
@@ -90,42 +91,42 @@ export default function VeterinariaPage() {
       texto:
         "Excelente atención para mi perrito Max. Los veterinarios son muy profesionales y cariñosos con las mascotas.",
       calificacion: 5,
-      imagen: "/imgs/perfil2.png",
+      imagen: "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Perfil/perfil2.png",
     },
     {
       nombre: "Carlos Rodríguez",
       texto:
         "Mi gata recibió un tratamiento excepcional. El personal está muy bien capacitado y las instalaciones son impecables.",
       calificacion: 5,
-      imagen: "/imgs/perfil3.png",
+      imagen: "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Perfil/perfil3.png",
     },
     {
       nombre: "Laura Martínez",
       texto:
         "Siempre confío en PetsHeaven para el cuidado de mis mascotas. El servicio de emergencia 24h nos salvó en más de una ocasión.",
       calificacion: 4,
-      imagen: "/imgs/perfil4.png",
+      imagen: "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Perfil/perfil4.png",
     },
     {
       nombre: "Javier Sánchez",
       texto:
         "El servicio de spa para mi perro fue increíble. Quedó limpio, perfumado y muy feliz. Definitivamente volveremos.",
       calificacion: 5,
-      imagen: "/imgs/perfil1.png",
+      imagen: "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Perfil/perfil1.png",
     },
     {
       nombre: "Ana Pérez",
       texto:
         "Llevé a mi conejo para una revisión y quedé impresionada con el conocimiento y cuidado del veterinario. Recomiendo totalmente.",
       calificacion: 5,
-      imagen: "/imgs/perfil5.png",
+      imagen: "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Perfil/perfil5.png",
     },
     {
       nombre: "Roberto Gómez",
       texto:
         "Mi perro necesitaba una cirugía complicada y el equipo de PetsHeaven fue excepcional. Ahora está completamente recuperado.",
       calificacion: 5,
-      imagen: "/imgs/perfil6.png",
+      imagen: "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Perfil/perfil6.png",
     },
   ]
 
@@ -226,8 +227,7 @@ export default function VeterinariaPage() {
       <header className="encabezado" ref={refNav}>
         <div className="contenedor-header">
           <div className="logo-container">
-            <img src="/imgs/2.png" alt="PetsHeaven Logo" width={50} height={50} className="logo-img" />
-            <span className="texto-logo">PetsHeaven</span>
+            <img src="https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/3.png" alt="PetsHeaven Logo" width={50} height={50} className="logo-img" />
           </div>
 
           {/* Navegación Escritorio */}
@@ -614,7 +614,8 @@ export default function VeterinariaPage() {
           <ChevronUp className="icono-subir" />
         </button>
       )}
-    </div>
+    </div> 
   )
 }
+
 
