@@ -1,19 +1,10 @@
 // Librarys
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-<<<<<<< HEAD
 import { supabase } from "../../supabaseClient"; 
 import "../../../public/styles/FormularioMascotas.css"
-import { Link } from 'react-router-dom'; // Asegúrate de que 'react-router' sea 'react-router-dom'
-
-
-=======
 import { Link } from 'react-router';
->>>>>>> c7c2b0b806da64075997d0b589ff0f8a86e04bc9
 
-// Imports
-import { supabase } from "../../supabaseClient";
-import "public/styles/FormularioMascotas.css";
 
 // Main component 
 const FormularioMascotas = () => {
