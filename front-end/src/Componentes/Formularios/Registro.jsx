@@ -1,18 +1,15 @@
-// Importaciones necesarias
-import React from "react"
-import { useState, useEffect } from "react"
-import { useForm } from "react-hook-form"
-import emailjs from "emailjs-com"
-// import "../../public/styles/Registro.css"
-import "../../../public/styles/Registro.css"
+import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import emailjs from "emailjs-com";
+import "../../../public/styles/Registro.css";
 
 const Registro = () => {
-
-  const imagenFondo = "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Fondos/fondo.png" 
-  const logoUrl = "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/1.png"
+  const imagenFondo = "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Fondos/fondo.png";
+  const logoUrl = "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/1.png";
 
   // Estado principal consolidado
   const [formData, setFormData] = useState({
+    // Paso 1: Información personal
     tipoDocumento: "",
     numeroDocumento: "",
     nombres: "",
@@ -22,15 +19,18 @@ const Registro = () => {
     telefono: "",
     direccion: "",
 
+    // Paso 2: Datos de cuenta
     email: "",
+    confirmEmail: "",
     password: "",
+    confirmPassword: "",
 
-    // // Verificación
-    // codigoVerificacion: "",
-    // codigoIngresado: ["", "", "", "", "", ""]
+    // Verificación
+    codigoVerificacion: "",
+    codigoIngresado: ["", "", "", "", "", ""]
   });
 
-  // Estados de UI (no son datos del formulario)
+  // Estados de UI
   const [paso, setPaso] = useState(1);
   const [verPassword, setVerPassword] = useState(false);
   const [verConfirmarPassword, setVerConfirmarPassword] = useState(false);
@@ -88,8 +88,8 @@ const Registro = () => {
 
   // Funciones principales
   const enviarPaso1 = (datos) => {
-    setFormData({
-      ...formData,
+    setFormData(prev => ({
+      ...prev,
       tipoDocumento: datos.tipoDocumento,
       numeroDocumento: datos.numeroDocumento,
       nombres: datos.nombres,
@@ -98,16 +98,18 @@ const Registro = () => {
       genero: datos.genero,
       telefono: datos.telefono,
       direccion: datos.direccion
-    });
+    }));
     setPaso(2);
   };
 
   const enviarPaso2 = (datos) => {
-    setFormData({
-      ...formData,
+    setFormData(prev => ({
+      ...prev,
       email: datos.email,
-      confirmPassword: datos.password,
-    });
+      confirmEmail: datos.confirmEmail,
+      password: datos.password,
+      confirmPassword: datos.confirmPassword
+    }));
     
     generarCodigoVerificacion();
     setPaso(3);
@@ -130,22 +132,25 @@ const Registro = () => {
     const Params = {
       name: formData.nombres,
       email: formData.email,
-      message: "Por favor ingresa el código de verificación",
       codigoVerificacion: formData.codigoVerificacion
     };
+    console.log("Datos a enviar:", Params);
 
-    emailjs.send(
-      "service_uxyihs4",
-      "template_qro23i8",
-      Params,
-      "c_HuA2dqs1UP1L1J0"
-    ).then(
-      (result) => {
-        setStatus("Mensaje enviado con éxito!");
-        setFormData(prev => ({ ...prev, email: "", password: "" }));
-      },
-      (error) => setStatus("Hubo un error. Intenta de nuevo.")
-    );
+    // emailjs.send(
+    //   "service_uxyihs4",
+    //   "template_qro23i8",
+    //   Params,
+    //   "c_HuA2dqs1UP1L1J0"
+    // ).then(
+    //   (result) => {
+    //     setStatus("Mensaje enviado con éxito!");
+    //     console.log("Email enviado correctamente");
+    //   },
+    //   (error) => {
+    //     setStatus("Hubo un error. Intenta de nuevo.");
+    //     console.error("Error al enviar email:", error);
+    //   }
+    // );
   };
 
   // Funciones auxiliares
@@ -222,10 +227,13 @@ const Registro = () => {
   
   // Formatear el tiempo restante
   const formatearTiempo = (segundos) => {
-    const minutos = Math.floor(segundos / 60)
-    const segs = segundos % 60
-    return `${minutos}:${segs < 10 ? "0" : ""}${segs}`
-  }
+    const minutos = Math.floor(segundos / 60);
+    const segs = segundos % 60;
+    return `${minutos}:${segs < 10 ? "0" : ""}${segs}`;
+  };
+
+  // ... (El JSX permanece exactamente igual que en tu código original)
+  // Solo asegúrate de que los nombres de los campos coincidan con los usados en el estado
 
   return (
     <div className="registro-container">
@@ -280,6 +288,7 @@ const Registro = () => {
                         Tipo de documento <span className="obligatorio">*</span>
                       </label>
                       <select
+                        name="tipoDocumento"
                         className={erroresPaso1.tipoDocumento ? "campo-error" : ""}
                         {...registrarPaso1("tipoDocumento", {
                           required: true,
@@ -765,12 +774,12 @@ const Registro = () => {
                   <h3 className="titulo-verificacion">Verifica tu correo electrónico</h3>
 
                   <p className="descripcion-verificacion">
-                    Hemos enviado un código de verificación a <strong>{correoUsuario}</strong>. Por favor, introduce el
+                    Hemos enviado un código de verificación a <strong>{formData.email}</strong>. Por favor, introduce el
                     código de 6 dígitos para verificar tu cuenta.
                   </p>
 
                   <div className="contenedor-codigo">
-                    {codigoIngresado.map((digito, indice) => (
+                    {formData.codigoIngresado.map((digito, indice) => (
                       <input
                         key={indice}
                         id={`codigo-input-${indice}`}
@@ -833,8 +842,7 @@ const Registro = () => {
       </div>
     </div>
   )
-}
-
+};
 
 export default Registro;
 
