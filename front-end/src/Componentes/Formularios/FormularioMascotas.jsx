@@ -51,7 +51,7 @@ const FormularioMascotas = () => {
       if (dbError) throw dbError;
 
       alert('¡Mascota registrada con éxito!');
-      window.location.href = '/mis-mascotas'; // Redirigir a la página "Mis Mascotas"
+      window.location.href = '/mis-mascotas'; 
       
     } catch (error) {
       console.error('Error:', error);
