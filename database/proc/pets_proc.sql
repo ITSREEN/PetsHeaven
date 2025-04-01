@@ -1,4 +1,4 @@
-CREATE PROCEDURE RegistPets(
+CREATE PROCEDURE pets_heaven.RegistPets(
     IN p_nom_mas VARCHAR(100),
     IN p_esp_mas VARCHAR(100),
     IN p_col_mas VARCHAR(100),
@@ -8,7 +8,7 @@ CREATE PROCEDURE RegistPets(
     IN p_pes_mas FLOAT,
     IN p_gen_mas VARCHAR(2),
     IN p_est_rep_mas VARCHAR(100),
-    IN p_fot_mas TEXT,
+    IN p_fot_mas TEXT
 )
 BEGIN
     DECLARE p_id_pro_mas INT;

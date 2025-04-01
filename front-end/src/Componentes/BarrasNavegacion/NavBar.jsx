@@ -50,7 +50,7 @@ export const NavBar = () => {
 
         {/* Navegación Escritorio */}
         <nav className="nav-escritorio">
-          <a href="/" className="enlace-nav" onClick={(e) => irASeccion(e, "")}>
+          <a href="main" className="enlace-nav" onClick={(e) => irASeccion(e, "")}>
             Inicio
           </a>
           <a href="#nosotros" className="enlace-nav" onClick={(e) => irASeccion(e, "nosotros")}>
@@ -75,18 +75,17 @@ export const NavBar = () => {
           <button
             className="boton-menu"
             onClick={() => setMenuAbierto(!menuAbierto)}
-            aria-label={menuAbierto ? "Cerrar menú" : "Abrir menú"}
-          >
+            aria-label={menuAbierto ? "Cerrar menú" : "Abrir menú"}>
             {menuAbierto ? <X className="icono-menu" /> : <Menu className="icono-menu" />}
           </button>
         </div>
 
         {/* Botones para escritorio */}
         <div className="botones-escritorio">
-          <a href="/register" className="boton-registro">
+          <a href="user/register" className="boton-registro">
             Registrarse
           </a>
-          <a href="/login" className="boton-login">Iniciar Sesión</a>
+          <a href="user/login" className="boton-login">Iniciar Sesión</a>
         </div>
       </div>
 
@@ -113,10 +112,10 @@ export const NavBar = () => {
           </a>
           {/* Botones para móvil */}
           <div className="botones-movil">
-            <a href="/registro" className="boton-registro-movil">
+            <a href="user/register" className="boton-registro-movil">
               Registrarse
             </a>
-            <button className="boton-login-movil">Iniciar Sesión</button>
+            <a href='user/login' className="boton-login-movil">Iniciar Sesión</a>
           </div>
         </nav>
       </div>
