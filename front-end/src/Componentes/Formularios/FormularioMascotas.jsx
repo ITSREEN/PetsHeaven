@@ -1,7 +1,15 @@
 // Librarys
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+<<<<<<< HEAD
+import { supabase } from "../../supabaseClient"; 
+import "../../../public/styles/FormularioMascotas.css"
+import { Link } from 'react-router-dom'; // Asegúrate de que 'react-router' sea 'react-router-dom'
+
+
+=======
 import { Link } from 'react-router';
+>>>>>>> c7c2b0b806da64075997d0b589ff0f8a86e04bc9
 
 // Imports
 import { supabase } from "../../supabaseClient";
@@ -10,7 +18,7 @@ import "public/styles/FormularioMascotas.css";
 // Main component 
 const FormularioMascotas = () => {
   const imagenFondo = "/imgs/fondo.png";
-  const logoUrl = "/imgs/1.png";
+  const logoUrl = "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/1.png";
   const [imagen, setImagen] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -45,14 +53,13 @@ const FormularioMascotas = () => {
         .from('mascotas')
         .insert([{
           imagen_url: publicUrl,
-          creado_en: createdAt, 
+          creado_en: new Date().toISOString(),
         }]);
 
       if (dbError) throw dbError;
 
       alert('¡Mascota registrada con éxito!');
-      window.location.href = '/mis-mascotas'; 
-      
+        
     } catch (error) {
       console.error('Error:', error);
       alert(`Error al registrar: ${error.message}`);
@@ -62,37 +69,37 @@ const FormularioMascotas = () => {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-formulario-container">
-        <div className="contenedor-logo-externo">
-          <img
-            src={logoUrl || "/placeholder.svg"}
-            alt="Logo PetsHeaven"
-            className="logo-veterinaria"
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = "/placeholder.svg";
-            }}
-          />
+    <div className="login-container-m">
+      <div className="login-formulario-container-m">
+      <div className="contenedor-logo-externo-m">
+        <img
+          src={logoUrl || "/placeholder.svg"}
+          alt="Logo PetsHeaven"
+          className="logo-veterinaria-m"
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = "/placeholder.svg";
+          }}
+        />
         </div>
 
-        <div className="formulario-card">
-          <div className="contenido-formulario">
-            <div className="encabezado-formulario">
-              <h2 className="titulo-formulario">Registrar Mascota</h2>
-              <p className="subtitulo-formulario">Completa los datos de tu mascota</p>
+        <div className="formulario-card-m">
+          <div className="contenido-formulario-m">
+            <div className="encabezado-formulario-m">
+              <h2 className="titulo-formulario-m">Registrar Mascota</h2>
+              <p className="subtitulo-formulario-m">Completa los datos de tu mascota</p>
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="contenido-paso">
+              <div className="contenido-paso-m">
                 {/* Campo Nombre */}
-                <div className="grupo-campo">
-                  <label htmlFor="nombre">Nombre de la mascota <span className="obligatorio">*</span></label>
+                <div className="grupo-campo-m">
+                  <label htmlFor="nombre">Nombre de la mascota <span className="obligatorio-m">*</span></label>
                   <input
                     id="nombre"
                     type="text"
                     placeholder="Nombre"
-                    className={errors.nombre ? "campo-error" : ""}
+                    className={errors.nombre ? "campo-error-m" : ""}
                     {...register("nombre", {
                       required: "Este campo es obligatorio",
                       minLength: {
@@ -105,15 +112,15 @@ const FormularioMascotas = () => {
                       },
                     })}
                   />
-                  {errors.nombre && <p className="mensaje-error">{errors.nombre.message}</p>}
+                  {errors.nombre && <p className="mensaje-error-m">{errors.nombre.message}</p>}
                 </div>
 
                 {/* Campo Especie */}
-                <div className="grupo-campo">
-                  <label htmlFor="especie">Especie <span className="obligatorio">*</span></label>
+                <div className="grupo-campo-m">
+                  <label htmlFor="especie">Especie <span className="obligatorio-m">*</span></label>
                   <select
                     id="especie"
-                    className={errors.especie ? "campo-error" : ""}
+                    className={errors.especie ? "campo-error-m" : ""}
                     {...register("especie", {
                       required: "Este campo es obligatorio",
                     })}
@@ -126,32 +133,32 @@ const FormularioMascotas = () => {
                     <option value="Reptil">Reptil</option>
                     <option value="Otro">Otro</option>
                   </select>
-                  {errors.especie && <p className="mensaje-error">{errors.especie.message}</p>}
+                  {errors.especie && <p className="mensaje-error-m">{errors.especie.message}</p>}
                 </div>
 
                 {/* Campo Raza */}
-                <div className="grupo-campo">
-                  <label htmlFor="raza">Raza de la mascota <span className="obligatorio">*</span></label>
+                <div className="grupo-campo-m">
+                  <label htmlFor="raza">Raza de la mascota <span className="obligatorio-m">*</span></label>
                   <input
                     id="raza"
                     type="text"
                     placeholder="Raza"
-                    className={errors.raza ? "campo-error" : ""}
+                    className={errors.raza ? "campo-error-m" : ""}
                     {...register("raza", {
                       required: "Este campo es obligatorio",
                     })}
                   />
-                  {errors.raza && <p className="mensaje-error">{errors.raza.message}</p>}
+                  {errors.raza && <p className="mensaje-error-m">{errors.raza.message}</p>}
                 </div>
 
                 {/* Campo Edad */}
-                <div className="grupo-campo">
-                  <label htmlFor="edad">Edad de la mascota <span className="obligatorio">*</span></label>
+                <div className="grupo-campo-m">
+                  <label htmlFor="edad">Edad de la mascota <span className="obligatorio-m">*</span></label>
                   <input
                     id="edad"
                     type="number"
                     placeholder="Edad (en años)"
-                    className={errors.edad ? "campo-error" : ""}
+                    className={errors.edad ? "campo-error-m" : ""}
                     {...register("edad", {
                       required: "Este campo es obligatorio",
                       min: {
@@ -160,17 +167,17 @@ const FormularioMascotas = () => {
                       },
                     })}
                   />
-                  {errors.edad && <p className="mensaje-error">{errors.edad.message}</p>}
+                  {errors.edad && <p className="mensaje-error-m">{errors.edad.message}</p>}
                 </div>
 
                 {/* Campo Peso */}
-                <div className="grupo-campo">
-                  <label htmlFor="peso">Peso de la mascota <span className="obligatorio">*</span></label>
+                <div className="grupo-campo-m">
+                  <label htmlFor="peso">Peso de la mascota <span className="obligatorio-m">*</span></label>
                   <input
                     id="peso"
                     type="number"
                     placeholder="Peso (en kg)"
-                    className={errors.peso ? "campo-error" : ""}
+                    className={errors.peso ? "campo-error-m" : ""}
                     {...register("peso", {
                       required: "Este campo es obligatorio",
                       min: {
@@ -179,15 +186,15 @@ const FormularioMascotas = () => {
                       },
                     })}
                   />
-                  {errors.peso && <p className="mensaje-error">{errors.peso.message}</p>}
+                  {errors.peso && <p className="mensaje-error-m">{errors.peso.message}</p>}
                 </div>
 
                 {/* Campo Sexo */}
-                <div className="grupo-campo">
-                  <label htmlFor="sexo">Sexo de la mascota <span className="obligatorio">*</span></label>
+                <div className="grupo-campo-m">
+                  <label htmlFor="sexo">Sexo de la mascota <span className="obligatorio-m">*</span></label>
                   <select
                     id="sexo"
-                    className={errors.sexo ? "campo-error" : ""}
+                    className={errors.sexo ? "campo-error-m" : ""}
                     {...register("sexo", {
                       required: "Este campo es obligatorio",
                     })}
@@ -196,42 +203,42 @@ const FormularioMascotas = () => {
                     <option value="F">Femenino</option>
                     <option value="M">Masculino</option>
                   </select>
-                  {errors.sexo && <p className="mensaje-error">{errors.sexo.message}</p>}
+                  {errors.sexo && <p className="mensaje-error-m">{errors.sexo.message}</p>}
                 </div>
 
                 {/* Campo ID Propietario */}
                 <div className="grupo-campo">
-                  <label htmlFor="idPropietario">Numero de identidad <span className="obligatorio">*</span></label>
+                  <label htmlFor="idPropietario">Numero de identidad <span className="obligatorio-m">*</span></label>
                   <input
                     id="idPropietario"
                     type="text"
                     placeholder="ID del propietario"
-                    className={errors.idPropietario ? "campo-error" : ""}
+                    className={errors.idPropietario ? "campo-error-m" : ""}
                     {...register("idPropietario", {
                       required: "Este campo es obligatorio",
                     })}
                   />
-                  {errors.idPropietario && <p className="mensaje-error">{errors.idPropietario.message}</p>}
+                  {errors.idPropietario && <p className="mensaje-error-m">{errors.idPropietario.message}</p>}
                 </div>
 
                 {/* Campo Imagen */}
                 <div className="grupo-campo">
-                  <label htmlFor="imagen">Imagen de la mascota <span className="obligatorio">*</span></label>
+                  <label htmlFor="imagen">Imagen de la mascota <span className="obligatorio-m">*</span></label>
                   <input
                     id="imagen"
                     type="file"
                     onChange={(e) => setImagen(e.target.files[0])}
                     accept="image/*"
                     disabled={isLoading}
-                    className={!imagen ? "campo-error" : ""}
+                    className={!imagen ? "campo-error-m" : ""}
                   />
-                  {!imagen && <p className="mensaje-error">Debes subir una imagen</p>}
+                  {!imagen && <p className="mensaje-error-m">Debes subir una imagen</p>}
                   {imagen && (
-                    <div className="imagen-preview">
+                    <div className="imagen-preview-m">
                       <p>Imagen seleccionada: {imagen.name}</p>
                       <button 
                         type="button" 
-                        className="btn-eliminar-imagen"
+                        className="btn-eliminar-imagen-m"
                         onClick={() => setImagen(null)}
                       >
                         Cambiar imagen
@@ -243,7 +250,7 @@ const FormularioMascotas = () => {
                 {/* Botón de enviar */}
                 <button 
                   type="submit" 
-                  className="boton-login" 
+                  className="boton-login-m" 
                   disabled={isLoading}
                   aria-busy={isLoading}
                 >
