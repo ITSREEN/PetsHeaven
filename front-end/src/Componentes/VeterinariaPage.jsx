@@ -1,8 +1,14 @@
-import React,{ useState, useEffect, useRef } from "react"
-import { MapPin, Star, Phone, Mail, Clock, ChevronUp, Menu, X, Instagram, Facebook } from "lucide-react"
+// Imports 
 import "../../public/styles/VeterinariaPage.css"
 import Footer from "../Componentes/Footer2"
 import { NavBar } from "./BarrasNavegacion/NavBar"
+import { GetData  } from "../Componentes/Util"
+
+// Librarys 
+import React,{ useState, useEffect, useRef } from "react"
+import { MapPin, Star, Phone, Mail, Clock, ChevronUp, Menu, X, Instagram, Facebook } from "lucide-react"
+import { url } from "inspector"
+
 
 
 export default function VeterinariaPage() {
@@ -34,33 +40,11 @@ export default function VeterinariaPage() {
   ]
 
   // Datos para la sección de servicios
-  const servicios = [
-    {
-      titulo: "Consulta General",
-      descripcion: "Examen completo de salud para tu mascota con recomendaciones personalizadas.",
-      imagen: "/imgs/consulta.png",
-    },
-    {
-      titulo: "Vacunación",
-      descripcion: "Programa completo de vacunación para prevenir enfermedades comunes.",
-      imagen: "/imgs/vacunacion.png",
-    },
-    {
-      titulo: "Cirugía",
-      descripcion: "Procedimientos quirúrgicos realizados por especialistas con equipos de última generación.",
-      imagen: "/imgs/cirugia.png",
-    },
-    {
-      titulo: "Emergencias 24h",
-      descripcion: "Atención inmediata para situaciones urgentes a cualquier hora del día.",
-      imagen: "/imgs/urgencias.png",
-    },
-    {
-      titulo: "Spa y Baño",
-      descripcion: "Servicio completo de baño, corte de pelo, limpieza de oídos y corte de uñas para tu mascota.",
-      imagen: "/imgs/baño.png",
-    },
-  ]
+  const servicesData = () => {
+    let URL = "http://localhost:3000/global/services" 
+    let services = GetData(URL)
+    return services
+  }
 
   // Datos para la sección de promociones
   const promociones = [
@@ -255,7 +239,8 @@ export default function VeterinariaPage() {
         <div className="contenedor">
           <h2 className="titulo-seccion titulo-centrado">Nuestros Servicios</h2>
           <div className="grid-servicios">
-            {servicios.map((servicio, indice) => (
+            {
+            servicesData().map((servicio, indice) => (
               <div key={indice} className="tarjeta-servicio">
                 <div className="imagen-servicio">
                   <img src={servicio.imagen || "/placeholder.svg"} alt={servicio.titulo} className="img-servicio" />

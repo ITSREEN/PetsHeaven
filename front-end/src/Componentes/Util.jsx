@@ -1,4 +1,4 @@
-export async function GetPets(URL) {
+export async function GetData(URL) {
     try {
         const response = await fetch(URL);
         if (!response.ok) {
