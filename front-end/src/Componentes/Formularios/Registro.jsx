@@ -25,9 +25,9 @@ const Registro = () => {
     email: "",
     password: "",
 
-    // Verificación
-    codigoVerificacion: "",
-    codigoIngresado: ["", "", "", "", "", ""]
+    // // Verificación
+    // codigoVerificacion: "",
+    // codigoIngresado: ["", "", "", "", "", ""]
   });
 
   // Estados de UI (no son datos del formulario)
@@ -106,8 +106,7 @@ const Registro = () => {
     setFormData({
       ...formData,
       email: datos.email,
-      password: datos.password,
-      confirmarPassword: datos.confirmarPassword
+      confirmPassword: datos.password,
     });
     
     generarCodigoVerificacion();
