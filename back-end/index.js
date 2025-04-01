@@ -3,6 +3,7 @@ const express = require('express')
 const cors = require('cors')
 
 // Imports 
+const globalRoute = require('./routes/global.route')
 const userRoute = require('./routes/user.route')
 const petRoute = require('./routes/pets.route')
 
@@ -23,6 +24,7 @@ app.get('/',(req,res) => {
 })
 
 // Routes
+app.use('/global',globalRoute)
 app.use('/user',userRoute)
 app.use('/pet',petRoute)
 

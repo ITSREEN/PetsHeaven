@@ -103,7 +103,8 @@ CREATE TABLE pets_heaven.servicios(
     pre_ser DECIMAL(10,2) NOT NULL,
     des_ser TEXT NOT NULL,
     tec_des_ser TEXT NOT NULL,
-    img_ser TEXT NOT NULL
+    img_ser TEXT NOT NULL,
+    estado BOOLEAN DEFAULT(1) NOT NULL
 );
 
 CREATE TABLE pets_heaven.citas(
