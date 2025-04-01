@@ -22,7 +22,7 @@ CREATE PROCEDURE pets_heaven.SearchServices()
 BEGIN
     SELECT
         s.nom_ser,
-        s.cat_ser,
+        c.nom_cat,
         s.pre_ser,
         s.des_ser,
         s.tec_des_ser,
