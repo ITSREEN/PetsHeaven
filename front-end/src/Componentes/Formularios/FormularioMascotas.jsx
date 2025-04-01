@@ -1,16 +1,11 @@
-
-// import React, { useState } from 'react';
-// import { supabase } from '../../supabaseClient';
-
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-<<<<<<< HEAD:front-end/src/Componentes/FormularioMascotas.jsx
-import { supabase } from "../supabaseClient"; // Usamos Supabase para almacenar la imagen y los datos
-import "../../public/styles/FormularioMascotas.css";
-=======
-import { supabase } from "../../supabaseClient";
-import { Link } from 'react-router';
->>>>>>> d05a955708905e84ed032062f22bcee36c809367:front-end/src/Componentes/Formularios/FormularioMascotas.jsx
+import { supabase } from "../../supabaseClient"; // Usa solo una importación para supabase
+// import "../../public/styles/FormularioMascotas.css";
+import { Link } from 'react-router-dom'; // Asegúrate de que 'react-router' sea 'react-router-dom'
+
+
+
 
 const FormularioMascotas = () => {
   const imagenFondo = "/imgs/fondo.png";
@@ -55,7 +50,7 @@ const FormularioMascotas = () => {
       if (dbError) throw dbError;
 
       alert('¡Mascota registrada con éxito!');
-      window.location.href = '/mis-mascotas'; // Redirigir a la página "Mis Mascotas"
+      window.location.href = '/mis-mascotas'; 
       
     } catch (error) {
       console.error('Error:', error);

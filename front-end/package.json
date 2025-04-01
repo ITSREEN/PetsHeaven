@@ -10,18 +10,11 @@
     "lucide-react": "^0.484.0",
     "multer": "^1.4.5-lts.2",
     "next": "^15.2.4",
-<<<<<<< HEAD
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
     "react-router": "^7.4.0",
     "react-router-dom": "^7.4.1"
-=======
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "react-hook-form": "^7.55.0",
-    "react-router": "^7.4.1"
->>>>>>> d05a955708905e84ed032062f22bcee36c809367
   },
   "devDependencies": {
     "vite": "^6.2.3"
