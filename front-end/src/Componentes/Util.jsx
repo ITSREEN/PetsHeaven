@@ -1,19 +1,16 @@
-function GetPets(URL) {
-    let datas
-    fetch(URL)
-    .then(res => {
-        datas = res.json()
-        datas.status == 200? console.log(datas.result):console.log("Error" + datas.status)
-    })
-    .catch(err => {
-        console.log(err)
-    })
-    .finally(() => {
-        console.log("Procedimiento completado correctamente")
-    })
-    console.log(datas)
-    // return res
+export async function GetPets(URL) {
+    try {
+        const response = await fetch(URL);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log(data.result[0])
+        return data.result[0];
+    } catch (error) {
+        console.error("Error:", error);
+        throw error;
+    } finally {
+        console.log("Procedimiento Terminado");
+    }
 }
-
-get = GetPets("http://localhost:3000/user/all")
-console.log(get)
