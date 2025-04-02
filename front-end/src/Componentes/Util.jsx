@@ -12,7 +12,5 @@ export async function GetData(URL) {
         window.location.href = "/internal"
         console.error("Error:", error);
         throw error;
-    } finally {
-        console.log("Procedimiento Terminado");
     }
 }
