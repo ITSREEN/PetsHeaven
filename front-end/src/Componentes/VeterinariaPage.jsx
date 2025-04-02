@@ -104,6 +104,7 @@ export default function VeterinariaPage() {
     })
   }
 
+  if (loading) (<Loader />)
   if (!loading) return (
       <div className="pagina">
         <NavBar/>
