@@ -2,7 +2,6 @@
 import "../../public/styles/VeterinariaPage.css"
 import { NavBar } from "./BarrasNavegacion/NavBar"
 import { GetData } from "../Componentes/Util"
-import { Loader } from "../Componentes/Errores/Loader"
 import { diapositivas, promociones, testimonios } from './varios'
 
 // Librarys 
