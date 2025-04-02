@@ -23,12 +23,12 @@ BEGIN
 
     START TRANSACTION;
 
-    SELECT 1 FROM usuarios u 
+    SELECT u.id_usu INTO p_id_pro_mas 
+    FROM 
+        usuarios u 
     WHERE 
-        u.doc_usu LIKE p_usuario 
-        OR u.email_usu LIKE p_usuario;
-
-    SET p_id_pro_mas = LAST_INSERT_ID();
+        u.doc_usu = p_usuario 
+        OR u.email_usu = p_usuario;
 
     INSERT INTO pets_heaven.mascotas (nom_mas,esp_mas,col_mas,raz_mas,ali_mas,fec_nac_mas,pes_mas,gen_mas,id_pro_mas,est_rep_mas,fot_mas)
     VALUES(p_nom_mas,p_esp_mas,p_col_mas,p_raz_mas,p_ali_mas,p_fec_nac_mas,p_pes_mas,p_gen_mas,p_id_pro,p_est_rep_mas,p_fot_mas);
