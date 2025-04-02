@@ -65,28 +65,28 @@ class User{
     }
     
     // function to register
-    // async create(data) {
-    //     return new Promise((res,rej) => {
-    //         // data 
-    //         const newUser = {...data}
+    async create(data) {
+        return new Promise((res,rej) => {
+            // data 
+            const newUser = {...data}
+            let procedure = "CALL RegistUser(?,?,?,?,?,?);"
 
-    //         // conect to database
-    //         let conection = conect()
+            // conect to database
+            let conection = conect()
 
-    //         // call procedure
-    //         conection.query(procedure,[newUser.nom,newUser.ape,newUser.dir,newUser.tel,newUser.email,newUser.cont],(err,result) => { 
-    //             if(err) {
-    //                 rej(err) 
-    //             } else setTimeout(() => res({
-    //                 message: "User Created",
-    //                 ...newUser
-    //             }),4000)
-    //         })
+            // call procedure
+            conection.query(procedure,[newUser.nom,newUser.ape,newUser.dir,newUser.tel,newUser.email,newUser.cont],(err) => { 
+                if(err) {
+                    rej(err) 
+                } else setTimeout(() => res({
+                    message: "User Created"
+                }),4000)
+            })
 
-    //         // close conection 
-    //         conection.end()
-    //     })
-    //   }
+            // close conection 
+            conection.end()
+        })
+      }
 
 }
 

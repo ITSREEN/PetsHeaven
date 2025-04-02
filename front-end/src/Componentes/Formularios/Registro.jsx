@@ -1,8 +1,13 @@
+// Librarys
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import emailjs from "emailjs-com";
+import { Link } from "react-router"
+
+// Imports
 import "../../../public/styles/Registro.css";
 
+// Main component
 const Registro = () => {
   const imagenFondo = "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Fondos/fondo.png";
   const logoUrl = "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/1.png";
@@ -827,9 +832,9 @@ const Registro = () => {
           {paso === 1 && (
             <div className="seccion-login">
               <p className="texto-login">¿Ya haces parte de PetsHeaven?</p>
-              <a href="/login" className="enlace">
+              <Link to="/user/login" className="enlace">
                 Inicia sesión
-              </a>
+              </Link>
             </div>
           )}
         </div>

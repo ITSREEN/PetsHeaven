@@ -1,16 +1,18 @@
+// Librarys 
 import React from "react"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
+import { Link } from 'react-router'
+
+// Imports 
 import "../../../public/styles/login.css"
-import {Link} from 'react-router'
 
+// Main component 
 export const LoginForm = () => {
-
+  // Vars 
+  const [verPassword, setVerPassword] =  useState(false)
   const imagenFondo = "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Fondos/fondo.png" 
-  const logoUrl = "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/1.png" 
-
-  // Estados para controlar la visibilidad de la contraseña
-  const [verPassword, setVerPassword] = useState(false)
+  const logoUrl = "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/1.png"
 
   // Configuración del formulario
   const {
@@ -137,10 +139,10 @@ export const LoginForm = () => {
                 </button>
 
                 <div className="enlaces-container-login">
-                  <Link to="/recuperar" className="enlace-login">
+                  <Link to="/user/recuperar" className="enlace-login">
                     ¿Olvidaste tu contraseña?
                   </Link>
-                  <Link to="/register" className="enlace-login">
+                  <Link to="/user/register" className="enlace-login">
                     ¿No tienes una cuenta?
                   </Link>
                 </div>

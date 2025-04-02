@@ -3,27 +3,27 @@ import React from "react"
 import { BrowserRouter, Routes, Route } from "react-router"
 
 // Imports
-import { NavBar } from "./Componentes/BarrasNavegacion/NavBar"
-import {LoginForm} from "./Componentes/Formularios/LoginForm"
+import { LoginForm } from "./Componentes/Formularios/LoginForm"
 import { NotFound } from "./Componentes/Errores/NotFound"
+import { Pets } from "./Componentes/Pets"
 import Registro from "./Componentes/Formularios/Registro"
 import VeterinariaPage from "./Componentes/VeterinariaPage"
 import RegistroMascota from "./Componentes/Formularios/FormularioMascotas"
 import ForgotPassword from "./Componentes/Formularios/ForgotPassword"
-import { Loader } from "./Componentes/Errores/Loader"
 
 
-// Component 
+// Main Component
 export default function App () {
   return (
+    // Define Routes
     <BrowserRouter>
-      <Loader></Loader>
       <Routes>
-        <Route path="/" element={<VeterinariaPage />} />
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/register" element={<Registro />} />
-        <Route path="/registerM" element={<RegistroMascota />} />
-        <Route path="/recuperar" element={<ForgotPassword />} />
+        <Route path="main" element={<VeterinariaPage />} />
+        <Route path="user/login" element={<LoginForm />} />
+        <Route path="user/register" element={<Registro />} />
+        <Route path="user/recuperar" element={<ForgotPassword />} />
+        <Route path="pets" element={<Pets />} ></Route>
+        <Route path="pets/register" element={<RegistroMascota />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

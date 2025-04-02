@@ -7,6 +7,6 @@ boxicons
 #Dev Dep
 vite
 
-npm i react react-dom react-hook-form boxicons react-router lucide-react @supabase/supabase-js emailjs-com
+npm i react react-dom react-hook-form boxicons react-router lucide-react @supabase/supabase-js emailjs-com react-query
 npm i -D vite
 npm install next@latest
