@@ -9,7 +9,8 @@ CREATE PROCEDURE pets_heaven.RegistPeoples(
     IN p_cel_usu VARCHAR(20),
     IN p_cel2_usu VARCHAR(20),
     IN p_email_usu VARCHAR(100),
-    IN p_cont_usu VARCHAR(255)
+    IN p_cont_usu VARCHAR(255),
+    IN p_gen_usu VARCHAR(20)
 )
 BEGIN
     DECLARE p_id_usuario INT;
@@ -24,8 +25,8 @@ BEGIN
 
     START TRANSACTION;
 
-    INSERT INTO usuarios (nom_usu,ape_usu,tip_doc_usu,doc_usu,dir_usu,cel_usu,cel2_usu,email_usu,cont_usu)
-    VALUES (p_nom_usu,p_ape_usu,p_tip_doc_usu,p_doc_usu,p_dir_usu,p_cel_usu,p_cel2_usu,p_email_usu,p_cont_usu,DEFAULT);
+    INSERT INTO usuarios (nom_usu,ape_usu,tip_doc_usu,doc_usu,dir_usu,cel_usu,cel2_usu,email_usu,cont_usu,gen_usu)
+    VALUES (p_nom_usu,p_ape_usu,p_tip_doc_usu,p_doc_usu,p_dir_usu,p_cel_usu,p_cel2_usu,p_email_usu,p_cont_usu,p_gen_usu,DEFAULT);
 
     SET p_id_usuario = LAST_INSERT_ID();
 

@@ -36,3 +36,34 @@ BEGIN
     COMMIT;
     SET autocommit = 1;
 END //
+CREATE PROCEDURE pets_heaven.SearchPets()
+BEGIN
+
+    SELECT
+        m.nom_mas,
+        m.esp_mas,
+        m.col_mas,
+        m.raz_mas,
+        m.ali_mas,
+        m.fec_nac_mas,
+        m.pes_mas,
+        m.gen_mas,
+        m.est_rep_mas,
+        m.fot_mas,
+        u.nom_usu,
+        u.ape_usu,
+        u.doc_usu,
+        u.email_usu
+    FROM 
+        mascotas m
+    JOIN
+        usuarios u ON u.id_usu = m.id_pro_mas
+    WHERE 
+        m.estado = 1
+        AND u.estado = 1
+    ORDER BY 
+        m.nom_mas
+    LIMIT 40;
+
+END //
+

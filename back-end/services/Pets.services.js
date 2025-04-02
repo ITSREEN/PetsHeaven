@@ -3,10 +3,28 @@ const DataBase = require('./DataBase')
 
 // Main class 
 class Pet {
-    constructor (name = null) {
-        this.name = name
-    }
+    async create(data) {
+        return new Promise((res,rej) => {
+            // vars
+            const proc = "CALL RegistPets(?,?,?,?,?,?,?,?,?,?,?)"
 
+            // conect to database
+            let database = new DataBase()
+            database.conect()
+
+            // Query
+            if (database) database.conection.query(proc,[data.nom,data.ape,data.dir,data.tel,data.email,data.cont],err => { 
+                err? rej(err)
+                :setTimeout(() => res({
+                    message: "Pet Created",
+                    ...data
+                }),4000)
+            })
+
+            // close conection 
+            database.conection.end()
+        })
+    }
     async findAll() {
         return new Promise((res,rej) => {
             // vars

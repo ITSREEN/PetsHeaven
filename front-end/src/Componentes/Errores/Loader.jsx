@@ -1,7 +1,7 @@
 import React from "react";
 import "../../../public/styles/Errores.css/Loader.css"
 
-export function Loader(){
+export const Loader = () => {
     return(
     <div aria-label="Orange and tan hamster running in a metal wheel" role="img" className="wheel-and-hamster">
         <div className="wheel"></div>

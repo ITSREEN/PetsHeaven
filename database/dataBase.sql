@@ -24,6 +24,7 @@ CREATE TABLE pets_heaven.usuarios(
     cel2_usu VARCHAR(20),
     email_usu VARCHAR(100) UNIQUE NOT NULL,INDEX(email_usu),
     cont_usu VARCHAR(255) NOT NULL,
+    gen_usu VARCHAR(100) NOT NULL,
     estado BOOLEAN DEFAULT(1)
 );
 
@@ -76,7 +77,7 @@ CREATE TABLE pets_heaven.mascotas(
     fec_nac_mas DATE NOT NULL,
     pes_mas FLOAT(12,10) UNSIGNED NOT NULL,
     gen_mas ENUM('F','M') NOT NULL,
-    id_pro_mas INT NOT NULL,INDEX(id_pro_mas),FOREIGN KEY (id_pro_mas) REFERENCES propietarios(id_pro) ON DELETE CASCADE ON UPDATE CASCADE,
+    id_pro_mas INT NOT NULL,INDEX(id_pro_mas),FOREIGN KEY (id_pro_mas) REFERENCES usuarios(id_usu) ON DELETE CASCADE ON UPDATE CASCADE,
     est_rep_mas VARCHAR(100) NOT NULL,
     estado BOOLEAN DEFAULT(1),
     fot_mas TEXT NOT NULL

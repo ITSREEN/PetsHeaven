@@ -481,7 +481,7 @@ const Registro = () => {
                           required: true,
                           pattern: {
                             value: /^[0-9]{10}$/,
-                            message: "El teléfono debe tener 10 dígitos numéricos",
+                            message: "El celular debe tener 10 dígitos numéricos",
                           },
                         })}
                       />

@@ -18,7 +18,7 @@ export const NotFound = () => {
           <span className="pet-icon">🐈</span>
         </div>
         
-        <Link to="/" className="pet-home-button">
+        <Link to="/main" className="pet-home-button">
           <i className="fas fa-bone"></i> Volver al hogar
         </Link>
       </div>

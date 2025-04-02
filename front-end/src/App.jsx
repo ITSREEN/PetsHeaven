@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router"
 // Imports
 import { LoginForm } from "./Componentes/Formularios/LoginForm"
 import { NotFound } from "./Componentes/Errores/NotFound"
+import { ErrorInternalServer } from "./Componentes/Errores/ErrorInternalServer"
 import { Pets } from "./Componentes/Pets"
 import Registro from "./Componentes/Formularios/Registro"
 import VeterinariaPage from "./Componentes/VeterinariaPage"
@@ -24,6 +25,7 @@ export default function App () {
         <Route path="user/recuperar" element={<ForgotPassword />} />
         <Route path="pets" element={<Pets />} ></Route>
         <Route path="pets/register" element={<RegistroMascota />} />
+        <Route path="/internal" element={<ErrorInternalServer />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
