@@ -7,25 +7,22 @@ const Registro = () => {
   const imagenFondo = "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Fondos/fondo.png";
   const logoUrl = "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/1.png";
 
-  // Estado principal consolidado
-  const [formData, setFormData] = useState({
-    // Paso 1: Información personal
-    tipoDocumento: "",
-    numeroDocumento: "",
-    nombres: "",
-    apellidos: "",
-    fechaNacimiento: "",
-    genero: "",
-    telefono: "",
-    direccion: "",
+  const [userData, setUserData] = useState({
+    // Paso 1
+    tipoDocumento: '',
+    numeroDocumento: '',
+    nombres: '',
+    apellidos: '',
+    fechaNacimiento: '',
+    genero: '',
+    telefono: '',
+    direccion: '',
+    // Paso 2
+    email: '',
+    password: ''
+  });
 
-    // Paso 2: Datos de cuenta
-    email: "",
-    confirmEmail: "",
-    password: "",
-    confirmPassword: "",
-
-    // Verificación
+  const [verificationData, setVerificationData] = useState({
     codigoVerificacion: "",
     codigoIngresado: ["", "", "", "", "", ""]
   });
@@ -61,15 +58,6 @@ const Registro = () => {
   useEffect(() => {
     if (paso === 1) {
       resetearPaso2();
-      setTimeout(() => {
-        const formularioPaso2 = document.getElementById("formularioPaso2");
-        if (formularioPaso2) {
-          const inputs = formularioPaso2.querySelectorAll("input");
-          inputs.forEach((input) => (input.value = ""));
-          const checkbox = formularioPaso2.querySelector('input[type="checkbox"]');
-          if (checkbox) checkbox.checked = false;
-        }
-      }, 0);
     }
   }, [paso, resetearPaso2]);
 
@@ -88,7 +76,7 @@ const Registro = () => {
 
   // Funciones principales
   const enviarPaso1 = (datos) => {
-    setFormData(prev => ({
+    setUserData(prev => ({
       ...prev,
       tipoDocumento: datos.tipoDocumento,
       numeroDocumento: datos.numeroDocumento,
@@ -102,37 +90,44 @@ const Registro = () => {
     setPaso(2);
   };
 
-  const enviarPaso2 = (datos) => {
-    setFormData(prev => ({
-      ...prev,
-      email: datos.email,
-      confirmEmail: datos.confirmEmail,
-      password: datos.password,
-      confirmPassword: datos.confirmPassword
-    }));
-    
-    generarCodigoVerificacion();
-    setPaso(3);
-    setTiempoRestante(300);
-    setTimerActivo(true);
+  const enviarPaso2 = async (datos) => {
+    try {
+      setUserData(prev => ({
+        ...prev,
+        email: datos.email,
+        password: datos.password
+      }));
+      
+      await new Promise(resolve => setTimeout(resolve, 0));
+      
+      generarCodigoVerificacion();
+      setPaso(3);
+      setTiempoRestante(300);
+      setTimerActivo(true);
+      
+    } catch (error) {
+      console.error("Error al enviar paso 2:", error);
+    }
   };
+
 
   const generarCodigoVerificacion = () => {
     const codigo = Math.floor(100000 + Math.random() * 900000).toString();
-    setFormData(prev => ({
-      ...prev,
+    console.log("Email al generar código:", userData.email);  
+    
+    setVerificationData({
       codigoVerificacion: codigo,
       codigoIngresado: ["", "", "", "", "", ""]
-    }));
-    setErrorCodigo(false);
-    console.log("Código generado:", codigo);
+    });
+    
+    enviarEmail(codigo);
   };
 
-  const enviarEmail = () => {
+  const enviarEmail = (codigo) => {
     const Params = {
-      name: formData.nombres,
-      email: formData.email,
-      codigoVerificacion: formData.codigoVerificacion
+      name: userData.nombres,
+      email: userData.email,
+      codigoVerificacion: codigo
     };
     console.log("Datos a enviar:", Params);
 
@@ -156,9 +151,9 @@ const Registro = () => {
   // Funciones auxiliares
   const manejarCambioCodigo = (indice, valor) => {
     if (!/^\d*$/.test(valor)) return;
-    const nuevoCodigo = [...formData.codigoIngresado];
+    const nuevoCodigo = [...verificationData.codigoIngresado];
     nuevoCodigo[indice] = valor;
-    setFormData(prev => ({ ...prev, codigoIngresado: nuevoCodigo }));
+    setVerificationData(prev => ({ ...prev, codigoIngresado: nuevoCodigo }));
     if (valor !== "" && indice < 5) {
       const siguienteInput = document.getElementById(`codigo-input-${indice + 1}`);
       if (siguienteInput) siguienteInput.focus();
@@ -169,15 +164,17 @@ const Registro = () => {
     e.preventDefault();
     const datoPegado = e.clipboardData.getData("text");
     if (/^\d{6}$/.test(datoPegado)) {
-      setFormData(prev => ({ ...prev, codigoIngresado: datoPegado.split("") }));
+      setVerificationData(prev => ({ ...prev, codigoIngresado: datoPegado.split("") }));
       document.getElementById("codigo-input-5")?.focus();
     }
   };
 
   const verificarCodigo = () => {
-    const codigoInput = formData.codigoIngresado.join("");
-    if (codigoInput === formData.codigoVerificacion) {
+    const codigoInput = verificationData.codigoIngresado.join("");
+    if (codigoInput === verificationData.codigoVerificacion) {
       alert("¡Verificación exitosa!");
+      // fetch para guardar los datos en la base de datos
+      console.log("Datos del usuario a guardar:", userData);
       resetearPaso1();
       resetearPaso2();
       setPaso(1);
@@ -190,7 +187,7 @@ const Registro = () => {
     generarCodigoVerificacion();
     setTiempoRestante(300);
     setTimerActivo(true);
-    alert(`Nuevo código enviado a ${formData.email}`);
+    alert(`Nuevo código enviado a ${userData.email}`);
   };
 
   const retrocederPaso = () => setPaso(paso === 3 ? 2 : 1);
@@ -231,9 +228,6 @@ const Registro = () => {
     const segs = segundos % 60;
     return `${minutos}:${segs < 10 ? "0" : ""}${segs}`;
   };
-
-  // ... (El JSX permanece exactamente igual que en tu código original)
-  // Solo asegúrate de que los nombres de los campos coincidan con los usados en el estado
 
   return (
     <div className="registro-container">
@@ -744,7 +738,7 @@ const Registro = () => {
                     <button type="button" className="boton-anterior" onClick={retrocederPaso}>
                       Anterior
                     </button>
-                    <button type="submit" className="boton-enviar" onClick={enviarEmail}>
+                    <button type="submit" className="boton-enviar">
                       Registrarse
                     </button>
                   </div>
@@ -774,12 +768,12 @@ const Registro = () => {
                   <h3 className="titulo-verificacion">Verifica tu correo electrónico</h3>
 
                   <p className="descripcion-verificacion">
-                    Hemos enviado un código de verificación a <strong>{formData.email}</strong>. Por favor, introduce el
+                    Hemos enviado un código de verificación a <strong>{userData.email}</strong>. Por favor, introduce el
                     código de 6 dígitos para verificar tu cuenta.
                   </p>
 
                   <div className="contenedor-codigo">
-                    {formData.codigoIngresado.map((digito, indice) => (
+                    {verificationData.codigoIngresado.map((digito, indice) => (
                       <input
                         key={indice}
                         id={`codigo-input-${indice}`}
@@ -841,8 +835,7 @@ const Registro = () => {
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 export default Registro;
-
