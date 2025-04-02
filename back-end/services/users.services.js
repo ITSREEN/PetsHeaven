@@ -3,28 +3,6 @@ const DataBase = require('./DataBase')
 
 // Main class
 class User{
-    constructor(
-        nom = null,
-        ape = null,
-        tip_doc = null,
-        doc = null,
-        dir = null,
-        cel = null,
-        cel2 = null,
-        email = null,
-        cont = null,
-    ) {
-        this.nom = nom
-        this.ape = ape
-        this.tip_doc = tip_doc
-        this.doc = doc
-        this.dir = dir
-        this.cel = cel
-        this.cel2 = cel2
-        this.email = email
-        this.cont = cont
-    }
-
     // function to find One 
     async findOne(name) {
         return new Promise((res,rej) => {
@@ -68,18 +46,29 @@ class User{
     async create(data) {
         return new Promise((res,rej) => {
             // data 
-            const newUser = {...data}
-            let procedure = "CALL RegistUser(?,?,?,?,?,?);"
+            const newUser = [
+                data.nombres,
+                data.apellidos,
+                data.fechaNacimiento,
+                data.tipoDocumento,
+                data.numeroDocumento,
+                data.direccion,
+                data.telefono,
+                data.email,
+                data.password
+            ]
+            let procedure = "CALL RegistPeoples(?,?,?,?,?,?,?,?,?,?);"
 
             // conect to database
             let conection = conect()
 
             // call procedure
-            conection.query(procedure,[newUser.nom,newUser.ape,newUser.dir,newUser.tel,newUser.email,newUser.cont],(err) => { 
+            conection.query(procedure,newUser,err => { 
                 if(err) {
                     rej(err) 
                 } else setTimeout(() => res({
-                    message: "User Created"
+                    message: "User Created",
+                    ...data
                 }),4000)
             })
 

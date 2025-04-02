@@ -13,7 +13,7 @@ import { MapPin, Star, Phone, Mail, Clock, ChevronUp, Instagram, Facebook } from
 
 export default function VeterinariaPage() {
   // Estados para los diferentes componentes
-  const URL = "http://localhost:3000/global/services" 
+  const URL = "http://localhost:3000/global/services"
   const [diaActual, setDiaActual] = useState(0)
   const [testActual, setTestActual] = useState(0)
   const [mostrarBoton, setMostrarBoton] = useState(false)

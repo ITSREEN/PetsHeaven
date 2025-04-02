@@ -20,7 +20,8 @@ const Registro = () => {
     apellidos: '',
     fechaNacimiento: '',
     genero: '',
-    telefono: '',
+    celular: '',
+    celular2: '',
     direccion: '',
     // Paso 2
     email: '',
@@ -89,7 +90,7 @@ const Registro = () => {
       apellidos: datos.apellidos,
       fechaNacimiento: datos.fechaNacimiento,
       genero: datos.genero,
-      telefono: datos.telefono,
+      celular: datos.celular,
       direccion: datos.direccion
     }));
     setPaso(2);
@@ -462,21 +463,21 @@ const Registro = () => {
                         type="text"
                         placeholder="Ej: 65642312"
                         maxLength={10}
-                        className={erroresPaso1.telefono ? "campo-error" : ""}
+                        className={erroresPaso1.celular ? "campo-error" : ""}
                         onKeyPress={permitirSoloNumeros}
-                        {...registrarPaso1("telefono", {
+                        {...registrarPaso1("celular", {
                           required: true,
                           pattern: {
                             value: /^[0-9]{10}$/,
-                            message: "El teléfono debe tener 10 dígitos numéricos",
+                            message: "El celular debe tener 10 dígitos numéricos",
                           },
                         })}
                       />
-                      {erroresPaso1.telefono && (
+                      {erroresPaso1.celular && (
                         <p className="mensaje-error">
-                          {erroresPaso1.telefono.type === "required"
-                            ? "El teléfono es obligatorio"
-                            : "El teléfono debe tener 10 dígitos numéricos"}
+                          {erroresPaso1.celular.type === "required"
+                            ? "El celular es obligatorio"
+                            : "El celular debe tener 10 dígitos numéricos"}
                         </p>
                       )}
                     </div>
