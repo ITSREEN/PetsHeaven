@@ -17,7 +17,7 @@ export default function VeterinariaPage() {
   const [testActual, setTestActual] = useState(0)
   const [mostrarBoton, setMostrarBoton] = useState(false)
   const [gruposTest, setGruposTest] = useState([])
-  const [serData, setSerData] = useState([])
+  // const [serData, setSerData] = useState([])
 
   // Función para agrupar testimonios en diapositivas
   const agruparTest = () => {
@@ -35,19 +35,19 @@ export default function VeterinariaPage() {
   }
 
   // Traer los servicios de la base de datos
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const services = await GetData(URL)
-        setSerData(services)
-      } catch (error) {
-        console.error("Error fetching data:", error)
-        setSerData()
-      }
-    }
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const services = await GetData(URL)
+  //       setSerData(services)
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error)
+  //       setSerData()
+  //     }
+  //   }
   
-    fetchData()
-  }, [])
+  //   fetchData()
+  // }, [])
   
   // Efecto para inicializar y actualizar los grupos de testimonios
   useEffect(() => {
@@ -152,7 +152,7 @@ export default function VeterinariaPage() {
       </section>
 
           {/* COMPONENTE: Servicios */}
-          <section id="servicios" className="seccion-servicios">
+          {/*<section id="servicios" className="seccion-servicios">
             <div className="contenedor">
               <h2 className="titulo-seccion titulo-centrado">Nuestros Servicios</h2>
               <div className="grid-servicios">
@@ -172,6 +172,7 @@ export default function VeterinariaPage() {
               </div>
             </div>
           </section>
+          */}
 
           {/* COMPONENTE: Promociones (SECCIÓN ESTÁTICA) */}
           <section id="promociones" className="seccion-promociones">
