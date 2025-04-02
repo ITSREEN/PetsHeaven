@@ -53,7 +53,8 @@ BEGIN
         u.nom_usu,
         u.ape_usu,
         u.doc_usu,
-        u.email_usu
+        u.email_usu,
+        u.gen_usu
     FROM 
         mascotas m
     JOIN

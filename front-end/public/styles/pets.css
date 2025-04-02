@@ -1,0 +1,64 @@
+/* Imports  */
+@import url("vars.css");
+@import url("global.css");
+
+.pets-container {
+    display: flex;
+    flex-wrap: wrap;
+    height: 90vh;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    gap: 20px;
+    background: var(--verdeaguamarina);
+    overflow: auto;
+}
+
+.pets-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    width: 70%;
+    gap: 10px;
+    font-size: var(--font-size);
+    background: var(--white);
+    box-shadow: 6px 6px 6px #00000025;
+    border-radius: 10px;
+}
+.pets-card-img {
+    height: 40vh;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+    border: 2px solid var(--gray);
+    box-shadow: 6px 7px 6px #00000025;
+    background: var(--verdeaguamarina);
+}
+.pets-card-info {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    width: 100%;
+}
+
+@media (width > 700px) {
+    .pets-card {
+        width: 40%;
+    }
+    .pets-card-img {
+        height: 40vh;
+    }
+}
+@media (width > 1100px) {
+    .pets-card {
+        width: 20%;
+    }
+    .pets-card-img {
+        height: 30vh;
+    }
+}
