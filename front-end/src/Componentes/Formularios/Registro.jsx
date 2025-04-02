@@ -1,38 +1,35 @@
-// Librarys
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import emailjs from "emailjs-com";
-import { Link } from "react-router"
-
-// Imports
+import { Link } from "react-router-dom";
 import "../../../public/styles/Registro.css";
 
-// Main component
 const Registro = () => {
   const imagenFondo = "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Fondos/fondo.png";
   const logoUrl = "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/1.png";
 
-  const [userData, setUserData] = useState({
+  // Datos que entran del formulario de registro
+  const [formData, setFormData] = useState({
     // Paso 1
-    tipoDocumento: '',
-    numeroDocumento: '',
-    nombres: '',
-    apellidos: '',
-    fechaNacimiento: '',
-    genero: '',
-    celular: '',
-    celular2: '',
-    direccion: '',
+    tipoDocumento: "",
+    numeroDocumento: "",
+    nombres: "",
+    apellidos: "",
+    fechaNacimiento: "",
+    genero: "",
+    telefono: "",
+    direccion: "",
     // Paso 2
-    email: '',
-    password: ''
-  });
-
-  const [verificationData, setVerificationData] = useState({
+    email: "",
+    confirmEmail: "",
+    password: "",
+    confirmPassword: "",
+    terminos: false,
+    // Verificación
     codigoVerificacion: "",
     codigoIngresado: ["", "", "", "", "", ""]
   });
-
+  
   // Estados de UI
   const [paso, setPaso] = useState(1);
   const [verPassword, setVerPassword] = useState(false);
@@ -44,28 +41,33 @@ const Registro = () => {
   const [timerActivo, setTimerActivo] = useState(false);
   const [status, setStatus] = useState("");
 
+  
   // Configuración de react-hook-form
   const {
-    register: registrarPaso1,
-    handleSubmit: manejarEnvioPaso1,
-    formState: { errors: erroresPaso1 },
-    reset: resetearPaso1,
-  } = useForm({ mode: "onChange" });
-
-  const {
-    register: registrarPaso2,
-    handleSubmit: manejarEnvioPaso2,
-    watch: observarPaso2,
-    reset: resetearPaso2,
-    formState: { errors: erroresPaso2 },
-  } = useForm({ mode: "onChange" });
+      register,
+      handleSubmit,
+      watch,
+      formState: { errors },
+      trigger,
+      setValue,
+      getValues
+    } = useForm({ mode: "onChange",
+        defaultValues: formData
+     });
+    const password = watch("password");
 
   // Efectos
   useEffect(() => {
-    if (paso === 1) {
-      resetearPaso2();
-    }
-  }, [paso, resetearPaso2]);
+    const subscription = watch((values) => {
+      setFormData(prev => ({
+        ...prev,
+        ...values,
+        codigoVerificacion: prev.codigoVerificacion,
+        codigoIngresado: prev.codigoIngresado
+      }));
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   useEffect(() => {
     let intervalo = null;
@@ -81,58 +83,62 @@ const Registro = () => {
   }, [timerActivo, tiempoRestante, paso]);
 
   // Funciones principales
-  const enviarPaso1 = (datos) => {
-    setUserData(prev => ({
-      ...prev,
-      tipoDocumento: datos.tipoDocumento,
-      numeroDocumento: datos.numeroDocumento,
-      nombres: datos.nombres,
-      apellidos: datos.apellidos,
-      fechaNacimiento: datos.fechaNacimiento,
-      genero: datos.genero,
-      celular: datos.celular,
-      direccion: datos.direccion
-    }));
-    setPaso(2);
-  };
-
-  const enviarPaso2 = async (datos) => {
-    try {
-      setUserData(prev => ({
-        ...prev,
-        email: datos.email,
-        password: datos.password
-      }));
+  const onSubmit = async (data) => {
+    if (paso === 1) {
+      const isValid = await trigger([
+        "tipoDocumento", 
+        "numeroDocumento",
+        "nombres",
+        "apellidos",
+        "fechaNacimiento",
+        "genero",
+        "telefono",
+        "direccion"
+      ]);
       
-      await new Promise(resolve => setTimeout(resolve, 0));
-      
-      generarCodigoVerificacion();
-      setPaso(3);
-      setTiempoRestante(300);
-      setTimerActivo(true);
-      
-    } catch (error) {
-      console.error("Error al enviar paso 2:", error);
+      if (isValid) {
+        setPaso(2);
+      }
+    } 
+    else if (paso === 2) {
+      const isValid = await trigger([
+        "email",
+        "confirmEmail",
+        "password",
+        "confirmPassword",
+        "terminos"
+      ]);
+  
+      if (isValid) {
+        const codigo = generarCodigoVerificacion();
+        enviarEmail(codigo);
+        setPaso(3);
+        setTiempoRestante(300);
+        setTimerActivo(true);
+      }
     }
   };
 
-
   const generarCodigoVerificacion = () => {
     const codigo = Math.floor(100000 + Math.random() * 900000).toString();
-    console.log("Email al generar código:", userData.email);  
-    
-    setVerificationData({
+    setFormData(prev => ({
+      ...prev,
       codigoVerificacion: codigo,
       codigoIngresado: ["", "", "", "", "", ""]
-    });
-    
-    enviarEmail(codigo);
+    }));
+
+    setValue("codigoVerificacion", codigo);
+    setValue("codigoIngresado", ["", "", "", "", "", ""]);
+
+    setErrorCodigo(false);
+    return(codigo);
   };
 
   const enviarEmail = (codigo) => {
+    console.log(formData)
     const Params = {
-      name: userData.nombres,
-      email: userData.email,
+      name: formData.nombres,
+      email: formData.confirmEmail,
       codigoVerificacion: codigo
     };
     console.log("Datos a enviar:", Params);
@@ -157,9 +163,13 @@ const Registro = () => {
   // Funciones auxiliares
   const manejarCambioCodigo = (indice, valor) => {
     if (!/^\d*$/.test(valor)) return;
-    const nuevoCodigo = [...verificationData.codigoIngresado];
+    
+    const nuevoCodigo = [...formData.codigoIngresado];
     nuevoCodigo[indice] = valor;
-    setVerificationData(prev => ({ ...prev, codigoIngresado: nuevoCodigo }));
+    
+    setFormData(prev => ({ ...prev, codigoIngresado: nuevoCodigo }));
+    setValue("codigoIngresado", nuevoCodigo);
+    
     if (valor !== "" && indice < 5) {
       const siguienteInput = document.getElementById(`codigo-input-${indice + 1}`);
       if (siguienteInput) siguienteInput.focus();
@@ -170,19 +180,21 @@ const Registro = () => {
     e.preventDefault();
     const datoPegado = e.clipboardData.getData("text");
     if (/^\d{6}$/.test(datoPegado)) {
-      setVerificationData(prev => ({ ...prev, codigoIngresado: datoPegado.split("") }));
+      setFormData(prev => ({ ...prev, codigoIngresado: datoPegado.split("") }));
       document.getElementById("codigo-input-5")?.focus();
     }
   };
 
   const verificarCodigo = () => {
-    const codigoInput = verificationData.codigoIngresado.join("");
-    if (codigoInput === verificationData.codigoVerificacion) {
+    const codigoInput = formData.codigoIngresado.join("");
+    if (codigoInput === formData.codigoVerificacion) {
       alert("¡Verificación exitosa!");
-      // fetch para guardar los datos en la base de datos
-      console.log("Datos del usuario a guardar:", userData);
-      resetearPaso1();
-      resetearPaso2();
+      console.log("Datos del usuario a guardar:", {
+        ...formData,
+        codigoVerificacion: undefined,
+        codigoIngresado: undefined
+      });
+      // fetch para guardar los datos aqui proximamente solo en cines tambien en 3d
       setPaso(1);
     } else {
       setErrorCodigo(true);
@@ -193,7 +205,7 @@ const Registro = () => {
     generarCodigoVerificacion();
     setTiempoRestante(300);
     setTimerActivo(true);
-    alert(`Nuevo código enviado a ${userData.email}`);
+    alert(`Nuevo código enviado a ${formData.email}`);
   };
 
   const retrocederPaso = () => setPaso(paso === 3 ? 2 : 1);
@@ -224,10 +236,6 @@ const Registro = () => {
 
   const evitarPegado = (e) => e.preventDefault();
 
-  // Variables observables
-  const password = observarPaso2("password");
-  const email = observarPaso2("email");
-  
   // Formatear el tiempo restante
   const formatearTiempo = (segundos) => {
     const minutos = Math.floor(segundos / 60);
@@ -251,20 +259,17 @@ const Registro = () => {
 
       {/* Sección derecha - Formulario de registro */}
       <div className="registro-formulario-container">
-        {/* Logo de la veterinaria - Ahora fuera del formulario */}
         <div className="contenedor-logo-externo">
           <a href="/" className="cursor-pointer">
             <img src={logoUrl || "/placeholder.svg"} alt="Logo PetsHeaven" className="logo-veterinaria" />
           </a>
         </div>
 
-        {/* Contenedor del formulario - Aquí puedes agregar el patrón de fondo en el CSS */}
         <div className="formulario-card">
           <div className="contenido-formulario">
             <div className="encabezado-formulario">
               <h2 className="titulo-formulario">Registrarse</h2>
 
-              {/* Indicadores de paso */}
               <div className="indicadores-paso">
                 <div className={`paso ${paso >= 1 ? "activo" : ""}`}>1</div>
                 <div className="linea"></div>
@@ -278,19 +283,18 @@ const Registro = () => {
               </p>
             </div>
 
-            {paso === 1 ? (
-              // Formulario del paso 1: Información Personal
-              <form onSubmit={manejarEnvioPaso1(enviarPaso1)}>
-                <div className="contenido-paso">
-                  <div className="grid-campos">
-                    <div className="grupo-campo">
+            <form onSubmit={handleSubmit(onSubmit)}>
+              {/* Paso 1: Información Personal */}
+              <div className={`contenido-paso ${paso === 1 ? '' : 'paso-oculto'}`}>
+                <div className="grid-campos">
+                <div className="grupo-campo">
                       <label>
                         Tipo de documento <span className="obligatorio">*</span>
                       </label>
                       <select
                         name="tipoDocumento"
-                        className={erroresPaso1.tipoDocumento ? "campo-error" : ""}
-                        {...registrarPaso1("tipoDocumento", {
+                        className={errors.tipoDocumento ? "campo-error" : ""}
+                        {...register("tipoDocumento", {
                           required: true,
                         })}
                       >
@@ -301,7 +305,7 @@ const Registro = () => {
                         <option value="CE">Cédula de Extranjería (CE)</option>
                         <option value="PAS">Pasaporte</option>
                       </select>
-                      {erroresPaso1.tipoDocumento && (
+                      {errors.tipoDocumento && (
                         <p className="mensaje-error">Debes seleccionar un tipo de documento</p>
                       )}
                     </div>
@@ -314,9 +318,9 @@ const Registro = () => {
                         type="text"
                         placeholder="Ej: 65642312"
                         maxLength={15}
-                        className={erroresPaso1.numeroDocumento ? "campo-error" : ""}
+                        className={errors.numeroDocumento ? "campo-error" : ""}
                         onKeyPress={permitirSoloNumeros}
-                        {...registrarPaso1("numeroDocumento", {
+                        {...register("numeroDocumento", {
                           required: true,
                           minLength: 6,
                           pattern: {
@@ -325,11 +329,11 @@ const Registro = () => {
                           },
                         })}
                       />
-                      {erroresPaso1.numeroDocumento && (
+                      {errors.numeroDocumento && (
                         <p className="mensaje-error">
-                          {erroresPaso1.numeroDocumento.type === "required"
+                          {errors.numeroDocumento.type === "required"
                             ? "El número de documento es obligatorio"
-                            : erroresPaso1.numeroDocumento.type === "minLength"
+                            : errors.numeroDocumento.type === "minLength"
                               ? "El número debe tener al menos 6 dígitos"
                               : "Solo se permiten números"}
                         </p>
@@ -344,9 +348,9 @@ const Registro = () => {
                         type="text"
                         placeholder="Ej: Pepito Juan"
                         maxLength={50}
-                        className={erroresPaso1.nombres ? "campo-error" : ""}
+                        className={errors.nombres ? "campo-error" : ""}
                         onKeyPress={permitirSoloLetras}
-                        {...registrarPaso1("nombres", {
+                        {...register("nombres", {
                           required: true,
                           minLength: {
                             value: 3,
@@ -359,11 +363,11 @@ const Registro = () => {
                           },
                         })}
                       />
-                      {erroresPaso1.nombres && (
+                      {errors.nombres && (
                         <p className="mensaje-error">
-                          {erroresPaso1.nombres.type === "required"
+                          {errors.nombres.type === "required"
                             ? "El nombre es obligatorio"
-                            : erroresPaso1.nombres.type === "minLength"
+                            : errors.nombres.type === "minLength"
                               ? "El nombre debe tener al menos 3 caracteres"
                               : "El nombre solo puede contener letras y espacios"}
                         </p>
@@ -378,9 +382,9 @@ const Registro = () => {
                         type="text"
                         placeholder="Ej: López Pérez"
                         maxLength={50}
-                        className={erroresPaso1.apellidos ? "campo-error" : ""}
+                        className={errors.apellidos ? "campo-error" : ""}
                         onKeyPress={permitirSoloLetras}
-                        {...registrarPaso1("apellidos", {
+                        {...register("apellidos", {
                           required: true,
                           minLength: {
                             value: 3,
@@ -393,11 +397,11 @@ const Registro = () => {
                           },
                         })}
                       />
-                      {erroresPaso1.apellidos && (
+                      {errors.apellidos && (
                         <p className="mensaje-error">
-                          {erroresPaso1.apellidos.type === "required"
+                          {errors.apellidos.type === "required"
                             ? "El apellido es obligatorio"
-                            : erroresPaso1.apellidos.type === "minLength"
+                            : errors.apellidos.type === "minLength"
                               ? "El apellido debe tener al menos 3 caracteres"
                               : "El apellido solo puede contener letras y espacios"}
                         </p>
@@ -405,34 +409,42 @@ const Registro = () => {
                     </div>
 
                     <div className="grupo-campo">
-                      <label>
+                    <label>
                         Fecha de nacimiento <span className="obligatorio">*</span>
-                      </label>
-                      <input
+                    </label>
+                    <input
                         type="date"
-                        className={erroresPaso1.fechaNacimiento ? "campo-error" : ""}
-                        onFocus={mostrarRequisitosFechaAlFocus}
-                        onBlur={ocultarRequisitosFechaAlBlur}
-                        {...registrarPaso1("fechaNacimiento", {
-                          required: true,
-                          validate: (value) => {
-                            const fecha = new Date(value)
-                            const hoy = new Date()
-                            const edad = hoy.getFullYear() - fecha.getFullYear()
-                            return edad >= 18
-                          },
+                        className={errors.fechaNacimiento ? "campo-error" : watch("fechaNacimiento") ? "campo-valido" : ""}
+                        {...register("fechaNacimiento", {
+                        required: "La fecha de nacimiento es obligatoria",
+                        validate: {
+                            mayorDeEdad: (value) => {
+                            if (!value) return true;
+                            
+                            const fechaNac = new Date(value);
+                            const hoy = new Date();
+                            let edad = hoy.getFullYear() - fechaNac.getFullYear();
+                            const m = hoy.getMonth() - fechaNac.getMonth();
+                            
+                            if (m < 0 || (m === 0 && hoy.getDate() < fechaNac.getDate())) {
+                                edad--;
+                            }
+                            
+                            return edad >= 18 || "Debes ser mayor de 18 años";
+                            }
+                        }
                         })}
-                      />
-                      {erroresPaso1.fechaNacimiento && (
-                        <p className="mensaje-error">
-                          {erroresPaso1.fechaNacimiento.type === "required"
-                            ? "La fecha de nacimiento es obligatoria"
-                            : "Debes ser mayor de 18 años para registrarte"}
-                        </p>
-                      )}
-                      {mostrarRequisitosFecha && (
+                        onFocus={() => setMostrarRequisitosFecha(true)}
+                        onBlur={() => setMostrarRequisitosFecha(false)}
+                    />
+                    
+                    {errors.fechaNacimiento && (
+                        <p className="mensaje-error">{errors.fechaNacimiento.message}</p>
+                    )}
+                    
+                    {mostrarRequisitosFecha && !errors.fechaNacimiento && (
                         <p className="mensaje-info">Debes ser mayor de 18 años para registrarte</p>
-                      )}
+                    )}
                     </div>
 
                     <div className="grupo-campo">
@@ -440,8 +452,8 @@ const Registro = () => {
                         Género <span className="obligatorio">*</span>
                       </label>
                       <select
-                        className={erroresPaso1.genero ? "campo-error" : ""}
-                        {...registrarPaso1("genero", {
+                        className={errors.genero ? "campo-error" : ""}
+                        {...register("genero", {
                           required: true,
                         })}
                       >
@@ -452,7 +464,7 @@ const Registro = () => {
                         <option value="M">Masculino</option>
                         <option value="O">Otro</option>
                       </select>
-                      {erroresPaso1.genero && <p className="mensaje-error">Debes seleccionar un género</p>}
+                      {errors.genero && <p className="mensaje-error">Debes seleccionar un género</p>}
                     </div>
 
                     <div className="grupo-campo">
@@ -463,9 +475,9 @@ const Registro = () => {
                         type="text"
                         placeholder="Ej: 65642312"
                         maxLength={10}
-                        className={erroresPaso1.celular ? "campo-error" : ""}
+                        className={errors.telefono ? "campo-error" : ""}
                         onKeyPress={permitirSoloNumeros}
-                        {...registrarPaso1("celular", {
+                        {...register("telefono", {
                           required: true,
                           pattern: {
                             value: /^[0-9]{10}$/,
@@ -473,11 +485,11 @@ const Registro = () => {
                           },
                         })}
                       />
-                      {erroresPaso1.celular && (
+                      {errors.telefono && (
                         <p className="mensaje-error">
-                          {erroresPaso1.celular.type === "required"
-                            ? "El celular es obligatorio"
-                            : "El celular debe tener 10 dígitos numéricos"}
+                          {errors.telefono.type === "required"
+                            ? "El teléfono es obligatorio"
+                            : "El teléfono debe tener 10 dígitos numéricos"}
                         </p>
                       )}
                     </div>
@@ -490,8 +502,8 @@ const Registro = () => {
                         type="text"
                         placeholder="Ej: Calle 123 Nro. 456"
                         maxLength={100}
-                        className={erroresPaso1.direccion ? "campo-error" : ""}
-                        {...registrarPaso1("direccion", {
+                        className={errors.direccion ? "campo-error" : ""}
+                        {...register("direccion", {
                           required: true,
                           minLength: {
                             value: 5,
@@ -500,29 +512,46 @@ const Registro = () => {
                           maxLength: 100,
                         })}
                       />
-                      {erroresPaso1.direccion && (
+                      {errors.direccion && (
                         <p className="mensaje-error">
-                          {erroresPaso1.direccion.type === "required"
+                          {errors.direccion.type === "required"
                             ? "La dirección es obligatoria"
                             : "La dirección debe tener al menos 5 caracteres"}
                         </p>
                       )}
                     </div>
-                  </div>
-
-                  <div className="navegacion-botones">
-                    <button type="submit" className="boton-siguiente">
-                      Siguiente
-                    </button>
-                  </div>
                 </div>
-              </form>
-            ) : paso === 2 ? (
-              // Formulario del paso 2: Datos de Acceso
-              <form onSubmit={manejarEnvioPaso2(enviarPaso2)} id="formularioPaso2">
-                <div className="contenido-paso">
-                  <div className="grid-campos">
-                    <div className="grupo-campo">
+
+                <div className="navegacion-botones">
+                <button 
+                    type="button" 
+                    className="boton-siguiente"
+                    onClick={async () => {
+                    const isValid = await trigger([
+                        "tipoDocumento",
+                        "numeroDocumento", 
+                        "nombres",
+                        "apellidos",
+                        "fechaNacimiento",
+                        "genero",
+                        "telefono",
+                        "direccion"
+                    ]);
+                    
+                    if (isValid) {
+                        setPaso(2);
+                    }
+                    }}
+                >
+                    Siguiente
+                </button>
+                </div>
+              </div>
+
+              {/* Paso 2: Datos de Acceso */}
+              <div className={`contenido-paso ${paso === 2 ? '' : 'paso-oculto'}`}>
+                <div className="grid-campos">
+                <div className="grupo-campo">
                       <label>
                         Email <span className="obligatorio">*</span>
                       </label>
@@ -530,9 +559,9 @@ const Registro = () => {
                         type="email"
                         placeholder="Ej: juan.lopez@example.com"
                         maxLength={320}
-                        className={erroresPaso2.email ? "campo-error" : ""}
+                        className={errors.email ? "campo-error" : ""}
                         onPaste={evitarPegado}
-                        {...registrarPaso2("email", {
+                        {...register("email", {
                           required: true,
                           pattern: {
                             value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
@@ -541,9 +570,9 @@ const Registro = () => {
                           maxLength: 320,
                         })}
                       />
-                      {erroresPaso2.email && (
+                      {errors.email && (
                         <p className="mensaje-error">
-                          {erroresPaso2.email.type === "required"
+                          {errors.email.type === "required"
                             ? "El email es obligatorio"
                             : "El formato del correo electrónico es inválido"}
                         </p>
@@ -558,20 +587,20 @@ const Registro = () => {
                         type="email"
                         placeholder="Confirmar correo electrónico"
                         maxLength={320}
-                        className={erroresPaso2.confirmEmail ? "campo-error" : ""}
+                        className={errors.confirmEmail ? "campo-error" : ""}
                         onPaste={evitarPegado}
-                        {...registrarPaso2("confirmEmail", {
+                        {...register("confirmEmail", {
                           required: true,
                           validate: (value) => {
-                            const emailValue = observarPaso2("email")
+                            const emailValue = watch("email")
                             return value === emailValue || "Los correos electrónicos no coinciden"
                           },
                           maxLength: 320,
                         })}
                       />
-                      {erroresPaso2.confirmEmail && (
+                      {errors.confirmEmail && (
                         <p className="mensaje-error">
-                          {erroresPaso2.confirmEmail.type === "required"
+                          {errors.confirmEmail.type === "required"
                             ? "La confirmación de email es obligatoria"
                             : "Los correos electrónicos no coinciden"}
                         </p>
@@ -587,11 +616,11 @@ const Registro = () => {
                           type={verPassword ? "text" : "password"}
                           placeholder="Contraseña"
                           maxLength={64}
-                          className={erroresPaso2.password ? "campo-error" : ""}
+                          className={errors.password ? "campo-error" : ""}
                           onPaste={evitarPegado}
                           onFocus={mostrarRequisitosPasswordAlFocus}
                           onBlur={ocultarRequisitosPasswordAlBlur}
-                          {...registrarPaso2("password", {
+                          {...register("password", {
                             required: true,
                             minLength: {
                               value: 8,
@@ -641,11 +670,11 @@ const Registro = () => {
                           )}
                         </button>
                       </div>
-                      {erroresPaso2.password && (
+                      {errors.password && (
                         <p className="mensaje-error">
-                          {erroresPaso2.password.type === "required"
+                          {errors.password.type === "required"
                             ? "La contraseña es obligatoria"
-                            : erroresPaso2.password.type === "minLength"
+                            : errors.password.type === "minLength"
                               ? "La contraseña debe tener al menos 8 caracteres"
                               : "La contraseña debe tener al menos una letra mayúscula, una minúscula, un número y un carácter especial"}
                         </p>
@@ -659,21 +688,20 @@ const Registro = () => {
                     </div>
 
                     <div className="grupo-campo">
-                      <label>
+                    <label>
                         Confirmación Contraseña <span className="obligatorio">*</span>
-                      </label>
-                      <div className="contenedor-input-password">
+                    </label>
+                    <div className="contenedor-input-password">
                         <input
-                          type={verConfirmarPassword ? "text" : "password"}
-                          placeholder="Confirmar contraseña"
-                          maxLength={64}
-                          className={erroresPaso2.confirmPassword ? "campo-error" : ""}
-                          onPaste={evitarPegado}
-                          {...registrarPaso2("confirmPassword", {
-                            required: true,
-                            maxLength: 64,
-                            validate: (value) => value === password || "Las contraseñas no coinciden",
-                          })}
+                        type={verConfirmarPassword ? "text" : "password"}
+                        placeholder="Confirmar contraseña"
+                        maxLength={64}
+                        className={errors.confirmPassword ? "campo-error" : ""}
+                        onPaste={evitarPegado}
+                        {...register("confirmPassword", {
+                            required: "La confirmación de contraseña es obligatoria",
+                            validate: (value) => value === password || "Las contraseñas no coinciden"
+                        })}
                         />
                         <button
                           type="button"
@@ -715,13 +743,9 @@ const Registro = () => {
                           )}
                         </button>
                       </div>
-                      {erroresPaso2.confirmPassword && (
-                        <p className="mensaje-error">
-                          {erroresPaso2.confirmPassword.type === "required"
-                            ? "La confirmación de contraseña es obligatoria"
-                            : "Las contraseñas no coinciden"}
-                        </p>
-                      )}
+                      {errors.confirmPassword && (
+                        <p className="mensaje-error">{errors.confirmPassword.message}</p>
+                    )}
                     </div>
                   </div>
 
@@ -729,31 +753,32 @@ const Registro = () => {
                     <input
                       type="checkbox"
                       id="terminos"
-                      className={erroresPaso2.terminos ? "campo-error" : ""}
-                      {...registrarPaso2("terminos", {
+                      className={errors.terminos ? "campo-error" : ""}
+                      {...register("terminos", {
                         required: true,
                       })}
                     />
                     <label htmlFor="terminos">
                       Acepto los términos y condiciones <span className="obligatorio">*</span>
                     </label>
-                    {erroresPaso2.terminos && <p className="mensaje-error">Debes aceptar los términos y condiciones</p>}
+                    {errors.terminos && <p className="mensaje-error">Debes aceptar los términos y condiciones</p>}
                   </div>
 
-                  <div className="navegacion-botones">
-                    <button type="button" className="boton-anterior" onClick={retrocederPaso}>
-                      Anterior
-                    </button>
-                    <button type="submit" className="boton-enviar">
-                      Registrarse
-                    </button>
-                  </div>
+                <div className="navegacion-botones">
+                  <button type="button" className="boton-anterior" onClick={retrocederPaso}>
+                    Anterior
+                  </button>
+                  <button type="submit" className="boton-enviar">
+                    Registrarse
+                  </button>
                 </div>
-              </form>
-            ) : (
-              // Paso 3: Verificación de correo electrónico
+              </div>
+            </form>
+
+            {/* Paso 3: Verificación de correo */}
+            {paso === 3 && (
               <div className="contenido-paso">
-                <div className="verificacion-email">
+<div className="verificacion-email">
                   <div className="icono-verificacion">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -774,12 +799,12 @@ const Registro = () => {
                   <h3 className="titulo-verificacion">Verifica tu correo electrónico</h3>
 
                   <p className="descripcion-verificacion">
-                    Hemos enviado un código de verificación a <strong>{userData.email}</strong>. Por favor, introduce el
+                    Hemos enviado un código de verificación a <strong>{formData.email}</strong>. Por favor, introduce el
                     código de 6 dígitos para verificar tu cuenta.
                   </p>
 
                   <div className="contenedor-codigo">
-                    {verificationData.codigoIngresado.map((digito, indice) => (
+                    {formData.codigoIngresado.map((digito, indice) => (
                       <input
                         key={indice}
                         id={`codigo-input-${indice}`}
@@ -829,13 +854,12 @@ const Registro = () => {
             )}
           </div>
 
-          {/* Sección de inicio de sesión (solo visible en el paso 1) */}
           {paso === 1 && (
             <div className="seccion-login">
               <p className="texto-login">¿Ya haces parte de PetsHeaven?</p>
-              <Link to="/user/login" className="enlace">
+              {/* <Link to="/login" className="enlace">
                 Inicia sesión
-              </Link>
+              </Link> */}
             </div>
           )}
         </div>

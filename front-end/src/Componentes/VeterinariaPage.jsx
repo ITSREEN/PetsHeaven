@@ -4,6 +4,7 @@ import { NavBar } from "./BarrasNavegacion/NavBar"
 import { GetData } from "../Componentes/Util"
 import { diapositivas, promociones, testimonios } from './varios'
 import { Loader } from './Errores/Loader'
+import Footer from "./Footer2"
 
 // Librarys 
 import React,{ useState, useEffect} from "react"
@@ -16,7 +17,7 @@ export default function VeterinariaPage() {
   const URL = "http://localhost:3000/global/services"
   const [diaActual, setDiaActual] = useState(0)
   const [testActual, setTestActual] = useState(0)
-  const [mostrarBoton, setMostrarBoton] = useState(false)
+  const [setMostrarBoton] = useState(false)
   const [gruposTest, setGruposTest] = useState([])
   const [serData, setSerData] = useState([])
   const [loading,setLoading] = useState(true)
@@ -417,11 +418,11 @@ export default function VeterinariaPage() {
                 </div>
               </section>
               {/* Botón para subir */}
-              mostrarBoton && (
-                <button onClick={subirInicio} className="boton-subir"   aria-label="Volver arriba">
-                <ChevronUp className="icono-subir" />
-                </button> 
-              )
+              
+              <button onClick={subirInicio} className="boton-subir"   aria-label="Volver arriba">
+              <ChevronUp className="icono-subir" />
+              </button> 
+              <Footer/>
         </div>
       )
     }
