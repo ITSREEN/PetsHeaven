@@ -1,3 +1,11 @@
+.contenido-paso {
+  display: block;
+}
+
+.paso-oculto {
+  display: none !important;
+}
+
 /* Contenedor principal */
 .registro-container {
   display: flex;
