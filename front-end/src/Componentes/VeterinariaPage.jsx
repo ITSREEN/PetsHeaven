@@ -13,12 +13,12 @@ import { MapPin, Star, Phone, Mail, Clock, ChevronUp, Instagram, Facebook } from
 
 export default function VeterinariaPage() {
   // Estados para los diferentes componentes
+  const URL = "http://localhost:3000/global/services" 
   const [diaActual, setDiaActual] = useState(0)
   const [testActual, setTestActual] = useState(0)
   const [mostrarBoton, setMostrarBoton] = useState(false)
   const [gruposTest, setGruposTest] = useState([])
-  const [serData, setSerData] = useState()
-  const [loading, setLoading] = useState(false);
+  const [serData, setSerData] = useState([])
 
   // Función para agrupar testimonios en diapositivas
   const agruparTest = () => {
@@ -37,13 +37,18 @@ export default function VeterinariaPage() {
 
   // Traer los servicios de la base de datos
   useEffect(() => {
-    let URL = "http://localhost:3000/global/services" 
-    let services = GetData(URL)
-    setSerData(services)
-
-    setLoading(false)
-
-  },[])
+    const fetchData = async () => {
+      try {
+        const services = await GetData(URL)
+        setSerData(services)
+      } catch (error) {
+        console.error("Error fetching data:", error)
+        setSerData()
+      }
+    }
+  
+    fetchData()
+  }, [])
   
   // Efecto para inicializar y actualizar los grupos de testimonios
   useEffect(() => {
@@ -96,7 +101,6 @@ export default function VeterinariaPage() {
       behavior: "smooth",
     })
   }
-
   return (
     <div className="pagina">
       <NavBar/>
@@ -149,7 +153,7 @@ export default function VeterinariaPage() {
       </section>
 
           {/* COMPONENTE: Servicios */}
-          {/* <section id="servicios" className="seccion-servicios">
+          <section id="servicios" className="seccion-servicios">
             <div className="contenedor">
               <h2 className="titulo-seccion titulo-centrado">Nuestros Servicios</h2>
               <div className="grid-servicios">
@@ -168,7 +172,7 @@ export default function VeterinariaPage() {
                 )}
               </div>
             </div>
-          </section> */}
+          </section>
 
           {/* COMPONENTE: Promociones (SECCIÓN ESTÁTICA) */}
           <section id="promociones" className="seccion-promociones">

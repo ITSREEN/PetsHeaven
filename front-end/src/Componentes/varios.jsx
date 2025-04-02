@@ -85,3 +85,18 @@ export const testimonios = [
         imagen: "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Perfil/perfil6.png",
     },
 ]
+
+export const NotFoundData = [
+    {
+        img_ser:"Not Found",
+        nom_ser:"Not Found",
+    },
+    {
+        img_ser:"Not Found",
+        nom_ser:"Not Found",
+    },
+    {
+        img_ser:"Not Found",
+        nom_ser:"Not Found",
+    }
+]
