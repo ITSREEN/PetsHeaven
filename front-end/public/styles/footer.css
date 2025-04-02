@@ -1,64 +1,69 @@
-:root {
-    --blanco: #fff;
-    --azul-claro: #b2ebf2;
-    --azul-turquesa: #00bcd4;
-    --verde-aguamarina: #0097a7;
+/* Estilos generales del footer */
+.footer {
+  background-color: white;
+  width: 100%;
+}
+
+.contenedor-footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Logo y derechos */
+.logo-derechos {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.logo-footer {
+  width: 30px;
+  height: 30px;
+  margin-right: 0.5rem;
+}
+
+.texto-footer {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+/* Enlaces legales */
+.enlaces-legales {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.enlace-footer {
+  color: #4b5563;
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.3s ease;
+}
+
+.enlace-footer:hover {
+  color: #06b6d4;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .contenedor-footer {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
-  
-  /* Estilos del Pie de Página */
-  .pie-pagina {
-    background-color: var(--blanco);
-    padding: 1rem 0;
-    border-top: 1px solid #e5e7eb;
+
+  .logo-derechos,
+  .redes {
+    margin-bottom: 0;
   }
-  
-  .enlace-pie {
-    color: #4b5563;
-    transition: color 0.3s ease;
+
+  .enlaces-legales {
+    flex-direction: row;
+    gap: 1.5rem;
   }
-  
-  .enlace-pie:hover {
-    color: var(--verde-aguamarina);
-  }
-  
-  .fondo-blanco {
-    background-color: var(--blanco);
-  }
-  
-  .texto-gris {
-    color: #4b5563;
-  }
-  
-  .contenedor {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  
-  @media (min-width: 640px) {
-    .contenedor {
-      max-width: 640px;
-    }
-  }
-  
-  @media (min-width: 768px) {
-    .contenedor {
-      max-width: 768px;
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    .contenedor {
-      max-width: 1024px;
-    }
-  }
-  
-  @media (min-width: 1280px) {
-    .contenedor {
-      max-width: 1280px;
-    }
-  }
-  
-  
+}
