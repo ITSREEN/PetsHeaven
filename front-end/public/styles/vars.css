@@ -19,6 +19,7 @@
     --border-focus-input:#4a90e233;
     --black-box: #00000025;
     --font-size: 1.1rem;
+    --icon-size: 2.5rem;
     --font-general: "Zain", sans-serif;
     --notfoundimg: url("../imgs/notfound.jpg") center no-repeat;
 }

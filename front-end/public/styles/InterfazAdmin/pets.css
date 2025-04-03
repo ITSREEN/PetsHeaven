@@ -2,23 +2,31 @@
 @import url("../vars.css");
 @import url("../global.css");
 
+*{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .main-pets-container {
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
     width: 100vw;
     background: var(--azul-turquesa);
+    border: 2px solid red;
+    overflow: auto;
 }
 
 .pets-container {
     display: flex;
     flex-wrap: wrap;
-    height: 90vh;
-    width: 100vw;
     align-items: center;
     justify-content: center;
     padding: 30px;
+    height: 90vh;
     gap: 40px;
     background: var(--azul-claro);
     overflow: auto;
+    border: 2px solid red;
 }
 .pets-card {
     display: flex;
@@ -51,56 +59,60 @@
     width: 100%;
     font-size: var(--font-size);
 }
+.pet-info {
+    color: gray; 
+}
 
 /* Estilos para el modal */
 .pet-modal-overlay {
     position: fixed;
+    display: flex;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
     align-items: center;
-    z-index: 1000;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1140;
 }
 
 .pet-modal-content {
-    background-color: white;
+    position: relative;
     padding: 30px;
-    border-radius: 10px;
-    width: 80%;
-    max-width: 900px;
+    width: 90%;
+    max-width: 90%;
     max-height: 90vh;
     overflow-y: auto;
-    position: relative;
+    border-radius: 10px;
+    background-color: white;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .pet-modal-close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 24px;
-    border: none;
-    background: none;
     cursor: pointer;
+    position: fixed;
+    top: 45px;
+    right: 7vw;
+    font-size: var(--icon-size);
     font-weight: bold;
     color: #333;
+    border: none;
+    background: none;
 }
 
 .pet-modal-grid {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr;
+    align-items: start;
     gap: 30px;
 }
 
 .pet-modal-image img {
     width: 100%;
-    max-height: 400px;
+    max-height: 50vh;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 10px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -123,6 +135,7 @@
     line-height: 1.5;
 }
 
+/* Responsive */
 @media (width > 700px) {
     .pets-card {
         width: 40%;
@@ -131,12 +144,17 @@
         height: 40vh;
     }
 }
-@media (width > 1100px) {
+@media (width > 1000px) {
+    .main-pets-container {
+        flex-direction:row;
+    }
     .pets-card {
-        width: 20%;
+        width: 25%;
     }
     .pets-card-img {
         height: 30vh;
     }
+    .pet-modal-grid {
+        grid-template-columns: 1fr 2fr;
+    }
 }
-

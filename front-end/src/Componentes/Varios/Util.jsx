@@ -46,3 +46,25 @@ export async function PostData(URL,datas) {
         throw error
     }
 }
+// Modificar datos
+export async function ModifyData(URL,datas) {
+    try {
+        const response = await fetch(URL,{
+            method:"PUT",
+            headers: HeaderWeb,
+            body: JSON.stringify(datas),
+
+        })
+        if (!response.ok) {
+            response.status >= 500? window.location.href = "/internal":
+            window.location.href = "/notfound"
+            throw new Error(`HTTP error! status: ${response.status}`)
+        }
+        const data = await response.json()
+        return data.result[0]
+    } catch (error) {
+        window.location.href = "/internal"
+        console.error("Error:", error)
+        throw error
+    }
+}

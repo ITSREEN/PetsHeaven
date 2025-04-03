@@ -27,11 +27,3 @@ body {
   background: var(--white);
   overflow: auto;
 }
-main {
-  display: flex;
-  flex-direction: column;
-  place-content: center;
-  place-items: center;
-  height: 90vh;
-  width: 100vw;
-}

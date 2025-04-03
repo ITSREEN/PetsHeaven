@@ -108,7 +108,7 @@ export const Pets = () => {
                                             </article>
                                             
                                             <article>
-                                                <h3>Datos del Propietario</h3>
+                                                <h3>{namePro(selectedPet.gen_usu)}</h3>
                                                 <p><strong>{namePro(selectedPet.gen_usu)}: </strong> {selectedPet.nom_usu} {selectedPet.ape_usu}</p>
                                                 <p><strong>Documento: </strong> {selectedPet.doc_usu}</p>
                                                 <p><strong>Celular: </strong> {selectedPet.cel_usu}</p>
@@ -117,6 +117,12 @@ export const Pets = () => {
                                             
                                             <article>
                                                 <h3>Salud</h3>
+                                                <p><strong>Estado reproductivo: </strong> {selectedPet.est_rep_mas}</p>
+                                                <p><strong>Alimento: </strong> {selectedPet.ali_mas}</p>
+                                            </article>
+
+                                            <article>
+                                                <h3>Historial Medico</h3>
                                                 <p><strong>Estado reproductivo: </strong> {selectedPet.est_rep_mas}</p>
                                                 <p><strong>Alimento: </strong> {selectedPet.ali_mas}</p>
                                             </article>
