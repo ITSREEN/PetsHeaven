@@ -50,14 +50,20 @@
 }
 
 @media (max-width: 768px) {
-  .carrusel {
-    height: 400px;
+  .dia-carrusel {
+    height: 300px;
+  }
+  .carrusel{
+    height: 300px;
   }
 }
 
 @media (max-width: 480px) {
-  .carrusel {
-    height: 300px;
+  .dia-carrusel {
+    height: 190px;
+  }
+  .carrusel{
+    height: 190px;
   }
 }
 

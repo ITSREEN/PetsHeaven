@@ -208,3 +208,39 @@
   border-color: var(--verde-aguamarina);
   color: var(--verde-aguamarina);
 }
+
+/*movil */
+
+@media (max-width: 480px) {
+  .logo-container{
+    width: 30vw;
+  }
+  .logo-img{
+    width: 40vw;
+  }
+  .enlace-nav-movil{
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  .nav-movil{
+    gap: 0;
+  }
+}
+
+@media (max-width: 667px) {
+  .logo-container{
+    width: 35vw;
+    height: 18vh;
+  }
+  .logo-img{
+    width: 35vw;
+    height: 18vh;
+  }
+  .enlace-nav-movil{
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  .nav-movil{
+    gap: 0;
+  }
+}
