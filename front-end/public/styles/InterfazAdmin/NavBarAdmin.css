@@ -10,17 +10,11 @@
     --radio-admi: 0.25rem;
   }
   
-  /* Estilos globales */
-  body {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-  }
   
   /* Botón de menú móvil */
   .boton-movil-admi {
     display: none;
-    position: fixed;
+    /* position: fixed; */
     top: 1rem;
     right: 1rem;
     z-index: 1100;
