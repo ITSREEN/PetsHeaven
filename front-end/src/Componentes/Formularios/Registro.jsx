@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import emailjs from "emailjs-com";
-import { Link } from "react-router-dom";
 import { Link } from "react-router"
 import "../../../public/styles/Formularios/Registro.css";
 

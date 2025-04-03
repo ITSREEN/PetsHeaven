@@ -1,9 +1,7 @@
 // Imports
-import { NavBar } from '../Componentes/BarrasNavegacion/NavBar'
-import { GetData } from './Util'
-import { Loader } from './Errores/Loader'
-import "../../../public/styles/InterfazAdmin/pets.css"
 import { GetData } from '../Varios/Util'
+import { Loader } from '../Errores/Loader'
+import "../../../public/styles/InterfazAdmin/pets.css"
 
 // Librarys 
 import React, { useState, useEffect } from "react"
