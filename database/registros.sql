@@ -1,4 +1,4 @@
--- Active: 1740764800080@@127.0.0.1@3306@pets_heaven
+-- Active: 1743681932025@@127.0.0.1@3306@pets_heaven
 INSERT INTO pets_heaven.roles (nom_rol) VALUES
 ('Administrador'),
 ('Veterinario');
