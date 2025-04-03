@@ -1,6 +1,7 @@
 // Imports
 import { GetData } from '../Varios/Util'
 import { Loader } from '../Errores/Loader'
+import NavBar from './NavBarAdmi'
 import "../../../public/styles/InterfazAdmin/pets.css"
 
 // Librarys 
