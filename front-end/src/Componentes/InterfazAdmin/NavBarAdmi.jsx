@@ -1,6 +1,4 @@
-"use client"
-
-import { useState, useEffect } from "react"
+import React,{ useState, useEffect } from "react"
 import {
   Settings,
   Users,
@@ -15,9 +13,9 @@ import {
   Menu,
   X,
 } from "lucide-react"
-import "./Navbar.css"
+import "../../../public/styles/BarrasNavegacion/NavBar.css"
 
-const Navbar = () => {
+const NavBar = () => {
   const [serviciosAbierto, setServiciosAbierto] = useState(false)
   const [agendaAbierta, setAgendaAbierta] = useState(false)
   const [menuUsuarioAbierto, setMenuUsuarioAbierto] = useState(false)
@@ -194,5 +192,5 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default NavBar
 
