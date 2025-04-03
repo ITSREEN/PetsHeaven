@@ -1,5 +1,5 @@
 // Imports
-import { GetData } from './Util'
+import { GetData } from './Varios/Util'
 
 // Librarys 
 import React from "react"
