@@ -19,12 +19,16 @@ export default function App () {
     // Define Routes
     <BrowserRouter>
       <Routes>
-        <Route path="main" element={<VeterinariaPage />} />
-        <Route path="user/login" element={<LoginForm />} />
-        <Route path="user/register" element={<Registro />} />
-        <Route path="user/recuperar" element={<ForgotPassword />} />
-        <Route path="pets" element={<Pets />} ></Route>
-        <Route path="pets/register" element={<RegistroMascota />} />
+        <Route path="/" element={<VeterinariaPage />} />
+        <Route path="/user/*" element={<VeterinariaPage />}>
+          <Route path="user/login" element={<LoginForm />} />
+          <Route path="user/register" element={<Registro />} />
+          <Route path="user/recuperar" element={<ForgotPassword />} />
+          <Route path="user/pets" element={<Pets />} ></Route>
+          <Route path="user/pets/register" element={<RegistroMascota />} />
+          <Route path="veterinario/pets" element={<Pets />} ></Route>
+        </Route>
+        <Route path="admin/pets" element={<Pets />} ></Route>
         <Route path="/internal" element={<ErrorInternalServer />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

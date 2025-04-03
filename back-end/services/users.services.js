@@ -88,8 +88,7 @@ class User{
             // close conection 
             conection.end()
         })
-      }
-
+    }
 }
 
 // Export
