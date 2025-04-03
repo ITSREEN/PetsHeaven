@@ -1,12 +1,9 @@
 // Imports
-<<<<<<< HEAD:front-end/src/Componentes/Pets.jsx
 import { NavBar } from '../Componentes/BarrasNavegacion/NavBar'
 import { GetData } from './Util'
 import { Loader } from './Errores/Loader'
-import "../../public/styles/pets.css"
-=======
+import "../../../public/styles/InterfazAdmin/pets.css"
 import { GetData } from '../Varios/Util'
->>>>>>> Violett:front-end/src/Componentes/InterfazAdmin/Pets.jsx
 
 // Librarys 
 import React, { useState, useEffect } from "react"

@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import emailjs from "emailjs-com";
-<<<<<<< HEAD
 import { Link } from "react-router-dom";
-import "../../../public/styles/Registro.css";
-=======
 import { Link } from "react-router"
 import "../../../public/styles/Formularios/Registro.css";
->>>>>>> Violett
+
 
 const Registro = () => {
   const imagenFondo = "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Fondos/fondo.png";

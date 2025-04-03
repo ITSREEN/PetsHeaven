@@ -1,6 +1,6 @@
 /* Imports  */
-@import url("./vars.css");
-@import url("global.css");
+@import url("../styles/Varios/vars.css");
+@import url("../Varios/global.css");
 
 /* Desactive default browser style */
 *{
