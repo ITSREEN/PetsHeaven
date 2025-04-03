@@ -8,7 +8,7 @@
 }
 
 .contenedor-header {
-  width: 100%;
+  width: 98%;
   margin-left: auto;
   margin-right: auto;
   padding: 1rem;
@@ -213,7 +213,7 @@
 
 @media (max-width: 480px) {
   .logo-container{
-    width: 30vw;
+    width: 20vw;
   }
   .logo-img{
     width: 40vw;
@@ -224,6 +224,9 @@
   }
   .nav-movil{
     gap: 0;
+  }
+  .contenedor-header{
+    height: 15vh;
   }
 }
 

@@ -46,7 +46,7 @@
 /* Estilos del Carrusel */
 .carrusel {
   position: relative;
-  height: 600px;
+  height: 700px;
 }
 
 @media (max-width: 768px) {
@@ -72,6 +72,7 @@
   inset: 0;
   transition: opacity 1s ease;
   opacity: 0;
+  height: 700px;
 }
 
 .dia-carrusel.activo {

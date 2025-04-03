@@ -1,7 +1,7 @@
 /* Contenedor principal */
 .login-container {
     display: flex;
-    min-height: 90vh;
+    min-height: 100vh;
     font-family: "Arial", sans-serif;
   }
   
