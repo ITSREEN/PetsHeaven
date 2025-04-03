@@ -3,9 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import emailjs from "emailjs-com";
 import { Link } from "react-router"
-
-// Imports
-import "../../../public/styles/Registro.css";
+import "../../../public/styles/Formularios/Registro.css";
 
 // Main component
 const Registro = () => {

@@ -1,7 +1,7 @@
 import React from "react"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
-import '../../../public/styles/ForgotPassword.css'
+import '../../../public/styles/Formularios/ForgotPassword.css'
 
 const ForgotPassword = () => {
 
