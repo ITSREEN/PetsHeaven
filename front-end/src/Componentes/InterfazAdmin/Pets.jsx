@@ -1,7 +1,7 @@
 // Imports
 import { GetData } from '../Varios/Util'
 import { Loader } from '../Errores/Loader'
-// import NavBar from './NavBarAdmi'
+import NavBar from './NavBarAdmi'
 import "../../../public/styles/InterfazAdmin/pets.css"
 
 // Librarys 
@@ -53,7 +53,7 @@ export const Pets = () => {
                 <Loader />
             ) : (
                 <main className='main-pets-container'>
-                    {/* <NavBar /> */}
+                    <NavBar />
                     <section className='pets-container'>
                         {petsData.map((i, index) => (
                             <aside key={index} className='pets-card'>

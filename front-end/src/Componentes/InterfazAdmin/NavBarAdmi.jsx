@@ -13,7 +13,7 @@ import {
   Menu,
   X,
 } from "lucide-react"
-import "../../../public/styles/BarrasNavegacion/NavBar.css"
+import "../../../public/styles/InterfazAdmin/NavBarAdmin.css"
 
 const NavBar = () => {
   const [serviciosAbierto, setServiciosAbierto] = useState(false)
