@@ -14,7 +14,6 @@
     background: var(--verdeaguamarina);
     overflow: auto;
 }
-
 .pets-card {
     display: flex;
     flex-direction: column;

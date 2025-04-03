@@ -18,7 +18,7 @@ class Pet {
                 :setTimeout(() => res({
                     message: "Pet Created",
                     ...data
-                }),4000)
+                }),2000)
             })
 
             // close conection 
@@ -42,7 +42,7 @@ class Pet {
                         message: "Pets found",
                         result: result
                     })
-                },4000)
+                },2000)
             })
 
             // close conection 

@@ -20,7 +20,7 @@ class Global {
                         message: "Pets found",
                         result: result
                     })
-                },4000)
+                },2000)
             })
 
             // close conection 

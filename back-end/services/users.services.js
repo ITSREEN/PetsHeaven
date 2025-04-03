@@ -6,13 +6,26 @@ class User{
     // function to find One 
     async findOne(name) {
         return new Promise((res,rej) => {
-            // conect to database
-            let conection = DataBase.conect()
+            // vars
+            const proc = "CALL SearchPeople(?)"
 
-            conection.query()
-            
+            // conect to database
+            let database = new DataBase()
+            database.conect()
+
+            if (database) database.conection.query(proc,name,(err,result) => {
+                if(err) {
+                    rej({ message: err })
+                } else setTimeout(() => {
+                    res({
+                        message: "Users found",
+                        result: result
+                    })
+                },2000)
+            })
+
             // close conection 
-            conection.end()
+            database.conection.end()
         })
     }
     
@@ -34,7 +47,7 @@ class User{
                         message: "Users found",
                         result: result
                     })
-                },4000)
+                },2000)
             })
 
             // close conection 
@@ -69,7 +82,7 @@ class User{
                 } else setTimeout(() => res({
                     message: "User Created",
                     ...data
-                }),4000)
+                }),2000)
             })
 
             // close conection 
