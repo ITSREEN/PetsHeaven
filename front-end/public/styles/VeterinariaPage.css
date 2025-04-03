@@ -1,9 +1,4 @@
-:root {
-  --blanco: #fff;
-  --azul-claro: #b2ebf2;
-  --azul-turquesa: #00bcd4;
-  --verde-aguamarina: #0097a7;
-}
+@import url("vars.css");
 
 /* Estilos Generales */
 

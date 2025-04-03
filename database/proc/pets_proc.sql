@@ -1,3 +1,4 @@
+-- Active: 1725413700917@@127.0.0.1@3306@pets_heaven
 CREATE PROCEDURE pets_heaven.RegistPets(
     IN p_nom_mas VARCHAR(100),
     IN p_esp_mas VARCHAR(100),
@@ -53,6 +54,7 @@ BEGIN
         u.nom_usu,
         u.ape_usu,
         u.doc_usu,
+        u.cel_usu,
         u.email_usu,
         u.gen_usu
     FROM 

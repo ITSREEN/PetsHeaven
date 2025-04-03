@@ -34,7 +34,6 @@ export const NavBar = () => {
   }
 
   return (
-    
     // <nav className="nav-container">
     //   <NavLink className="link" to='register'>Registro</NavLink>
     //   <NavLink className="link" to='login'>Login</NavLink>
@@ -82,10 +81,10 @@ export const NavBar = () => {
 
         {/* Botones para escritorio */}
         <div className="botones-escritorio">
-          <a href="user/register" className="boton-registro">
+          <a href="/user/register" className="boton-registro">
             Registrarse
           </a>
-          <a href="user/login" className="boton-login">Iniciar Sesión</a>
+          <a href="/user/login" className="boton-login">Iniciar Sesión</a>
         </div>
       </div>
 
@@ -112,10 +111,10 @@ export const NavBar = () => {
           </a>
           {/* Botones para móvil */}
           <div className="botones-movil">
-            <a href="user/register" className="boton-registro-movil">
+            <a href="/user/register" className="boton-registro-movil">
               Registrarse
             </a>
-            <a href='user/login' className="boton-login-movil">Iniciar Sesión</a>
+            <a href='/user/login' className="boton-login-movil">Iniciar Sesión</a>
           </div>
         </nav>
       </div>
