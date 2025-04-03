@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react'
 import React from "react"
 import { Menu, X } from "lucide-react"
-import '../../../public/styles/nav.css'
+import '../../../public/styles/BarrasNavegacion/NavBar.css'
 
 export const NavBar = () => {
 

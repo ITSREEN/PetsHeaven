@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { supabase } from "../../supabaseClient"; 
-import "../../../public/styles/FormularioMascotas.css"
+import "../../../public/styles/Formularios/FormularioMascotas.css"
 import { Link } from 'react-router';
 
 

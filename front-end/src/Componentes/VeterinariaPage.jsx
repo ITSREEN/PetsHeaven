@@ -1,10 +1,17 @@
 // Imports 
 import "../../public/styles/VeterinariaPage.css"
 import { NavBar } from "./BarrasNavegacion/NavBar"
+<<<<<<< HEAD
 import { GetData } from "../Componentes/Util"
 import { diapositivas, promociones, testimonios } from './varios'
 import { Loader } from './Errores/Loader'
 import Footer from "./Footer2"
+=======
+import { GetData } from "./Varios/Util"
+import { diapositivas, promociones, testimonios } from './Varios/varios'
+import { Loader } from './Errores/Loader'
+import Footer from "./Varios/Footer2"
+>>>>>>> Violett
 
 // Librarys 
 import React,{ useState, useEffect} from "react"

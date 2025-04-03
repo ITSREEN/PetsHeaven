@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form"
 import { Link } from 'react-router'
 
 // Imports 
-import "../../../public/styles/login.css"
+import "../../../public/styles/Formularios/login.css"
 
 // Main component 
 export const LoginForm = () => {
