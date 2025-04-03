@@ -20,14 +20,12 @@ export default function App () {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<VeterinariaPage />} />
-        <Route path="/user/*" element={<VeterinariaPage />}>
-          <Route path="user/login" element={<LoginForm />} />
-          <Route path="user/register" element={<Registro />} />
-          <Route path="user/recuperar" element={<ForgotPassword />} />
-          <Route path="user/pets" element={<Pets />} ></Route>
-          <Route path="user/pets/register" element={<RegistroMascota />} />
-          <Route path="veterinario/pets" element={<Pets />} ></Route>
-        </Route>
+        <Route path="user/login" element={<LoginForm />} />
+        <Route path="user/register" element={<Registro />} />
+        <Route path="user/recuperar" element={<ForgotPassword />} />
+        <Route path="user/pets" element={<Pets />} ></Route>
+        <Route path="user/pets/register" element={<RegistroMascota />} />
+        <Route path="veterinario/pets" element={<Pets />} ></Route>
         <Route path="admin/pets" element={<Pets />} ></Route>
         <Route path="/internal" element={<ErrorInternalServer />} />
         <Route path="*" element={<NotFound />} />
