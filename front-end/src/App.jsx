@@ -19,7 +19,7 @@ export default function App () {
     // Define Routes
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<VeterinariaPage />} />
+        <Route path="main" element={<VeterinariaPage />} />
         <Route path="user/login" element={<LoginForm />} />
         <Route path="user/register" element={<Registro />} />
         <Route path="user/recuperar" element={<ForgotPassword />} />
