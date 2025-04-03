@@ -1,10 +1,6 @@
 import { Instagram, Facebook } from "lucide-react"
-<<<<<<< HEAD:front-end/src/Componentes/Footer2.jsx
-=======
-import "../../../public/styles/footer.css"
->>>>>>> Violett:front-end/src/Componentes/Varios/Footer2.jsx
+import "../../../public/styles/Varios/footer.css"
 import React from "react"
-import "../../public/styles/footer.css"
 
 export default function Footer() {
   return (
