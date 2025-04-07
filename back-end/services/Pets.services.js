@@ -3,6 +3,7 @@ const DataBase = require('./DataBase')
 
 // Main class 
 class Pet {
+    // function to register
     async create(data) {
         return new Promise((res,rej) => {
             // vars

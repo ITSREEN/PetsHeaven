@@ -1,4 +1,5 @@
--- Active: 1740764800080@@127.0.0.1@3306@pets_heaven
+-- Active: 1743971322762@@127.0.0.1@3306@pets_heaven
+DELIMITER //
 CREATE PROCEDURE pets_heaven.SearchServices()
 BEGIN
     SELECT
