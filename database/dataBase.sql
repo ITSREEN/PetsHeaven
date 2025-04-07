@@ -119,3 +119,5 @@ CREATE TABLE pets_heaven.citas(
     estado ENUM("PENDIENTE","EN-ESPERA","CANCELADO","RECHAZADO","REALIZADO") NOT NULL,
     PRIMARY KEY (id_cit,mas_cit)
 );
+
+
