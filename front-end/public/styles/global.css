@@ -65,8 +65,7 @@
 }
 .boton-enviar {
     cursor: pointer;
-    padding: 12px 30px;
-    width: 100%;
+    padding: 6px 10px;
     color: var(--gris);
     font-size: var(--font-size);
     font-weight: bold;

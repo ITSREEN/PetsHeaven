@@ -62,7 +62,7 @@ class Pet {
             // conect to database
             let database = new DataBase()
             database.conect()
-
+            
             if (database) database.conection.query(proc,by,(err,result) => {
                 if(err) {
                     rej({ message: err })
@@ -79,32 +79,7 @@ class Pet {
         })
     }
     
-    // function to find by
-    async findBy(data) {
-        return new Promise((res,rej) => {
-            // vars
-            const by = data.slice(1,data.length)
-            const proc = "CALL SearchPetsBy(?)"
-
-            // conect to database
-            let database = new DataBase()
-            database.conect()
-
-            if (database) database.conection.query(proc,by,(err,result) => {
-                if(err) {
-                    rej({ message: err })
-                } else setTimeout(() => {
-                    res({
-                        message: "Pet found",
-                        result: result
-                    })
-                },2000)
-            })
-
-            // close conection 
-            database.conection.end()
-        })
-    }
+    // function to modify
     async modify(data) {
         return new Promise((res,rej) => {
             // vars
