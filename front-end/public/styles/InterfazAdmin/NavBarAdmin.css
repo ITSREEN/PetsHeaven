@@ -4,36 +4,28 @@
     --color-borde-admi: #e9ecef;
     --color-hover-admi: #e9ecef;
     --color-salir-admi: #dc3545;
-    --ancho-barra-admi: 250px;
     --sombra-admi: 0 2px 5px rgba(0, 0, 0, 0.1);
     --transicion-admi: all 0.3s ease;
     --radio-admi: 0.25rem;
   }
   
-  /* Estilos globales */
-  body {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-  }
   
   /* Botón de menú móvil */
   .boton-movil-admi {
+    cursor: pointer;
     display: none;
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    z-index: 1100;
-    background-color: white;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
     align-items: center;
     justify-content: center;
-    box-shadow: var(--sombra-admi);
-    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    top: 1rem;
+    right: 1rem;
     color: var(--color-texto-admi);
+    border: none;
+    border-radius: 50%;
+    box-shadow: var(--sombra-admi);
+    background-color: white;
+    z-index: 1100;
     transition: var(--transicion-admi);
   }
   
@@ -44,9 +36,6 @@
   
   /* Overlay para cerrar el menú */
   .overlay-admi {
-    position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
@@ -56,24 +45,23 @@
   /* Barra lateral */
   .barra-admi {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: var(--ancho-barra-admi);
-    height: 100vh;
-    background-color: var(--color-fondo-admi);
-    box-shadow: var(--sombra-admi);
     display: flex;
     flex-direction: column;
-    z-index: 1060;
+    padding: 20px;
+    height: 100%;
+    border: 2px solid red;
+    box-shadow: var(--sombra-admi);
+    background-color: var(--color-fondo-admi);
     transition: var(--transicion-admi);
+    z-index: 1060;
   }
   
   /* Logo en la parte superior */
   .cabecera-admi {
-    padding: 1rem;
     display: flex;
-    justify-content: center;
+    padding: 1rem;
     align-items: center;
+    justify-content: center;
     border-bottom: 1px solid var(--color-borde-admi);
   }
   

@@ -1,37 +1,36 @@
 // Imports
 import { GetData } from '../Varios/Util'
 import { Loader } from '../Errores/Loader'
-import NavBar from './NavBarAdmi'
+// import NavBar from './NavBarAdmi'
 import "../../../public/styles/InterfazAdmin/pets.css"
 
 // Librarys 
 import React, { useState, useEffect } from "react"
 
 // Main component
-export const Pets = () => {
+export const Pets = (rol = null) => {
     // Declare Vars
-    const URL = "http://localhost:3000/pet/all"
+    const mainURL = "http://localhost:3000/pet/"
     const [petsData, setPetsData] = useState([])
     const [loading, setLoading] = useState(true)
     const [selectedPet, setSelectedPet] = useState(null)
     const [showModal, setShowModal] = useState(false)
+    const [searchBy,setSearchBy] = useState("")
 
-    // Ejecutar el fetch para traer datos
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const pets = await GetData(URL)
-                setPetsData(pets)
-                setLoading(false)
-            } catch (error) {
-                window.location.href = "/internal"
-                setPetsData([])
-            }
+    
+    // fetch para traer datos
+    const fetchData = async (url) => {
+        setLoading(true)
+        try {
+            const pets = await GetData(url)
+            setPetsData(pets)
+            setLoading(false)
+        } catch (error) {
+            window.location.href = "/internal"
+            setPetsData([])
         }
-      
-        fetchData()
-    }, [])
-
+    }
+    
     const namePro = gen => {
         return gen === "Hombre" ? "Propietario" : "Propietaria"
     }
@@ -47,13 +46,35 @@ export const Pets = () => {
         document.body.style.overflow = 'auto' // Habilita el scroll del body
     }
 
+    // Ejecutar el fetch para traer datos
+    useEffect(() => {
+        const rol = "Admin"
+        // Vars 
+        const by = "ana"
+
+        // verify rol
+        const URL = rol === "Admin"? mainURL + "all": mainURL + "all:" + by
+      
+        fetchData(URL)
+    }, [])
+
+
     return (
         <>
             {loading ? (
                 <Loader />
             ) : (
                 <main className='main-pets-container'>
-                    <NavBar />
+                    <nav className='nav-search-container'>
+                        <span className='search-container'>
+                            <input className='search-input input' type="search" placeholder='Buscar' onChange={e => setSearchBy(e.target.value)}/>
+                            <button className='boton-enviar' type='button' onClick={() => fetchData(mainURL + "all:" + searchBy)} >Buscar</button>
+                        </span>
+                        <picture className='img-container'>
+                            <img src="https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/LosFour.png" alt="numero 4 con circuitos incrustados de color azulaguamarina y diseño 3d" />
+                        </picture>
+                    </nav>
+                    {/* <NavBar /> */}
                     <section className='pets-container'>
                         {petsData.map((i, index) => (
                             <aside key={index} className='pets-card'>
@@ -108,7 +129,7 @@ export const Pets = () => {
                                             </article>
                                             
                                             <article>
-                                                <h3>Datos del Propietario</h3>
+                                                <h3>{namePro(selectedPet.gen_usu)}</h3>
                                                 <p><strong>{namePro(selectedPet.gen_usu)}: </strong> {selectedPet.nom_usu} {selectedPet.ape_usu}</p>
                                                 <p><strong>Documento: </strong> {selectedPet.doc_usu}</p>
                                                 <p><strong>Celular: </strong> {selectedPet.cel_usu}</p>
@@ -117,6 +138,12 @@ export const Pets = () => {
                                             
                                             <article>
                                                 <h3>Salud</h3>
+                                                <p><strong>Estado reproductivo: </strong> {selectedPet.est_rep_mas}</p>
+                                                <p><strong>Alimento: </strong> {selectedPet.ali_mas}</p>
+                                            </article>
+
+                                            <article>
+                                                <h3>Historial Medico</h3>
                                                 <p><strong>Estado reproductivo: </strong> {selectedPet.est_rep_mas}</p>
                                                 <p><strong>Alimento: </strong> {selectedPet.ali_mas}</p>
                                             </article>

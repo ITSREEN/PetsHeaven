@@ -46,19 +46,7 @@
 /* Estilos del Carrusel */
 .carrusel {
   position: relative;
-  height: 600px;
-}
-
-@media (max-width: 768px) {
-  .carrusel {
-    height: 400px;
-  }
-}
-
-@media (max-width: 480px) {
-  .carrusel {
-    height: 300px;
-  }
+  height: 700px;
 }
 
 .dia-carrusel {
@@ -66,6 +54,7 @@
   inset: 0;
   transition: opacity 1s ease;
   opacity: 0;
+  height: 700px;
 }
 
 .dia-carrusel.activo {
@@ -774,4 +763,23 @@
     width: 1.25rem;
   }
 }
+/*Movil */
 
+@media (max-width: 480px){
+  .carrusel{
+    height: 20vh;
+  }
+  .dia-carrusel{
+    height: 20vh;
+  }
+}
+ /*Tablet */
+
+@media (max-width:768px){
+  .carrusel{
+    height: 30vh;
+  }
+  .dia-carrusel{
+    height: 30vh;
+  }
+}

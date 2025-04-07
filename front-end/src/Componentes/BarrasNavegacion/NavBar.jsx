@@ -34,13 +34,7 @@ export const NavBar = () => {
   }
 
   return (
-    // <nav className="nav-container">
-    //   <NavLink className="link" to='register'>Registro</NavLink>
-    //   <NavLink className="link" to='login'>Login</NavLink>
-    //   <NavLink className="link" to='/'>Home</NavLink>
-    //   <NavLink className="link" to='pets'>Pets</NavLink>
-    //   <NavLink className="link" to='registerM'>Register pets</NavLink>
-    // </nav>
+    
     <header className="encabezado" ref={refNav}>
       <div className="contenedor-header">
         <div className="logo-container">

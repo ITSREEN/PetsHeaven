@@ -135,7 +135,7 @@ export default function VeterinariaPage() {
             <div className="contenedor">
               <div className="contenedor-nosotros">
                 <div className="imagen-nosotros">
-                  <img src="/imgs/quienes-somos.png" alt="Veterinarios con mascota" className="img-nosotros" />
+                  <img src="https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Fondos/NosotrosR.jpg" alt="Veterinarios con mascota" className="img-nosotros" />
                 </div>
                 <div className="texto-nosotros">
                   <h2 className="titulo-seccion">Quienes somos</h2>

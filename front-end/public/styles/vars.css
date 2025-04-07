@@ -18,7 +18,8 @@
     --border-input: #c4c4c4;
     --border-focus-input:#4a90e233;
     --black-box: #00000025;
-    --font-size: 1.1rem;
+    --font-size: 1rem;
+    --icon-size: 2.5rem;
     --font-general: "Zain", sans-serif;
     --notfoundimg: url("../imgs/notfound.jpg") center no-repeat;
 }
@@ -32,6 +33,6 @@ html {
 }
 @media (3500px < width) {
     html {
-        font-size: 32px;
+        font-size: 48px;
     }
 }
