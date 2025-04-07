@@ -8,7 +8,7 @@ import "../../../public/styles/InterfazAdmin/pets.css"
 import React, { useState, useEffect } from "react"
 
 // Main component
-export const Pets = () => {
+export const Pets = (rol = null) => {
     // Declare Vars
     const mainURL = "http://localhost:3000/pet/"
     const [petsData, setPetsData] = useState([])
