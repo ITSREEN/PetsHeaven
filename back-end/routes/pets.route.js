@@ -20,12 +20,6 @@ Route.get('/all:by', async (req,res) => {
     res.status(200).json(pets)
 })
 
-Route.get('/by:by', async (req,res) => {
-    const data = req.params.by
-    let pets = await pet.findBy(data)
-    res.status(200).json(pets)
-})
-
 Route.post('/register',async (req,res) => {
     try{
         const { body } = req

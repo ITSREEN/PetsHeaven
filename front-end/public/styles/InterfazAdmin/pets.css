@@ -11,11 +11,29 @@
     flex-direction: column;
     height: 100vh;
     width: 100vw;
-    background: var(--azul-turquesa);
-    border: 2px solid red;
+    background: var(--azul-claro);
     overflow: auto;
 }
-
+.nav-search-container {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-between;
+    width: 100vw;
+    background: var(--white);
+    box-shadow: 5px 5px 5px #00000025;
+    z-index: 1000;
+}
+.img-container {
+    display: none;
+}
+.search-container {
+    display: flex;
+    padding: 10px;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
 .pets-container {
     display: flex;
     flex-wrap: wrap;
@@ -23,10 +41,11 @@
     justify-content: center;
     padding: 30px;
     height: 90vh;
+    width: 100%;
     gap: 40px;
     background: var(--azul-claro);
     overflow: auto;
-    border: 2px solid red;
+    /* border: 2px solid blue; */
 }
 .pets-card {
     display: flex;
@@ -37,6 +56,7 @@
     width: 70%;
     gap: 10px;
     font-size: var(--font-size);
+    color: var(--gris);
     background: var(--white);
     box-shadow: 6px 6px 6px #00000025;
     border-radius: 10px;
@@ -82,11 +102,12 @@
     padding: 30px;
     width: 90%;
     max-width: 90%;
-    max-height: 90vh;
-    overflow-y: auto;
+    height: 90vh;
+    font-size: var(--font-size);
     border-radius: 10px;
     background-color: white;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
 }
 
 .pet-modal-close {
@@ -137,6 +158,16 @@
 
 /* Responsive */
 @media (width > 700px) {
+    .img-container {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        height: 10vh;
+    }
+    .img-container img {
+        object-fit: cover;
+        object-position: center;
+    }
     .pets-card {
         width: 40%;
     }
@@ -145,16 +176,16 @@
     }
 }
 @media (width > 1000px) {
-    .main-pets-container {
-        flex-direction:row;
-    }
     .pets-card {
-        width: 25%;
+        width: 30%;
     }
     .pets-card-img {
         height: 30vh;
     }
     .pet-modal-grid {
         grid-template-columns: 1fr 2fr;
+    }
+    .pet-modal-image img {
+        max-height: 75vh;
     }
 }

@@ -3,6 +3,7 @@ const DataBase = require('./DataBase')
 
 // Main class 
 class Global {
+    // function to find all the services
     async SearchServices() {
         return new Promise((res,rej) => {
             // vars
