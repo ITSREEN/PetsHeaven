@@ -38,7 +38,7 @@ export const NavBar = () => {
     <header className="encabezado" ref={refNav}>
       <div className="contenedor-header">
         <div className="logo-container">
-          <img src="https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/3.png" alt="PetsHeaven Logo" width={50} height={50} className="logo-img" />
+          <img src="https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/5.png" alt="PetsHeaven Logo" width={50} height={50} className="logo-img" />
         </div>
 
         {/* Navegación Escritorio */}
@@ -75,10 +75,10 @@ export const NavBar = () => {
 
         {/* Botones para escritorio */}
         <div className="botones-escritorio">
-          <a href="/user/register" className="boton-registro">
+          <a href="/user/register" className="boton-registro-nav">
             Registrarse
           </a>
-          <a href="/user/login" className="boton-login">Iniciar Sesión</a>
+          <a href="/user/login" className="boton-login-nav">Iniciar Sesión</a>
         </div>
       </div>
 
@@ -105,10 +105,10 @@ export const NavBar = () => {
           </a>
           {/* Botones para móvil */}
           <div className="botones-movil">
-            <a href="/user/register" className="boton-registro-movil">
+            <a href="/user/register" className="boton-registro-movil-nav">
               Registrarse
             </a>
-            <a href='/user/login' className="boton-login-movil">Iniciar Sesión</a>
+            <a href='/user/login' className="boton-login-movil-nav">Iniciar Sesión</a>
           </div>
         </nav>
       </div>
