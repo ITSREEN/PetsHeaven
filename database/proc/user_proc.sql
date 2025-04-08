@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 -- Active: 1743091557662@@127.0.0.1@3306@pets_heaven
+=======
+
+>>>>>>> f8c4990965e53bfb3a8647e0a570dd21c8fa75be
 DELIMITER //
 CREATE PROCEDURE pets_heaven.RegistPeoples(
     IN p_nom_usu VARCHAR(100),

@@ -11,7 +11,7 @@ import "../../../public/styles/Formularios/Registro.css";
 
 const Registro = () => {
   const imagenFondo = "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Fondos/fondo.png";
-  const logoUrl = "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/1.png";
+  const logoUrl = "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/5.png";
 
   // Datos que entran del formulario de registro
   const [formData, setFormData] = useState({
@@ -301,7 +301,7 @@ const Registro = () => {
       {/* Sección derecha - Formulario de registro */}
       <div className="registro-formulario-container">
         <div className="contenedor-logo-externo">
-          <a href="/" className="cursor-pointer">
+          <a href="/VeterinariaPage" className="cursor-pointer">
             <img src={logoUrl || "/placeholder.svg"} alt="Logo PetsHeaven" className="logo-veterinaria" />
           </a>
         </div>
