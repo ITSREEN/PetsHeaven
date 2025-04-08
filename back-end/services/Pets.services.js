@@ -56,7 +56,7 @@ class Pet {
     async findAllBy(data) {
         return new Promise((res,rej) => {
             // vars
-            const by = data.slice(1,data.length)
+            const by = data.replace(":","")
             const proc = "CALL SearchPetsBy(?);"
 
             // conect to database
@@ -107,7 +107,7 @@ class Pet {
      async findHistoryBy(data) {
         return new Promise((res,rej) => {
             // vars
-            const by = data.slice(1,data.length)
+            const by = data.replace(":","")
             const proc = "CALL SearchHistoryBy(?);"
 
             // conect to database

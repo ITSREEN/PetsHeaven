@@ -84,11 +84,7 @@ export const Pets = (rol = null) => {
                                     alt={`${i.esp_mas} de raza ${i.raz_mas} color ${i.col_mas} con nombre ${i.nom_mas}`} 
                                 />
                                 <span className='pets-card-info'>
-                                    <p><strong>Nombre: </strong> {i.nom_mas}</p>
-                                    <p><strong>Especie: </strong> {i.esp_mas}</p>
-                                    <p><strong>Color: </strong> {i.col_mas}</p>
-                                    <p><strong>Raza: </strong> {i.raz_mas}</p>
-                                    <p><strong>{namePro(i.gen_usu)}: </strong>{i.nom_usu} {i.ape_usu}</p>
+                                    <p><strong> {i.nom_mas}</strong></p>
                                 </span>
                                 <button 
                                     type='button' 
