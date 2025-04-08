@@ -102,6 +102,33 @@ class Pet {
             database.conection.end()
         })
     }
+
+     // function to find all Medical History by Pet
+     async findHistoryBy(data) {
+        return new Promise((res,rej) => {
+            // vars
+            const by = data.slice(1,data.length)
+            const proc = "CALL SearchHistoryBy(?);"
+
+            // conect to database
+            let database = new DataBase()
+            database.conect()
+            
+            if (database) database.conection.query(proc,by,(err,result) => {
+                if(err) {
+                    rej({ message: err })
+                } else setTimeout(() => {
+                    res({
+                        message: "History found",
+                        result: result
+                    })
+                },2000)
+            })
+
+            // close conection 
+            database.conection.end()
+        })
+    }
 }
 
 // Export

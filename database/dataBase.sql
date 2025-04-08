@@ -84,7 +84,7 @@ CREATE TABLE pets_heaven.mascotas(
 );
 
 CREATE TABLE pets_heaven.historiales_medicos(
-    id_his INT PRIMARY KEY,
+    id_his INT  PRIMARY KEY,
     fec_his DATE NOT NULL,
     tra_his  TEXT NOT NULL,
     des_his TEXT NOT NULL,

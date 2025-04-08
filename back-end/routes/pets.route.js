@@ -40,5 +40,11 @@ Route.put('/modify',async (req,res) => {
     }
 })
 
+Route.get('/history:by', async (req,res) => {
+    const by = req.params.by
+    let pets = await pet.findHistoryBy(by)
+    res.status(200).json(pets)
+})
+
 // Export 
 module.exports = Route

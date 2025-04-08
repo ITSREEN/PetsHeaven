@@ -57,3 +57,35 @@ INSERT INTO pets_heaven.mascotas
 ('Oliver', 'Gato', 'Naranja', 'Maine Coon', 'Blue Buffalo', '2018-12-18', 7.5, 'M', 3, 'Esterilizado', 'https://www.purina.es/sites/default/files/styles/ttt_image_510/public/2024-02/sitesdefaultfilesstylessquare_medium_440x440public2022-06Maine20Coon.1.jpg?itok=25PAnnaV'),
 ('Daisy', 'Perro', 'Crema', 'Poodle', 'Nutro', '2020-06-08', 6.8, 'F', 4, 'No esterilizado', 'https://img.freepik.com/fotos-premium/lindo-cachorro-caniche-crema-poco-peludo_126745-916.jpg'),
 ('Leo', 'Perro', 'Negro y Fuego', 'Doberman', 'Canidae', '2017-04-20', 34.2, 'M', 5, 'Esterilizado', 'https://tucachorrotienda.com/wp-content/uploads/2019/12/doberman-cachorro5.jpg');
+
+INSERT INTO pets_heaven.categorias_veterinario (nom_cat)
+VALUES 
+('Generalista'),
+('Especialista en Cirugía'),
+('Dermatología'),
+('Cardiología'),
+('Odontología');
+
+INSERT INTO pets_heaven.usuarios (nom_usu, ape_usu, fec_nac_usu, tip_doc_usu, doc_usu, dir_usu, cel_usu, email_usu, cont_usu, gen_usu)
+VALUES
+('Juan', 'Pérez', '1980-04-25', 'DNI', '12345222678', 'Calle Ficticia 123', '555-1234', 'juan.peresdfsfz@email.com', 'contraseña123', 'Masculino'),
+('María', 'Gómez', '1990-08-15', 'DNI', '876333354321', 'Avenida Real 456', '555-5678', 'maria.gsdfsfomez@email.com', 'contraseña456', 'Femenino'),
+('Carlos', 'López', '1985-12-05', 'DNI', '114444223344', 'Calle Nueva 789', '555-9101', 'carlos.losdfsdpez@email.com', 'contraseña789', 'Masculino');
+
+INSERT INTO pets_heaven.veterinarios (id_vet, especialidad, horarios, cat_vet, fot_vet)
+VALUES
+(12, 'Veterinario Generalista', 'Lunes a Viernes 9:00 - 18:00', 1, 'https://img.freepik.com/vector-gratis/lindo-perro-medico-estetoscopio-dibujos-animados-vector-icono-ilustracion-animal-salud-icono-aislado_138676-5182.jpg'),
+(13, 'Cirujano Veterinario', 'Lunes a Viernes 10:00 - 16:00', 2, 'https://img.freepik.com/vector-gratis/lindo-perro-medico-estetoscopio-dibujos-animados-vector-icono-ilustracion-animal-salud-icono-aislado_138676-5182.jpg'),
+(14, 'Especialista en Dermatología', 'Martes a Jueves 9:00 - 14:00', 3, 'https://img.freepik.com/vector-gratis/lindo-perro-medico-estetoscopio-dibujos-animados-vector-icono-ilustracion-animal-salud-icono-aislado_138676-5182.jpg');
+
+
+
+
+INSERT INTO pets_heaven.historiales_medicos (id_his, fec_his, tra_his, des_his, id_vet_his, id_mas_his)
+VALUES
+(1, '2025-03-15', 'Consulta de rutina', 'El paciente se encuentra en buen estado general, se le realizaron análisis de sangre y vacunas', 12, 3),
+(2, '2025-03-20', 'Cirugía de esterilización', 'Cirugía exitosa, se programó seguimiento en 7 días', 12, 4),
+(3, '2025-03-25', 'Revisión post-operatoria', 'El paciente está recuperándose bien de la cirugía, no hay complicaciones', 13, 5),
+(4, '2025-04-01', 'Atención de emergencia', 'El paciente llegó con fractura en la pierna, se estabilizó y se programó cirugía para el día siguiente', 14, 6),
+(5, '2025-04-05', 'Consulta de dermatología', 'Se detectaron signos de alergia, se prescribió un tratamiento con medicamentos antihistamínicos', 12, 7),
+(6, '2025-04-05', 'Consulta de dermatología', 'Se detectaron signos de alergia, se prescribió un tratamiento con medicamentos antihistamínicos', 12, 4);

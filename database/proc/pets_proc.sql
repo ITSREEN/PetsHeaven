@@ -88,7 +88,6 @@ END //
 
 CREATE PROCEDURE pets_heaven.SearchPets()
 BEGIN
-
     SELECT
         m.nom_mas,
         m.esp_mas,
@@ -158,4 +157,30 @@ BEGIN
     ORDER BY m.nom_mas
     LIMIT 40;
 
+END //
+
+CREATE PROCEDURE pets_heaven.SearchHistoryBy(
+    IN p_pet_id INT
+)
+BEGIN
+    SELECT
+        hm.id_his AS historial_id,
+        hm.fec_his AS fecha_historial,
+        hm.tra_his AS tratamiento,
+        hm.des_his AS descripcion,
+        v.id_vet AS id_veterinario,
+        u.nom_usu AS nombre_veterinario,
+        u.ape_usu AS apellido_veterinario,
+        v.especialidad AS especialidad_veterinario,
+        v.fot_vet AS foto_veterinario
+    FROM 
+        historiales_medicos hm
+    JOIN
+        mascotas m ON hm.id_mas_his = m.id_mas
+    JOIN
+        veterinarios v ON hm.id_vet_his = v.id_vet
+    JOIN
+        usuarios u ON v.id_vet = u.id_usu
+    WHERE 
+        hm.id_mas_his = p_pet_id;
 END //
