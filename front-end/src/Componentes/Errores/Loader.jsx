@@ -3,6 +3,7 @@ import "../../../public/styles/Errores/Loader.css"
 
 export const Loader = () => {
     return(
+
     <div aria-label="Orange and tan hamster running in a metal wheel" role="img" className="wheel-and-hamster">
         <div className="wheel"></div>
         <div className="hamster">
