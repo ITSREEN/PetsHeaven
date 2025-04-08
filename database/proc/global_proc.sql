@@ -1,4 +1,4 @@
--- Active: 1741175022404@@127.0.0.1@3306@pets_heaven
+
 CREATE PROCEDURE pets_heaven.SearchServices()
 BEGIN
     SELECT
