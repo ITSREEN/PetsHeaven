@@ -7,6 +7,7 @@
 }
 
 .main-pets-container {
+    position: relative;
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -15,6 +16,8 @@
     overflow: auto;
 }
 .nav-search-container {
+    position: sticky;
+    top: 0;
     display: flex;
     padding: 10px;
     align-items: center;
@@ -34,55 +37,100 @@
     align-items: center;
     justify-content: center;
 }
+/* Contenedor principal */
 .pets-container {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
-    align-items: center;
     justify-content: center;
-    padding: 30px;
-    height: 90vh;
-    width: 100%;
-    gap: 40px;
-    background: var(--azul-claro);
-    overflow: auto;
-    /* border: 2px solid blue; */
+    padding: 1rem;
+    gap: 1.5rem;
 }
+  
+/* Tarjeta de mascota */
 .pets-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 15px;
-    width: 70%;
-    gap: 10px;
-    font-size: var(--font-size);
-    color: var(--gris);
-    background: var(--white);
-    box-shadow: 6px 6px 6px #00000025;
+    display: grid;
+    height: 50vh;
+    grid-template-rows: 3fr,1fr;
     border-radius: 10px;
-}
-.pets-card-img {
-    height: 40vh;
-    width: 100%;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 10px;
-    border: 2px solid var(--gray);
-    box-shadow: 6px 7px 6px #00000025;
-    background: var(--verdeaguamarina);
-}
-.pets-card-info {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center;
-    width: 100%;
     font-size: var(--font-size);
-}
-.pet-info {
-    color: gray; 
+    background: white;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: all 0.3s ease;
 }
 
+.pets-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenedor de imagen */
+.pets-img-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.pets-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.5s ease;
+}
+  
+.pets-card:hover .pets-card-img {
+    transform: scale(1.03);
+}
+  
+/* Badge de especie */
+.pets-species-badge {
+    position: absolute;
+    top: 0.8rem;
+    right: 0.8rem;
+    padding: 0.2rem 0.7rem;
+    color: white;
+    font-size: var(--font-size);
+    font-weight: bold;
+    border-radius: 10px;
+    background: var(--verdeaguamarina);
+}
+  
+/* Información */
+.pets-info-wrapper {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    padding: 20px;
+    align-content: space-around;
+}
+
+.pets-name {
+    font-size: calc(var(--font-size) + 5px);
+    color: #2d3436;
+}
+
+.pets-meta {
+    font-size: calc(var(--font-size) - 1px);
+    color: var(--gray);
+}
+  
+/* Botón  */
+.boton-enviar.pets-detail-btn {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem 0.5rem;
+    max-height: 100%;
+    width: 100%;
+    color: white;
+    font-size: var(--font-size);
+    border: none;
+    border-radius: 6px;
+    background: var(--verdeaguamarina);
+    transition: all .2s ease-in-out;
+}
+  
 /* Estilos para el modal */
 .pet-modal-overlay {
     position: fixed;
@@ -158,6 +206,9 @@
 
 /* Responsive */
 @media (width > 700px) {
+    .pets-container {
+        flex-direction: row;
+    }
     .img-container {
         display: flex;
         align-content: center;
@@ -178,9 +229,7 @@
 @media (width > 1000px) {
     .pets-card {
         width: 30%;
-    }
-    .pets-card-img {
-        height: 30vh;
+        height: 60vh;
     }
     .pet-modal-grid {
         grid-template-columns: 1fr 2fr;

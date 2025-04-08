@@ -1,8 +1,9 @@
 // Imports
 import { GetData } from '../Varios/Util'
 import { Loader } from '../Errores/Loader'
-// import NavBar from './NavBarAdmi'
+import { SubNotFound } from '../Errores/NotFound'
 import "../../../public/styles/InterfazAdmin/pets.css"
+// import NavBar from './NavBarAdmi'
 
 // Librarys 
 import React, { useState, useEffect } from "react"
@@ -16,18 +17,20 @@ export const Pets = (rol = null) => {
     const [selectedPet, setSelectedPet] = useState(null)
     const [showModal, setShowModal] = useState(false)
     const [searchBy,setSearchBy] = useState("")
+    const [found,setfound] = useState(false)
 
     
     // fetch para traer datos
     const fetchData = async (url) => {
+        setfound(false)
         setLoading(true)
         try {
             const pets = await GetData(url)
-            setPetsData(pets)
             setLoading(false)
+            setPetsData(pets)
+            if(pets[0]) setfound(true)
         } catch (error) {
             window.location.href = "/internal"
-            setPetsData([])
         }
     }
     
@@ -74,28 +77,46 @@ export const Pets = (rol = null) => {
                             <img src="https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/LosFour.png" alt="numero 4 con circuitos incrustados de color azulaguamarina y diseño 3d" />
                         </picture>
                     </nav>
+
                     {/* <NavBar /> */}
-                    <section className='pets-container'>
-                        {petsData.map((i, index) => (
-                            <aside key={index} className='pets-card'>
-                                <img 
-                                    className='pets-card-img' 
-                                    src={i.fot_mas} 
-                                    alt={`${i.esp_mas} de raza ${i.raz_mas} color ${i.col_mas} con nombre ${i.nom_mas}`} 
-                                />
-                                <span className='pets-card-info'>
-                                    <p><strong> {i.nom_mas}</strong></p>
-                                </span>
-                                <button 
-                                    type='button' 
-                                    className='boton-enviar'
-                                    onClick={() => openModal(i)}
-                                >
-                                    Descripción
-                                </button>
+
+                    {/* Cards  */}
+                    {
+                        found?
+                        (
+                        <section className='pets-container'>
+                            {petsData.map((i, index) => (
+                                <aside key={index} className='pets-card'>
+                                <div className='pets-img-container'>
+                                    <img 
+                                        className='pets-card-img' 
+                                        src={i.fot_mas || '/default-pet.jpg'}
+                                        alt={`${i.esp_mas} de raza ${i.raz_mas} color ${i.col_mas} con nombre ${i.nom_mas}`}
+                                        onError={(e) => e.target.src = '/default-pet.jpg'}
+                                    />
+                                    <span className='pets-species-badge'>{i.esp_mas}</span>
+                                </div>
+                                
+                                <section className='pets-info-wrapper'>
+                                    <p className='pets-name'><strong>{i.nom_mas}</strong></p>
+                                    <span className='pets-meta'>
+                                        {i.raz_mas || 'Raza no especificada'} {i.col_mas || 'Color no especificado'}
+                                    </span>
+                                    
+                                    <button 
+                                        type='button' 
+                                        className='boton-enviar pets-detail-btn'
+                                        onClick={() => openModal(i)}
+                                    >Descripción
+                                    </button>
+                                </section>
                             </aside>
-                        ))}
-                    </section>
+                            ))}
+                        </section>
+                        ):(
+                            <SubNotFound />
+                        )
+                    }
 
                     {/* Modal para mostrar detalles completos */}
                     {showModal && selectedPet && (

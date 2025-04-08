@@ -25,9 +25,10 @@ Route.get('/all', async (req,res) => {
 Route.get('/all:by', async (req,res) => {
     // Vars
     const by = req.params.by
-
-    const pets = await pet.findAllBy(toString(by))
+    
+    const pets = await pet.findAllBy(by)
     if (!pets.result) res.status(404).json({message: "mascotas no encontradas"})
+
     try {
         res.status(200).json(pets)
     } catch (err) {
