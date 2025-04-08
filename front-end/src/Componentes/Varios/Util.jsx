@@ -1,6 +1,9 @@
 // Vars
+// const HeaderWeb = {
+//     "Content-Type": "application/x-www-form-urlencoded",
+// }
 const HeaderWeb = {
-    "Content-Type": "application/x-www-form-urlencoded",
+    "Content-Type": "application/json",
 }
 
 // Functions 
@@ -25,23 +28,43 @@ export async function GetData(URL) {
     }
 }
 // Enviar datos 
-export async function PostData(URL,datas) {
+export async function PostData(URL, datas) {
+    console.log(datas)
     try {
-        const response = await fetch(URL,{
-            method:"POST",
+        const response = await fetch(URL, {
+            method: "POST",
             headers: HeaderWeb,
-            body: datas,
+            body: JSON.stringify(datas)
         })
-        if (!response.status === 201) {
-            // response.status >= 500? window.location.href = "/internal":
-            // window.location.href = "/notfound"
-            throw new Error(`HTTP error! status: ${response.status}`)
-        }
-        const data = await response
-        return data.result
+  
+      // Manejar diferentes códigos de estado
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}))
+        const error = new Error(errorData.message || `HTTP error! status: ${response.status}`)
+        error.status = response.status
+        error.data = errorData
+        throw error
+      }
+  
+      // Parsear la respuesta como JSON
+      const data = await response
+      return data
+  
     } catch (error) {
-        // window.location.href = "/internal"
-        console.error("Error:", error)
+        
+        // Manejo de errores
+        if (error.status) {
+
+            if (error.status >= 500) {
+                navigate('/internal')
+                throw Error('Error del servidor:', error)
+            }
+
+            else if (error.status === 404) console.log("No estas en mi corazon")
+            else if (error.status === 302) console.log("Ya estas en mi corazon")
+
+        } else throw Error('Error de conexión:', error)
+        
         throw error
     }
 }
@@ -51,18 +74,35 @@ export async function ModifyData(URL,datas) {
         const response = await fetch(URL,{
             method:"PUT",
             headers: HeaderWeb,
-            body: datas,
+            body: JSON.stringify(datas),
         })
+
         if (!response.ok) {
-            response.status >= 500? window.location.href = "/internal":
-            window.location.href = "/notfound"
-            throw new Error(`HTTP error! status: ${response.status}`)
+            const errorData = await response.json().catch(() => ({}))
+            const error = new Error(errorData.message || `HTTP error! status: ${response.status}`)
+            error.status = response.status
+            error.data = errorData
+            throw error
         }
+
+        // Parsear la respuesta como JSON
         const data = await response
-        return data.result
+        return data
+
     } catch (error) {
-        window.location.href = "/internal"
-        console.error("Error:", error)
+        // Manejo de errores
+        if (error.status) {
+            
+            if (error.status >= 500) {
+                navigate('/internal')
+                throw Error('Error del servidor:', error)
+            }
+
+            else if (error.status === 404) console.log("No estas en mi corazon")
+            else if (error.status === 302) console.log("Ya estas en mi corazon")
+
+        } else throw Error('Error de conexión:', error)
+        
         throw error
     }
 }

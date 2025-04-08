@@ -1,8 +1,4 @@
-<<<<<<< HEAD
--- Active: 1743091557662@@127.0.0.1@3306@pets_heaven
-=======
-
->>>>>>> f8c4990965e53bfb3a8647e0a570dd21c8fa75be
+-- Active: 1743971322762@@127.0.0.1@3306@pets_heaven
 DELIMITER //
 CREATE PROCEDURE pets_heaven.RegistPeoples(
     IN p_nom_usu VARCHAR(100),
@@ -30,8 +26,12 @@ BEGIN
 
     START TRANSACTION;
 
-    INSERT INTO usuarios (nom_usu,ape_usu,tip_doc_usu,doc_usu,dir_usu,cel_usu,cel2_usu,email_usu,cont_usu,gen_usu)
-    VALUES (p_nom_usu,p_ape_usu,p_tip_doc_usu,p_doc_usu,p_dir_usu,p_cel_usu,p_cel2_usu,p_email_usu,p_cont_usu,p_gen_usu);
+    INSERT INTO usuarios (
+        nom_usu,ape_usu,fec_nac_usu,tip_doc_usu,doc_usu,dir_usu,cel_usu,cel2_usu,email_usu,cont_usu,gen_usu
+    )
+    VALUES (
+        p_nom_usu,p_ape_usu,p_fec_nac_usu,p_tip_doc_usu,p_doc_usu,p_dir_usu,p_cel_usu,p_cel2_usu,p_email_usu,p_cont_usu,p_gen_usu
+    );
 
     SET p_id_usuario = LAST_INSERT_ID();
 
@@ -124,19 +124,3 @@ BEGIN
         otr.fec_oto
     LIMIT 40;
 END //
-
-CALL `RegistPeoples`(
-    "asdasd",
-    "asdad",
-    "09-12-2001",
-    "CC",
-    "123123312",
-    "asdad",
-    "123123",
-    "123123",
-    "cristian@asd.com",
-    "Dicrey123@",
-    "otro"
-);
-
-DROP PROCEDURE `RegistPeoples`;

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
--- Active: 1743091557662@@127.0.0.1@3306@pets_heaven
-=======
-
->>>>>>> f8c4990965e53bfb3a8647e0a570dd21c8fa75be
+-- Active: 1743971322762@@127.0.0.1@3306@pets_heaven
 INSERT INTO pets_heaven.roles (nom_rol) VALUES
 ('Administrador'),
 ('Veterinario');
@@ -77,18 +73,15 @@ VALUES
 
 INSERT INTO pets_heaven.veterinarios (id_vet, especialidad, horarios, cat_vet, fot_vet)
 VALUES
-(12, 'Veterinario Generalista', 'Lunes a Viernes 9:00 - 18:00', 1, 'https://img.freepik.com/vector-gratis/lindo-perro-medico-estetoscopio-dibujos-animados-vector-icono-ilustracion-animal-salud-icono-aislado_138676-5182.jpg'),
-(13, 'Cirujano Veterinario', 'Lunes a Viernes 10:00 - 16:00', 2, 'https://img.freepik.com/vector-gratis/lindo-perro-medico-estetoscopio-dibujos-animados-vector-icono-ilustracion-animal-salud-icono-aislado_138676-5182.jpg'),
-(14, 'Especialista en Dermatología', 'Martes a Jueves 9:00 - 14:00', 3, 'https://img.freepik.com/vector-gratis/lindo-perro-medico-estetoscopio-dibujos-animados-vector-icono-ilustracion-animal-salud-icono-aislado_138676-5182.jpg');
-
-
-
+(1, 'Veterinario Generalista', 'Lunes a Viernes 9:00 - 18:00', 1, 'https://img.freepik.com/vector-gratis/lindo-perro-medico-estetoscopio-dibujos-animados-vector-icono-ilustracion-animal-salud-icono-aislado_138676-5182.jpg'),
+(2, 'Cirujano Veterinario', 'Lunes a Viernes 10:00 - 16:00', 2, 'https://img.freepik.com/vector-gratis/lindo-perro-medico-estetoscopio-dibujos-animados-vector-icono-ilustracion-animal-salud-icono-aislado_138676-5182.jpg'),
+(3, 'Especialista en Dermatología', 'Martes a Jueves 9:00 - 14:00', 3, 'https://img.freepik.com/vector-gratis/lindo-perro-medico-estetoscopio-dibujos-animados-vector-icono-ilustracion-animal-salud-icono-aislado_138676-5182.jpg');
 
 INSERT INTO pets_heaven.historiales_medicos (id_his, fec_his, tra_his, des_his, id_vet_his, id_mas_his)
 VALUES
-(1, '2025-03-15', 'Consulta de rutina', 'El paciente se encuentra en buen estado general, se le realizaron análisis de sangre y vacunas', 12, 3),
-(2, '2025-03-20', 'Cirugía de esterilización', 'Cirugía exitosa, se programó seguimiento en 7 días', 12, 4),
-(3, '2025-03-25', 'Revisión post-operatoria', 'El paciente está recuperándose bien de la cirugía, no hay complicaciones', 13, 5),
-(4, '2025-04-01', 'Atención de emergencia', 'El paciente llegó con fractura en la pierna, se estabilizó y se programó cirugía para el día siguiente', 14, 6),
-(5, '2025-04-05', 'Consulta de dermatología', 'Se detectaron signos de alergia, se prescribió un tratamiento con medicamentos antihistamínicos', 12, 7),
-(6, '2025-04-05', 'Consulta de dermatología', 'Se detectaron signos de alergia, se prescribió un tratamiento con medicamentos antihistamínicos', 12, 4);
+(1, '2025-03-15', 'Consulta de rutina', 'El paciente se encuentra en buen estado general, se le realizaron análisis de sangre y vacunas', 1, 3),
+(2, '2025-03-20', 'Cirugía de esterilización', 'Cirugía exitosa, se programó seguimiento en 7 días', 1, 4),
+(3, '2025-03-25', 'Revisión post-operatoria', 'El paciente está recuperándose bien de la cirugía, no hay complicaciones', 2, 5),
+(4, '2025-04-01', 'Atención de emergencia', 'El paciente llegó con fractura en la pierna, se estabilizó y se programó cirugía para el día siguiente', 3, 6),
+(5, '2025-04-05', 'Consulta de dermatología', 'Se detectaron signos de alergia, se prescribió un tratamiento con medicamentos antihistamínicos', 1, 7),
+(6, '2025-04-05', 'Consulta de dermatología', 'Se detectaron signos de alergia, se prescribió un tratamiento con medicamentos antihistamínicos', 1, 4);

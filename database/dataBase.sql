@@ -1,9 +1,4 @@
-<<<<<<< HEAD
--- Active: 1743091557662@@127.0.0.1@3306@pets_heaven
-=======
--- Active: 1743681932025@@127.0.0.1@3306
--- Active: 1741175022404@@127.0.0.1@3306@pets_heaven
->>>>>>> f8c4990965e53bfb3a8647e0a570dd21c8fa75be
+-- Active: 1743971322762@@127.0.0.1@3306@pets_heaven
 DROP DATABASE IF EXISTS pets_heaven;
 CREATE DATABASE IF NOT EXISTS pets_heaven;
 

@@ -202,19 +202,19 @@ const Registro = () => {
         codigoIngresado: undefined
       });
       // fetch para guardar los datos aqui proximamente solo en cines tambien en 3d
-      const newUser = [
-        formData.nombres,
-        formData.apellidos,
-        formData.fechaNacimiento,
-        formData.tipoDocumento,
-        formData.numeroDocumento,
-        formData.direccion,
-        formData.celular,
-        formData.celular2,
-        formData.email,
-        formData.password,
-        formData.genero
-    ]
+      const newUser = {
+        nombres: formData.nombres,
+        apellidos: formData.apellidos,
+        fechaNacimiento: formData.fechaNacimiento,
+        tipoDocumento: formData.tipoDocumento,
+        numeroDocumento: formData.numeroDocumento,
+        direccion: formData.direccion,
+        celular: formData.celular,
+        celular2: formData.celular2,
+        email: formData.email,
+        password: formData.password,
+        genero: formData.genero
+      }
       SendData(newUser)
       setPaso(1);
     } else {
@@ -234,15 +234,13 @@ const Registro = () => {
     // Vars
     const URL = "http://localhost:3000/user/register"
     setLoading(true)
+    console.log(data)
     try {
-      // peticion
       await PostData(URL,data)
       setLoading(false)
-      return true
+      alert("Registro exitoso")
     } catch (error) {
-      // window.location.href = "/internal"
       console.log(error)
-      return false
     }
 
   }
