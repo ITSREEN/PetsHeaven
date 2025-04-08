@@ -12,7 +12,7 @@ export const LoginForm = () => {
   // Vars 
   const [verPassword, setVerPassword] =  useState(false)
   const imagenFondo = "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Fondos/fondo.png" 
-  const logoUrl = "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/1.png"
+  const logoUrl = "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/5.png"
 
   // Configuración del formulario
   const {

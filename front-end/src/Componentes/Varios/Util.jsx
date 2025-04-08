@@ -30,18 +30,17 @@ export async function PostData(URL,datas) {
         const response = await fetch(URL,{
             method:"POST",
             headers: HeaderWeb,
-            body: JSON.stringify(datas),
-
+            body: datas,
         })
-        if (!response.ok) {
-            response.status >= 500? window.location.href = "/internal":
-            window.location.href = "/notfound"
+        if (!response.status === 201) {
+            // response.status >= 500? window.location.href = "/internal":
+            // window.location.href = "/notfound"
             throw new Error(`HTTP error! status: ${response.status}`)
         }
-        const data = await response.json()
-        return data.result[0]
+        const data = await response
+        return data.result
     } catch (error) {
-        window.location.href = "/internal"
+        // window.location.href = "/internal"
         console.error("Error:", error)
         throw error
     }
@@ -52,16 +51,15 @@ export async function ModifyData(URL,datas) {
         const response = await fetch(URL,{
             method:"PUT",
             headers: HeaderWeb,
-            body: JSON.stringify(datas),
-
+            body: datas,
         })
         if (!response.ok) {
             response.status >= 500? window.location.href = "/internal":
             window.location.href = "/notfound"
             throw new Error(`HTTP error! status: ${response.status}`)
         }
-        const data = await response.json()
-        return data.result[0]
+        const data = await response
+        return data.result
     } catch (error) {
         window.location.href = "/internal"
         console.error("Error:", error)

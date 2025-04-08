@@ -6,14 +6,12 @@
   display: none !important;
 }
 
-/* Contenedor principal */
 .registro-container {
   display: flex;
   min-height: 100vh;
   font-family: "Arial", sans-serif;
 }
 
-/* Sección izquierda - Imagen y cita */
 .registro-imagen-container {
   flex: 1;
   position: relative;
@@ -53,9 +51,9 @@
   position: relative;
   z-index: 2;
   padding: 2rem;
-  max-width: 80%;
   margin-bottom: 15rem;
   text-align: center;
+  margin-left: 5rem;
 }
 
 .texto-cita {
@@ -63,18 +61,18 @@
   font-weight: bold;
   margin-bottom: 1rem;
   line-height: 1.2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .subtexto-cita {
   font-size: 0.875rem;
 }
 
-/* Sección derecha - Formulario de registro */
 .registro-formulario-container {
   flex: 1;
-  /* Aquí puedes agregar el patrón de fondo que desees */
   background-color: #f5f5f5;
-  /* Ejemplo de patrón de fondo sutil */
   background-image: url("https://www.toptal.com/designers/subtlepatterns/uploads/leaves-pattern.png");
   display: flex;
   flex-direction: column;
@@ -413,8 +411,8 @@ select:focus {
   margin-top: 0.5rem; /* Añadido para dar más espacio desde los botones */
 }
 
-/* Estilos responsivos mejorados */
-/* Tablets y dispositivos medianos */
+/* ===== RESPONSIVE: MÓVIL PEQUEÑO (< 480px) ===== */
+
 @media (max-width: 992px) {
   .formulario-card {
     padding: 1.5rem;
@@ -572,4 +570,395 @@ select:focus {
   }
 }
 
+/* DISEÑO RESPONSIVO MEJORADO */
 
+/* Monitores de escritorio grandes (1440px y superiores) */
+@media (min-width: 1440px) {
+  .registro-container {
+    max-width: 1920px;
+    margin: 0 auto;
+  }
+
+  .formulario-card {
+    max-width: 650px;
+    padding: 2.5rem;
+  }
+
+  .texto-cita {
+    font-size: 2rem;
+  }
+
+  .contenedor-cita {
+    margin-bottom: 18rem;
+    max-width: 80%;
+  }
+
+  .logo-veterinaria {
+    max-width: 220px;
+  }
+
+  .titulo-formulario {
+    font-size: 1.75rem;
+  }
+
+  input,
+  select {
+    padding: 0.85rem;
+    font-size: 1rem;
+  }
+}
+
+/* Escritorio estándar (1200px - 1439px) */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  .formulario-card {
+    max-width: 600px;
+  }
+
+  .contenedor-cita {
+    margin-bottom: 16rem;
+  }
+}
+
+/* Escritorio pequeño / Laptop grande (992px - 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .formulario-card {
+    max-width: 550px;
+    padding: 2rem;
+  }
+
+  .contenedor-cita {
+    margin-bottom: 14rem;
+  }
+
+  .texto-cita {
+    font-size: 1.6rem;
+  }
+}
+
+/* Tablets y dispositivos medianos (768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .registro-container {
+    flex-direction: column; /* Mantiene el diseño de dos columnas en tablets más grandes */
+  }
+
+  .formulario-card {
+    padding: 1.5rem;
+    max-width: 580px;
+  }
+
+  .texto-cita {
+    font-size: 1.4rem;
+  }
+
+  .contenedor-cita {
+    margin-bottom: 8rem;
+    padding: 1.5rem;
+    margin-left: 5vh;
+  }
+
+  .logo-veterinaria {
+    max-width: 160px;
+  }
+
+  .grid-campos {
+    gap: 0.75rem;
+  }
+
+  .navegacion-botones {
+    gap: 0.75rem;
+  }
+}
+
+/* Tablets pequeñas (600px - 767px) */
+@media (min-width: 600px) and (max-width: 767px) {
+  .registro-container {
+    flex-direction: column;
+  }
+
+  .registro-imagen-container {
+    min-height: 280px;
+    max-height: 320px;
+  }
+
+  .contenedor-cita {
+    margin-bottom: 2.5rem;
+    max-width: 90%;
+    padding: 1.25rem;
+  }
+
+  .texto-cita {
+    font-size: 1.3rem;
+  }
+
+  .formulario-card {
+    max-width: 500px;
+    padding: 1.5rem;
+  }
+
+  /* Mantiene dos columnas para los campos del formulario en tablets pequeñas */
+  .grid-campos {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .campo-ancho-completo {
+    grid-column: span 2;
+  }
+
+  .navegacion-botones {
+    flex-direction: row;
+  }
+}
+
+/* Dispositivos móviles grandes (480px - 599px) */
+@media (min-width: 480px) and (max-width: 599px) {
+  .registro-container {
+    flex-direction: column;
+  }
+
+  .registro-imagen-container {
+    min-height: 250px;
+    max-height: 300px;
+  }
+
+  .contenedor-cita {
+    margin-bottom: 2rem;
+    padding: 1rem;
+  }
+
+  .texto-cita {
+    font-size: 1.2rem;
+  }
+
+  .formulario-card {
+    padding: 1.25rem;
+  }
+
+  .grid-campos {
+    grid-template-columns: 1fr;
+  }
+
+  .campo-ancho-completo {
+    grid-column: span 1;
+  }
+
+  .navegacion-botones,
+  .botones-verificacion {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+/* Dispositivos móviles medianos (360px - 479px) */
+@media (min-width: 360px) and (max-width: 479px) {
+  .registro-formulario-container {
+    padding: 1rem;
+  }
+
+  .formulario-card {
+    padding: 1rem;
+  }
+
+  .logo-veterinaria {
+    max-width: 140px;
+  }
+
+  .titulo-formulario {
+    font-size: 1.2rem;
+  }
+
+  .paso {
+    width: 1.6rem;
+    height: 1.6rem;
+    font-size: 0.85rem;
+  }
+
+  .linea {
+    width: 1.25rem;
+  }
+
+  .input-codigo {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+
+  .registro-imagen-container {
+    min-height: 200px;
+  }
+
+  .contenedor-cita {
+    margin-bottom: 3rem;
+    margin-left: 2vh;
+  }
+
+  .texto-cita {
+    font-size: 1.1rem;
+  }
+
+  /* Mejora el espaciado de los botones */
+  .boton-siguiente,
+  .boton-enviar,
+  .boton-anterior,
+  .boton-verificar,
+  .boton-reenviar {
+    padding: 0.7rem 1.25rem;
+  }
+}
+
+/* Dispositivos móviles pequeños (320px - 359px) */
+@media (min-width: 320px) and (max-width: 359px) {
+  .formulario-card {
+    padding: 0.75rem;
+  }
+
+  .registro-formulario-container {
+    padding: 0.75rem;
+  }
+
+  .logo-veterinaria {
+    max-width: 130px;
+  }
+
+  .titulo-formulario {
+    font-size: 1.1rem;
+  }
+
+  .paso {
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 0.8rem;
+  }
+
+  .linea {
+    width: 1rem;
+  }
+
+  .input-codigo {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .contenedor-codigo {
+    gap: 0.3rem;
+  }
+
+  .boton-siguiente,
+  .boton-enviar,
+  .boton-anterior,
+  .boton-verificar,
+  .boton-reenviar {
+    padding: 0.65rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Dispositivos móviles muy pequeños (menos de 320px) */
+@media (max-width: 319px) {
+  .formulario-card {
+    padding: 0.6rem;
+  }
+
+  .registro-formulario-container {
+    padding: 0.6rem;
+  }
+
+  .logo-veterinaria {
+    max-width: 120px;
+  }
+
+  .titulo-formulario {
+    font-size: 1rem;
+  }
+
+  .subtitulo-formulario {
+    font-size: 0.8rem;
+  }
+
+  .paso {
+    width: 1.4rem;
+    height: 1.4rem;
+    font-size: 0.75rem;
+  }
+
+  .linea {
+    width: 0.8rem;
+  }
+
+  .input-codigo {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.9rem;
+  }
+
+  .contenedor-codigo {
+    gap: 0.25rem;
+  }
+
+  label {
+    font-size: 0.8rem;
+  }
+
+  input,
+  select {
+    padding: 0.65rem;
+    font-size: 0.8rem;
+  }
+
+  .boton-siguiente,
+  .boton-enviar,
+  .boton-anterior,
+  .boton-verificar,
+  .boton-reenviar {
+    padding: 0.6rem 0.9rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Ajustes específicos para orientación horizontal */
+@media (max-height: 600px) and (orientation: landscape) {
+  .registro-container {
+    flex-direction: row;
+  }
+
+  .registro-imagen-container {
+    min-height: 100vh;
+  }
+
+  .contenedor-cita {
+    margin-bottom: 2rem;
+  }
+
+  /* Formulario compacto para orientación horizontal */
+  .formulario-card {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+}
+
+/* Pantallas de alta densidad (Retina) */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .registro-formulario-container {
+    background-image: url("https://www.toptal.com/designers/subtlepatterns/uploads/leaves-pattern@2x.png");
+  }
+}
+
+/* Estilos para impresión */
+@media print {
+  .registro-container {
+    display: block;
+  }
+
+  .registro-imagen-container {
+    display: none;
+  }
+
+  .registro-formulario-container {
+    background: none;
+    padding: 0;
+  }
+
+  .formulario-card {
+    box-shadow: none;
+    max-width: 100%;
+  }
+}

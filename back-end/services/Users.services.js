@@ -94,17 +94,21 @@ class User{
                 data.tipoDocumento,
                 data.numeroDocumento,
                 data.direccion,
-                data.telefono,
+                data.celular,
+                data.celular2,
                 data.email,
-                data.password
+                data.password,
+                data.genero
             ]
-            let procedure = "CALL RegistPeoples(?,?,?,?,?,?,?,?,?,?);"
+            console.log(newUser)
+            let procedure = "CALL RegistPeoples(?,?,?,?,?,?,?,?,?,?,?);"
 
             // conect to database
-            let conection = conect()
-
+            let database = new DataBase()
+            database.conect()
+            
             // call procedure
-            if (conection) conection.query(procedure,newUser,err => { 
+            if (database) database.conection.query(procedure,newUser,err => { 
                 if(err) {
                     rej(err) 
                 } else setTimeout(() => res({
@@ -114,7 +118,7 @@ class User{
             })
             
             // close conection 
-            conection.end()
+            database.conection.end()
         })
     }
     // function to modify
@@ -128,11 +132,14 @@ class User{
                 data.tipoDocumento,
                 data.numeroDocumento,
                 data.direccion,
-                data.telefono,
+                data.celular,
+                data.celular2,
                 data.email,
-                data.password
+                data.password,
+                data.genero
             ]
-            let procedure = "CALL ModifyPeople(?,?,?,?,?,?,?,?,?,?);"
+            console.log(newUser)
+            let procedure = "CALL ModifyPeople(?,?,?,?,?,?,?,?,?,?,?);"
 
             // conect to database
             let conection = conect()
