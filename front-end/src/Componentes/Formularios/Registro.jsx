@@ -1,7 +1,11 @@
+// Librarys
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import emailjs from "emailjs-com";
+import emailjs from "emailjs-com"
 import { Link } from "react-router"
+
+// Imports 
+import { PostData } from '../Varios/Util'
 import "../../../public/styles/Formularios/Registro.css";
 
 
@@ -18,7 +22,8 @@ const Registro = () => {
     apellidos: "",
     fechaNacimiento: "",
     genero: "",
-    telefono: "",
+    celular: "",
+    celular2: "",
     direccion: "",
     // Paso 2
     email: "",
@@ -41,6 +46,7 @@ const Registro = () => {
   const [tiempoRestante, setTiempoRestante] = useState(300);
   const [timerActivo, setTimerActivo] = useState(false);
   const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState()
 
   
   // Configuración de react-hook-form
@@ -93,7 +99,7 @@ const Registro = () => {
         "apellidos",
         "fechaNacimiento",
         "genero",
-        "telefono",
+        "celular",
         "direccion"
       ]);
       
@@ -196,18 +202,50 @@ const Registro = () => {
         codigoIngresado: undefined
       });
       // fetch para guardar los datos aqui proximamente solo en cines tambien en 3d
+      const newUser = [
+        formData.nombres,
+        formData.apellidos,
+        formData.fechaNacimiento,
+        formData.tipoDocumento,
+        formData.numeroDocumento,
+        formData.direccion,
+        formData.celular,
+        formData.celular2,
+        formData.email,
+        formData.password,
+        formData.genero
+    ]
+      SendData(newUser)
       setPaso(1);
     } else {
       setErrorCodigo(true);
     }
   };
 
+  
   const reenviarCodigo = () => {
     generarCodigoVerificacion();
     setTiempoRestante(300);
     setTimerActivo(true);
     alert(`Nuevo código enviado a ${formData.email}`);
   };
+  
+  const SendData = async (data) => {
+    // Vars
+    const URL = "http://localhost:3000/user/register"
+    setLoading(true)
+    try {
+      // peticion
+      await PostData(URL,data)
+      setLoading(false)
+      return true
+    } catch (error) {
+      // window.location.href = "/internal"
+      console.log(error)
+      return false
+    }
+
+  }
 
   const retrocederPaso = () => setPaso(paso === 3 ? 2 : 1);
 
@@ -243,6 +281,8 @@ const Registro = () => {
     const segs = segundos % 60;
     return `${minutos}:${segs < 10 ? "0" : ""}${segs}`;
   };
+
+  useEffect
 
   return (
     <div className="registro-container">
@@ -302,7 +342,7 @@ const Registro = () => {
                         <option value="" disabled selected>
                           Seleccione...
                         </option>
-                        <option value="CC">Cédula de Ciudadanía (CC)</option>
+                        <option value="CC" selected>Cédula de Ciudadanía (CC)</option>
                         <option value="CE">Cédula de Extranjería (CE)</option>
                         <option value="PAS">Pasaporte</option>
                       </select>
@@ -342,10 +382,11 @@ const Registro = () => {
                     </div>
 
                     <div className="grupo-campo">
-                      <label>
+                      <label for="name">
                         Nombres <span className="obligatorio">*</span>
                       </label>
                       <input
+                        name="name"
                         type="text"
                         placeholder="Ej: Pepito Juan"
                         maxLength={50}
@@ -376,10 +417,11 @@ const Registro = () => {
                     </div>
 
                     <div className="grupo-campo">
-                      <label>
+                      <label for="last-name">
                         Apellidos <span className="obligatorio">*</span>
                       </label>
                       <input
+                        name="last-name"
                         type="text"
                         placeholder="Ej: López Pérez"
                         maxLength={50}
@@ -470,15 +512,15 @@ const Registro = () => {
 
                     <div className="grupo-campo">
                       <label>
-                        Teléfono <span className="obligatorio">*</span>
+                        Celular <span className="obligatorio">*</span>
                       </label>
                       <input
                         type="text"
                         placeholder="Ej: 65642312"
                         maxLength={10}
-                        className={errors.telefono ? "campo-error" : ""}
+                        className={errors.celular ? "campo-error" : ""}
                         onKeyPress={permitirSoloNumeros}
-                        {...register("telefono", {
+                        {...register("celular", {
                           required: true,
                           pattern: {
                             value: /^[0-9]{10}$/,
@@ -486,9 +528,9 @@ const Registro = () => {
                           },
                         })}
                       />
-                      {errors.telefono && (
+                      {errors.celular && (
                         <p className="mensaje-error">
-                          {errors.telefono.type === "required"
+                          {errors.celular.type === "required"
                             ? "El teléfono es obligatorio"
                             : "El teléfono debe tener 10 dígitos numéricos"}
                         </p>
@@ -833,7 +875,7 @@ const Registro = () => {
                   </div>
 
                   <div className="botones-verificacion">
-                    <button type="button" className="boton-verificar" onClick={verificarCodigo}>
+                    <button type="button" className="boton-verificar" onClick={ verificarCodigo}>
                       Verificar
                     </button>
 
@@ -858,9 +900,9 @@ const Registro = () => {
           {paso === 1 && (
             <div className="seccion-login">
               <p className="texto-login">¿Ya haces parte de PetsHeaven?</p>
-              {/* <Link to="/login" className="enlace">
+              <Link to="/login" className="link">
                 Inicia sesión
-              </Link> */}
+              </Link>
             </div>
           )}
         </div>

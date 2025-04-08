@@ -28,7 +28,7 @@ Route.get('/by:by', async (req,res) => {
 Route.post('/register', async (req,res) => {
     let { body } = req
     let create = await user.create(body)
-    res.status(200).json(create)
+    res.status(201).json(create)
 })
 
 Route.put('/modify', async (req,res) => {

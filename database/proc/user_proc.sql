@@ -1,4 +1,4 @@
--- Active: 1741175022404@@127.0.0.1@3306@pets_heaven
+-- Active: 1743091557662@@127.0.0.1@3306@pets_heaven
 DELIMITER //
 CREATE PROCEDURE pets_heaven.RegistPeoples(
     IN p_nom_usu VARCHAR(100),
@@ -27,7 +27,7 @@ BEGIN
     START TRANSACTION;
 
     INSERT INTO usuarios (nom_usu,ape_usu,tip_doc_usu,doc_usu,dir_usu,cel_usu,cel2_usu,email_usu,cont_usu,gen_usu)
-    VALUES (p_nom_usu,p_ape_usu,p_tip_doc_usu,p_doc_usu,p_dir_usu,p_cel_usu,p_cel2_usu,p_email_usu,p_cont_usu,p_gen_usu,DEFAULT);
+    VALUES (p_nom_usu,p_ape_usu,p_tip_doc_usu,p_doc_usu,p_dir_usu,p_cel_usu,p_cel2_usu,p_email_usu,p_cont_usu,p_gen_usu);
 
     SET p_id_usuario = LAST_INSERT_ID();
 
@@ -37,8 +37,8 @@ BEGIN
 
     SET p_id_rol = LAST_INSERT_ID();
 
-    INSERT INTO otorgar_roles(id_usu,fec_oto)
-    VALUES (id_usuario,NOW());
+    INSERT INTO otorgar_roles(id_usu,id_rol,fec_oto)
+    VALUES (p_id_usuario,p_id_rol,NOW());
 
     COMMIT;
     SET autocommit = 1;
@@ -120,3 +120,19 @@ BEGIN
         otr.fec_oto
     LIMIT 40;
 END //
+
+CALL `RegistPeoples`(
+    "asdasd",
+    "asdad",
+    "09-12-2001",
+    "CC",
+    "123123312",
+    "asdad",
+    "123123",
+    "123123",
+    "cristian@asd.com",
+    "Dicrey123@",
+    "otro"
+);
+
+DROP PROCEDURE `RegistPeoples`;
