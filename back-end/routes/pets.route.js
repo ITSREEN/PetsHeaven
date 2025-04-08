@@ -10,14 +10,30 @@ let Route = Router()
 
 // Routes 
 Route.get('/all', async (req,res) => {
+    // Vars 
     let pets = await pet.findAll()
-    res.status(200).json(pets)
+    if (!pets.result) res.status(404).json({message: "Mascotas no encontradas"})
+
+    try {
+        res.status(200).json(pets)
+    } catch (err) {
+        console.log(err)
+    }
+
 })
 
 Route.get('/all:by', async (req,res) => {
+    // Vars
     const by = req.params.by
+
     let pets = await pet.findAllBy(toString(by))
-    res.status(200).json(pets)
+    if (!pets.result) res.status(404).json({message: "mascotas no encontradas"})
+    try {
+        res.status(200).json(pets)
+    } catch (err) {
+        console.log(err)
+    }
+
 })
 
 Route.post('/register',async (req,res) => {
@@ -42,7 +58,7 @@ Route.put('/modify',async (req,res) => {
 
     // Verify if exist
     const find = pet.findAllBy(toString(body.user))
-    if (!find) res.status(404).json({message: "Mascota no encontrada"})
+    if (!find.result) res.status(404).json({message: "Mascota no encontrada"})
         
     try{
         let pets = await pet.modify(body)
@@ -58,7 +74,7 @@ Route.get('/history:by', async (req,res) => {
 
     // Verify if exist
     const find = pet.findAllBy(toString(body.user))
-    if (!find) res.status(404).json({message: "Mascota no encontrada"})
+    if (!find.result) res.status(404).json({message: "Mascota no encontrada"})
 
     try {
         let pets = await pet.findHistoryBy(toString(by))
