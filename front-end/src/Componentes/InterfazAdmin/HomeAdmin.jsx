@@ -1,13 +1,7 @@
-"use client"
-
-import { useState, useEffect } from "react"
+import React from "react"
 import { Search, ChevronUp } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import "./pet-owner-list.css"
-
-// Importamos la función GetData (asumiendo que está disponible en la misma ubicación)
-import { GetData } from "../Varios/Util"
+import NavBarAdmin from "../BarrasNavegacion/NavBarAdmi"
+import '../../../public/styles/InterfazAdmin/HomeAdmin.css'
 
 // Componente de icono de huella personalizado
 const IconoHuella = ({ className, color = "#0080ff", size = 24 }) => (
@@ -46,90 +40,87 @@ const IconoHuella = ({ className, color = "#0080ff", size = 24 }) => (
   </svg>
 )
 
-export default function ListaPropietariosHomeadmin() {
-  // Estados para manejar los datos y la UI
-  const [propietarios, setPropietarios] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [searchByPropietario, setSearchByPropietario] = useState("")
-  const [searchByMascota, setSearchByMascota] = useState("")
-  const [found, setFound] = useState(false)
+// Datos de ejemplo estáticos
+const propietariosEjemplo = [
+  {
+    id: 1,
+    nombre: "Ana García",
+    identificador: "1234567890",
+    telefono: "555-123-4567",
+    fechaCreacion: "15/04/2023",
+    mascotas: [
+      {
+        id: 101,
+        nombre: "Luna",
+        tipo: "Hembra",
+      },
+      {
+        id: 102,
+        nombre: "Max",
+        tipo: "Macho",
+      },
+    ],
+    ultimaCita: {
+      fecha: "10/04/2023",
+      hora: "09:30am",
+      tipo: "Consulta",
+    },
+  },
+  {
+    id: 2,
+    nombre: "Carlos Rodríguez",
+    identificador: "0987654321",
+    telefono: "555-987-6543",
+    fechaCreacion: "20/03/2023",
+    mascotas: [
+      {
+        id: 103,
+        nombre: "Rocky",
+        tipo: "Macho",
+      },
+    ],
+    ultimaCita: {
+      fecha: "05/04/2023",
+      hora: "11:00am",
+      tipo: "Vacunación",
+    },
+  },
+  {
+    id: 3,
+    nombre: "María López",
+    identificador: "5678901234",
+    telefono: "555-567-8901",
+    fechaCreacion: "10/02/2023",
+    mascotas: [
+      {
+        id: 104,
+        nombre: "Bella",
+        tipo: "Hembra",
+      },
+      {
+        id: 105,
+        nombre: "Toby",
+        tipo: "Macho",
+      },
+      {
+        id: 106,
+        nombre: "Nina",
+        tipo: "Hembra",
+      },
+    ],
+    ultimaCita: {
+      fecha: "12/04/2023",
+      hora: "16:15pm",
+      tipo: "Control",
+    },
+  },
+]
 
-  // URL base para las peticiones
-  const mainURL = "http://localhost:3000/pet/"
-
-  // Función para obtener los datos
-  const fetchData = async (url) => {
-    setFound(false)
-    setLoading(true)
-    try {
-      const data = await GetData(url)
-      setLoading(false)
-
-      // Transformamos los datos al formato que espera nuestro componente
-      const propietariosFormateados = data.map((pet) => ({
-        id: pet.id_mas || pet.id_usu,
-        nombre: pet.nom_usu || "Propietario",
-        identificador: pet.doc_usu || "",
-        telefono: pet.cel_usu || "",
-        fechaCreacion: new Date().toLocaleDateString(), // Podríamos usar una fecha del API si existe
-        mascotas: [
-          {
-            id: pet.id_mas,
-            nombre: pet.nom_mas,
-            tipo: pet.gen_mas === "M" ? "Macho" : "Hembra",
-          },
-        ],
-        ultimaCita: pet.ultima_cita
-          ? {
-              fecha: new Date(pet.ultima_cita.fecha).toLocaleDateString(),
-              hora: pet.ultima_cita.hora || "09:00am",
-              tipo: pet.ultima_cita.tipo || "Consulta",
-            }
-          : null,
-      }))
-
-      setPropietarios(propietariosFormateados)
-      if (propietariosFormateados.length > 0) setFound(true)
-    } catch (error) {
-      console.error("Error al obtener datos:", error)
-      setLoading(false)
-      // Opcionalmente redirigir a una página de error
-      // window.location.href = "/internal"
-    }
-  }
-
-  // Función para realizar la búsqueda
-  const handleSearch = () => {
-    // Podemos adaptar esto según la API real
-    const searchTerm = searchByPropietario || searchByMascota
-    fetchData(mainURL + "all:" + searchTerm)
-  }
-
-  // Cargar datos iniciales
-  useEffect(() => {
-    const rol = "Admin" // Esto podría venir como prop
-    // Determinar la URL según el rol
-    const URL = rol === "Admin" ? mainURL + "all" : mainURL + "all:default"
-
-    fetchData(URL)
-  }, [])
-
-  // Si está cargando, mostramos un indicador
-  if (loading) {
-    return (
-      <div className="paginaHomeadmin">
-        <div className="contenedorPrincipalHomeadmin">
-          <div className="cargandoHomeadmin">
-            <div className="spinnerHomeadmin"></div>
-            <p>Cargando datos...</p>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
+export function HomeAdmin() {
+  // Componente estático sin funcionalidad
   return (
     <div className="paginaHomeadmin">
+        <NavBarAdmin/>
       <div className="contenedorPrincipalHomeadmin">
         <div className="encabezadoHomeadmin">
           <div className="tituloSeccionHomeadmin">
@@ -139,7 +130,7 @@ export default function ListaPropietariosHomeadmin() {
               <IconoHuella color="#e0edff" size={16} />
             </div>
           </div>
-          <Button className="botonRegistrarHomeadmin">
+          <button className="botonRegistrarHomeadmin">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M12 5V19M5 12H19"
@@ -150,7 +141,7 @@ export default function ListaPropietariosHomeadmin() {
               />
             </svg>
             Registrar propietario
-          </Button>
+          </button>
         </div>
 
         <div className="contenedorBusquedaHomeadmin">
@@ -175,12 +166,10 @@ export default function ListaPropietariosHomeadmin() {
                   />
                 </svg>
               </div>
-              <Input
+              <input
                 type="text"
                 placeholder="Buscar por identificación, teléfono o nombre del propietario"
                 className="inputBusquedaHomeadmin"
-                value={searchByPropietario}
-                onChange={(e) => setSearchByPropietario(e.target.value)}
               />
             </div>
           </div>
@@ -194,138 +183,122 @@ export default function ListaPropietariosHomeadmin() {
               <div className="iconoCampoHomeadmin">
                 <IconoHuella color="#94A3B8" size={16} />
               </div>
-              <Input
+              <input
                 type="text"
                 placeholder="Buscar por nombre o identificador de la mascota"
                 className="inputBusquedaHomeadmin"
-                value={searchByMascota}
-                onChange={(e) => setSearchByMascota(e.target.value)}
               />
             </div>
           </div>
 
           <div className="contenedorBotonBuscarHomeadmin">
-            <Button className="botonBuscarHomeadmin" onClick={handleSearch}>
+            <button className="botonBuscarHomeadmin">
               <Search size={16} />
               Buscar
-            </Button>
+            </button>
           </div>
         </div>
 
-        {found ? (
-          <div className="contenedorTablaHomeadmin">
-            <table className="tablaPropietariosHomeadmin">
-              <thead>
-                <tr>
-                  <th>Nombre</th>
-                  <th>Identificador</th>
-                  <th>Teléfono</th>
-                  <th>
-                    <div className="encabezadoMascotasHomeadmin">
-                      Mascotas
-                      <IconoHuella className="iconoEncabezadoHomeadmin" color="#94A3B8" size={14} />
+        <div className="contenedorTablaHomeadmin">
+          <table className="tablaPropietariosHomeadmin">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Identificador</th>
+                <th>Teléfono</th>
+                <th>
+                  <div className="encabezadoMascotasHomeadmin">
+                    Mascotas
+                    <IconoHuella className="iconoEncabezadoHomeadmin" color="#94A3B8" size={14} />
+                  </div>
+                </th>
+                <th className="columnaOrdenableHomeadmin">
+                  Última gestión
+                  <ChevronUp size={14} className="iconoOrdenarHomeadmin" />
+                </th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {propietariosEjemplo.map((propietario) => (
+                <tr key={propietario.id}>
+                  <td>
+                    <div className="nombrePropietarioHomeadmin">
+                      <div className="avatarHomeadmin">{propietario.nombre.charAt(0)}</div>
+                      <div className="infoPropietarioHomeadmin">
+                        <span className="nombreCompletoHomeadmin">{propietario.nombre}</span>
+                        <span className="fechaCreacionHomeadmin">Creado el {propietario.fechaCreacion}</span>
+                      </div>
                     </div>
-                  </th>
-                  <th className="columnaOrdenableHomeadmin">
-                    Última gestión
-                    <ChevronUp size={14} className="iconoOrdenarHomeadmin" />
-                  </th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                {propietarios.map((propietario) => (
-                  <tr key={propietario.id}>
-                    <td>
-                      <div className="nombrePropietarioHomeadmin">
-                        <div className="avatarHomeadmin">{propietario.nombre.charAt(0)}</div>
-                        <div className="infoPropietarioHomeadmin">
-                          <span className="nombreCompletoHomeadmin">{propietario.nombre}</span>
-                          <span className="fechaCreacionHomeadmin">Creado el {propietario.fechaCreacion}</span>
+                  </td>
+                  <td>{propietario.identificador}</td>
+                  <td>{propietario.telefono}</td>
+                  <td>
+                    {propietario.mascotas && propietario.mascotas.length > 0 ? (
+                      <div className="listaMascotasHomeadmin">
+                        {propietario.mascotas.map((mascota) => (
+                          <div key={mascota.id} className="itemMascotaHomeadmin">
+                            <IconoHuella className="iconoPataHomeadmin" color="#94A3B8" size={16} />
+                            <span>
+                              {mascota.nombre} - {mascota.tipo}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : null}
+                  </td>
+                  <td>
+                    {propietario.ultimaCita ? (
+                      <div className="infoCitaHomeadmin">
+                        <div className="fechaCitaHomeadmin">
+                          <span className="puntoEstadoHomeadmin"></span>
+                          {propietario.ultimaCita.fecha} - {propietario.ultimaCita.hora}
+                        </div>
+                        <div className="tipoCitaHomeadmin">
+                          {propietario.nombre} - {propietario.ultimaCita.tipo}
                         </div>
                       </div>
-                    </td>
-                    <td>{propietario.identificador}</td>
-                    <td>{propietario.telefono}</td>
-                    <td>
-                      {propietario.mascotas && propietario.mascotas.length > 0 ? (
-                        <div className="listaMascotasHomeadmin">
-                          {propietario.mascotas.map((mascota) => (
-                            <div key={mascota.id} className="itemMascotaHomeadmin">
-                              <IconoHuella className="iconoPataHomeadmin" color="#94A3B8" size={16} />
-                              <span>
-                                {mascota.nombre} - {mascota.tipo}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      ) : null}
-                    </td>
-                    <td>
-                      {propietario.ultimaCita ? (
-                        <div className="infoCitaHomeadmin">
-                          <div className="fechaCitaHomeadmin">
-                            <span className="puntoEstadoHomeadmin"></span>
-                            {propietario.ultimaCita.fecha} - {propietario.ultimaCita.hora}
-                          </div>
-                          <div className="tipoCitaHomeadmin">
-                            {propietario.nombre} - {propietario.ultimaCita.tipo}
-                          </div>
-                        </div>
-                      ) : null}
-                    </td>
-                    <td>
-                      <Button variant="ghost" size="icon" className="botonAccionHomeadmin">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M4 19.5V4.5C4 4.22386 4.22386 4 4.5 4H19.5C19.7761 4 20 4.22386 20 4.5V19.5C20 19.7761 19.7761 20 19.5 20H4.5C4.22386 20 4 19.7761 4 19.5Z"
-                            stroke="#0080ff"
-                            strokeWidth="2"
-                          />
-                          <path
-                            d="M8 8H16M8 12H16M8 16H12"
-                            stroke="#0080ff"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <div className="noResultadosHomeadmin">
-            <IconoHuella color="#94A3B8" size={64} />
-            <h2>No se encontraron resultados</h2>
-            <p>Intenta con otra búsqueda o verifica los criterios utilizados.</p>
-            <div className="huellasDecorativasHomeadmin">
-              <IconoHuella color="#e0edff" size={20} />
-              <IconoHuella color="#e0edff" size={16} />
-              <IconoHuella color="#e0edff" size={24} />
-            </div>
-          </div>
-        )}
+                    ) : null}
+                  </td>
+                  <td>
+                    <button variant="ghost" size="icon" className="botonAccionHomeadmin">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M4 19.5V4.5C4 4.22386 4.22386 4 4.5 4H19.5C19.7761 4 20 4.22386 20 4.5V19.5C20 19.7761 19.7761 20 19.5 20H4.5C4.22386 20 4 19.7761 4 19.5Z"
+                          stroke="#0080ff"
+                          strokeWidth="2"
+                        />
+                        <path
+                          d="M8 8H16M8 12H16M8 16H12"
+                          stroke="#0080ff"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-        {found && (
-          <div className="paginacionHomeadmin">
-            <div className="contadorResultadosHomeadmin">
-              <span className="numeroResultadosHomeadmin">10</span>
-              <ChevronUp size={14} className="iconoDropdownHomeadmin" />
-              <span className="textoVisualizandoHomeadmin">
-                Visualizando 1 - {propietarios.length} de {propietarios.length} resultados
-              </span>
-            </div>
-            <div className="huellasDecorativasPaginacionHomeadmin">
-              <IconoHuella color="#e0edff" size={16} />
-              <IconoHuella color="#e0edff" size={12} />
-            </div>
+        <div className="paginacionHomeadmin">
+          <div className="contadorResultadosHomeadmin">
+            <span className="numeroResultadosHomeadmin">10</span>
+            <ChevronUp size={14} className="iconoDropdownHomeadmin" />
+            <span className="textoVisualizandoHomeadmin">
+              Visualizando 1 - {propietariosEjemplo.length} de {propietariosEjemplo.length} resultados
+            </span>
           </div>
-        )}
+          <div className="huellasDecorativasPaginacionHomeadmin">
+            <IconoHuella color="#e0edff" size={16} />
+            <IconoHuella color="#e0edff" size={12} />
+          </div>
+        </div>
       </div>
     </div>
   )
 }
+

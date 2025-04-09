@@ -7,7 +7,7 @@
     --sombra-admi: 0 2px 5px rgba(0, 0, 0, 0.1);
     --transicion-admi: all 0.3s ease;
     --radio-admi: 0.25rem;
-  }
+  } 
   
   
   /* Botón de menú móvil */
@@ -44,16 +44,13 @@
   
   /* Barra lateral */
   .barra-admi {
-    position: fixed;
     display: flex;
     flex-direction: column;
     padding: 20px;
-    height: 100%;
     border: 2px solid rgba(241, 241, 241, 0.979);
     box-shadow: var(--sombra-admi);
     background-color: var(--color-fondo-admi);
     transition: var(--transicion-admi);
-    z-index: 1060;
   }
   
   /* Logo en la parte superior */

@@ -6,13 +6,12 @@ import { BrowserRouter, Routes, Route } from "react-router"
 import { LoginForm } from "./Componentes/Formularios/LoginForm"
 import { NotFound } from "./Componentes/Errores/NotFound"
 import { ErrorInternalServer } from "./Componentes/Errores/ErrorInternalServer"
-import { Pets } from "./Componentes/InterfazAdmin/Pets"
+import { Pets } from "./Componentes/InterfazUsuario/Pets"
 import Registro from "./Componentes/Formularios/Registro"
 import VeterinariaPage from "./Componentes/VeterinariaPage"
 import RegistroMascota from "./Componentes/Formularios/FormularioMascotas"
 import ForgotPassword from "./Componentes/Formularios/ForgotPassword"
 import { HomeAdmin } from "./Componentes/InterfazAdmin/HomeAdmin"
-
 
 // Main Component
 export default function App () {
@@ -28,7 +27,7 @@ export default function App () {
         <Route path="user/pets/register" element={<RegistroMascota />} />
         <Route path="veterinario/pets" element={<Pets />} ></Route>
         <Route path="admin/pets" element={<Pets />} ></Route>
-        <Route path="home/admin" element={<HomeAdmin />} ></Route>
+        <Route path="home" element={<HomeAdmin />} ></Route>
         <Route path="/internal" element={<ErrorInternalServer />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

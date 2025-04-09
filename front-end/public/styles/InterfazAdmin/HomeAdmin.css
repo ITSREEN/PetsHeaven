@@ -1,61 +1,65 @@
 .paginaHomeadmin {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f8fafc;
-    min-height: 100vh;
-    padding: 20px;
-    color: #333;
-    position: relative;
-  }
-  
-  .contenedorPrincipalHomeadmin {
-    max-width: 1200px;
-    margin: 0 auto;
+    min-height: 100vh; 
+    display: flex;
+    padding: 20px; /* Añadido padding para que no quede pegado a los bordes */
+    box-sizing: border-box; /* Asegura que el padding no afecte las dimensiones totales */
+}
+
+.contenedorPrincipalHomeadmin {
+    width: 100%;
+    max-width: 900px; 
+    margin: 0 auto; 
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     padding: 24px;
     position: relative;
     overflow: hidden;
-  }
-  
-  .encabezadoHomeadmin {
+    height: 80vh;
+    top: 10vh;
+}
+
+/* El resto del CSS se mantiene igual */
+.encabezadoHomeadmin {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
     position: relative;
-  }
-  
-  .tituloSeccionHomeadmin {
+}
+
+.tituloSeccionHomeadmin {
     display: flex;
     align-items: center;
     gap: 10px;
     position: relative;
-  }
-  
-  .iconoMascotaHomeadmin {
+}
+
+.iconoMascotaHomeadmin {
     width: 28px;
     height: 28px;
-    color: #0080ff;
-  }
-  
-  .huellaDecorativaHomeadmin {
+    color: #00BCD4;
+}
+
+.huellaDecorativaHomeadmin {
     position: absolute;
     right: -30px;
     top: -5px;
     opacity: 0.5;
-  }
-  
-  h1 {
+}
+
+h1 {
     font-size: 1.25rem;
     font-weight: 600;
     margin: 0;
-    color: #0080ff;
-  }
-  
-  .botonRegistrarHomeadmin {
+    color: #00BCD4;
+}
+
+.botonRegistrarHomeadmin {
     background-color: #e0edff;
-    color: #0080ff;
+    color: #00BCD4;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -65,77 +69,77 @@
     height: 36px;
     border: none;
     font-weight: 500;
-  }
-  
-  .botonRegistrarHomeadmin:hover {
+}
+
+.botonRegistrarHomeadmin:hover {
     background-color: #cce3ff;
-  }
-  
-  .contenedorBusquedaHomeadmin {
+}
+
+.contenedorBusquedaHomeadmin {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     margin-bottom: 24px;
-  }
-  
-  .seccionBusquedaHomeadmin {
+}
+
+.seccionBusquedaHomeadmin {
     display: flex;
     flex-direction: column;
     gap: 8px;
-  }
-  
-  .etiquetaBusquedaHomeadmin {
+}
+
+.etiquetaBusquedaHomeadmin {
     font-size: 0.875rem;
     color: #64748b;
     font-weight: 500;
     display: flex;
     align-items: center;
     gap: 6px;
-  }
-  
-  .iconoEtiquetaHomeadmin {
+}
+
+.iconoEtiquetaHomeadmin {
     margin-top: -2px;
-  }
-  
-  .campoBusquedaWrapperHomeadmin {
+}
+
+.campoBusquedaWrapperHomeadmin {
     position: relative;
     display: flex;
     align-items: center;
-  }
-  
-  .iconoCampoHomeadmin {
+}
+
+.iconoCampoHomeadmin {
     position: absolute;
     left: 12px;
     color: #94a3b8;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  .inputBusquedaHomeadmin {
+}
+
+.inputBusquedaHomeadmin {
     width: 100%;
     padding: 10px 12px 10px 40px;
     border: 1px solid #e2e8f0;
     border-radius: 6px;
     font-size: 0.875rem;
     background-color: white;
-  }
-  
-  .inputBusquedaHomeadmin:focus {
-    border-color: #0080ff;
+}
+
+.inputBusquedaHomeadmin:focus {
+    border-color: #00BCD4;
     outline: none;
     box-shadow: 0 0 0 2px rgba(0, 128, 255, 0.1);
-  }
-  
-  .contenedorBotonBuscarHomeadmin {
+}
+
+.contenedorBotonBuscarHomeadmin {
     grid-column: span 2;
     display: flex;
     justify-content: center;
     margin-top: 8px;
-  }
-  
-  .botonBuscarHomeadmin {
-    background-color: #0080ff;
+}
+
+.botonBuscarHomeadmin {
+    background-color: #00BCD4;
     color: white;
     display: flex;
     align-items: center;
@@ -145,67 +149,67 @@
     font-size: 0.875rem;
     padding: 0 20px;
     font-weight: 500;
-  }
-  
-  .botonBuscarHomeadmin:hover {
-    background-color: #006edb;
-  }
-  
-  .contenedorTablaHomeadmin {
+}
+
+.botonBuscarHomeadmin:hover {
+    background-color: #00BCD4;
+}
+
+.contenedorTablaHomeadmin {
     overflow-x: auto;
     border-radius: 8px;
     margin-bottom: 16px;
-  }
-  
-  .tablaPropietariosHomeadmin {
+}
+
+.tablaPropietariosHomeadmin {
     width: 100%;
     border-collapse: collapse;
     font-size: 0.875rem;
-  }
-  
-  .tablaPropietariosHomeadmin th {
-    background-color: #f8fafc;
+}
+
+.tablaPropietariosHomeadmin th {
+    background-color: #B2EBF2;
     padding: 12px 16px;
     text-align: left;
     font-weight: 600;
     color: #64748b;
     border-bottom: 1px solid #e2e8f0;
-  }
-  
-  .encabezadoMascotasHomeadmin {
+}
+
+.encabezadoMascotasHomeadmin {
     display: flex;
     align-items: center;
     gap: 6px;
-  }
-  
-  .iconoEncabezadoHomeadmin {
+}
+
+.iconoEncabezadoHomeadmin {
     margin-top: -2px;
-  }
-  
-  .tablaPropietariosHomeadmin td {
+}
+
+.tablaPropietariosHomeadmin td {
     padding: 16px;
     border-bottom: 1px solid #e2e8f0;
     color: #334155;
-  }
-  
-  .columnaOrdenableHomeadmin {
+}
+
+.columnaOrdenableHomeadmin {
     display: flex;
     align-items: center;
     gap: 4px;
     cursor: pointer;
-  }
-  
-  .iconoOrdenarHomeadmin {
-    color: #0080ff;
-  }
-  
-  .nombrePropietarioHomeadmin {
+}
+
+.iconoOrdenarHomeadmin {
+    color: #00BCD4;
+}
+
+.nombrePropietarioHomeadmin {
     display: flex;
     align-items: center;
     gap: 12px;
-  }
-  
-  .avatarHomeadmin {
+}
+
+.avatarHomeadmin {
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -215,96 +219,96 @@
     color: white;
     font-weight: 600;
     background-color: #e91e63;
-  }
-  
-  .infoPropietarioHomeadmin {
+}
+
+.infoPropietarioHomeadmin {
     display: flex;
     flex-direction: column;
-  }
-  
-  .nombreCompletoHomeadmin {
+}
+
+.nombreCompletoHomeadmin {
     font-weight: 500;
-  }
-  
-  .fechaCreacionHomeadmin {
+}
+
+.fechaCreacionHomeadmin {
     font-size: 0.75rem;
     color: #64748b;
-  }
-  
-  .listaMascotasHomeadmin {
+}
+
+.listaMascotasHomeadmin {
     display: flex;
     flex-direction: column;
     gap: 5px;
-  }
-  
-  .itemMascotaHomeadmin {
+}
+
+.itemMascotaHomeadmin {
     display: flex;
     align-items: center;
     gap: 8px;
     font-size: 0.875rem;
-  }
-  
-  .iconoPataHomeadmin {
+}
+
+.iconoPataHomeadmin {
     width: 16px;
     height: 16px;
     color: #94a3b8;
-  }
-  
-  .infoCitaHomeadmin {
+}
+
+.infoCitaHomeadmin {
     display: flex;
     flex-direction: column;
     gap: 4px;
-  }
-  
-  .fechaCitaHomeadmin {
+}
+
+.fechaCitaHomeadmin {
     display: flex;
     align-items: center;
     gap: 6px;
     font-weight: 500;
-    color: #0080ff;
-  }
-  
-  .puntoEstadoHomeadmin {
+    color: #00BCD4;
+}
+
+.puntoEstadoHomeadmin {
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background-color: #0080ff;
-  }
-  
-  .tipoCitaHomeadmin {
+    background-color: #00BCD4;
+}
+
+.tipoCitaHomeadmin {
     font-size: 0.75rem;
     color: #64748b;
-  }
-  
-  .botonAccionHomeadmin {
-    color: #0080ff;
+}
+
+.botonAccionHomeadmin {
+    color: #00BCD4;
     background: transparent;
     border: none;
     cursor: pointer;
     padding: 6px;
     border-radius: 4px;
-  }
-  
-  .botonAccionHomeadmin:hover {
+}
+
+.botonAccionHomeadmin:hover {
     background-color: #f0f9ff;
-  }
-  
-  .paginacionHomeadmin {
+}
+
+.paginacionHomeadmin {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 8px 0;
-  }
-  
-  .contadorResultadosHomeadmin {
+}
+
+.contadorResultadosHomeadmin {
     display: flex;
     align-items: center;
     gap: 8px;
     font-size: 0.875rem;
     color: #64748b;
-  }
-  
-  .numeroResultadosHomeadmin {
+}
+
+.numeroResultadosHomeadmin {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -313,50 +317,24 @@
     background-color: #f1f5f9;
     border-radius: 4px;
     font-weight: 500;
-  }
-  
-  .iconoDropdownHomeadmin {
+}
+
+.iconoDropdownHomeadmin {
     color: #64748b;
     transform: rotate(180deg);
-  }
-  
-  .textoVisualizandoHomeadmin {
+}
+
+.textoVisualizandoHomeadmin {
     margin-left: 8px;
-  }
-  
-  .huellasDecorativasPaginacionHomeadmin {
+}
+
+.huellasDecorativasPaginacionHomeadmin {
     display: flex;
     gap: 8px;
     align-items: center;
-  }
-  
-  /* Componente de carga */
-  .cargandoHomeadmin {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-    gap: 16px;
-  }
-  
-  .spinnerHomeadmin {
-    width: 40px;
-    height: 40px;
-    border: 3px solid #e2e8f0;
-    border-radius: 50%;
-    border-top-color: #0080ff;
-    animation: spin 1s linear infinite;
-  }
-  
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  
-  /* Componente de no resultados */
-  .noResultadosHomeadmin {
+}
+
+.noResultadosHomeadmin {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -365,109 +343,108 @@
     text-align: center;
     gap: 16px;
     position: relative;
-  }
-  
-  .noResultadosHomeadmin h2 {
+}
+
+.noResultadosHomeadmin h2 {
     font-size: 1.25rem;
     font-weight: 600;
     color: #64748b;
     margin: 0;
-  }
-  
-  .noResultadosHomeadmin p {
+}
+
+.noResultadosHomeadmin p {
     color: #94a3b8;
     margin: 0;
-  }
-  
-  .huellasDecorativasHomeadmin {
+}
+
+.huellasDecorativasHomeadmin {
     display: flex;
     gap: 12px;
     margin-top: 16px;
-  }
-  
-  /* Diseño responsive */
-  @media (max-width: 992px) {
+}
+
+/* Diseño responsive */
+@media (max-width: 992px) {
     .contenedorBusquedaHomeadmin {
-      grid-template-columns: 1fr;
+        grid-template-columns: 1fr;
     }
-  
+
     .contenedorBotonBuscarHomeadmin {
-      grid-column: 1;
+        grid-column: 1;
     }
-  }
-  
-  @media (max-width: 768px) {
+}
+
+@media (max-width: 768px) {
     .paginaHomeadmin {
-      padding: 10px;
+        padding: 10px;
     }
-  
+
     .contenedorPrincipalHomeadmin {
-      padding: 16px;
+        padding: 16px;
     }
-  
+
     .encabezadoHomeadmin {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
     }
-  
+
     .botonRegistrarHomeadmin {
-      width: 100%;
-      justify-content: center;
+        width: 100%;
+        justify-content: center;
     }
-  
+
     .tablaPropietariosHomeadmin th,
     .tablaPropietariosHomeadmin td {
-      padding: 12px 8px;
+        padding: 12px 8px;
     }
-  
+
     .nombrePropietarioHomeadmin {
-      gap: 8px;
+        gap: 8px;
     }
-  
+
     .avatarHomeadmin {
-      width: 32px;
-      height: 32px;
+        width: 32px;
+        height: 32px;
     }
-  }
-  
-  @media (max-width: 640px) {
+}
+
+@media (max-width: 640px) {
     .tablaPropietariosHomeadmin thead {
-      display: none;
+        display: none;
     }
-  
+
     .tablaPropietariosHomeadmin tbody tr {
-      display: block;
-      margin-bottom: 16px;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
+        display: block;
+        margin-bottom: 16px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
     }
-  
+
     .tablaPropietariosHomeadmin tbody td {
-      display: block;
-      text-align: right;
-      position: relative;
-      padding-left: 50%;
+        display: block;
+        text-align: right;
+        position: relative;
+        padding-left: 50%;
     }
-  
+
     .tablaPropietariosHomeadmin tbody td:before {
-      content: attr(data-label);
-      position: absolute;
-      left: 16px;
-      width: 45%;
-      text-align: left;
-      font-weight: 600;
-      color: #64748b;
+        content: attr(data-label);
+        position: absolute;
+        left: 16px;
+        width: 45%;
+        text-align: left;
+        font-weight: 600;
+        color: #64748b;
     }
-  
+
     .nombrePropietarioHomeadmin,
     .infoCitaHomeadmin {
-      justify-content: flex-end;
+        justify-content: flex-end;
     }
-  
+
     .contadorResultadosHomeadmin {
-      flex-wrap: wrap;
-      justify-content: center;
+        flex-wrap: wrap;
+        justify-content: center;
     }
-  }
-  
+}

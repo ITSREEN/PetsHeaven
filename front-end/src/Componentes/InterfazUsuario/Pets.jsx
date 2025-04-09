@@ -2,7 +2,7 @@
 import { GetData } from '../Varios/Util'
 import { Loader } from '../Errores/Loader'
 import { SubNotFound } from '../Errores/NotFound'
-import "../../../public/styles/InterfazAdmin/pets.css"
+import "../../../public/styles/InterfazUsuario/pets.css"
 // import NavBar from './NavBarAdmi'
 
 // Librarys 
