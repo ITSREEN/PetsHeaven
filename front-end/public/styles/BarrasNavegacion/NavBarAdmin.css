@@ -1,292 +1,633 @@
-:root {
-    --color-fondo-admi: #f8f9fa;
-    --color-texto-admi: #495057;
-    --color-borde-admi: #e9ecef;
-    --color-hover-admi: #e9ecef;
-    --color-salir-admi: #dc3545;
-    --sombra-admi: 0 2px 5px rgba(0, 0, 0, 0.1);
-    --transicion-admi: all 0.3s ease;
-    --radio-admi: 0.25rem;
-  } 
-  
-  
-  /* Botón de menú móvil */
-  .boton-movil-admi {
-    cursor: pointer;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    top: 1rem;
-    right: 1rem;
-    color: var(--color-texto-admi);
-    border: none;
-    border-radius: 50%;
-    box-shadow: var(--sombra-admi);
-    background-color: white;
-    z-index: 1100;
-    transition: var(--transicion-admi);
+/* Estilos base para el componente NavBarAdmin */
+.botonmovilnavadmin {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 50;
+  display: flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  color: #4b5563;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.botonmovilnavadmin.activonavadmin {
+  background-color: #4b5563;
+  color: white;
+}
+
+.overlaynavadmin {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 40;
+  backdrop-filter: blur(2px);
+  transition: opacity 0.3s ease;
+}
+
+.barranavadmin {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 280px;
+  background-color: white;
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  z-index: 40;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out, width 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.barranavadmin.visiblenavadmin {
+  transform: translateX(0);
+}
+
+.logonavadmin {
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 4rem;
+}
+
+.imagennavadmin {
+  height: 2.5rem;
+  max-width: 100%;
+}
+
+.menunavadmin {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 0;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f8fafc;
+}
+
+.menunavadmin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.menunavadmin::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+
+.menunavadmin::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 20px;
+}
+
+.listanavadmin {
+  list-style: none;
+  padding: 0 0.5rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.itemnavadmin {
+  margin: 0;
+}
+
+.enlacenavadmin {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  color: #374151;
+  border-radius: 0.375rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-size: 0.9375rem;
+}
+
+.enlacenavadmin:hover {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+.icononavadmin {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.botonnavadmin {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.75rem;
+  color: #374151;
+  background: none;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9375rem;
+}
+
+.botonnavadmin:hover {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+.contenidobotonnavadmin {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.flechanavadmin {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.3s ease;
+  color: #6b7280;
+}
+
+.flechanavadmin.girarnavadmin {
+  transform: rotate(180deg);
+}
+
+.submenunavadmin {
+  margin-top: 0.25rem;
+  margin-left: 1.5rem;
+  list-style: none;
+  padding: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.submenunavadmin.abiertonavadmin {
+  max-height: 12rem;
+}
+
+.submenunavadmin.cerradonavadmin {
+  max-height: 0;
+}
+
+.subenlacenavadmin {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.75rem;
+  color: #4b5563;
+  border-radius: 0.375rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+}
+
+.subenlacenavadmin:hover {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+.iconosubnavadmin {
+  width: 1rem;
+  height: 1rem;
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.perfilnavadmin {
+  padding: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.usuarionavadmin {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.5rem;
+  background: none;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.usuarionavadmin:hover {
+  background-color: #f3f4f6;
+}
+
+.avatarnavadmin {
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: #00bcd4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inicialnavadmin {
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.nombrenavadmin {
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.menuusuarionavadmin {
+  position: relative;
+}
+
+.menuopcionesnavadmin {
+  display: none;
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  width: 14rem;
+  background-color: white;
+  border-radius: 0.375rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  z-index: 50;
+}
+
+.menuusuarionavadmin:hover .menuopcionesnavadmin {
+  display: block;
+}
+
+.opcionnavadmin {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem;
+  background: none;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 0.875rem;
+  text-align: left;
+}
+
+.opcionnavadmin:hover {
+  background-color: #f3f4f6;
+}
+
+.iconoopcionnavadmin {
+  margin-right: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+}
+
+.separadornavadmin {
+  margin: 0.5rem 0;
+  border: none;
+  border-top: 1px solid #e5e7eb;
+}
+
+.salirnavadmin {
+  color: #ef4444;
+}
+
+/* ==================== MEDIA QUERIES ==================== */
+
+/* Móviles pequeños (hasta 480px) */
+@media (max-width: 480px) {
+  .botonmovilnavadmin {
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 2.25rem;
+    height: 2.25rem;
   }
-  
-  .boton-movil-admi.activo-admi {
-    background-color: var(--color-texto-admi);
-    color: white;
+
+  .barranavadmin {
+    width: 85%;
+    max-width: 280px;
   }
-  
-  /* Overlay para cerrar el menú */
-  .overlay-admi {
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1050;
+
+  .logonavadmin {
+    height: 3.5rem;
+    padding: 0.75rem;
   }
-  
-  /* Barra lateral */
-  .barra-admi {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    border: 2px solid rgba(241, 241, 241, 0.979);
-    box-shadow: var(--sombra-admi);
-    background-color: var(--color-fondo-admi);
-    transition: var(--transicion-admi);
+
+  .menunavadmin {
+    padding: 0.75rem 0;
   }
-  
-  /* Logo en la parte superior */
-  .cabecera-admi {
-    display: flex;
+
+  .enlacenavadmin,
+  .botonnavadmin {
+    padding: 0.625rem;
+    font-size: 0.875rem;
+  }
+
+  .icononavadmin {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+
+  .submenunavadmin {
+    margin-left: 1.25rem;
+  }
+
+  .subenlacenavadmin {
+    padding: 0.5rem 0.625rem;
+    font-size: 0.8125rem;
+  }
+
+  .perfilnavadmin {
+    padding: 0.75rem;
+  }
+
+  .usuarionavadmin {
+    padding: 0.375rem;
+  }
+
+  .avatarnavadmin {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .nombrenavadmin {
+    font-size: 0.8125rem;
+  }
+
+  .menuopcionesnavadmin {
+    width: 12rem;
+  }
+}
+
+/* Móviles grandes (481px - 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+  .barranavadmin {
+    width: 80%;
+    max-width: 320px;
+  }
+
+  .logonavadmin {
+    height: 3.75rem;
+  }
+
+  .enlacenavadmin,
+  .botonnavadmin {
+    padding: 0.6875rem;
+    font-size: 0.9375rem;
+  }
+
+  .icononavadmin {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .submenunavadmin {
+    margin-left: 1.375rem;
+  }
+
+  .subenlacenavadmin {
+    padding: 0.5625rem 0.6875rem;
+    font-size: 0.875rem;
+  }
+
+  .perfilnavadmin {
+    padding: 0.875rem;
+  }
+
+  .usuarionavadmin {
+    padding: 0.4375rem;
+  }
+
+  .avatarnavadmin {
+    width: 1.875rem;
+    height: 1.875rem;
+  }
+
+  .nombrenavadmin {
+    font-size: 0.875rem;
+  }
+
+  .menuopcionesnavadmin {
+    width: 13rem;
+  }
+}
+
+/* Tablets (768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .barranavadmin {
+    width: 75%;
+    max-width: 350px;
+  }
+
+  .logonavadmin {
+    height: 3.75rem;
+  }
+
+  .enlacenavadmin,
+  .botonnavadmin {
+    padding: 0.6875rem;
+  }
+
+  .icononavadmin {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .submenunavadmin {
+    margin-left: 1.375rem;
+  }
+
+  .subenlacenavadmin {
+    padding: 0.5625rem 0.6875rem;
+  }
+
+  .perfilnavadmin {
+    padding: 0.875rem;
+  }
+
+  .usuarionavadmin {
+    padding: 0.4375rem;
+  }
+
+  .avatarnavadmin {
+    width: 1.875rem;
+    height: 1.875rem;
+  }
+
+  .nombrenavadmin {
+    font-size: 0.875rem;
+  }
+}
+
+/* Laptops (1200px - 1439px) */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  .barranavadmin {
+    position: sticky;
+    transform: none;
+    width: 280px;
+  }
+
+  .logonavadmin {
+    height: 4rem;
+  }
+
+  .enlacenavadmin,
+  .botonnavadmin {
+    padding: 0.75rem;
+  }
+
+  .icononavadmin {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .submenunavadmin {
+    margin-left: 1.5rem;
+  }
+
+  .subenlacenavadmin {
+    padding: 0.625rem 0.75rem;
+  }
+
+  .perfilnavadmin {
     padding: 1rem;
-    align-items: center;
-    justify-content: center;
-    border-bottom: 1px solid var(--color-borde-admi);
   }
-  
-  .logo-admi {
-    max-width: 100%;
-    height: auto;
+
+  .usuarionavadmin {
+    padding: 0.5rem;
   }
-  
-  /* Menú vertical */
-  .menu-admi {
-    flex: 1;
-    overflow-y: auto;
-    padding: 1rem 0;
+
+  .avatarnavadmin {
+    width: 2rem;
+    height: 2rem;
   }
-  
-  .lista-admi {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+
+  .nombrenavadmin {
+    font-size: 0.875rem;
   }
-  
-  .item-admi {
-    margin-bottom: 0.5rem;
+
+  .botonmovilnavadmin {
+    display: none;
   }
-  
-  .enlace-admi {
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 1.5rem;
-    color: var(--color-texto-admi);
-    text-decoration: none;
-    transition: var(--transicion-admi);
-    border-radius: var(--radio-admi);
-    cursor: pointer;
-    background: none;
-    border: none;
-    width: 100%;
-    text-align: left;
+}
+
+/* Computadores de escritorio con pantallas pequeñas (1440px - 1919px) */
+@media (min-width: 1440px) and (max-width: 1919px) {
+  .barranavadmin {
+    position: sticky;
+    transform: none;
+    width: 300px;
+  }
+
+  .logonavadmin {
+    height: 4.25rem;
+  }
+
+  .enlacenavadmin,
+  .botonnavadmin {
+    padding: 0.875rem;
     font-size: 1rem;
   }
-  
-  .enlace-admi:hover {
-    background-color: var(--color-hover-admi);
-    color: #212529;
+
+  .icononavadmin {
+    width: 1.375rem;
+    height: 1.375rem;
   }
-  
-  .icono-admi {
-    margin-right: 0.75rem;
-    color: var(--color-texto-admi);
-    flex-shrink: 0;
+
+  .submenunavadmin {
+    margin-left: 1.625rem;
   }
-  
-  /* Submenús */
-  .submenu-cont-admi {
-    position: relative;
+
+  .subenlacenavadmin {
+    padding: 0.75rem 0.875rem;
+    font-size: 0.9375rem;
   }
-  
-  .submenu-btn-admi {
-    justify-content: space-between;
+
+  .perfilnavadmin {
+    padding: 1.125rem;
   }
-  
-  .flecha-admi {
-    transition: transform 0.3s ease;
-    margin-left: auto;
+
+  .usuarionavadmin {
+    padding: 0.625rem;
   }
-  
-  .flecha-admi.girar-admi {
-    transform: rotate(180deg);
+
+  .avatarnavadmin {
+    width: 2.25rem;
+    height: 2.25rem;
   }
-  
-  .submenu-admi {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
+
+  .nombrenavadmin {
+    font-size: 0.9375rem;
   }
-  
-  .submenu-admi.abierto-admi {
-    max-height: 500px;
+
+  .botonmovilnavadmin {
+    display: none;
   }
-  
-  .subenlace-admi {
-    display: flex;
-    align-items: center;
-    padding: 0.5rem 1.5rem 0.5rem 3rem;
-    color: #6c757d;
-    text-decoration: none;
-    transition: var(--transicion-admi);
+}
+
+/* Computadores de escritorio con pantallas grandes (1920px y más) */
+@media (min-width: 1920px) {
+  .barranavadmin {
+    position: sticky;
+    transform: none;
+    width: 320px;
   }
-  
-  .subenlace-admi:hover {
-    background-color: var(--color-hover-admi);
-    color: #212529;
+
+  .logonavadmin {
+    height: 4.5rem;
   }
-  
-  .subtexto-admi {
-    padding-left: 0.75rem;
+
+  .enlacenavadmin,
+  .botonnavadmin {
+    padding: 0.875rem 1rem;
+    font-size: 1.05rem;
   }
-  
-  /* Perfil de usuario */
-  .usuario-admi {
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-    border-top: 1px solid var(--color-borde-admi);
-    margin-top: auto;
-    position: relative;
-    cursor: pointer;
+
+  .icononavadmin {
+    width: 1.5rem;
+    height: 1.5rem;
   }
-  
-  .foto-admi {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
+
+  .submenunavadmin {
+    margin-left: 1.75rem;
   }
-  
-  .nombre-admi {
-    margin-left: 0.75rem;
-    font-weight: 500;
-    color: var(--color-texto-admi);
-  }
-  
-  /* Menú de usuario */
-  .menu-usuario-admi {
-    position: absolute;
-    top: -5px;
-    right: 0;
-    transform: translateY(-100%);
-    background-color: white;
-    border-radius: var(--radio-admi);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    width: 200px;
-    z-index: 1070;
-    overflow: hidden;
-  }
-  
-  .menu-usuario-admi ul {
-    list-style: none;
-    padding: 0.5rem 0;
-    margin: 0;
-  }
-  
-  .opcion-admi {
-    display: flex;
-    align-items: center;
+
+  .subenlacenavadmin {
     padding: 0.75rem 1rem;
-    color: var(--color-texto-admi);
-    text-decoration: none;
-    transition: background-color 0.2s ease;
+    font-size: 1rem;
   }
-  
-  .opcion-admi:hover {
-    background-color: var(--color-hover-admi);
+
+  .perfilnavadmin {
+    padding: 1.25rem;
   }
-  
-  .opcion-admi.salir-admi {
-    color: var(--color-salir-admi);
+
+  .usuarionavadmin {
+    padding: 0.75rem;
   }
-  
-  .opcion-admi.salir-admi .icono-admi {
-    color: var(--color-salir-admi);
+
+  .avatarnavadmin {
+    width: 2.5rem;
+    height: 2.5rem;
   }
-  
-  .divisor-admi {
-    height: 1px;
-    background-color: var(--color-borde-admi);
-    margin: 0.5rem 0;
+
+  .nombrenavadmin {
+    font-size: 1rem;
   }
-  
-  /* Contenido principal */
-  .contenido-admi {
-    margin-left: var(--ancho-barra-admi);
-    padding: 1rem;
-    transition: var(--transicion-admi);
+
+  .botonmovilnavadmin {
+    display: none;
   }
-  
-  /* Estilos responsivos */
-  @media (max-width: 768px) {
-    .boton-movil-admi {
-      display: flex;
-    }
-  
-    .barra-admi {
-      transform: translateX(-100%);
-      width: 80%;
-      max-width: 300px;
-    }
-  
-    .barra-admi.visible-admi {
-      transform: translateX(0);
-    }
-  
-    .contenido-admi {
-      margin-left: 0;
-    }
-  
-    /* Ajustar posición del menú de usuario en móvil */
-    .menu-usuario-admi {
-      top: auto;
-      bottom: 70px;
-      right: 10px;
-      transform: none;
-    }
-  }
-  
-  /* Estilos para pantallas muy pequeñas */
-  @media (max-width: 480px) {
-    .barra-admi {
-      width: 85%;
-    }
-  
-    .enlace-admi {
-      padding: 0.75rem 1rem;
-    }
-  
-    .subenlace-admi {
-      padding: 0.5rem 1rem 0.5rem 2.5rem;
-    }
-  }
-  
-  /* Estilos para pantallas grandes */
-  @media (min-width: 1200px) {
-    .contenido-admi {
-      padding: 2rem;
-    }
-  }
-  
-  
+}

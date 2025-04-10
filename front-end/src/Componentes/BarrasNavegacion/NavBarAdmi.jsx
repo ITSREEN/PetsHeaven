@@ -1,11 +1,12 @@
-import React,{ useState, useEffect } from "react"
-import {Settings,Users,User,Stethoscope,ChevronDown,Syringe,Bath,Scissors,Calendar,LogOut,Menu,X,} from "lucide-react"
+import React from "react"
+import { useState, useEffect } from "react"
+import {Settings,Users,User,Headset,ChevronDown,Syringe,Bath,Scissors,Calendar,LogOut,
+  Menu,X,Stethoscope,CalendarRange,CalendarClock,FlaskRoundIcon as Flask,} from "lucide-react"
 import "../../../public/styles/BarrasNavegacion/NavBarAdmin.css"
 
-const NavBarAdmin = () => {
+export const NavBarAdmin = () => {
   const [serviciosAbierto, setServiciosAbierto] = useState(false)
   const [agendaAbierta, setAgendaAbierta] = useState(false)
-  const [menuUsuarioAbierto, setMenuUsuarioAbierto] = useState(false)
   const [menuMovilAbierto, setMenuMovilAbierto] = useState(false)
   const [esMovil, setEsMovil] = useState(false)
 
@@ -39,146 +40,147 @@ const NavBarAdmin = () => {
     <>
       {/* Botón de menú móvil */}
       <button
-        className={`boton-movil-admi ${menuMovilAbierto ? "activo-admi" : ""}`}
+        className={`botonmovilnavadmin ${menuMovilAbierto ? "activonavadmin" : ""}`}
         onClick={toggleMenuMovil}
         aria-label="Menú"
       >
-        {menuMovilAbierto ? <X size={24} /> : <Menu size={24} />}
+        {menuMovilAbierto ? <X size={20} /> : <Menu size={20} />}
       </button>
 
       {/* Overlay para cerrar el menú al hacer clic fuera */}
-      {menuMovilAbierto && esMovil && <div className="overlay-admi" onClick={toggleMenuMovil}></div>}
+      {menuMovilAbierto && esMovil && <div className="overlaynavadmin" onClick={toggleMenuMovil}></div>}
 
       {/* Barra lateral */}
-      <aside className={`barra-admi ${menuMovilAbierto ? "visible-admi" : ""}`}>
-        <header className="cabecera-admi">
-          <img src="/logo.png" alt="Logo" className="logo-admi" />
-        </header>
+      <aside
+        className={`
+          barranavadmin ${menuMovilAbierto ? "visiblenavadmin" : "ocultanavadmin"}
+        `}
+      >
+        <div className="logonavadmin">
+          <img src="/placeholder.svg?height=40&width=120" alt="Logo" className="imagennavadmin" />
+        </div>
 
-        <nav className="menu-admi">
-          <ul className="lista-admi">
-            <li className="item-admi">
-              <a href="/administracion" className="enlace-admi">
-                <Settings className="icono-admi" size={20} />
+        <nav className="menunavadmin">
+          <ul className="listanavadmin">
+            <li className="itemnavadmin">
+              <a href="/administracion" className="enlacenavadmin">
+                <Settings className="icononavadmin" />
                 <span>Administración</span>
               </a>
             </li>
 
-            <li className="item-admi">
-              <a href="/usuarios" className="enlace-admi">
-                <Users className="icono-admi" size={20} />
+            <li className="itemnavadmin">
+              <a href="/usuarios" className="enlacenavadmin">
+                <Users className="icononavadmin" />
                 <span>Usuarios</span>
               </a>
             </li>
 
-            <li className="item-admi">
-              <a href="/propietarios" className="enlace-admi">
-                <User className="icono-admi" size={20} />
+            <li className="itemnavadmin">
+              <a href="/propietarios" className="enlacenavadmin">
+                <User className="icononavadmin" />
                 <span>Propietarios</span>
               </a>
             </li>
 
-            <li className="item-admi submenu-cont-admi">
-              <button className="enlace-admi submenu-btn-admi" onClick={toggleServicios}>
-                <Stethoscope className="icono-admi" size={20} />
-                <span>Servicios</span>
-                <ChevronDown className={`flecha-admi ${serviciosAbierto ? "girar-admi" : ""}`} size={16} />
+            <li className="itemnavadmin">
+              <button className="botonnavadmin" onClick={toggleServicios}>
+                <div className="contenidobotonnavadmin">
+                  <Headset className="icononavadmin" />
+                  <span>Servicios</span>
+                </div>
+                <ChevronDown className={`flechanavadmin ${serviciosAbierto ? "girarnavadmin" : ""}`} />
               </button>
 
-              <ul className={`submenu-admi ${serviciosAbierto ? "abierto-admi" : ""}`}>
+              <ul className={`submenunavadmin ${serviciosAbierto ? "abiertonavadmin" : "cerradonavadmin"}`}>
                 <li>
-                  <a href="/servicios/vacunas" className="subenlace-admi">
-                    <Syringe className="icono-admi" size={16} />
+                  <a href="/servicios/vacunas" className="subenlacenavadmin">
+                    <Syringe className="iconosubnavadmin" />
                     <span>Vacunas</span>
                   </a>
                 </li>
                 <li>
-                  <a href="/servicios/bano" className="subenlace-admi">
-                    <Bath className="icono-admi" size={16} />
-                    <span>Baño</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="/servicios/cirugia" className="subenlace-admi">
-                    <Scissors className="icono-admi" size={16} />
+                  <a href="/servicios/cirugia" className="subenlacenavadmin">
+                    <Scissors className="iconosubnavadmin" />
                     <span>Cirugía</span>
                   </a>
                 </li>
+                <li>
+                  <a href="/servicios/laboratorio" className="subenlacenavadmin">
+                    <Flask className="iconosubnavadmin" />
+                    <span>Pruebas Laboratorio</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="/servicios/spa" className="subenlacenavadmin">
+                    <Bath className="iconosubnavadmin" />
+                    <span>Spa</span>
+                  </a>
+                </li>
               </ul>
             </li>
 
-            <li className="item-admi submenu-cont-admi">
-              <button className="enlace-admi submenu-btn-admi" onClick={toggleAgenda}>
-                <Calendar className="icono-admi" size={20} />
-                <span>Agenda</span>
-                <ChevronDown className={`flecha-admi ${agendaAbierta ? "girar-admi" : ""}`} size={16} />
+            <li className="itemnavadmin">
+              <button className="botonnavadmin" onClick={toggleAgenda}>
+                <div className="contenidobotonnavadmin">
+                  <Calendar className="icononavadmin" />
+                  <span>Agenda</span>
+                </div>
+                <ChevronDown className={`flechanavadmin ${agendaAbierta ? "girarnavadmin" : ""}`} />
               </button>
 
-              <ul className={`submenu-admi ${agendaAbierta ? "abierto-admi" : ""}`}>
+              <ul className={`submenunavadmin ${agendaAbierta ? "abiertonavadmin" : "cerradonavadmin"}`}>
                 <li>
-                  <a href="/agenda/general" className="subenlace-admi">
-                    <span className="subtexto-admi">Agenda General</span>
+                  <a href="/agenda/general" className="subenlacenavadmin">
+                    <CalendarRange className="iconosubnavadmin" />
+                    <span>Agenda General</span>
                   </a>
                 </li>
                 <li>
-                  <a href="/agenda/personal" className="subenlace-admi">
-                    <span className="subtexto-admi">Agenda Personal</span>
+                  <a href="/agenda/personal" className="subenlacenavadmin">
+                    <CalendarClock className="iconosubnavadmin" />
+                    <span>Agenda Personal</span>
                   </a>
                 </li>
               </ul>
             </li>
 
-            <li className="item-admi">
-              <a href="/consultorio" className="enlace-admi">
-                <Stethoscope className="icono-admi" size={20} />
+            <li className="itemnavadmin">
+              <a href="/consultorio" className="enlacenavadmin">
+                <Stethoscope className="icononavadmin" />
                 <span>Consultorio</span>
               </a>
             </li>
           </ul>
         </nav>
 
-        <footer
-          className="usuario-admi"
-          onMouseEnter={() => setMenuUsuarioAbierto(true)}
-          onMouseLeave={() => setMenuUsuarioAbierto(false)}
-        >
-          <img src="/user-avatar.png" alt="Foto de usuario" className="foto-admi" />
-          <span className="nombre-admi">Nombre de Usuario</span>
-
-          {menuUsuarioAbierto && (
-            <div className="menu-usuario-admi">
-              <ul>
-                <li>
-                  <a href="/perfil" className="opcion-admi">
-                    <User className="icono-admi" size={16} />
-                    <span>Mi Perfil</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="/configuracion" className="opcion-admi">
-                    <Settings className="icono-admi" size={16} />
-                    <span>Configuración</span>
-                  </a>
-                </li>
-                <li className="divisor-admi"></li>
-                <li>
-                  <a href="/logout" className="opcion-admi salir-admi">
-                    <LogOut className="icono-admi" size={16} />
-                    <span>Cerrar Sesión</span>
-                  </a>
-                </li>
-              </ul>
+        <div className="perfilnavadmin">
+          <div className="menuusuarionavadmin">
+            <button className="usuarionavadmin">
+              <div className="avatarnavadmin">
+                <div className="inicialnavadmin">NU</div>
+              </div>
+              <span className="nombrenavadmin">Nombre de Usuario</span>
+            </button>
+            <div className="menuopcionesnavadmin">
+              <button className="opcionnavadmin">
+                <User className="iconoopcionnavadmin" />
+                <span>Mi Perfil</span>
+              </button>
+              <button className="opcionnavadmin">
+                <Settings className="iconoopcionnavadmin" />
+                <span>Configuración</span>
+              </button>
+              <hr className="separadornavadmin" />
+              <button className="opcionnavadmin salirnavadmin">
+                <LogOut className="iconoopcionnavadmin" />
+                <span>Cerrar Sesión</span>
+              </button>
             </div>
-          )}
-        </footer>
+          </div>
+        </div>
       </aside>
-
-      {/* Contenedor principal para el contenido de la página */}
-      <main className="contenido-admi">{/* Aquí iría el contenido de la página */}</main>
     </>
   )
 }
 
-export default NavBarAdmin
-
- 

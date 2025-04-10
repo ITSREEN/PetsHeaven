@@ -1,450 +1,542 @@
-.paginaHomeadmin {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f8fafc;
-    min-height: 100vh; 
-    display: flex;
-    padding: 20px; /* Añadido padding para que no quede pegado a los bordes */
-    box-sizing: border-box; /* Asegura que el padding no afecte las dimensiones totales */
+/* Estilos base para el componente HomeAdmin */
+.contenedoradminhome {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8fafc;
 }
 
-.contenedorPrincipalHomeadmin {
-    width: 100%;
-    max-width: 900px; 
-    margin: 0 auto; 
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    padding: 24px;
-    position: relative;
-    overflow: hidden;
-    height: 80vh;
-    top: 10vh;
+.principaladminhome {
+  flex: 1;
+  padding: 1.5rem;
+  transition: padding 0.3s ease;
 }
 
-/* El resto del CSS se mantiene igual */
-.encabezadoHomeadmin {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-    position: relative;
+.tarjetaadminhome {
+  width: 100%;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
-.tituloSeccionHomeadmin {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    position: relative;
+.contenidoadminhome {
+  padding: 1.5rem;
 }
 
-.iconoMascotaHomeadmin {
-    width: 28px;
-    height: 28px;
-    color: #00BCD4;
+.encabezadoadminhome {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
 }
 
-.huellaDecorativaHomeadmin {
-    position: absolute;
-    right: -30px;
-    top: -5px;
-    opacity: 0.5;
+.tituloadminhome {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  position: relative;
 }
 
-h1 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin: 0;
-    color: #00BCD4;
+.iconoadminhome {
+  width: 1.75rem;
+  height: 1.75rem;
+  color: #00bcd4;
+  flex-shrink: 0;
 }
 
-.botonRegistrarHomeadmin {
-    background-color: #e0edff;
-    color: #00BCD4;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    border-radius: 4px;
-    font-size: 0.875rem;
-    padding: 0 16px;
-    height: 36px;
-    border: none;
-    font-weight: 500;
+.textoadminhome {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #00bcd4;
+  margin: 0;
+  white-space: nowrap;
 }
 
-.botonRegistrarHomeadmin:hover {
-    background-color: #cce3ff;
+.decoracionadminhome {
+  position: absolute;
+  right: -30px;
+  top: -5px;
+  opacity: 0.5;
 }
 
-.contenedorBusquedaHomeadmin {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-bottom: 24px;
+.huellaadminhome {
+  width: 1rem;
+  height: 1rem;
+  color: #e0edff;
 }
 
-.seccionBusquedaHomeadmin {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+.botonadminhome {
+  background-color: #e0edff;
+  color: #00bcd4;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  transition: all 0.2s ease;
+  border: none;
+  border-radius: 0.375rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
 }
 
-.etiquetaBusquedaHomeadmin {
-    font-size: 0.875rem;
-    color: #64748b;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+.botonadminhome:hover {
+  background-color: #cce3ff;
 }
 
-.iconoEtiquetaHomeadmin {
-    margin-top: -2px;
+.iconoplusadminhome {
+  margin-right: 0.5rem;
+  flex-shrink: 0;
 }
 
-.campoBusquedaWrapperHomeadmin {
-    position: relative;
-    display: flex;
-    align-items: center;
+.busquedaadminhome {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-.iconoCampoHomeadmin {
-    position: absolute;
-    left: 12px;
-    color: #94a3b8;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.seccionadminhome {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-.inputBusquedaHomeadmin {
-    width: 100%;
-    padding: 10px 12px 10px 40px;
+.etiquetaadminhome {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.inputcontenedoradminhome {
+  position: relative;
+}
+
+.inputiconoadminhome {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1rem;
+  height: 1rem;
+  color: #94a3b8;
+  z-index: 10;
+}
+
+.campoadminhome {
+  padding-left: 2.5rem;
+  width: 100%;
+  height: 2.5rem;
+  border-radius: 0.375rem;
+  border: 1px solid #e2e8f0;
+  background-color: white;
+  font-size: 0.875rem;
+  color: #1e293b;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.campoadminhome:focus {
+  border-color: #00bcd4;
+  box-shadow: 0 0 0 2px rgba(0, 188, 212, 0.2);
+}
+
+.campoadminhome::placeholder {
+  color: #94a3b8;
+}
+
+.centradoadminhome {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.botonbuscaradminhome {
+  background-color: #00bcd4;
+  color: white;
+  transition: background-color 0.2s;
+  border: none;
+  border-radius: 0.375rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.botonbuscaradminhome:hover {
+  background-color: #00acc1;
+}
+
+.iconobuscaradminhome {
+  margin-right: 0.5rem;
+}
+
+.tablacontenedoradminhome {
+  overflow-x: auto;
+  border-radius: 0.375rem;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 1rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tablaadminhome {
+  width: 100%;
+  font-size: 0.875rem;
+  border-collapse: collapse;
+}
+
+.encabezadotablaadminhome {
+  background-color: #b2ebf2;
+  color: #475569;
+}
+
+.celdaencabezadoadminhome {
+  text-align: left;
+  padding: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.mascotasencabezadoadminhome {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.gestionencabezadoadminhome {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.iconoordenadminhome {
+  color: #00bcd4;
+  flex-shrink: 0;
+}
+
+.filaadminhome {
+  border-top: 1px solid #e2e8f0;
+}
+
+.filaadminhome:hover {
+  background-color: #f8fafc;
+}
+
+.celdaadminhome {
+  padding: 0.75rem;
+  vertical-align: middle;
+}
+
+.infoadminhome {
+  display: flex;
+  flex-direction: column;
+}
+
+.nombreadminhome {
+  font-weight: 500;
+}
+
+.fechaadminhome {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.mascotasadminhome {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.mascotaitemadminhome {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.citaadminhome {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.fechacitaadminhome {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-weight: 500;
+  color: #00bcd4;
+  white-space: nowrap;
+}
+
+.puntoadminhome {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  background-color: #00bcd4;
+  flex-shrink: 0;
+}
+
+.tipocitaadminhome {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.accionadminhome {
+  color: #00bcd4;
+  background: transparent;
+  border: none;
+  border-radius: 0.375rem;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.accionadminhome:hover {
+  background-color: #f0f9ff;
+}
+
+.paginacionadminhome {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+  color: #64748b;
+  gap: 0.5rem;
+}
+
+.resultadosadminhome {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.contadoradminhome {
+  height: 1.5rem;
+  padding: 0 0.5rem;
+  font-weight: 500;
+  flex-shrink: 0;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.375rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+.flechaadminhome {
+  transform: rotate(180deg);
+  flex-shrink: 0;
+}
+
+.textocontadoradminhome {
+  margin-left: 0.5rem;
+  white-space: nowrap;
+}
+
+.huellasadminhome {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.huella1adminhome {
+  width: 1rem;
+  height: 1rem;
+  color: #e0edff;
+}
+
+.huella2adminhome {
+  width: 0.75rem;
+  height: 0.75rem;
+  color: #e0edff;
+}
+
+/* ==================== MEDIA QUERIES ==================== */
+
+/* Móviles pequeños y tablets (hasta 991px) */
+@media (max-width: 991px) {
+  .principaladminhome {
+    padding: 0.75rem;
+  }
+
+  .contenidoadminhome {
+    padding: 1rem;
+  }
+
+  .textoadminhome {
+    font-size: 1.125rem;
+  }
+
+  .iconoadminhome {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .decoracionadminhome {
+    display: none;
+  }
+
+  .tablacontenedoradminhome {
+    border-radius: 0.25rem;
+  }
+
+  /* Tabla responsiva para móviles y tablets */
+  .tablaadminhome thead {
+    display: none;
+  }
+
+  .tablaadminhome tbody tr {
+    display: block;
+    margin-bottom: 1rem;
     border: 1px solid #e2e8f0;
-    border-radius: 6px;
-    font-size: 0.875rem;
-    background-color: white;
-}
+    border-radius: 0.375rem;
+  }
 
-.inputBusquedaHomeadmin:focus {
-    border-color: #00BCD4;
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(0, 128, 255, 0.1);
-}
+  .tablaadminhome tbody td {
+    display: block;
+    text-align: right;
+    position: relative;
+    padding: 0.75rem;
+    border-bottom: 1px solid #f1f5f9;
+  }
 
-.contenedorBotonBuscarHomeadmin {
-    grid-column: span 2;
-    display: flex;
-    justify-content: center;
-    margin-top: 8px;
-}
+  .tablaadminhome tbody td:last-child {
+    border-bottom: none;
+  }
 
-.botonBuscarHomeadmin {
-    background-color: #00BCD4;
-    color: white;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    height: 36px;
-    border-radius: 4px;
-    font-size: 0.875rem;
-    padding: 0 20px;
-    font-weight: 500;
-}
-
-.botonBuscarHomeadmin:hover {
-    background-color: #00BCD4;
-}
-
-.contenedorTablaHomeadmin {
-    overflow-x: auto;
-    border-radius: 8px;
-    margin-bottom: 16px;
-}
-
-.tablaPropietariosHomeadmin {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.875rem;
-}
-
-.tablaPropietariosHomeadmin th {
-    background-color: #B2EBF2;
-    padding: 12px 16px;
+  .tablaadminhome tbody td:before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0.75rem;
+    width: 45%;
     text-align: left;
     font-weight: 600;
     color: #64748b;
-    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .textocontadoradminhome {
+    display: none;
+  }
 }
 
-.encabezadoMascotasHomeadmin {
-    display: flex;
+/* Laptops y computadores (992px en adelante) */
+@media (min-width: 992px) {
+  /* Hacer que los inputs queden uno al lado del otro */
+  .busquedaadminhome {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Ajustar el encabezado para que quede en línea */
+  .encabezadoadminhome {
+    flex-direction: row;
     align-items: center;
-    gap: 6px;
-}
+  }
 
-.iconoEncabezadoHomeadmin {
-    margin-top: -2px;
-}
+  /* Ajustar el botón para que no ocupe todo el ancho */
+  .botonadminhome {
+    width: auto;
+  }
 
-.tablaPropietariosHomeadmin td {
-    padding: 16px;
-    border-bottom: 1px solid #e2e8f0;
-    color: #334155;
-}
-
-.columnaOrdenableHomeadmin {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    cursor: pointer;
-}
-
-.iconoOrdenarHomeadmin {
-    color: #00BCD4;
-}
-
-.nombrePropietarioHomeadmin {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.avatarHomeadmin {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: 600;
-    background-color: #e91e63;
-}
-
-.infoPropietarioHomeadmin {
-    display: flex;
-    flex-direction: column;
-}
-
-.nombreCompletoHomeadmin {
-    font-weight: 500;
-}
-
-.fechaCreacionHomeadmin {
-    font-size: 0.75rem;
-    color: #64748b;
-}
-
-.listaMascotasHomeadmin {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.itemMascotaHomeadmin {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.875rem;
-}
-
-.iconoPataHomeadmin {
-    width: 16px;
-    height: 16px;
-    color: #94a3b8;
-}
-
-.infoCitaHomeadmin {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.fechaCitaHomeadmin {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-weight: 500;
-    color: #00BCD4;
-}
-
-.puntoEstadoHomeadmin {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: #00BCD4;
-}
-
-.tipoCitaHomeadmin {
-    font-size: 0.75rem;
-    color: #64748b;
-}
-
-.botonAccionHomeadmin {
-    color: #00BCD4;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 6px;
-    border-radius: 4px;
-}
-
-.botonAccionHomeadmin:hover {
-    background-color: #f0f9ff;
-}
-
-.paginacionHomeadmin {
-    display: flex;
+  /* Ajustar la paginación para que quede en línea */
+  .paginacionadminhome {
+    flex-direction: row;
     justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
+  }
 }
 
-.contadorResultadosHomeadmin {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+/* Laptops (1200px - 1439px) */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  .tarjetaadminhome {
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+
+  .principaladminhome {
+    padding: 1.75rem;
+  }
+}
+
+/* Computadores de escritorio con pantallas pequeñas (1440px - 1919px) */
+@media (min-width: 1440px) and (max-width: 1919px) {
+  .tarjetaadminhome {
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+
+  .principaladminhome {
+    padding: 2rem;
+  }
+
+  .contenidoadminhome {
+    padding: 1.75rem;
+  }
+
+  .textoadminhome {
+    font-size: 1.375rem;
+  }
+
+  .iconoadminhome {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .celdaencabezadoadminhome,
+  .celdaadminhome {
+    padding: 1rem;
+  }
+}
+
+/* Computadores de escritorio con pantallas grandes (1920px y más) */
+@media (min-width: 1920px) {
+  .tarjetaadminhome {
+    max-width: 1500px;
+    margin: 0 auto;
+  }
+
+  .principaladminhome {
+    padding: 2.5rem;
+  }
+
+  .contenidoadminhome {
+    padding: 2rem;
+  }
+
+  .textoadminhome {
+    font-size: 1.5rem;
+  }
+
+  .iconoadminhome {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .tablaadminhome {
+    font-size: 1rem;
+  }
+
+  .celdaencabezadoadminhome,
+  .celdaadminhome {
+    padding: 1.25rem;
+  }
+
+  .nombreadminhome {
+    font-size: 1.05rem;
+  }
+
+  .fechaadminhome {
     font-size: 0.875rem;
-    color: #64748b;
-}
-
-.numeroResultadosHomeadmin {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 24px;
-    background-color: #f1f5f9;
-    border-radius: 4px;
-    font-weight: 500;
-}
-
-.iconoDropdownHomeadmin {
-    color: #64748b;
-    transform: rotate(180deg);
-}
-
-.textoVisualizandoHomeadmin {
-    margin-left: 8px;
-}
-
-.huellasDecorativasPaginacionHomeadmin {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-}
-
-.noResultadosHomeadmin {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-    text-align: center;
-    gap: 16px;
-    position: relative;
-}
-
-.noResultadosHomeadmin h2 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #64748b;
-    margin: 0;
-}
-
-.noResultadosHomeadmin p {
-    color: #94a3b8;
-    margin: 0;
-}
-
-.huellasDecorativasHomeadmin {
-    display: flex;
-    gap: 12px;
-    margin-top: 16px;
-}
-
-/* Diseño responsive */
-@media (max-width: 992px) {
-    .contenedorBusquedaHomeadmin {
-        grid-template-columns: 1fr;
-    }
-
-    .contenedorBotonBuscarHomeadmin {
-        grid-column: 1;
-    }
-}
-
-@media (max-width: 768px) {
-    .paginaHomeadmin {
-        padding: 10px;
-    }
-
-    .contenedorPrincipalHomeadmin {
-        padding: 16px;
-    }
-
-    .encabezadoHomeadmin {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
-    }
-
-    .botonRegistrarHomeadmin {
-        width: 100%;
-        justify-content: center;
-    }
-
-    .tablaPropietariosHomeadmin th,
-    .tablaPropietariosHomeadmin td {
-        padding: 12px 8px;
-    }
-
-    .nombrePropietarioHomeadmin {
-        gap: 8px;
-    }
-
-    .avatarHomeadmin {
-        width: 32px;
-        height: 32px;
-    }
-}
-
-@media (max-width: 640px) {
-    .tablaPropietariosHomeadmin thead {
-        display: none;
-    }
-
-    .tablaPropietariosHomeadmin tbody tr {
-        display: block;
-        margin-bottom: 16px;
-        border: 1px solid #e2e8f0;
-        border-radius: 8px;
-    }
-
-    .tablaPropietariosHomeadmin tbody td {
-        display: block;
-        text-align: right;
-        position: relative;
-        padding-left: 50%;
-    }
-
-    .tablaPropietariosHomeadmin tbody td:before {
-        content: attr(data-label);
-        position: absolute;
-        left: 16px;
-        width: 45%;
-        text-align: left;
-        font-weight: 600;
-        color: #64748b;
-    }
-
-    .nombrePropietarioHomeadmin,
-    .infoCitaHomeadmin {
-        justify-content: flex-end;
-    }
-
-    .contadorResultadosHomeadmin {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
+  }
 }
