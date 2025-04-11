@@ -12,6 +12,7 @@ import VeterinariaPage from "./Componentes/VeterinariaPage"
 import RegistroMascota from "./Componentes/Formularios/FormularioMascotas"
 import ForgotPassword from "./Componentes/Formularios/ForgotPassword"
 import { HomeAdmin } from "./Componentes/InterfazAdmin/HomeAdmin"
+import { GesUsuario } from "./Componentes/InterfazAdmin/GesUsuario"
 
 // Main Component
 export default function App () {
@@ -27,7 +28,8 @@ export default function App () {
         <Route path="user/pets/register" element={<RegistroMascota />} />
         <Route path="veterinario/pets" element={<Pets />} ></Route>
         <Route path="admin/pets" element={<Pets />} ></Route>
-        <Route path="home" element={<HomeAdmin />} ></Route>
+        <Route path="propietarios" element={<HomeAdmin />} ></Route>
+        <Route path="gestion/usuarios" element={<GesUsuario/>} ></Route>
         <Route path="/internal" element={<ErrorInternalServer />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
