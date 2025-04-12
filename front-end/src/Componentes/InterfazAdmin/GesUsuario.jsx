@@ -1,7 +1,7 @@
 import React from "react"
 import { ChevronUp, ChevronDown, Plus, Edit, MoreHorizontal } from "lucide-react"
-import {NavBarAdmin} from '../BarrasNavegacion/NavBarAdmi';
-import '../../../public/styles/InterfazAdmin/GesUsuario.css'
+import { NavBarAdmin } from "../BarrasNavegacion/NavBarAdmi"
+import "../../../public/styles/InterfazAdmin/GesUsuario.css"
 
 // Datos de ejemplo unu
 const usuariosEjemplo = [
@@ -69,9 +69,6 @@ export function GesUsuario() {
               <table className="tablausuariosgesusuario">
                 <thead>
                   <tr className="encabezadotablagesusuario">
-                    <th className="celdaencabezadogesusuario opciones">
-                      <div className="contenidoencabezadogesusuario">Opciones</div>
-                    </th>
                     <th className="celdaencabezadogesusuario">
                       <div className="contenidoencabezadogesusuario">
                         Nombre
@@ -108,21 +105,14 @@ export function GesUsuario() {
                         </div>
                       </div>
                     </th>
+                    <th className="celdaencabezadogesusuario opciones">
+                      <div className="contenidoencabezadogesusuario">Opciones</div>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {usuariosEjemplo.map((usuario) => (
                     <tr key={usuario.id} className="filagesusuario">
-                      <td className="celdagesusuario" data-label="Opciones">
-                        <div className="accionesusuariogesusuario">
-                          <button className="botonacciongesusuario">
-                            <Edit size={16} className="iconoacciongesusuario" />
-                          </button>
-                          <button className="botonacciongesusuario">
-                            <MoreHorizontal size={16} className="iconoacciongesusuario" />
-                          </button>
-                        </div>
-                      </td>
                       <td className="celdagesusuario" data-label="Nombre">
                         <div className="usuarioinfogeneralgesusuario">
                           <span>{usuario.nombre}</span>
@@ -136,6 +126,16 @@ export function GesUsuario() {
                       </td>
                       <td className="celdagesusuario" data-label="Creación">
                         {usuario.fechaCreacion}
+                      </td>
+                      <td className="celdagesusuario" data-label="Opciones">
+                        <div className="accionesusuariogesusuario">
+                          <button className="botonacciongesusuario">
+                            <Edit size={16} className="iconoacciongesusuario" />
+                          </button>
+                          <button className="botonacciongesusuario">
+                            <MoreHorizontal size={16} className="iconoacciongesusuario" />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -159,4 +159,3 @@ export function GesUsuario() {
     </div>
   )
 }
-
