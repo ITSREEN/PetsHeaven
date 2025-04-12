@@ -4,15 +4,15 @@ import { BrowserRouter, Routes, Route } from "react-router"
 
 // Imports
 import { LoginForm } from "./Componentes/Formularios/LoginForm"
-import { NotFound } from "./Componentes/Errores/NotFound"
-import { ErrorInternalServer } from "./Componentes/Errores/ErrorInternalServer"
-import { Pets } from "./Componentes/InterfazUsuario/Pets"
 import Registro from "./Componentes/Formularios/Registro"
-import VeterinariaPage from "./Componentes/VeterinariaPage"
 import RegistroMascota from "./Componentes/Formularios/FormularioMascotas"
 import ForgotPassword from "./Componentes/Formularios/ForgotPassword"
 import { HomeAdmin } from "./Componentes/InterfazAdmin/HomeAdmin"
 import { GesUsuario } from "./Componentes/InterfazAdmin/GesUsuario"
+import { Pets } from "./Componentes/InterfazUsuario/Pets"
+import { NotFound } from "./Componentes/Errores/NotFound"
+import { ErrorInternalServer } from "./Componentes/Errores/ErrorInternalServer"
+import VeterinariaPage from "./Componentes/VeterinariaPage"
 
 // Main Component
 export default function App () {

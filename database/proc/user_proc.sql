@@ -60,7 +60,8 @@ BEGIN
         u.cel_usu,
         u.cel2_usu,
         u.email_usu,
-        u.cont_usu
+        u.cont_usu,
+        u.fec_cre_usu
     FROM 
         usuarios u
     WHERE
@@ -82,7 +83,8 @@ BEGIN
         u.cel_usu,
         u.cel2_usu,
         u.email_usu,
-        u.cont_usu
+        u.cont_usu,
+        u.fec_cre_usu
     FROM 
         usuarios u
     WHERE
@@ -110,7 +112,8 @@ BEGIN
         u.cel_usu,
         u.cel2_usu,
         u.email_usu,
-        u.cont_usu
+        u.cont_usu,
+        u.fec_cre_usu
     FROM 
         usuarios u
     JOIN
