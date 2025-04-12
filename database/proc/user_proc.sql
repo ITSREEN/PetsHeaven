@@ -60,12 +60,20 @@ BEGIN
         u.cel_usu,
         u.cel2_usu,
         u.email_usu,
-        u.cont_usu
+        u.cont_usu,
+        u.fec_cre_usu,
+        GROUP_CONCAT(r.nom_rol SEPARATOR ', ') AS roles
     FROM 
         usuarios u
+    JOIN
+        otorgar_roles otr ON otr.id_usu = u.id_usu
+    JOIN
+        roles r ON otr.id_rol = r.id_rol
     WHERE
         u.estado = 1
-    LIMIT 40;
+    GROUP BY 
+        u.id_usu
+    LIMIT 50;
 END //
 
 CREATE PROCEDURE pets_heaven.SearchPeopleBy(
@@ -82,9 +90,15 @@ BEGIN
         u.cel_usu,
         u.cel2_usu,
         u.email_usu,
-        u.cont_usu
+        u.cont_usu,
+        u.fec_cre_usu,
+        GROUP_CONCAT(r.nom_rol SEPARATOR ', ') AS roles
     FROM 
         usuarios u
+    JOIN
+        otorgar_roles otr ON otr.id_usu = u.id_usu
+    JOIN
+        roles r ON otr.id_rol = r.id_rol
     WHERE
         u.estado = 1
         AND (
@@ -93,7 +107,7 @@ BEGIN
         )
     ORDER BY
         u.nom_usu
-    LIMIT 40;
+    LIMIT 50;
 END //
 
 CREATE PROCEDURE pets_heaven.SearchPeoplesBy(
@@ -110,17 +124,19 @@ BEGIN
         u.cel_usu,
         u.cel2_usu,
         u.email_usu,
-        u.cont_usu
+        u.cont_usu,
+        u.fec_cre_usu,
+        GROUP_CONCAT(r.nom_rol SEPARATOR ', ') AS roles
     FROM 
         usuarios u
     JOIN
         otorgar_roles otr ON otr.id_usu = u.id_usu
     JOIN
-        roles r ON r.id_rol = otr.id_rol
+        roles r ON otr.id_rol = r.id_rol
     WHERE
         u.estado = 1
         AND r.nom_rol = p_by
-    ORDER BY
-        otr.fec_oto
-    LIMIT 40;
+    GROUP BY 
+        u.id_usu
+    LIMIT 50;
 END //

@@ -25,7 +25,8 @@ CREATE TABLE pets_heaven.usuarios(
     email_usu VARCHAR(100) UNIQUE NOT NULL,INDEX(email_usu),
     cont_usu VARCHAR(255) NOT NULL,
     gen_usu VARCHAR(100) NOT NULL,
-    estado BOOLEAN DEFAULT(1)
+    estado BOOLEAN DEFAULT(1) NOT NULL,
+    fec_cre_usu DATE DEFAULT(NOW()) NOT NULL
 );
 
 CREATE TABLE pets_heaven.otorgar_roles(
