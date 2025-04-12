@@ -146,9 +146,9 @@ export function GesUsuario() {
                           <td className="celdagesusuario" data-label="Correo">
                             {usuario.email_usu}
                           </td>
-                          {/* <td className="celdagesusuario" data-label="Rol">
-                            <span className={`rolgesusuario ${usuario.rol.toLowerCase()}`}>{usuario.rol}</span>
-                          </td> */}
+                          <td className="celdagesusuario" data-label="Rol">
+                            <span className={`rolgesusuario ${usuario.roles.toLowerCase()}`}>{usuario.roles}</span>
+                          </td>
                           <td className="celdagesusuario" data-label="Creación">
                             {usuario.fec_cre_usu}
                           </td>
