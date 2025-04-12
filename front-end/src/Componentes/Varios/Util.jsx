@@ -1,9 +1,8 @@
 // Vars
-// const HeaderWeb = {
-//     "Content-Type": "application/x-www-form-urlencoded",
-// }
 const HeaderWeb = {
     "Content-Type": "application/json",
+    "x-api-key": "pets_heaven_vite",
+    "User": "Cristian_Admin"
 }
 
 // Functions 
@@ -15,14 +14,14 @@ export async function GetData(URL) {
             headers: HeaderWeb,
         })
         if (!response.ok) {
-            response.status >= 500? window.location.href = "/internal":
-            window.location.href = "/notfound"
+            // response.status >= 500? window.location.href = "/internal":
+            // window.location.href = "/notfound"
             throw new Error(`HTTP error! status: ${response.status}`)
         }
         const data = await response.json()
         return data.result[0]
     } catch (error) {
-        window.location.href = "/internal"
+        // window.location.href = "/internal"
         console.error("Error:", error)
         throw error
     }

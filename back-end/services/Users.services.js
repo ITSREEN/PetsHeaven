@@ -33,7 +33,7 @@ class User{
     async findAllBy(data) {
         return new Promise((res,rej) => {
             // vars
-            const by = data.replace(":","")
+            const by = data.replace(":","").replace(" ","")
             const proc = "CALL SearchPeoplesBy(?);"
 
             // conect to database
@@ -60,7 +60,7 @@ class User{
     async findBy(data) {
         return new Promise((res,rej) => {
             // vars
-            const by = data.replace(":","")
+            const by = data.replace(":","").replace(" ","")
             const proc = "CALL SearchPeopleBy(?);"
 
             // conect to database

@@ -30,7 +30,8 @@ export const Pets = (rol = null) => {
             setPetsData(pets)
             if(pets[0]) setfound(true)
         } catch (error) {
-            window.location.href = "/internal"
+            // window.location.href = "/internal"
+            console.log(error)
         }
     }
     

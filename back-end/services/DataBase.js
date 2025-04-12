@@ -3,13 +3,12 @@ const mysql = require('mysql')
 
 class DataBase {
     constructor() {
-        this.conection = null
-        this.createConnection()
+        this.conection = this.createConnection()
     }
     
     // Create conection function
     createConnection() {
-        return this.conection = mysql.createConnection({
+        return mysql.createConnection({
             host: "127.0.0.1",
             database: "pets_heaven",
             user: "root",

@@ -1,7 +1,6 @@
 // Imports 
 import "../../public/styles/VeterinariaPage.css"
 import { NavBar } from "./BarrasNavegacion/NavBar"
-
 import { GetData } from "./Varios/Util"
 import { diapositivas, promociones, testimonios } from './Varios/varios'
 import { Loader } from './Errores/Loader'
@@ -16,7 +15,7 @@ export default function VeterinariaPage() {
   const URL = "http://localhost:3000/global/services"
   const [diaActual, setDiaActual] = useState(0)
   const [testActual, setTestActual] = useState(0)
-  const [setMostrarBoton] = useState(false)
+  const [mostrarBoton,setMostrarBoton] = useState(false)
   const [gruposTest, setGruposTest] = useState([])
   const [serData, setSerData] = useState([])
   const [loading,setLoading] = useState(true)
@@ -44,7 +43,7 @@ export default function VeterinariaPage() {
         setSerData(services)
         setLoading(false)
       } catch (error) {
-        window.location.href = "/internal"
+        // window.location.href = "/internal"
         setSerData()
       }
     }
