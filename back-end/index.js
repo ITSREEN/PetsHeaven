@@ -18,10 +18,9 @@ app.disable('x-powered-by')
 app.use(express.json())
 app.use(cors(corsOptions))
 app.use(limiter)
-app.use(validatorHeaders)
 
 // Routes
 routerApi(app)
 
 
-app.listen(port,() => console.log("Host is: http://localhost:" + port))
+app.listen(port,() => console.log('Host is: http://localhost:' + port))

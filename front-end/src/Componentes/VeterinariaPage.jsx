@@ -11,7 +11,7 @@ import { NavBarAdmin } from './BarrasNavegacion/NavBarAdmi'
 import React,{ useState, useEffect} from "react"
 import { MapPin, Star, Phone, Mail, Clock, ChevronUp, Instagram, Facebook } from "lucide-react"
 
-export default function VeterinariaPage() {
+export default function VeterinariaPage( ) {
   // Estados para los diferentes componentes
   const URL = "http://localhost:3000/global/services"
   const [diaActual, setDiaActual] = useState(0)
@@ -110,7 +110,7 @@ export default function VeterinariaPage() {
     {
       loading? (<Loader />):(
         <div className="pagina">
-          <NavBar/>
+          <NavBar />
 
           {/* COMPONENTE: Carrusel */}
           <section className="carrusel">

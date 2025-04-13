@@ -17,15 +17,16 @@ import VeterinariaPage from "./Componentes/VeterinariaPage"
 // Main Component
 export default function App () {
   // Vars 
-  const [authenticated,isAuthenticated] = useState(true)
 
   // Route types
   const PrivateRoute = ({ children }) => {
-    return authenticated? children: window.location.href = "/main"
+    const token = localStorage.getItem('token');
+    return token ? children : <Navigate to="/login" />;
   }
 
   const AdminRoute = ({ children }) => {
-    return isAdmin? children: window.location.href = "/main"
+    const token = localStorage.getItem('token');
+    return token ? children : <Navigate to="/login" />;
   }
 
   const MainRoute = () => {

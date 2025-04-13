@@ -1,14 +1,15 @@
 // Librarys 
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { Menu, X } from "lucide-react"
 
 // Imports 
 import '../../../public/styles/BarrasNavegacion/NavBar.css'
 
 // Main component 
-export const NavBar = ({ isAutenticate = false, isAdmin = false }) => {
+export const NavBar = () => {
   // Vars 
   const [menuAbierto, setMenuAbierto] = useState(false)
+  const [isAutenticate,setIsAutenticate] = useState(false)
   const refNav = useRef(null)
   
    // Función para manejar el scroll a secciones
@@ -35,8 +36,17 @@ export const NavBar = ({ isAutenticate = false, isAdmin = false }) => {
     }
   }
 
-  return (
-    
+  const logout = () => {
+    localStorage.setItem("token","")
+  }
+
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    console.log(token)
+    token? setIsAutenticate(true) :setIsAutenticate(false)
+  },[])
+
+  return (  
     <header className="encabezado" ref={refNav}>
       <div className="contenedor-header">
         <div className="logo-container">
@@ -86,7 +96,7 @@ export const NavBar = ({ isAutenticate = false, isAdmin = false }) => {
           {
           isAutenticate?(
             <div className="botones-escritorio">
-              <a href="/user/login" className="boton-login-nav">Cerrar Sesión</a>
+              <a href="/main" className="boton-login-nav" onClick={logout}>Cerrar Sesión</a>
             </div>
           ): (
             <div className="botones-escritorio">
@@ -129,7 +139,7 @@ export const NavBar = ({ isAutenticate = false, isAdmin = false }) => {
           {
             isAutenticate?(
               <div className="botones-movil">
-                <a href='/user/login' className="boton-login-movil-nav">Cerrar Sesión</a>
+                <a href="/main" className="boton-login-nav" onClick={logout}>Cerrar Sesión</a>
               </div>
             ):(
               <div className="botones-movil">

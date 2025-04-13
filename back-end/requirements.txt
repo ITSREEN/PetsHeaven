@@ -2,5 +2,6 @@ cors == 2.8.5
 express-rate-limit == 7.5.0
 express == 5.1.0
 mysql == 2.18.1
+jsonwebtoken == 
 
-npm i cors express mysql express-rate-limit
+npm i cors express mysql express-rate-limit jsonwebtoken

@@ -9,4 +9,4 @@ vite
 
 npm i react react-dom react-hook-form boxicons react-router lucide-react @supabase/supabase-js emailjs-com
 npm i -D vite
-npm install next@latest
+npm install firebase @react-firebase/auth

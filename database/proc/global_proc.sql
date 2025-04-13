@@ -18,33 +18,34 @@ BEGIN
     LIMIT 40;
 END //
 
-CREATE PROCEDURE pets_heaven.SearchRoles(
-    IN p_attribue VARCHAR(100)
+CREATE PROCEDURE pets_heaven.Login(
+    IN p_firstData VARCHAR(100),
+    IN p_secondData VARCHAR(255)
 )
 BEGIN
     SELECT
         u.nom_usu,
         u.ape_usu,
-        u.fec_nac_usu,
-        u.tip_doc_usu,
-        u.doc_usu,
-        u.dir_usu,
-        u.cel_usu,
-        u.cel2_usu,
-        u.email_usu,
-        u.cont_usu,
-        r.nom_rol
+        GROUP_CONCAT(r.nom_rol SEPARATOR ', ') AS roles,
+        GROUP_CONCAT(pm.nom_per SEPARATOR ', ' ) AS permisos
     FROM
         usuarios u
     JOIN
-        otorgar_roles oro ON oro.id_rol = u.id_usu
+        otorgar_roles otr ON otr.id_usu = u.id_usu
     JOIN
-        roles r ON oro.id_rol = r.id_rol
+        otorgar_permisos op ON op.id_usu = u.id_usu
+    JOIN
+        roles r ON otr.id_rol = r.id_rol
+    JOIN
+        permisos pm ON pm.id_per = op.id_per
     WHERE
         u.estado = 1
         AND (
-            u.doc_usu = p_attribue OR 
-            u.email_usu LIKE p_attribue
-        )
+            u.doc_usu = p_firstData OR 
+            u.email_usu = p_firstData
+        ) AND u.cont_usu = p_secondData
+    GROUP BY u.nom_usu
     LIMIT 40;
 END //
+
+CALL `Login` ("cristian@gmail.com","cristian123");

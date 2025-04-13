@@ -3,9 +3,11 @@
     "vite": "^6.2.5"
   },
   "dependencies": {
+    "@react-firebase/auth": "^0.2.10",
     "@supabase/supabase-js": "^2.49.4",
     "boxicons": "^2.1.4",
     "emailjs-com": "^3.2.0",
+    "firebase": "^11.6.0",
     "lucide-react": "^0.487.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
