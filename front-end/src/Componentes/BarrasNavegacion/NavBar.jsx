@@ -1,13 +1,15 @@
-import { useRef, useEffect, useState } from 'react'
-import React from "react"
+// Librarys 
+import React, { useRef, useState } from "react"
 import { Menu, X } from "lucide-react"
+
+// Imports 
 import '../../../public/styles/BarrasNavegacion/NavBar.css'
 
-export const NavBar = () => {
-
+// Main component 
+export const NavBar = ({ isAutenticate = false, isAdmin = false }) => {
+  // Vars 
   const [menuAbierto, setMenuAbierto] = useState(false)
   const refNav = useRef(null)
-
   
    // Función para manejar el scroll a secciones
   const irASeccion = (e, id) => {
@@ -61,6 +63,13 @@ export const NavBar = () => {
           <a href="#contacto" className="enlace-nav" onClick={(e) => irASeccion(e, "contacto")}>
             Contáctanos
           </a>
+          {
+            isAutenticate && (
+              <a href="/user/pets" className="enlace-nav">
+                Mascotas
+              </a>
+            )
+          }
         </nav>
 
         {/* Botón Menú Móvil */}
@@ -74,12 +83,18 @@ export const NavBar = () => {
         </div>
 
         {/* Botones para escritorio */}
-        <div className="botones-escritorio">
-          <a href="/user/register" className="boton-registro-nav">
-            Registrarse
-          </a>
-          <a href="/user/login" className="boton-login-nav">Iniciar Sesión</a>
-        </div>
+          {
+          isAutenticate?(
+            <div className="botones-escritorio">
+              <a href="/user/login" className="boton-login-nav">Cerrar Sesión</a>
+            </div>
+          ): (
+            <div className="botones-escritorio">
+              <a href="/user/register" className="boton-registro-nav">Registrarse</a>
+              <a href="/user/login" className="boton-login-nav">Iniciar Sesión</a>
+            </div>
+            )
+          }
       </div>
 
       {/* Navegación Móvil */}
@@ -103,13 +118,28 @@ export const NavBar = () => {
           <a href="#contacto" className="enlace-nav-movil" onClick={(e) => irASeccion(e, "contacto")}>
             Contáctanos
           </a>
+          {
+            isAutenticate && (
+              <a href="/user/pets" className="enlace-nav">
+                Mascotas
+              </a>
+            )
+          }
           {/* Botones para móvil */}
-          <div className="botones-movil">
-            <a href="/user/register" className="boton-registro-movil-nav">
-              Registrarse
-            </a>
-            <a href='/user/login' className="boton-login-movil-nav">Iniciar Sesión</a>
-          </div>
+          {
+            isAutenticate?(
+              <div className="botones-movil">
+                <a href='/user/login' className="boton-login-movil-nav">Cerrar Sesión</a>
+              </div>
+            ):(
+              <div className="botones-movil">
+                <a href="/user/register" className="boton-registro-movil-nav">
+                  Registrarse
+                </a>
+                <a href='/user/login' className="boton-login-movil-nav">Iniciar Sesión</a>
+              </div>
+            )
+          } 
         </nav>
       </div>
     </header>

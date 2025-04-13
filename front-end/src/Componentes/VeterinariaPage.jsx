@@ -5,6 +5,7 @@ import { GetData } from "./Varios/Util"
 import { diapositivas, promociones, testimonios } from './Varios/varios'
 import { Loader } from './Errores/Loader'
 import Footer from "./Varios/Footer2"
+import { NavBarAdmin } from './BarrasNavegacion/NavBarAdmi'
 
 // Librarys 
 import React,{ useState, useEffect} from "react"
@@ -19,6 +20,7 @@ export default function VeterinariaPage() {
   const [gruposTest, setGruposTest] = useState([])
   const [serData, setSerData] = useState([])
   const [loading,setLoading] = useState(true)
+  // const [isAutenticate,setIsAutenticate] = useState(true)
 
   // Función para agrupar testimonios en diapositivas
   const agruparTest = () => {
