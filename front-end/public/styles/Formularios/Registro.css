@@ -423,6 +423,12 @@ select:focus {
   margin-top: 0.5rem; /* Añadido para dar más espacio desde los botones */
 }
 
+.campo-ancho-completo{
+  display: grid;
+  grid-template-columns: 20% 80%;
+
+}
+
 /* ===== RESPONSIVE: MÓVIL PEQUEÑO (< 480px) ===== */
 @media (max-width: 479px) {
   .registro-imagen-container {
@@ -513,9 +519,9 @@ select:focus {
   .grid-campos {
     grid-template-columns: 1fr;
   }
-  .campo-ancho-completo {
+  /* .campo-ancho-completo {
     grid-column: span 1;
-  }
+  } */
   .navegacion-botones,
   .botones-verificacion {
     flex-direction: column;

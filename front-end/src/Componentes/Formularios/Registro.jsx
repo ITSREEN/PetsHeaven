@@ -250,10 +250,6 @@ const Registro = () => {
   // Funciones de UI
   const cambiarVisibilidadPassword = () => setVerPassword(!verPassword);
   const cambiarVisibilidadConfirmarPassword = () => setVerConfirmarPassword(!verConfirmarPassword);
-  const mostrarRequisitosPasswordAlFocus = () => setMostrarRequisitosPassword(true);
-  const ocultarRequisitosPasswordAlBlur = () => setMostrarRequisitosPassword(false);
-  const mostrarRequisitosFechaAlFocus = () => setMostrarRequisitosFecha(true);
-  const ocultarRequisitosFechaAlBlur = () => setMostrarRequisitosFecha(false);
 
   // Funciones de validación
   const permitirSoloNumeros = (e) => {
@@ -655,13 +651,11 @@ const Registro = () => {
                           maxLength={64}
                           className={errors.password ? "campo-error" : ""}
                           onPaste={evitarPegado}
-                          onFocus={mostrarRequisitosPasswordAlFocus}
-                          onBlur={ocultarRequisitosPasswordAlBlur}
                           {...register("password", {
                             required: true,
                             minLength: {
                               value: 8,
-                              message: "La contraseña debe tener al menos 8 caracteres",
+                              message: "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una minúscula, un número y un carácter especial",
                             },
                             maxLength: 64,
                             pattern: {
@@ -712,14 +706,8 @@ const Registro = () => {
                           {errors.password.type === "required"
                             ? "La contraseña es obligatoria"
                             : errors.password.type === "minLength"
-                              ? "La contraseña debe tener al menos 8 caracteres"
+                              ? "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una minúscula, un número y un carácter especial"
                               : "La contraseña debe tener al menos una letra mayúscula, una minúscula, un número y un carácter especial"}
-                        </p>
-                      )}
-                      {mostrarRequisitosPassword && (
-                        <p className="mensaje-info">
-                          La contraseña debe contener: al menos 8 caracteres, una mayúscula, una minúscula, un número y
-                          un carácter especial (@$!%*?&)
                         </p>
                       )}
                     </div>
@@ -786,19 +774,19 @@ const Registro = () => {
                     </div>
                   </div>
 
-                  <div className="grupo-campo checkbox campo-ancho-completo">
+                  <div className="campo-ancho-completo">
                     <input
                       type="checkbox"
                       id="terminos"
                       className={errors.terminos ? "campo-error" : ""}
                       {...register("terminos", {
                         required: true,
-                      })}
+                      })}                    
                     />
                     <label htmlFor="terminos">
                       Acepto los términos y condiciones <span className="obligatorio">*</span>
+                      {errors.terminos && <p className="mensaje-error">Debes aceptar los términos y condiciones</p>}
                     </label>
-                    {errors.terminos && <p className="mensaje-error">Debes aceptar los términos y condiciones</p>}
                   </div>
 
                 <div className="navegacion-botones">
