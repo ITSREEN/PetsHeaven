@@ -17,7 +17,6 @@
   align-items: center;
   justify-content: center;
 }
-
 .botonmovilnavadmin.activonavadmin {
   background-color: #4b5563;
   color: white;
@@ -234,11 +233,12 @@
   align-items: center;
   justify-content: center;
 }
-
-.inicialnavadmin {
-  color: white;
-  font-weight: 600;
-  font-size: 0.875rem;
+.avatarnavadmin img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .nombrenavadmin {
@@ -511,8 +511,8 @@
   }
 
   .avatarnavadmin {
-    width: 2rem;
-    height: 2rem;
+    width: 3rem;
+    height: 3rem;
   }
 
   .nombrenavadmin {
