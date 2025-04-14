@@ -1,4 +1,4 @@
--- Active: 1740114802630@@127.0.0.1@3306@pets_heaven
+-- Active: 1743971322762@@127.0.0.1@3306@pets_heaven
 INSERT INTO pets_heaven.roles (nom_rol) VALUES
 ('Administrador'),
 ('Veterinario');
@@ -15,7 +15,8 @@ INSERT INTO pets_heaven.usuarios (nom_usu, ape_usu, fec_nac_usu, tip_doc_usu, do
 ('María', 'Gómez',NOW(), 'CC', '87654321', 'Av. Principal #12-34', '3102345678', '3203456789', 'maria.gomez@email.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','Mujer'),
 ('Carlos', 'Rodríguez',NOW(), 'CE', 'AB123456', 'Carrera 56 #78-90', '3154567890', NULL, 'carlos.rod@email.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','Hombre'),
 ('Ana', 'Martínez',NOW(), 'CC', '11223344', 'Diagonal 34 #56-78', '3175678901', NULL, 'ana.martinez@email.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','Mujer'),
-('Luis', 'García',NOW(), 'TI', '98765432', 'Transversal 12 #34-56', '3186789012', '3197890123', 'luis.garcia@email.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','Hombre');
+('Luis', 'García',NOW(), 'TI', '98765432', 'Transversal 12 #34-56', '3186789012', '3197890123', 'luis.garcia@email.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','Hombre'),
+('Arnold', 'schwarzenegger',NOW(), 'CC', '1298765432', 'Transversal 12 #34-56', '3186789012', '3197890123', 'admin@gmail.com', 'admin123','Hombre');
 
 INSERT INTO pets_heaven.otorgar_roles (id_rol, id_usu) VALUES
 (1,1),
@@ -23,14 +24,16 @@ INSERT INTO pets_heaven.otorgar_roles (id_rol, id_usu) VALUES
 (2,2),
 (1,3),
 (2,4),
-(1,5);
+(1,5),
+(1,6);
 
 INSERT INTO pets_heaven.otorgar_permisos (id_per, id_usu) VALUES
 (1,1),
 (2,2),
 (3,3),
 (4,4),
-(5,5);
+(5,5),
+(5,6);
 
 INSERT INTO pets_heaven.categorias_ser (nom_cat) VALUES
 ('Medicina Preventiva'),
