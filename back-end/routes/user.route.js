@@ -27,7 +27,7 @@ Route.get('/all:by', async (req,res) => {
     const search = await user.findAllBy(by)
 
     // Verifiy if exists
-    if (!search.result) res.status(404).json({ message: "Usuarios no encontrado"})
+    if (!search.result) res.status(404).json({ message: "Usuarios no encontrados"})
 
     try {
         res.status(200).json(search)

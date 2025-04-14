@@ -5,7 +5,7 @@ import emailjs from "emailjs-com"
 import { Link } from "react-router"
 
 // Imports 
-import { PostData } from '../Varios/Util'
+import { PostData } from '../Varios/Requests'
 import "../../../public/styles/Formularios/Registro.css";
 
 

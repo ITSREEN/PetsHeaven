@@ -1,14 +1,20 @@
+// Librarys
 import React from "react"
 import { useState, useEffect } from "react"
 import {Settings,Users,User,Headset,ChevronDown,Syringe,Bath,Scissors,Calendar,LogOut,
   Menu,X,Stethoscope,CalendarRange,CalendarClock,FlaskRoundIcon as Flask,} from "lucide-react"
+
+// Imports 
 import "../../../public/styles/BarrasNavegacion/NavBarAdmin.css"
+import { Logout, decodeJWT } from "../Varios/Util"
 
 export const NavBarAdmin = () => {
   const [serviciosAbierto, setServiciosAbierto] = useState(false)
   const [agendaAbierta, setAgendaAbierta] = useState(false)
   const [menuMovilAbierto, setMenuMovilAbierto] = useState(false)
   const [esMovil, setEsMovil] = useState(false)
+  const [user, setUser] = useState({})
+  const token = localStorage.getItem("token")
 
   // Detectar si es dispositivo móvil
   useEffect(() => {
@@ -35,6 +41,11 @@ export const NavBarAdmin = () => {
   const toggleMenuMovil = () => {
     setMenuMovilAbierto(!menuMovilAbierto)
   }
+
+  useEffect(() => {
+    const tokenJWT = decodeJWT(token)
+    setUser(tokenJWT)
+  },[])
 
   return (
     <>
@@ -160,7 +171,7 @@ export const NavBarAdmin = () => {
               <div className="avatarnavadmin">
                 <div className="inicialnavadmin">NU</div>
               </div>
-              <span className="nombrenavadmin">Nombre de Usuario</span>
+              <span className="nombrenavadmin">{user.names} {user.lastNames}</span>
             </button>
             <div className="menuopcionesnavadmin">
               <button className="opcionnavadmin">
@@ -174,7 +185,7 @@ export const NavBarAdmin = () => {
               <hr className="separadornavadmin" />
               <button className="opcionnavadmin salirnavadmin">
                 <LogOut className="iconoopcionnavadmin" />
-                <span>Cerrar Sesión</span>
+                <span onClick={Logout}>Cerrar Sesión</span>
               </button>
             </div>
           </div>
