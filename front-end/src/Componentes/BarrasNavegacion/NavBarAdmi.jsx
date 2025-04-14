@@ -88,7 +88,14 @@ export const NavBarAdmin = () => {
             </li>
 
             <li className="itemnavadmin">
-              <a href="/usuarios" className="enlacenavadmin">
+              <a href="/consultorio" className="enlacenavadmin">
+                <Stethoscope className="icononavadmin" />
+                <span>Consultorio</span>
+              </a>
+            </li>
+            
+            <li className="itemnavadmin">
+              <a href="/gestion/usuarios" className="enlacenavadmin">
                 <Users className="icononavadmin" />
                 <span>Usuarios</span>
               </a>
@@ -101,6 +108,31 @@ export const NavBarAdmin = () => {
               </a>
             </li>
 
+            <li className="itemnavadmin">
+              <button className="botonnavadmin" onClick={toggleAgenda}>
+                <div className="contenidobotonnavadmin">
+                  <Calendar className="icononavadmin" />
+                  <span>Agenda</span>
+                </div>
+                <ChevronDown className={`flechanavadmin ${agendaAbierta ? "girarnavadmin" : ""}`} />
+              </button>
+
+              <ul className={`submenunavadmin ${agendaAbierta ? "abiertonavadmin" : "cerradonavadmin"}`}>
+                <li>
+                  <a href="/agenda/general" className="subenlacenavadmin">
+                    <CalendarRange className="iconosubnavadmin" />
+                    <span>Agenda General</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="/agenda/personal" className="subenlacenavadmin">
+                    <CalendarClock className="iconosubnavadmin" />
+                    <span>Agenda Personal</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            
             <li className="itemnavadmin">
               <button className="botonnavadmin" onClick={toggleServicios}>
                 <div className="contenidobotonnavadmin">
@@ -136,38 +168,6 @@ export const NavBarAdmin = () => {
                   </a>
                 </li>
               </ul>
-            </li>
-
-            <li className="itemnavadmin">
-              <button className="botonnavadmin" onClick={toggleAgenda}>
-                <div className="contenidobotonnavadmin">
-                  <Calendar className="icononavadmin" />
-                  <span>Agenda</span>
-                </div>
-                <ChevronDown className={`flechanavadmin ${agendaAbierta ? "girarnavadmin" : ""}`} />
-              </button>
-
-              <ul className={`submenunavadmin ${agendaAbierta ? "abiertonavadmin" : "cerradonavadmin"}`}>
-                <li>
-                  <a href="/agenda/general" className="subenlacenavadmin">
-                    <CalendarRange className="iconosubnavadmin" />
-                    <span>Agenda General</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="/agenda/personal" className="subenlacenavadmin">
-                    <CalendarClock className="iconosubnavadmin" />
-                    <span>Agenda Personal</span>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <li className="itemnavadmin">
-              <a href="/consultorio" className="enlacenavadmin">
-                <Stethoscope className="icononavadmin" />
-                <span>Consultorio</span>
-              </a>
             </li>
           </ul>
         </nav>
