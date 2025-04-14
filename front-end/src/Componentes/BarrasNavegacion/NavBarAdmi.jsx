@@ -1,10 +1,9 @@
-// Librarys
 import React from "react"
 import { useState, useEffect } from "react"
-import {Settings,Users,User,Headset,ChevronDown,Syringe,Bath,Scissors,Calendar,LogOut,
-  Menu,X,Stethoscope,CalendarRange,CalendarClock,FlaskRoundIcon as Flask,} from "lucide-react"
+import {Settings,Users,User,Headset,ChevronDown,Syringe,Bath,Scissors,Calendar,LogOut,Menu,X,Stethoscope,CalendarRange,
+  CalendarClock,FlaskRoundIcon as Flask,} from "lucide-react"
 
-// Imports 
+// Imports
 import "../../../public/styles/BarrasNavegacion/NavBarAdmin.css"
 import { Logout, decodeJWT } from "../Varios/Util"
 
@@ -45,7 +44,7 @@ export const NavBarAdmin = () => {
   useEffect(() => {
     const tokenJWT = decodeJWT(token)
     setUser(tokenJWT)
-  },[])
+  }, [])
 
   return (
     <>
@@ -58,19 +57,27 @@ export const NavBarAdmin = () => {
         {menuMovilAbierto ? <X size={20} /> : <Menu size={20} />}
       </button>
 
-      {/* Overlay para cerrar el menú al hacer clic fuera */}
       {menuMovilAbierto && esMovil && <div className="overlaynavadmin" onClick={toggleMenuMovil}></div>}
 
-      {/* Barra lateral */}
       <aside
         className={`
           barranavadmin ${menuMovilAbierto ? "visiblenavadmin" : "ocultanavadmin"}
         `}
       >
-        <div className="logonavadmin">
-          <img src="/placeholder.svg?height=40&width=120" alt="Logo" className="imagennavadmin" />
+        <div className="perfilsuperiornavadmin">
+          <div className="avatarnavadmin">
+            <img
+              src="https://imgs.search.brave.com/SWL4XM1cyqoTBFewaA4zN-ry5AIZhcu9EOWH2XbBYOM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9nZXR0/eWltYWdlcy0xNDMy/ODIyOTctbWFzdGVy/LTE1MjI0Mjk4OTYu/anBnP2Nyb3A9MXh3/OjAuOTkxNzk0ODcx/Nzk0ODcxN3hoO2Nl/bnRlcix0b3AmcmVz/aXplPTk4MDoq"
+              className="inicialnavadmin"
+            />
+          </div>
+          <div className="nombrenavadmin">
+            {user.names} {user.lastNames}
+          </div>
         </div>
+        <hr className="separadornavadmin" />
 
+ 
         <nav className="menunavadmin">
           <ul className="listanavadmin">
             <li className="itemnavadmin">
@@ -165,35 +172,18 @@ export const NavBarAdmin = () => {
           </ul>
         </nav>
 
-        <div className="perfilnavadmin">
-          <div className="menuusuarionavadmin">
-            <button className="usuarionavadmin">
-              <div className="avatarnavadmin">
-                <img 
-                  src="https://imgs.search.brave.com/SWL4XM1cyqoTBFewaA4zN-ry5AIZhcu9EOWH2XbBYOM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9nZXR0/eWltYWdlcy0xNDMy/ODIyOTctbWFzdGVy/LTE1MjI0Mjk4OTYu/anBnP2Nyb3A9MXh3/OjAuOTkxNzk0ODcx/Nzk0ODcxN3hoO2Nl/bnRlcix0b3AmcmVz/aXplPTk4MDoq" 
-                  className="inicialnavadmin" />
-              </div>
-              <span className="nombrenavadmin">{user.names} {user.lastNames}</span>
-            </button>
-            <div className="menuopcionesnavadmin">
-              <button className="opcionnavadmin">
-                <User className="iconoopcionnavadmin" />
-                <span>Mi Perfil</span>
-              </button>
-              <button className="opcionnavadmin">
-                <Settings className="iconoopcionnavadmin" />
-                <span>Configuración</span>
-              </button>
-              <hr className="separadornavadmin" />
-              <button className="opcionnavadmin salirnavadmin">
-                <LogOut className="iconoopcionnavadmin" />
-                <span onClick={Logout}>Cerrar Sesión</span>
-              </button>
-            </div>
-          </div>
+        <hr className="separadornavadmin" />
+        <div className="opcionesnavadmin">
+          <button className="opcionnavadmin">
+            <Settings className="iconoopcionnavadmin" />
+            <span>Configuración</span>
+          </button>
+          <button className="opcionnavadmin salirnavadmin">
+            <LogOut className="iconoopcionnavadmin" />
+            <span onClick={Logout}>Cerrar Sesión</span>
+          </button>
         </div>
       </aside>
     </>
   )
 }
-

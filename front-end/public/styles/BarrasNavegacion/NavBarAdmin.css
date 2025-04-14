@@ -51,17 +51,42 @@
   transform: translateX(0);
 }
 
-.logonavadmin {
-  padding: 1rem;
-  border-bottom: 1px solid #e5e7eb;
+/* Perfil superior */
+.perfilsuperiornavadmin {
+  padding: 1.5rem 1rem;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 4rem;
 }
 
-.imagennavadmin {
-  height: 2.5rem;
+.avatarnavadmin {
+  width: 6rem;
+  height: 6rem;
+  flex-shrink: 0;
+  border-radius: 0.5rem;
+  background-color: #00bcd4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.avatarnavadmin img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.nombrenavadmin {
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 0.75rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   max-width: 100%;
 }
 
@@ -201,88 +226,31 @@
   flex-shrink: 0;
 }
 
-.perfilnavadmin {
-  padding: 1rem;
-  border-top: 1px solid #e5e7eb;
-}
-
-.usuarionavadmin {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  width: 100%;
-  padding: 0.5rem;
-  background: none;
+.separadornavadmin {
+  margin: 0;
   border: none;
-  border-radius: 0.375rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.usuarionavadmin:hover {
-  background-color: #f3f4f6;
-}
-
-.avatarnavadmin {
-  width: 2rem;
-  height: 2rem;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background-color: #00bcd4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.avatarnavadmin img {
+  border-top: 1px solid #e5e7eb;
   width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: center;
 }
 
-.nombrenavadmin {
-  font-size: 0.875rem;
-  font-weight: 500;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.menuusuarionavadmin {
-  position: relative;
-}
-
-.menuopcionesnavadmin {
-  display: none;
-  position: absolute;
-  right: 0;
-  bottom: 100%;
-  width: 14rem;
-  background-color: white;
-  border-radius: 0.375rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-  z-index: 50;
-}
-
-.menuusuarionavadmin:hover .menuopcionesnavadmin {
-  display: block;
+/* Opciones de configuración y cerrar sesión */
+.opcionesnavadmin {
+  padding: 1rem;
 }
 
 .opcionnavadmin {
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.75rem;
   background: none;
   border: none;
-  border-radius: 0.25rem;
+  border-radius: 0.375rem;
   cursor: pointer;
   transition: background-color 0.2s;
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   text-align: left;
+  margin-bottom: 0.25rem;
 }
 
 .opcionnavadmin:hover {
@@ -290,15 +258,9 @@
 }
 
 .iconoopcionnavadmin {
-  margin-right: 0.5rem;
-  width: 1rem;
-  height: 1rem;
-}
-
-.separadornavadmin {
-  margin: 0.5rem 0;
-  border: none;
-  border-top: 1px solid #e5e7eb;
+  margin-right: 0.75rem;
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 .salirnavadmin {
@@ -321,9 +283,17 @@
     max-width: 280px;
   }
 
-  .logonavadmin {
-    height: 3.5rem;
-    padding: 0.75rem;
+  .perfilsuperiornavadmin {
+    padding: 1rem 0.75rem;
+  }
+
+  .avatarnavadmin {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  .nombrenavadmin {
+    font-size: 0.875rem;
   }
 
   .menunavadmin {
@@ -350,25 +320,13 @@
     font-size: 0.8125rem;
   }
 
-  .perfilnavadmin {
+  .opcionesnavadmin {
     padding: 0.75rem;
   }
 
-  .usuarionavadmin {
-    padding: 0.375rem;
-  }
-
-  .avatarnavadmin {
-    width: 1.75rem;
-    height: 1.75rem;
-  }
-
-  .nombrenavadmin {
-    font-size: 0.8125rem;
-  }
-
-  .menuopcionesnavadmin {
-    width: 12rem;
+  .opcionnavadmin {
+    padding: 0.625rem;
+    font-size: 0.875rem;
   }
 }
 
@@ -379,8 +337,13 @@
     max-width: 320px;
   }
 
-  .logonavadmin {
-    height: 3.75rem;
+  .perfilsuperiornavadmin {
+    padding: 1.25rem 1rem;
+  }
+
+  .avatarnavadmin {
+    width: 5.5rem;
+    height: 5.5rem;
   }
 
   .enlacenavadmin,
@@ -403,25 +366,12 @@
     font-size: 0.875rem;
   }
 
-  .perfilnavadmin {
+  .opcionesnavadmin {
     padding: 0.875rem;
   }
 
-  .usuarionavadmin {
-    padding: 0.4375rem;
-  }
-
-  .avatarnavadmin {
-    width: 1.875rem;
-    height: 1.875rem;
-  }
-
-  .nombrenavadmin {
-    font-size: 0.875rem;
-  }
-
-  .menuopcionesnavadmin {
-    width: 13rem;
+  .opcionnavadmin {
+    padding: 0.6875rem;
   }
 }
 
@@ -430,10 +380,6 @@
   .barranavadmin {
     width: 75%;
     max-width: 350px;
-  }
-
-  .logonavadmin {
-    height: 3.75rem;
   }
 
   .enlacenavadmin,
@@ -454,21 +400,8 @@
     padding: 0.5625rem 0.6875rem;
   }
 
-  .perfilnavadmin {
+  .opcionesnavadmin {
     padding: 0.875rem;
-  }
-
-  .usuarionavadmin {
-    padding: 0.4375rem;
-  }
-
-  .avatarnavadmin {
-    width: 1.875rem;
-    height: 1.875rem;
-  }
-
-  .nombrenavadmin {
-    font-size: 0.875rem;
   }
 }
 
@@ -478,10 +411,6 @@
     position: sticky;
     transform: none;
     width: 280px;
-  }
-
-  .logonavadmin {
-    height: 4rem;
   }
 
   .enlacenavadmin,
@@ -502,23 +431,6 @@
     padding: 0.625rem 0.75rem;
   }
 
-  .perfilnavadmin {
-    padding: 1rem;
-  }
-
-  .usuarionavadmin {
-    padding: 0.5rem;
-  }
-
-  .avatarnavadmin {
-    width: 3rem;
-    height: 3rem;
-  }
-
-  .nombrenavadmin {
-    font-size: 0.875rem;
-  }
-
   .botonmovilnavadmin {
     display: none;
   }
@@ -530,10 +442,6 @@
     position: sticky;
     transform: none;
     width: 300px;
-  }
-
-  .logonavadmin {
-    height: 4.25rem;
   }
 
   .enlacenavadmin,
@@ -556,23 +464,6 @@
     font-size: 0.9375rem;
   }
 
-  .perfilnavadmin {
-    padding: 1.125rem;
-  }
-
-  .usuarionavadmin {
-    padding: 0.625rem;
-  }
-
-  .avatarnavadmin {
-    width: 2.25rem;
-    height: 2.25rem;
-  }
-
-  .nombrenavadmin {
-    font-size: 0.9375rem;
-  }
-
   .botonmovilnavadmin {
     display: none;
   }
@@ -584,10 +475,6 @@
     position: sticky;
     transform: none;
     width: 320px;
-  }
-
-  .logonavadmin {
-    height: 4.5rem;
   }
 
   .enlacenavadmin,
@@ -607,23 +494,6 @@
 
   .subenlacenavadmin {
     padding: 0.75rem 1rem;
-    font-size: 1rem;
-  }
-
-  .perfilnavadmin {
-    padding: 1.25rem;
-  }
-
-  .usuarionavadmin {
-    padding: 0.75rem;
-  }
-
-  .avatarnavadmin {
-    width: 2.5rem;
-    height: 2.5rem;
-  }
-
-  .nombrenavadmin {
     font-size: 1rem;
   }
 
