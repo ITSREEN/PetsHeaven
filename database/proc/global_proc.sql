@@ -26,18 +26,13 @@ BEGIN
     SELECT
         u.nom_usu,
         u.ape_usu,
-        GROUP_CONCAT(r.nom_rol SEPARATOR ', ') AS roles,
-        GROUP_CONCAT(pm.nom_per SEPARATOR ', ' ) AS permisos
+        GROUP_CONCAT(r.nom_rol SEPARATOR ', ') AS roles
     FROM
         usuarios u
     JOIN
         otorgar_roles otr ON otr.id_usu = u.id_usu
     JOIN
-        otorgar_permisos op ON op.id_usu = u.id_usu
-    JOIN
         roles r ON otr.id_rol = r.id_rol
-    JOIN
-        permisos pm ON pm.id_per = op.id_per
     WHERE
         u.estado = 1
         AND (

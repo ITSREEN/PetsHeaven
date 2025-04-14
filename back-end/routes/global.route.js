@@ -41,8 +41,7 @@ Route.post('/login', async (req,res) => {
             { 
                 names: user.nom_usu,
                 lastNames: user.ape_usu,
-                roles: user.roles,
-                permisos: user.permisos
+                roles: user.roles
             },
             'pets_heaven',
             { expiresIn: '2h' }
