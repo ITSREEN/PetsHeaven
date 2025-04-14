@@ -39,7 +39,6 @@ export const NavBar = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token")
-    console.log(token)
     token? setIsAutenticate(true) :setIsAutenticate(false)
   },[])
 

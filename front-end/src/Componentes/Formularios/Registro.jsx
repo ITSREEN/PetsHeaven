@@ -337,10 +337,8 @@ const Registro = () => {
                           required: true,
                         })}
                       >
-                        <option value="" disabled selected>
-                          Seleccione...
-                        </option>
-                        <option value="CC" selected>Cédula de Ciudadanía (CC)</option>
+                        <option value="Null" disabled >Seleccione...</option>
+                        <option value="CC">Cédula de Ciudadanía (CC)</option>
                         <option value="CE">Cédula de Extranjería (CE)</option>
                         <option value="PAS">Pasaporte</option>
                       </select>
@@ -380,7 +378,7 @@ const Registro = () => {
                     </div>
 
                     <div className="grupo-campo">
-                      <label for="name">
+                      <label htmlFor="name">
                         Nombres <span className="obligatorio">*</span>
                       </label>
                       <input
@@ -415,7 +413,7 @@ const Registro = () => {
                     </div>
 
                     <div className="grupo-campo">
-                      <label for="last-name">
+                      <label htmlFor="last-name">
                         Apellidos <span className="obligatorio">*</span>
                       </label>
                       <input
@@ -498,9 +496,7 @@ const Registro = () => {
                           required: true,
                         })}
                       >
-                        <option value="" disabled selected>
-                          Seleccione...
-                        </option>
+                        <option value="Null" disabled>Seleccione...</option>
                         <option value="F">Femenino</option>
                         <option value="M">Masculino</option>
                         <option value="O">Otro</option>
