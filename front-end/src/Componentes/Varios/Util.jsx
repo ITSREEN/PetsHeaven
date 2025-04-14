@@ -1,142 +1,22 @@
-// Vars
-const HeaderWeb = {
-    "Content-Type": "application/json",
-    "x-api-key": "pets_heaven_vite",
-    // 'Authorization': `Bearer ${localStorage.getItem('token')}`,
-    "User": "Cristian_Admin"
+// Librays
+import React from "react"
+
+//componente de cerrar sesion 
+export const Logout = () => {
+    localStorage.setItem("token","")
 }
 
-// Functions 
-// Traer datos
-export async function GetData(URL) {
+// decodificar token
+export const decodeJWT = (token) => {
     try {
-        const response = await fetch(URL,{
-            method: "GET",
-            headers: HeaderWeb,
-        })
-        if (!response.ok) {
-            // response.status >= 500? window.location.href = "/internal":
-            // window.location.href = "/notfound"
-            throw new Error(`HTTP error! status: ${response.status}`)
-        }
-        const data = await response.json()
-        return data.result[0]
+      // Dividir el token y decodificar el payload (parte 2)
+      const base64Url = token.split('.')[1]
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+      const payload = JSON.parse(atob(base64))
+      
+      return payload
     } catch (error) {
-        // window.location.href = "/internal"
-        console.error("Error:", error)
-        throw new Error(error)
+      console.error("Error decodificando el token:", error)
+      return null
     }
-}
-// Enviar datos 
-export async function PostData(URL, datas) {
-    console.log(datas)
-    try {
-        const response = await fetch(URL, {
-            method: "POST",
-            headers: HeaderWeb,
-            body: JSON.stringify(datas)
-        })
-  
-      // Manejar diferentes códigos de estado
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}))
-        const error = new Error(errorData.message || `HTTP error! status: ${response.status}`)
-        error.status = response.status
-        error.data = errorData
-        throw new Error(error)
-      }
-  
-      // Parsear la respuesta como JSON
-      const data = await response
-      return data
-  
-    } catch (error) {
-        
-        // Manejo de errores
-        if (error.status) {
-
-            if (error.status >= 500) {
-                navigate('/internal')
-                throw Error('Error del servidor:', error)
-            }
-
-            else if (error.status === 404) console.log("No estas en mi corazon")
-            else if (error.status === 302) console.log("Ya estas en mi corazon")
-
-        } else throw Error('Error de conexión:', error)
-        
-        throw new Error(error)
-    }
-}
-// Modificar datos
-export async function ModifyData(URL,datas) {
-    try {
-        const response = await fetch(URL,{
-            method:"PUT",
-            headers: HeaderWeb,
-            body: JSON.stringify(datas),
-        })
-
-        if (!response.ok) {
-            const errorData = await response.json().catch(() => ({}))
-            const error = new Error(errorData.message || `HTTP error! status: ${response.status}`)
-            error.status = response.status
-            error.data = errorData
-            throw new Error(error)
-        }
-
-        // Parsear la respuesta como JSON
-        const data = await response
-        return data
-
-    } catch (error) {
-        // Manejo de errores
-        if (error.status) {
-            
-            if (error.status >= 500) {
-                navigate('/internal')
-                throw Error('Error del servidor:', error)
-            }
-
-            else if (error.status === 404) console.log("No estas en mi corazon")
-            else if (error.status === 302) console.log("Ya estas en mi corazon")
-
-        } else throw Error('Error de conexión:', error)
-        
-        throw new Error(error)
-    }
-}
-
-export async function login(url, first, second) {
-    try {
-        const response = await fetch(url, {
-            method: "POST",
-            headers: HeaderWeb,
-            body: JSON.stringify({
-                firstData: first, 
-                secondData: second 
-            })
-        })
-  
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`)
-        }
-  
-        const data = await response.json()
-        localStorage.setItem("token",data.token)
-  
-    } catch (error) {
-        // Manejo de errores
-        if (error.status) {
-            
-            if (error.status >= 500) {
-                navigate('/internal')
-                throw Error('Error del servidor:', error)
-            }
-            throw error
-
-        } else throw Error('Error de conexión:', error)
-        
-        throw error
-    }
-}
+  }

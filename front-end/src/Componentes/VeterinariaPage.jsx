@@ -1,7 +1,7 @@
 // Imports 
 import "../../public/styles/VeterinariaPage.css"
 import { NavBar } from "./BarrasNavegacion/NavBar"
-import { GetData } from "./Varios/Util"
+import { GetData } from "./Varios/Requests"
 import { diapositivas, promociones, testimonios } from './Varios/varios'
 import { Loader } from './Errores/Loader'
 import Footer from "./Varios/Footer2"

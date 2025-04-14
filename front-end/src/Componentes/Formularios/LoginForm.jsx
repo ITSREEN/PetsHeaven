@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 
 // Imports 
 import '../../../public/styles/Formularios/login.css'
-import { login } from '../Varios/Util'
+import { login } from '../Varios/Requests'
 
 // Main component 
 export const LoginForm = () => {
@@ -34,6 +34,12 @@ export const LoginForm = () => {
 
     try {
       await login(url,firstData,secondData)
+
+      const token = localStorage.getItem("token")
+
+      token? window.location.href = "/main"
+      :window.location.reload
+
     } catch (err) {
       console.log(err)
     }

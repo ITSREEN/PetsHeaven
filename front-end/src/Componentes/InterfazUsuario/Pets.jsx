@@ -1,5 +1,5 @@
 // Imports
-import { GetData } from '../Varios/Util'
+import { GetData } from '../Varios/Requests'
 import { Loader } from '../Errores/Loader'
 import { SubNotFound } from '../Errores/NotFound'
 import "../../../public/styles/InterfazUsuario/pets.css"

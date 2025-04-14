@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react"
 
 // Imports 
 import '../../../public/styles/BarrasNavegacion/NavBar.css'
+import { Logout } from '../Varios/Util'
 
 // Main component 
 export const NavBar = () => {
@@ -34,10 +35,6 @@ export const NavBar = () => {
         behavior: "smooth",
       })
     }
-  }
-
-  const logout = () => {
-    localStorage.setItem("token","")
   }
 
   useEffect(() => {
@@ -96,7 +93,7 @@ export const NavBar = () => {
           {
           isAutenticate?(
             <div className="botones-escritorio">
-              <a href="/main" className="boton-login-nav" onClick={logout}>Cerrar Sesión</a>
+              <a href="/main" className="boton-login-nav" onClick={Logout}>Cerrar Sesión</a>
             </div>
           ): (
             <div className="botones-escritorio">
@@ -139,7 +136,7 @@ export const NavBar = () => {
           {
             isAutenticate?(
               <div className="botones-movil">
-                <a href="/main" className="boton-login-nav" onClick={logout}>Cerrar Sesión</a>
+                <a href="/main" className="boton-login-nav" onClick={Logout}>Cerrar Sesión</a>
               </div>
             ):(
               <div className="botones-movil">

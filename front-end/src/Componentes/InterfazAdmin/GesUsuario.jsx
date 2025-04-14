@@ -5,22 +5,20 @@ import { ChevronUp, ChevronDown, Plus, Edit, MoreHorizontal } from "lucide-react
 // Imports 
 import '../../../public/styles/InterfazAdmin/GesUsuario.css'
 import { NavBarAdmin } from '../BarrasNavegacion/NavBarAdmi';
-import { GetData } from '../Varios/Util';
+import { GetData } from '../Varios/Requests';
 import { Loader } from '../Errores/Loader';
 
 
 export function GesUsuario() {
+  const URL = "http://localhost:3000/user"
   const [users,setUsers] = useState([])
   const [loading,setLoading] = useState(true)
 
-  const GetUsers = async () => {
+  const GetUsers = async ( data = null ) => {
     // Vars 
-    const url = "http://localhost:3000/user/all"
-    // setLoading(true)
-
+    const url = data? `${URL}/by:${data}`: URL + "/all"
     try {
       const data = await GetData(url)
-      console.log(data)
       setUsers(data)
       setLoading(false)
     } catch (err) {
@@ -30,7 +28,7 @@ export function GesUsuario() {
 
   useEffect(() => {
     GetUsers()
-  })
+  },[])
 
   return (
     <>
@@ -76,7 +74,7 @@ export function GesUsuario() {
                   </div>
                   <div className="buscargesusuario">
                     <span>Buscar:</span>
-                    <input type="text" className="inputbuscargesusuario" placeholder="" />
+                    <input type="text" className="inputbuscargesusuario" placeholder="" onChange={(e) => GetUsers(e.target.value)} />
                   </div>
                 </div>
 
