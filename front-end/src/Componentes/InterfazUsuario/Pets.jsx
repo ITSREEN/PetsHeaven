@@ -61,11 +61,11 @@ export const Pets = ({ token, all = false}) => {
         document.body.style.overflow = 'auto' // Habilita el scroll del body
     }
 
-    const changeEditMode = () => {
-        closeModal()
+    const changeEditMode = (pet) => {
+        setSelectedPet(pet)
         setEditMode(true)
     }
-
+    
     // Ejecutar el fetch para traer datos
     useEffect(() => {
         // Vars 
@@ -112,7 +112,8 @@ export const Pets = ({ token, all = false}) => {
                                         alt={`${i.esp_mas} de raza ${i.raz_mas} color ${i.col_mas} con nombre ${i.nom_mas}`}
                                         onError={(e) => e.target.src = '/default-pet.jpg'}
                                     />
-                                    <span className='pets-species-badge'>{i.esp_mas}</span>
+                                    {/* <span className='pets-species-badge'>{i.esp_mas}</span> */}
+                                    <button className="pets-edit-mode" onClick={() => changeEditMode(i)}>Edit</button>
                                 </div>
                                 
                                 <section className='pets-info-wrapper'>
@@ -140,8 +141,7 @@ export const Pets = ({ token, all = false}) => {
                     {showModal && selectedPet && (
                         <section className="pet-modal-overlay" onClick={closeModal}>
                             <div className="pet-modal-content" onClick={e => e.stopPropagation()}>
-                                {/* <button className="pet-modal-close" onClick={closeModal}>×</button> */}
-                                <button className="pet-modal-close" onClick={changeEditMode}>Edit</button>
+                                <button className="pet-modal-close" onClick={closeModal}>×</button>
                                 
                                 <section className="pet-modal-grid">
                                     <picture className="pet-modal-image">
@@ -160,7 +160,7 @@ export const Pets = ({ token, all = false}) => {
                                                 <p><strong>Raza: </strong> {selectedPet.raz_mas}</p>
                                                 <p><strong>Color: </strong> {selectedPet.col_mas}</p>
                                                 <p><strong>Género: </strong> {selectedPet.gen_mas === 'M' ? 'Macho' : 'Hembra'}</p>
-                                                <p><strong>Fecha de Nacimiento: </strong> {new Date(selectedPet.fec_nac_mas).toLocaleDateString()}</p>
+                                                <p><strong>Fecha de Nacimiento: </strong> {new Date(selectedPet.fec_nac_mas).toLocaleDateString('en-CA')}</p>
                                                 <p><strong>Peso: </strong> {selectedPet.pes_mas} kg</p>
                                             </article>
                                             
@@ -191,12 +191,13 @@ export const Pets = ({ token, all = false}) => {
                     )}
 
                     {editMode && (
-                        <EditPetButton 
-                            petData={selectedPet}
-                            onSave={(state) => setEditMode(state)}
-                            open={true}
-                        />
-                    )}
+                            <EditPetButton 
+                                petData={selectedPet}
+                                open={editMode}
+                                onSave={(state) => setEditMode(state)}
+                            />
+                        )
+                    }
                 </main>
             )}   
         </>

@@ -1,9 +1,11 @@
 // Librays
-import React from "react"
+import React from 'react'
+import Swal from 'sweetalert2'
+import 'sweetalert2/src/sweetalert2.scss'
 
 //componente de cerrar sesion 
 export const Logout = () => {
-    localStorage.setItem("token","")
+    localStorage.setItem('token','')
 }
 
 // decodificar token
@@ -16,14 +18,14 @@ export const decodeJWT = (token) => {
       
       return payload
     } catch (error) {
-      console.error("Error decodificando el token:", error)
+      console.error('Error decodificando el token:', error)
       return null
     }
 }
 export const errorStatusHandler = (errStatus) => {
-  let message = "Error interno"
+  let message = 'Error interno'
 
-  if (errStatus >= 500) return "Error en el servidor"
+  if (errStatus >= 500) return 'Error en el servidor'
   
   switch (errStatus) {
     case 302:
@@ -48,4 +50,24 @@ export const errorStatusHandler = (errStatus) => {
   }
 
   return message
+}
+
+export const loadingAlert = (
+    title = 'Cargando...',
+    message= 'Procesando los datos recibidos',
+    timeOut = true,
+    time = 3000
+  ) => {
+  Swal.fire({
+    title: title,
+    html: message,
+    timer: time,
+    timerProgressBar: true,
+    didOpen: () => {
+      Swal.showLoading()
+    },
+    willClose: () => {
+        clearInterval(timeOut)
+    }
+  })
 }

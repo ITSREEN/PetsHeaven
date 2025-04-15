@@ -1,7 +1,8 @@
 // Imports 
 import '../../../public/styles/InterfazUsuario/editPets.css'
-import { errorStatusHandler } from '../Varios/Util'
+import { errorStatusHandler,loadingAlert } from '../Varios/Util'
 import { ModifyData } from '../Varios/Requests'
+import swal from 'sweetalert'
 
 // Librarys 
 import React, { useState } from 'react'
@@ -21,14 +22,20 @@ export const EditPetButton = ({ petData, onSave, open = false }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        modifyData()
         onSave(false)
         setIsOpen(false)
     }
 
     const modifyData = async () => {
-        console.log(formData)
         try {
+            loadingAlert("Validando...",)
             const mod = await ModifyData(URL,formData)
+            mod && swal({
+                icon: 'success',
+                title: 'Modificado',
+                text: 'Los datos de la mascota han sido modificados',
+            })
         } catch (err) {
             if(err.status) {
                 const message = errorStatusHandler(err.status)
@@ -90,21 +97,24 @@ export const EditPetButton = ({ petData, onSave, open = false }) => {
                         <label>Género</label>
                         <select
                             name="gen_mas"
-                            value={formData.gen_mas}
                             onChange={handleChange}
                             className="form-input"
                         >
-                            <option value="M">Macho</option>
-                            <option value="H">Hembra</option>
+                            <option value={formData.gen_mas}>{formData.gen_mas}</option>
+                            {
+                                formData.gen_mas === "M"?
+                                <option value="H">Hembra</option>
+                                :<option value="M">Macho</option>
+                            }
                         </select>
                     </div>
 
                     <div className="form-group">
                         <label>Fecha Nacimiento</label>
                         <input
-                            type="text"
+                            type="date"
                             name="fec_nac_mas"
-                            value={formData.fec_nac_mas}
+                            value={new Date(formData.fec_nac_mas).toLocaleDateString('en-CA')}
                             onChange={handleChange}
                             className="form-input"
                         />
@@ -126,12 +136,15 @@ export const EditPetButton = ({ petData, onSave, open = false }) => {
                         <label>Estado Reproductivo</label>
                         <select
                             name="est_rep_mas"
-                            value={formData.est_rep_mas}
                             onChange={handleChange}
                             className="form-input"
                         >
-                            <option value="Esterilizado">Esterilizado</option>
-                            <option value="No-esterilizado">No esterilizado</option>
+                            <option value={formData.est_rep_mas}>{formData.est_rep_mas}</option>
+                            {
+                                formData.est_rep_mas === 'No esterilizado'?
+                                <option value="Esterilizado">Esterilizado</option>
+                                :<option value="No esterilizado">No esterilizado</option>
+                            }
                         </select>
                     </div>
 
@@ -145,13 +158,26 @@ export const EditPetButton = ({ petData, onSave, open = false }) => {
                             className="form-input"
                         />
                     </div>
+                    
+                    <div className="form-group">
+                        <label>Foto de {formData.nom_mas}</label>
+                        <input
+                            type="text"
+                            name="fot_mas"
+                            value={formData.fot_mas}
+                            onChange={handleChange}
+                            className="form-input"
+                        />
+                    </div>
                 </div>
 
                 <div className="form-actions">
-                    <button type="button" className="cancel-button" onClick={() => setIsOpen(false)}>
+                    <button type="button" className="cancel-button" onClick={() => {
+                        setIsOpen(false)
+                        onSave(false)}}>
                         Cancelar
                     </button>
-                    <button type="submit" className="save-button" onClick={modifyData}>
+                    <button type="submit" className="save-button">
                         Guardar Cambios
                     </button>
                 </div>

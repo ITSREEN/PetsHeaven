@@ -1,29 +1,6 @@
 /* Imports */
 @import url("../vars.css");
 @import url("../global.css");
-
-.edit-button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    background-color: var(--azul-turquesa);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-  
-.edit-button:hover {
-    background-color: var(--verde-aguamarina);
-}
-  
-.edit-button svg {
-    width: 16px;
-    height: 16px;
-}
   
 /* Modal styles */
 .modal-overlay {
@@ -41,82 +18,86 @@
   
 .modal-content {
     background-color: white;
-    border-radius: 8px;
+    border-radius: 0.6rem;
     width: 90%;
-    max-width: 700px;
+    max-width: 80vw;
     max-height: 90vh;
     overflow-y: auto;
-    padding: 24px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: calc(var(--font-size) + 0.5rem);
+    box-shadow: 0 0.2rem 1.2rem rgba(0, 0, 0, 0.15);
 }
   
 .modal-close {
     position: absolute;
-    top: 16px;
-    right: 16px;
+    top: var(--font-size);
+    right: var(--font-size);
     background: none;
     border: none;
-    font-size: 24px;
+    font-size: var(--font-size-title);
     cursor: pointer;
     color: var(--gris-oscuro);
 }
   
 h2 {
     color: var(--verde-aguamarina);
-    margin-bottom: 24px;
-    font-size: 20px;
-    font-weight: 500;
+    margin-bottom: 1.3rem;
+    font-size: calc(var(--font-size) + 0.4rem);
+    font-weight: bold;
 }
   
 .form-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    margin-bottom: 24px;
+    grid-template-columns: 1fr;
+    gap: 1.3rem;
+    margin-bottom: 1.3rem;
 }
   
 .form-group {
-    margin-bottom: 12px;
+    margin-bottom: 0.8rem;
 }
   
 label {
     display: block;
-    margin-bottom: 6px;
-    font-size: 14px;
+    margin-bottom: 0.4rem;
+    font-size: var(--font-size);
     color: var(--gris-oscuro);
 }
   
 .form-input {
     width: 100%;
-    padding: 10px 12px;
+    padding: 0.7rem 0.8rem;
     border: 1px solid var(--gris-medio);
-    border-radius: 4px;
-    font-size: 14px;
+    border-radius: 0.2rem;
+    font-size: var(--font-size);
     transition: border 0.2s ease;
 }
   
 .form-input:focus {
     outline: none;
     border-color: var(--azul-turquesa);
-    box-shadow: 0 0 0 2px rgba(0, 188, 212, 0.1);
+    box-shadow: 0 0 0 0.1rem rgba(0, 188, 212, 0.1);
 }
   
 .form-actions {
     display: flex;
     justify-content: flex-end;
-    gap: 12px;
-    padding-top: 16px;
+    gap: 0.9rem;
+    padding-top: 1rem;
     border-top: 1px solid var(--gris-medio);
 }
-  
+
+.cancel-button, .save-button{
+    cursor: pointer;
+    padding: 0.8rem 1.2rem;
+    font-size: var(--font-size);
+    font-weight: bold;
+    border: none;
+    border-radius: 0.3rem;
+    transition: all 0.2s ease;
+}
 .cancel-button {
-    padding: 10px 20px;;
     background-color: var(--gris-claro);
     color: var(--gris-oscuro);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.2s ease;
 }
   
 .cancel-button:hover {
@@ -124,21 +105,26 @@ label {
 }
   
 .save-button {
-    padding: 10px 20px;
     background-color: var(--azul-turquesa);
     color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.2s ease;
 }
   
 .save-button:hover {
     background-color: var(--verde-aguamarina);
 }
   
-@media (max-width: 600px) {
+@media (width > 700px) {
     .form-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (width > 1000px) {
+    .form-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (width > 2000px) {
+    .form-grid {
+        grid-template-columns: repeat(4, 1fr);
     }
 }

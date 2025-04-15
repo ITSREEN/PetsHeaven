@@ -23,12 +23,18 @@
     --border-focus-input:#4a90e233;
     --black-box: #00000025;
     --font-size: 1rem;
+    --font-size-title: 2rem;
     --icon-size: 2.5rem;
     --font-general: "Zain", sans-serif;
     --notfoundimg: url("../imgs/notfound.jpg") center no-repeat;
 }
 html {
     font-size: 18px;
+}
+@media (700px < width) {
+    html {
+        font-size: 12px;
+    }
 }
 @media (1000px < width) {
     html {
