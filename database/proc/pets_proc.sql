@@ -1,4 +1,4 @@
--- Active: 1740114802630@@127.0.0.1@3306@pets_heaven
+-- Active: 1743971322762@@127.0.0.1@3306@pets_heaven
 CREATE PROCEDURE pets_heaven.RegistPets(
     IN p_nom_mas VARCHAR(100),
     IN p_esp_mas VARCHAR(100),
@@ -64,7 +64,6 @@ BEGIN
     UPDATE
         mascotas m, usuarios u
     SET 
-        m.nom_mas = p_nom_mas,
         m.esp_mas = p_esp_mas,
         m.col_mas = p_col_mas,
         m.raz_mas = p_raz_mas,
@@ -79,7 +78,7 @@ BEGIN
         AND (
             u.doc_usu = p_usuario 
             OR u.email_usu = p_usuario
-        )
+        ) AND m.nom_mas = p_nom_mas
         AND m.id_pro_mas = u.id_usu;
 
     COMMIT;
@@ -119,7 +118,8 @@ BEGIN
 END //
 
 CREATE PROCEDURE pets_heaven.SearchPetsBy(
-    IN p_by VARCHAR(100)
+    IN p_by VARCHAR(100),
+    IN p_second_by VARCHAR(100)
 )
 BEGIN
     SELECT
@@ -151,8 +151,8 @@ BEGIN
             OR m.raz_mas LIKE p_by
             OR m.esp_mas LIKE p_by
             OR u.nom_usu LIKE p_by
-            OR u.doc_usu = p_by
-            OR u.email_usu LIKE p_by
+            OR (u.email_usu LIKE p_by AND m.nom_mas LIKE p_second_by)
+            OR (u.doc_usu LIKE p_by AND m.nom_mas LIKE p_second_by)
         )
     ORDER BY m.nom_mas
     LIMIT 40;
@@ -184,3 +184,5 @@ BEGIN
     WHERE 
         hm.id_mas_his = p_pet_id;
 END //
+
+CALL SearchPetsBy("98765432","leo");

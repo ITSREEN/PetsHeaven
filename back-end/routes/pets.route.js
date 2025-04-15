@@ -27,7 +27,7 @@ Route.get('/all:by', async (req,res) => {
     const by = req.params.by
     
     const pets = await pet.findAllBy(by)
-    if (!pets.result) res.status(404).json({message: "mascotas no encontradas"})
+    if (!pets.result[0][0]) res.status(404).json({message: "mascotas no encontradas"})
 
     try {
         res.status(200).json(pets)
@@ -55,15 +55,21 @@ Route.post('/register',async (req,res) => {
 
 Route.put('/modify',async (req,res) => {
     // Vars 
-    const { body } = req
+    const body = req.body
 
     // Verify if exist
-    const find = pet.findAllBy(toString(body.user))
-    if (!find.result) res.status(404).json({message: "Mascota no encontrada"})
-        
-    try{
-        const pets = await pet.modify(body)
-        res.status(200).json(pets)
+    const find = await pet.findAllBy(body.doc_usu,body.nom_mas)
+    const findOne = await find.result[0][0]
+
+    if (!findOne) {
+        res.status(404).json({message: "Mascota no encontrada"})
+        return
+    }
+
+    try {
+        const petMod = await pet.modify(body)
+        console.log(petMod)
+        res.status(200).json(petMod)
     } catch (err) {
         res.json({ message: err })
     }

@@ -23,7 +23,7 @@ class Pet {
             })
 
             // close conection 
-            database.conection.end()
+        database.conection.end()
         })
     }
     // function to find all
@@ -53,17 +53,18 @@ class Pet {
     }
 
     // function to find all by
-    async findAllBy(data) {
+    async findAllBy(data,secondData = "") {
         return new Promise((res,rej) => {
             // vars
-            const by = data.replace(":","").replace(" ","")
-            const proc = "CALL SearchPetsBy(?);"
+            const by = data.replace(" ","")
+            const secondBy = secondData.replace(" ","")
+            const proc = "CALL SearchPetsBy(?,?)"
 
             // conect to database
             let database = new DataBase()
             database.conect()
             
-            if (database) database.conection.query(proc,by,(err,result) => {
+            if (database) database.conection.query(proc,[by,secondBy],(err,result) => {
                 if(err) {
                     rej({ message: err })
                 } else setTimeout(() => {
@@ -84,17 +85,30 @@ class Pet {
         return new Promise((res,rej) => {
             // vars
             const proc = "CALL ModifyPets(?,?,?,?,?,?,?,?,?,?,?)"
+            const moficatedData = [
+                data.nom_mas,
+                data.esp_mas,
+                data.col_mas,
+                data.raz_mas,
+                data.ali_mas,
+                data.fec_nac_mas,
+                data.pes_mas,
+                data.doc_usu,
+                data.gen_mas,
+                data.est_rep_mas,
+                data.fot_mas
+            ]
 
             // conect to database
             let database = new DataBase()
             database.conect()
 
             // Query 
-            if (database) database.conection.query(proc,[data.nom,data.ape,data.dir,data.tel,data.email,data.cont],err => {
-                err? rej(err)
-                :setTimeout(() => res({
-                    message: "Pet Modify",
-                    ...data
+            if (database) database.conection.query(proc,moficatedData,err => {
+                if(err){
+                    rej(err)
+                } else setTimeout(() => res({
+                    message: "Pet Modify"
                 }),2000)
             })
 

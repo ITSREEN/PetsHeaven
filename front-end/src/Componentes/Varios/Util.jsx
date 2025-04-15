@@ -19,4 +19,33 @@ export const decodeJWT = (token) => {
       console.error("Error decodificando el token:", error)
       return null
     }
+}
+export const errorStatusHandler = (errStatus) => {
+  let message = "Error interno"
+
+  if (errStatus >= 500) return "Error en el servidor"
+  
+  switch (errStatus) {
+    case 302:
+      message = 'Ya existe en el sistema'
+      break
+
+    case 401:
+      message = 'Usuario o contraseña incorrectos'
+      break
+      
+    case 404:
+      message = 'No se encontro lo que buscas'
+      break
+
+    case 429: 
+      message = 'Demasiados intentos espera 5 minutos'
+      break
+    
+    default:
+      message = errStatus
+      break
   }
+
+  return message
+}

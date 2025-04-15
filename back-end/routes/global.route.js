@@ -4,12 +4,13 @@ const { Router } = require('express')
 
 // Imports
 const Global = require('../services/Global.services')
+const { limiterLog } = require('../middleware/varios.handler')
 
 // vars
 const global = new Global()
 const Route = Router()
 
-// Routes 
+// Routes
 Route.get('/services', async (req,res) => {
     const services = await global.SearchServices()
 
@@ -23,7 +24,7 @@ Route.get('/services', async (req,res) => {
     }
 })
 
-Route.post('/login', async (req,res) => {
+Route.post('/login',limiterLog, async (req,res) => {
     // Vars
     const { firstData, secondData } = req.body
     
@@ -32,8 +33,8 @@ Route.post('/login', async (req,res) => {
         let log = await global.login(firstData, secondData)
         let user = await log.result[0][0]
 
-        if (!user.nom_usu) {
-            res.status(401).json({ error: 'Credenciales inválidas' })
+        if (!user) {
+            res.status(401).json({ message: 'Credenciales inválidas' })
             return
         }
 
@@ -44,12 +45,12 @@ Route.post('/login', async (req,res) => {
                 roles: user.roles
             },
             'pets_heaven',
-            { expiresIn: '2h' }
+            { expiresIn: '1h' }
         )
-        res.status(201).json({ token: token })
+        res.status(200).json({ token: token })
 
     } catch (err) {
-        console.log(err)
+        res.json({ message: err })
     }
 })
 

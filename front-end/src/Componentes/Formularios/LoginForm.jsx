@@ -2,10 +2,12 @@
 import React,{ useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router'
+import swal from 'sweetalert'
 
 // Imports 
 import '../../../public/styles/Formularios/login.css'
 import { login } from '../Varios/Requests'
+import { errorStatusHandler } from '../Varios/Util'
 
 // Main component 
 export const LoginForm = () => {
@@ -30,18 +32,38 @@ export const LoginForm = () => {
     const firstData = datas.docEmail
     const secondData = datas.password
 
-    alert('Validando datos de inicio de sesión')
-
+    swal({
+      title: 'Validando..',
+      text: 'Verificando datos de inicio de sesión',
+    })
+    
     try {
       await login(url,firstData,secondData)
-
+      
       const token = localStorage.getItem("token")
 
-      token? window.location.href = "/main"
-      :window.location.reload
+      
+      if(token){ 
+        swal({
+          title: 'Bienvenido',
+          icon: 'success',
+          text: 'Gracias por visitar nuestra pagina web',
+          buttons: false
+        })
+        setTimeout(() => {
+          window.location.href = "/main"
+        },2000)
+      } 
 
     } catch (err) {
-      console.log(err)
+      if(err.status) {
+        const message = errorStatusHandler(err.status)
+        swal({
+          title: 'Error',
+          text: `${message}`,
+          icon: 'warning',
+        })
+      } else console.log(err)
     }
   }
 

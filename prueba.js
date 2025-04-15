@@ -28,13 +28,3 @@ async function login(url, first, second) {
         throw error; // Propaga el error para manejo externo
     }
 }
-
-login("http://localhost:3000/global/login","cristian@gmail.com","cristian123")
-.then(response => {
-    console.log("Datos útiles:", response);
-    // Guardar token, redirigir, etc.
-})
-.catch(error => {
-    console.error("Falló el login:", error);
-    // Mostrar error al usuario
-});

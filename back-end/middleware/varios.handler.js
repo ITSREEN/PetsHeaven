@@ -9,9 +9,15 @@ const corsOptions = {
 }
 
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 1000,
+    windowMs: 5 * 60 * 1000,
+    max: 100,
     message: 'Demasiadas peticiones desde esta IP, por favor intenta de nuevo más tarde'
 })
 
-module.exports = { corsOptions, limiter }
+const limiterLog = rateLimit({
+    windowMs: 10 * 60 * 1000,
+    max: 5,
+    message: 'Demasiadas peticiones desde esta IP, por favor intenta de nuevo más tarde'
+})
+
+module.exports = { corsOptions, limiter, limiterLog }

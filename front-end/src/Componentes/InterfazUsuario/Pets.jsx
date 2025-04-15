@@ -2,24 +2,26 @@
 import { GetData } from '../Varios/Requests'
 import { Loader } from '../Errores/Loader'
 import { SubNotFound } from '../Errores/NotFound'
-import "../../../public/styles/InterfazUsuario/pets.css"
+import { EditPetButton } from './EditPet'
+import { decodeJWT,errorStatusHandler } from '../Varios/Util'
+import '../../../public/styles/InterfazUsuario/pets.css'
 // import NavBar from './NavBarAdmi'
 
 // Librarys 
 import React, { useState, useEffect } from "react"
 
 // Main component
-export const Pets = (rol = null) => {
+export const Pets = ({ token, all = false}) => {
     // Declare Vars
-    const mainURL = "http://localhost:3000/pet/"
+    const mainURL = "http://localhost:3000/pet/all/"
     const [petsData, setPetsData] = useState([])
     const [loading, setLoading] = useState(true)
     const [selectedPet, setSelectedPet] = useState(null)
     const [showModal, setShowModal] = useState(false)
     const [searchBy,setSearchBy] = useState("")
     const [found,setfound] = useState(false)
+    const [editMode,setEditMode] = useState(false)
 
-    
     // fetch para traer datos
     const fetchData = async (url) => {
         setfound(false)
@@ -29,9 +31,16 @@ export const Pets = (rol = null) => {
             setLoading(false)
             setPetsData(pets)
             if(pets[0]) setfound(true)
-        } catch (error) {
-            // window.location.href = "/internal"
-            console.log(error)
+        } catch (err) {
+            // if(err.status) {
+            //     const message = errorStatusHandler(err.status)
+            //     swal({
+            //       title: 'Error',
+            //       text: `${message}`,
+            //       icon: 'warning',
+            //     })
+            // } else 
+            console.log(err)
         }
     }
     
@@ -41,6 +50,7 @@ export const Pets = (rol = null) => {
 
     const openModal = (pet) => {
         setSelectedPet(pet)
+        setEditMode(false)
         setShowModal(true)
         document.body.style.overflow = 'hidden' // Deshabilita el scroll del body
     }
@@ -50,18 +60,24 @@ export const Pets = (rol = null) => {
         document.body.style.overflow = 'auto' // Habilita el scroll del body
     }
 
+    const changeEditMode = () => {
+        closeModal()
+        setEditMode(true)
+    }
+
     // Ejecutar el fetch para traer datos
     useEffect(() => {
-        const rol = "Admin"
         // Vars 
-        const by = "ana"
+        const tokenData = decodeJWT(token)
+        const roles = Array(tokenData.roles)
 
         // verify rol
-        const URL = rol === "Admin"? mainURL + "all": mainURL + "all:" + by
+        const URL = roles.includes("Administrador")? mainURL: `${mainURL}:${by}`
       
         fetchData(URL)
     }, [])
 
+    
 
     return (
         <>
@@ -75,7 +91,7 @@ export const Pets = (rol = null) => {
                             <button className='boton-enviar' type='button' onClick={() => fetchData(mainURL + "all:" + searchBy)} >Buscar</button>
                         </span>
                         <picture className='img-container'>
-                            <img src="https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/LosFour.png" alt="numero 4 con circuitos incrustados de color azulaguamarina y diseño 3d" />
+                            
                         </picture>
                     </nav>
 
@@ -123,7 +139,8 @@ export const Pets = (rol = null) => {
                     {showModal && selectedPet && (
                         <section className="pet-modal-overlay" onClick={closeModal}>
                             <div className="pet-modal-content" onClick={e => e.stopPropagation()}>
-                                <button className="pet-modal-close" onClick={closeModal}>×</button>
+                                {/* <button className="pet-modal-close" onClick={closeModal}>×</button> */}
+                                <button className="pet-modal-close" onClick={changeEditMode}>Edit</button>
                                 
                                 <section className="pet-modal-grid">
                                     <picture className="pet-modal-image">
@@ -170,6 +187,14 @@ export const Pets = (rol = null) => {
                                 </section>
                             </div>
                         </section>
+                    )}
+
+                    {editMode && (
+                        <EditPetButton 
+                            petData={selectedPet}
+                            onSave={(state) => setEditMode(state)}
+                            open={true}
+                        />
                     )}
                 </main>
             )}   
