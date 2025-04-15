@@ -1,5 +1,6 @@
 // Librarys
 const { Router } = require('express')
+const { hash } = require('bcrypt')
 
 // Imports
 const User = require('../services/Users.services')
@@ -53,14 +54,15 @@ Route.get('/by:by', async (req,res) => {
 
 Route.post('/register', async (req,res) => {
     // Vars 
+    const saltRounds = 15
     const body = req.body
-
+    
     // Verifiy if exist
     const find = await user.findBy(toString(body.numeroDocumento))
-    if (find.result) res.status(302).json({ message: "Usuario ya existe" })
+    if (find.result[0][0].nom_usu) res.status(302).json({ message: "Usuario ya existe" })
         
     try {
-        const create = await user.create(body)
+        const create = await user.create({hash_pass: await hash(body.password,saltRounds), ...body})
         res.status(201).json(create)
     } catch(err) {
         res.json({ message: err })
@@ -70,18 +72,34 @@ Route.post('/register', async (req,res) => {
 Route.put('/modify', async (req,res) => {
     // Vars 
     const { body } = req
-
+    const saltRounds = 15
+        
     // Verifiy if exist
     const find = await user.findBy(toString(body.numeroDocumento))
     if (!find.result) res.status(404).json({ message: "Usuario no encontrado" })
 
     try {
-        const create = await user.modify(body)
-        res.status(200).json(create)
+        const modified = await user.modify({hash_pass: await hash(body.password,saltRounds), ...body})
+        res.status(200).json(modified)
     } catch (err) {
         res.json({ message: err })
     }
 })
+
+// Route.get('/all/time:by', async (req,res) => {
+//     // Vars 
+//     const by = req.params.by
+//     const search = await user.findAllTimeBy(by)
+
+//     // Verifiy if exists
+//     if (!search.result) res.status(404).json({ message: "Usuarios no encontrados"})
+
+//     try {
+//         res.status(200).json(search)
+//     } catch (err) {
+//         res.json({ message: err })
+//     }
+// })
 
 // Export 
 module.exports = Route

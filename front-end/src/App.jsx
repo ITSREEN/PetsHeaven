@@ -12,7 +12,7 @@ import { GesUsuario } from "./Componentes/InterfazAdmin/GesUsuario"
 import { Pets } from "./Componentes/InterfazUsuario/Pets"
 import { NotFound } from "./Componentes/Errores/NotFound"
 import { ErrorInternalServer } from "./Componentes/Errores/ErrorInternalServer"
-import { decodeJWT } from './Componentes/Varios/Util'
+import { getRoles } from './Componentes/Varios/Util'
 import VeterinariaPage from "./Componentes/VeterinariaPage"
 import { GesPropietario } from "./Componentes/InterfazAdmin/GesPropietario"
 
@@ -29,8 +29,7 @@ export default function App () {
   const AdminRoute = ({ children }) => {
     // Vars
     if (token) {
-      const tokenData = decodeJWT(token)
-      const roles = Array(tokenData.roles)
+      const roles = getRoles(token)
       return roles.includes('Administrador')? children :<Navigate to="/user/login" />
     }
 

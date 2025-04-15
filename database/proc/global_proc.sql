@@ -18,13 +18,13 @@ BEGIN
 END //
 
 CREATE PROCEDURE pets_heaven.Login(
-    IN p_firstData VARCHAR(100),
-    IN p_secondData VARCHAR(255)
+    IN p_firstData VARCHAR(100)
 )
 BEGIN
     SELECT
         u.nom_usu,
         u.ape_usu,
+        u.cont_usu,
         GROUP_CONCAT(r.nom_rol SEPARATOR ', ') AS roles
     FROM
         usuarios u
@@ -37,9 +37,9 @@ BEGIN
         AND (
             u.doc_usu = p_firstData OR 
             u.email_usu = p_firstData
-        ) AND u.cont_usu = p_secondData
+        )
     GROUP BY u.nom_usu
     LIMIT 40;
 END //
 
-CALL `Login` ("cristian@gmail.com","cristian123");
+CALL `Login` ("perra@gmail.com");

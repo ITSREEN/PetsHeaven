@@ -1,7 +1,8 @@
 -- Active: 1743971322762@@127.0.0.1@3306@pets_heaven
 INSERT INTO pets_heaven.roles (nom_rol) VALUES
 ('Administrador'),
-('Veterinario');
+('Veterinario'),
+('Usuario');
 
 INSERT INTO pets_heaven.permisos (nom_per) VALUES
 ('Gestionar usuarios'),
@@ -16,7 +17,7 @@ INSERT INTO pets_heaven.usuarios (nom_usu, ape_usu, fec_nac_usu, tip_doc_usu, do
 ('Carlos', 'Rodríguez',NOW(), 'CE', 'AB123456', 'Carrera 56 #78-90', '3154567890', NULL, 'carlos.rod@email.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','Hombre'),
 ('Ana', 'Martínez',NOW(), 'CC', '11223344', 'Diagonal 34 #56-78', '3175678901', NULL, 'ana.martinez@email.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','Mujer'),
 ('Luis', 'García',NOW(), 'TI', '98765432', 'Transversal 12 #34-56', '3186789012', '3197890123', 'luis.garcia@email.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','Hombre'),
-('Arnold', 'schwarzenegger',NOW(), 'CC', '1298765432', 'Transversal 12 #34-56', '3186789012', '3197890123', 'admin@gmail.com', 'admin123','Hombre');
+('Arnold', 'schwarzenegger',NOW(), 'CC', '1298765432', 'Transversal 12 #34-56', '3186789012', '3197890123', 'admin@gmail.com', '$2b$12$KLZHdr.5RRAK2st6zfAFN.rAhVdKTrJHn9c/d1yx0lganVi6XYeOO','Hombre');
 
 INSERT INTO pets_heaven.otorgar_roles (id_rol, id_usu) VALUES
 (1,1),

@@ -1,4 +1,4 @@
--- Active: 1740114802630@@127.0.0.1@3306@pets_heaven
+-- Active: 1743971322762@@127.0.0.1@3306@pets_heaven
 DELIMITER //
 CREATE PROCEDURE pets_heaven.RegistPeoples(
     IN p_nom_usu VARCHAR(100),
@@ -16,6 +16,7 @@ CREATE PROCEDURE pets_heaven.RegistPeoples(
 BEGIN
     DECLARE p_id_usuario INT;
     DECLARE p_id_rol INT;
+
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
      BEGIN
         ROLLBACK;
@@ -35,11 +36,7 @@ BEGIN
 
     SET p_id_usuario = LAST_INSERT_ID();
 
-    INSERT INTO roles(nom_rol)
-    VALUES (nom_rol)
-    ON DUPLICATE KEY UPDATE id_rol = LAST_INSERT_ID(id_rol);
-
-    SET p_id_rol = LAST_INSERT_ID();
+    SELECT id_rol INTO p_id_rol FROM roles WHERE nom_rol = 'Usuario';
 
     INSERT INTO otorgar_roles(id_usu,id_rol,fec_oto)
     VALUES (p_id_usuario,p_id_rol,NOW());
@@ -73,7 +70,7 @@ BEGIN
         u.estado = 1
     GROUP BY 
         u.id_usu
-    LIMIT 50;
+    LIMIT 100;
 END //
 
 CREATE PROCEDURE pets_heaven.SearchPeopleBy(
@@ -135,10 +132,19 @@ BEGIN
         roles r ON otr.id_rol = r.id_rol
     WHERE
         u.estado = 1
-        AND r.nom_rol = p_by
+        AND (
+            r.nom_rol = p_by
+            OR u.nom_usu LIKE CONCAT('%',p_by,'%')
+            OR u.ape_usu LIKE CONCAT('%',p_by,'%')
+            OR u.doc_usu LIKE CONCAT('%',p_by,'%')
+            OR u.email_usu LIKE CONCAT('%',p_by,'%')
+            OR u.gen_usu LIKE CONCAT('%',p_by,'%')
+            OR u.cel_usu LIKE CONCAT('%',p_by,'%')
+            OR u.tip_doc_usu LIKE CONCAT('%',p_by,'%')
+        )
     GROUP BY 
-        u.id_usu
-    LIMIT 50;
+        u.nom_usu
+    LIMIT 100;
 END //
 
 

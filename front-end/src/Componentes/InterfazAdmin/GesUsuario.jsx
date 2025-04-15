@@ -4,31 +4,55 @@ import { ChevronUp, ChevronDown, Plus, Edit, MoreHorizontal } from "lucide-react
 
 // Imports 
 import '../../../public/styles/InterfazAdmin/GesUsuario.css'
-import { NavBarAdmin } from '../BarrasNavegacion/NavBarAdmi';
-import { GetData } from '../Varios/Requests';
-import { Loader } from '../Errores/Loader';
+import { NavBarAdmin } from '../BarrasNavegacion/NavBarAdmi'
+import { GetData } from '../Varios/Requests'
+import { Loader } from '../Errores/Loader'
 
 
 export function GesUsuario() {
-  const URL = "http://localhost:3000/user"
+  const URL = "http://localhost:3000/user/all"
   const [users,setUsers] = useState([])
+  const [usersAlmac,setUsersAlmac] = useState([])
   const [loading,setLoading] = useState(true)
 
-  const GetUsers = async ( data = null ) => {
-    // Vars 
-    const url = data? `${URL}/by:${data}`: URL + "/all"
+  const GetUsers = async () => {
     try {
-      const data = await GetData(url)
+      const data = await GetData(URL)
       setUsers(data)
+      setUsersAlmac(data)
       setLoading(false)
     } catch (err) {
       console.log(err)
     }
   }
+  const handleSearch = term => {
+    const termLower = term.toLowerCase()
+  
+    const find = usersAlmac.filter(user => {
+      // Campos específicos donde buscar
+      const searchFields = ['nom_usu', 'email_usu', 'cel_usu', 'ape_usu']
+      return searchFields.some(field => 
+        user[field]?.toLowerCase().includes(termLower)
+      )
+    })
+
+    if (find) setUsers(find)
+  }
 
   useEffect(() => {
+    // Vars 
+    const REFRESH_INTERVAL = 2 * 60 * 1000 // 2 minutos
+    let intervalId
+
+    // Execute the request
     GetUsers()
-  },[])
+
+    // Configure interval
+    intervalId = setInterval(GetUsers, REFRESH_INTERVAL)
+
+    // Clean
+    return () => clearInterval(intervalId)
+  }, [])
 
   return (
     <>
@@ -78,7 +102,7 @@ export function GesUsuario() {
                       type="text"
                       className="inputbuscargesusuario"
                       placeholder=""
-                      onChange={(e) => GetUsers(e.target.value)}
+                      onChange={(e) => handleSearch(e.target.value)}
                     />
                   </div>
                 </div>
@@ -145,7 +169,7 @@ export function GesUsuario() {
                             <span className={`rolgesusuario ${usuario.roles}`}>{usuario.roles}</span>
                           </td>
                           <td className="celdagesusuario" data-label="Creación">
-                            {usuario.fec_cre_usu}
+                            {new Date(usuario.fec_cre_usu).toLocaleDateString('to-ca')}
                           </td>
                           <td className="celdagesusuario" data-label="Opciones">
                             <div className="accionesusuariogesusuario">

@@ -1,9 +1,61 @@
-import React from "react"
+// Librarys
+import React, { useState, useEffect } from "react"
 import { Users, Eye } from "lucide-react"
-import "../../../public/styles/InterfazAdmin/GesPropietario.css"
-import { NavBarAdmin } from '../BarrasNavegacion/NavBarAdmi';
 
+// Imports
+import "../../../public/styles/InterfazAdmin/GesPropietario.css"
+import { NavBarAdmin } from '../BarrasNavegacion/NavBarAdmi'
+import { GetData } from '../Varios/Requests'
+
+// Main component 
 export function GesPropietario() {
+  const URL = "http://localhost:3000/user/all"
+  const [users,setUsers] = useState([])
+  const [usersAlmac,setUsersAlmac] = useState([])
+  const [loading,setLoading] = useState(true)
+  
+  
+  const GetUsers = async () => {
+    try {
+      const data = await GetData(URL)
+      setUsers(data)
+      setUsersAlmac(data)
+      setLoading(false)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  
+  const handleSearch = term => {
+    const termLower = term.toLowerCase()
+  
+    const find = usersAlmac.filter(user => {
+      // Campos específicos donde buscar
+      const searchFields = ['nom_usu', 'email_usu', 'cel_usu', 'ape_usu']
+      return searchFields.some(field => 
+        user[field]?.toLowerCase().includes(termLower)
+      )
+    })
+
+    if (find) setUsers(find)
+  }
+  
+  useEffect(() => {
+    // Vars 
+    const REFRESH_INTERVAL = 2 * 60 * 1000 // 2 minutos
+    let intervalId
+
+    // Execute the request
+    GetUsers()
+
+    // Configure interval
+    intervalId = setInterval(GetUsers, REFRESH_INTERVAL)
+
+    // Clean
+    return () => clearInterval(intervalId)
+  }, [])
+  
+
   return (
     <div className="appgespropietario">
       <NavBarAdmin />
@@ -34,7 +86,10 @@ export function GesPropietario() {
 
             <div className="buscargespropietario">
               <span>Buscar:</span>
-              <input type="text" className="inputgespropietario" />
+              <input 
+                type="text" 
+                className="inputgespropietario"
+                onChange={e => handleSearch(e.target.value)} />
             </div>
           </div>
 
@@ -54,45 +109,23 @@ export function GesPropietario() {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td data-label="Nombres">Juan</td>
-                  <td data-label="Apellidos">Pérez</td>
-                  <td data-label="T Doc">CC</td>
-                  <td data-label="Documento">12345678</td>
-                  <td data-label="Dirección">Calle 123 #45-67</td>
-                  <td data-label="Celular">3001234567</td>
-                  <td data-label="Correo">juan@example.com</td>
-                  <td data-label="Fecha creación">2023-05-15</td>
-                  <td data-label="Opciones" className="opcionesgespropietario">
-                    <Eye className="iconogespropietario" size={16} />
-                  </td>
-                </tr>
-                <tr>
-                  <td data-label="Nombres">María</td>
-                  <td data-label="Apellidos">López</td>
-                  <td data-label="T Doc">CC</td>
-                  <td data-label="Documento">87654321</td>
-                  <td data-label="Dirección">Av. Principal #98-76</td>
-                  <td data-label="Celular">3109876543</td>
-                  <td data-label="Correo">maria@example.com</td>
-                  <td data-label="Fecha creación">2023-06-20</td>
-                  <td data-label="Opciones" className="opcionesgespropietario">
-                    <Eye className="iconogespropietario" size={16} />
-                  </td>
-                </tr>
-                <tr>
-                  <td data-label="Nombres">Carlos</td>
-                  <td data-label="Apellidos">Rodríguez</td>
-                  <td data-label="T Doc">CC</td>
-                  <td data-label="Documento">45678912</td>
-                  <td data-label="Dirección">Carrera 45 #12-34</td>
-                  <td data-label="Celular">3204567891</td>
-                  <td data-label="Correo">carlos@example.com</td>
-                  <td data-label="Fecha creación">2023-07-10</td>
-                  <td data-label="Opciones" className="opcionesgespropietario">
-                    <Eye className="iconogespropietario" size={16} />
-                  </td>
-                </tr>
+                {
+                  users.map(i => (
+                    <tr key={i.doc_usu}>
+                      <td data-label="Nombres">{i.nom_usu}</td>
+                      <td data-label="Apellidos">{i.ape_usu}</td>
+                      <td data-label="T Doc">{i.tip_doc_usu}</td>
+                      <td data-label="Documento">{i.doc_usu}</td>
+                      <td data-label="Dirección">{i.dir_usu}</td>
+                      <td data-label="Celular">{i.cel_usu}</td>
+                      <td data-label="Correo">{i.email_usu}</td>
+                      <td data-label="Fecha creación">{new Date(i.fec_cre_usu).toLocaleDateString()}</td>
+                      <td data-label="Opciones" className="opcionesgespropietario">
+                        <Eye className="iconogespropietario" size={16} />
+                      </td>
+                  </tr>
+                  ))
+                }
               </tbody>
             </table>
           </div>

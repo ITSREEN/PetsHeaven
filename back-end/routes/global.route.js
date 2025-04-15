@@ -1,5 +1,6 @@
 // Librarys
 const jwt = require('jsonwebtoken')
+const { compare } = require('bcrypt')
 const { Router } = require('express')
 
 // Imports
@@ -32,8 +33,10 @@ Route.post('/login',limiterLog, async (req,res) => {
         // Search in database
         let log = await global.login(firstData, secondData)
         let user = await log.result[0][0]
+        // Verify
+        const coincide = await compare(secondData, user.cont_usu)
 
-        if (!user) {
+        if (!user || !coincide) {
             res.status(401).json({ message: 'Credenciales inválidas' })
             return
         }
