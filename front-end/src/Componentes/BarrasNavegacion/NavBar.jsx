@@ -10,10 +10,10 @@ import { Logout } from '../Varios/Util'
 export const NavBar = () => {
   // Vars 
   const [menuAbierto, setMenuAbierto] = useState(false)
-  const [isAutenticate,setIsAutenticate] = useState(false)
+  const [isAutenticate, setIsAutenticate] = useState(false)
   const refNav = useRef(null)
   
-   // Función para manejar el scroll a secciones
+  // Función para manejar el scroll a secciones
   const irASeccion = (e, id) => {
     e.preventDefault()
     setMenuAbierto(false)
@@ -39,8 +39,8 @@ export const NavBar = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token")
-    token? setIsAutenticate(true) :setIsAutenticate(false)
-  },[])
+    token ? setIsAutenticate(true) : setIsAutenticate(false)
+  }, [])
 
   return (  
     <header className="encabezado" ref={refNav}>
@@ -89,18 +89,18 @@ export const NavBar = () => {
         </div>
 
         {/* Botones para escritorio */}
-          {
-          isAutenticate?(
+        {
+          isAutenticate ? (
             <div className="botones-escritorio">
               <a href="/main" className="boton-login-nav" onClick={Logout}>Cerrar Sesión</a>
             </div>
-          ): (
+          ) : (
             <div className="botones-escritorio">
               <a href="/user/register" className="boton-registro-nav">Registrarse</a>
               <a href="/user/login" className="boton-login-nav">Iniciar Sesión</a>
             </div>
-            )
-          }
+          )
+        }
       </div>
 
       {/* Navegación Móvil */}
@@ -126,18 +126,18 @@ export const NavBar = () => {
           </a>
           {
             isAutenticate && (
-              <a href="/user/pets" className="enlace-nav">
+              <a href="/user/pets" className="enlace-nav-movil">
                 Mascotas
               </a>
             )
           }
           {/* Botones para móvil */}
           {
-            isAutenticate?(
+            isAutenticate ? (
               <div className="botones-movil">
-                <a href="/main" className="boton-login-nav" onClick={Logout}>Cerrar Sesión</a>
+                <a href="/main" className="boton-login-movil-nav" onClick={Logout}>Cerrar Sesión</a>
               </div>
-            ):(
+            ) : (
               <div className="botones-movil">
                 <a href="/user/register" className="boton-registro-movil-nav">
                   Registrarse
