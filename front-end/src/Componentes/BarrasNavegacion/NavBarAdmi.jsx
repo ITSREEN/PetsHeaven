@@ -102,7 +102,7 @@ export const NavBarAdmin = () => {
             </li>
 
             <li className="itemnavadmin">
-              <a href="/propietarios" className="enlacenavadmin">
+              <a href="/gestion/propietarios" className="enlacenavadmin">
                 <User className="icononavadmin" />
                 <span>Propietarios</span>
               </a>

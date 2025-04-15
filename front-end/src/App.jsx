@@ -14,6 +14,7 @@ import { NotFound } from "./Componentes/Errores/NotFound"
 import { ErrorInternalServer } from "./Componentes/Errores/ErrorInternalServer"
 import { decodeJWT } from './Componentes/Varios/Util'
 import VeterinariaPage from "./Componentes/VeterinariaPage"
+import { GesPropietario } from "./Componentes/InterfazAdmin/GesPropietario"
 
 // Main Component
 export default function App () {
@@ -62,6 +63,10 @@ export default function App () {
         <Route path="gestion/usuarios" element={
           <AdminRoute children={<GesUsuario/>} />} >
         </Route>
+        <Route path="gestion/propietarios" element={
+          <AdminRoute children={<GesPropietario/>} />} >
+        </Route>
+
 
         {/* Routes */}
         <Route path="/" element={<MainRoute />} />
