@@ -55,7 +55,7 @@ export default function App () {
         <Route path="admin/pets" element={
           <AdminRoute children={<Pets all={true}/>} />}>
         </Route>
-        <Route path="propietarios" element={
+        <Route path="consultorio" element={
           <AdminRoute children={<HomeAdmin />} />}>  
         </Route>
         <Route path="gestion/usuarios" element={

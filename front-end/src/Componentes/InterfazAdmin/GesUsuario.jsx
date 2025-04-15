@@ -36,7 +36,7 @@ export function GesUsuario() {
         loading ? (
           <Loader />
         ) : (
-        <div className="contenedorgesusuario">
+          <div className="contenedorgesusuario">
           <NavBarAdmin />
 
           <div className="principalgesusuario">
@@ -74,7 +74,12 @@ export function GesUsuario() {
                   </div>
                   <div className="buscargesusuario">
                     <span>Buscar:</span>
-                    <input type="text" className="inputbuscargesusuario" placeholder="" onChange={(e) => GetUsers(e.target.value)} />
+                    <input
+                      type="text"
+                      className="inputbuscargesusuario"
+                      placeholder=""
+                      onChange={(e) => GetUsers(e.target.value)}
+                    />
                   </div>
                 </div>
 
@@ -82,9 +87,6 @@ export function GesUsuario() {
                   <table className="tablausuariosgesusuario">
                     <thead>
                       <tr className="encabezadotablagesusuario">
-                        <th className="celdaencabezadogesusuario opciones">
-                          <div className="contenidoencabezadogesusuario">Opciones</div>
-                        </th>
                         <th className="celdaencabezadogesusuario">
                           <div className="contenidoencabezadogesusuario">
                             Nombre
@@ -121,21 +123,14 @@ export function GesUsuario() {
                             </div>
                           </div>
                         </th>
+                        <th className="celdaencabezadogesusuario opciones">
+                          <div className="contenidoencabezadogesusuario">Opciones</div>
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
-                      {users.map(usuario => (
+                      {users.map((usuario) => (
                         <tr key={usuario.doc_usu} className="filagesusuario">
-                          <td className="celdagesusuario" data-label="Opciones">
-                            <div className="accionesusuariogesusuario">
-                              <button className="botonacciongesusuario">
-                                <Edit size={16} className="iconoacciongesusuario" />
-                              </button>
-                              <button className="botonacciongesusuario">
-                                <MoreHorizontal size={16} className="iconoacciongesusuario" />
-                              </button>
-                            </div>
-                          </td>
                           <td className="celdagesusuario" data-label="Nombre">
                             <div className="usuarioinfogeneralgesusuario">
                               <span>{usuario.nom_usu}</span>
@@ -149,6 +144,16 @@ export function GesUsuario() {
                           </td>
                           <td className="celdagesusuario" data-label="Creación">
                             {usuario.fec_cre_usu}
+                          </td>
+                          <td className="celdagesusuario" data-label="Opciones">
+                            <div className="accionesusuariogesusuario">
+                              <button className="botonacciongesusuario">
+                                <Edit size={16} className="iconoacciongesusuario" />
+                              </button>
+                              <button className="botonacciongesusuario">
+                                <MoreHorizontal size={16} className="iconoacciongesusuario" />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       ))}
@@ -169,8 +174,8 @@ export function GesUsuario() {
               </div>
             </div>
           </div>
-        </div>)
-      }
-      </>
+        </div>
+      )}
+    </>
   )
 }
