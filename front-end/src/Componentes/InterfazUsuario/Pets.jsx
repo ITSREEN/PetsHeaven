@@ -39,7 +39,8 @@ export const Pets = ({ token, all = false}) => {
             //       text: `${message}`,
             //       icon: 'warning',
             //     })
-            // } else 
+            // } else
+             
             console.log(err)
         }
     }
