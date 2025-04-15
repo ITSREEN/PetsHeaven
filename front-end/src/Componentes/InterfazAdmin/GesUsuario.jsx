@@ -69,7 +69,7 @@ export function GesUsuario() {
                 <div className="encabezadogesusuario">
                   <div className="titulogesusuario">
                     <h1 className="textogesusuario">Gestión de usuarios</h1>
-                    <span className="subtitulogesusuario">Administración</span>
+                    <span className="subtitulogesusuario">/ Administración</span>
                   </div>
                 </div>
 

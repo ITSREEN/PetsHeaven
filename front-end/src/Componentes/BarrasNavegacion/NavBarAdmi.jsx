@@ -1,6 +1,6 @@
 import React from "react"
 import { useState, useEffect } from "react"
-import {Settings,Users,User,Headset,ChevronDown,Syringe,Bath,Scissors,Calendar,LogOut,Menu,X,Stethoscope,CalendarRange,
+import {Settings,Users,User,Headset,ChevronDown,Syringe,Bath,Scissors,Cat,Calendar,LogOut,Menu,X,Stethoscope,CalendarRange,
   CalendarClock,FlaskRoundIcon as Flask,} from "lucide-react"
 
 // Imports
@@ -105,6 +105,13 @@ export const NavBarAdmin = () => {
               <a href="/gestion/propietarios" className="enlacenavadmin">
                 <User className="icononavadmin" />
                 <span>Propietarios</span>
+              </a>
+            </li>
+
+            <li className="itemnavadmin">
+              <a href="/gestion/mascotas" className="enlacenavadmin">
+                <Cat className="icononavadmin" />
+                <span>Mascotas</span>
               </a>
             </li>
 

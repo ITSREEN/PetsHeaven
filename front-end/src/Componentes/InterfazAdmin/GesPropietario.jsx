@@ -25,7 +25,7 @@ export function GesPropietario() {
       console.log(err)
     }
   }
-  
+
   const handleSearch = term => {
     const termLower = term.toLowerCase()
   
@@ -57,17 +57,17 @@ export function GesPropietario() {
   
 
   return (
-    <div className="appgespropietario">
+    <main className="appgespropietario">
       <NavBarAdmin />
 
-      <main className="contenedorgespropietario">
+      <section className="contenedorgespropietario">
         <div className="panelgespropietario">
           <div className="cabeceragespropietario">
             <h1 className="titulogespropietario">
               <Users className="iconotitulogespropietario" size={20} />
               Gestión de propietarios
             </h1>
-            <span className="subtitulogespropietario">Administración</span>
+            <span className="subtitulogespropietario">/ Administración</span>
           </div>
 
           <h2 className="subtitulopanelgespropietario">Propietarios registrados</h2>
@@ -104,7 +104,6 @@ export function GesPropietario() {
                   <th>Dirección</th>
                   <th>Celular</th>
                   <th>Correo</th>
-                  <th>Fecha creación</th>
                   <th>Opciones</th>
                 </tr>
               </thead>
@@ -112,14 +111,19 @@ export function GesPropietario() {
                 {
                   users.map(i => (
                     <tr key={i.doc_usu}>
-                      <td data-label="Nombres">{i.nom_usu}</td>
+                      <td className="nombrecontainergespropietario" data-label="Nombres">
+                        <div className="infogespropietario">
+                          <span className="nombregespropietario">{i.nom_usu}</span>
+                          <span className="infogespropietario"> Creado el 
+                            {new Date(i.fec_cre_usu).toLocaleDateString()}</span>
+                        </div>
+                      </td>
                       <td data-label="Apellidos">{i.ape_usu}</td>
                       <td data-label="T Doc">{i.tip_doc_usu}</td>
                       <td data-label="Documento">{i.doc_usu}</td>
                       <td data-label="Dirección">{i.dir_usu}</td>
                       <td data-label="Celular">{i.cel_usu}</td>
                       <td data-label="Correo">{i.email_usu}</td>
-                      <td data-label="Fecha creación">{new Date(i.fec_cre_usu).toLocaleDateString()}</td>
                       <td data-label="Opciones" className="opcionesgespropietario">
                         <Eye className="iconogespropietario" size={16} />
                       </td>
@@ -128,21 +132,21 @@ export function GesPropietario() {
                 }
               </tbody>
             </table>
-          </div>
 
-          <div className="paginaciongespropietario">
-            <div className="infogespropietario">Mostrando registros del 1 al 3 de un total de 3 registros.</div>
-            <div className="botonesgespropietario">
-              <button className="btngespropietario" disabled>
-                Anterior
-              </button>
-              <button className="btngespropietario btnactivogespropietario">1</button>
-              <button className="btngespropietario">Siguiente</button>
+            <div className="paginaciongespropietario">
+              <div className="infogespropietario">Mostrando registros del 1 al 3 de un total de 3 registros.</div>
+              <div className="botonesgespropietario">
+                <button className="btngespropietario" disabled>
+                  Anterior
+                </button>
+                <button className="btngespropietario btnactivogespropietario">1</button>
+                <button className="btngespropietario">Siguiente</button>
+              </div>
             </div>
           </div>
         </div>
-      </main>
-    </div>
+      </section>
+    </main>
   )
 }
 
