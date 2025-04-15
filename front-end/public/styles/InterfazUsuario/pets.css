@@ -156,110 +156,13 @@
   
 .pets-detail-btn:hover {
     background-color: rgba(0, 188, 212, 0.1);
-}
-  
-/* Estilos para el modal */
-.pet-modal-overlay {
-    position: fixed;
-    display: flex;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 1140;
-}
+}  
 
-.pet-modal-content {
-    position: relative;
-    padding: 1.8rem;
-    width: 90%;
-    max-width: 90%;
-    height: 90vh;
-    font-size: var(--font-size);
-    border-radius: 0.7rem;
-    background-color: white;
-    box-shadow: 0 0.2rem 0.9rem rgba(0, 0, 0, 0.3);
-    overflow-y: auto;
-}
-
-.pet-modal-close {
-    cursor: pointer;
-    position: fixed;
-    top: 6vh;
-    right: 7vw;
-    font-size: var(--icon-size);
-    font-weight: bold;
-    color: #333;
-    border: none;
-    background: none;
-}
-
-.pet-modal-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    align-items: start;
-    gap: 1.9rem;
-}
-
-.pet-modal-image img {
-    width: 100%;
-    max-height: 50vh;
-    object-fit: cover;
-    border-radius: 0.7rem;
-    box-shadow: 0 0.2rem 0.7rem rgba(0, 0, 0, 0.2);
-}
-
-.pet-details-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-    gap: 1.2rem;
-    margin-top: 1.2rem;
-}
-
-.pet-details-grid h3 {
-    color: var(--verdeaguamarina);
-    margin-bottom: 0.9rem;
-    border-bottom: 0.1rem solid #eee;
-    padding-bottom: 0.3rem;
-}
-
-.pet-details-grid p {
-    margin-bottom: 0.7rem;
-    line-height: 1.5;
-}
-  
 /* medias */
 @media (max-width: 768px) {
     .nav-search-container {
         flex-direction: column;
         gap: 1rem;
         padding: 1rem;
-    }
-    
-    .pet-modal-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .pet-modal-image {
-        padding: 1rem;
-    }
-    
-    .pet-modal-info {
-        padding: 1rem;
-    }
-    
-    .pet-details-grid {
-        grid-template-columns: 1fr;
-    }
-}
-@media (width > 1000px) {
-    .pet-modal-grid {
-        grid-template-columns: 1fr 2fr;
-    }
-    .pet-modal-image img {
-        max-height: 75vh;
     }
 }

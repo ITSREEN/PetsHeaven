@@ -3,9 +3,12 @@ import { GetData } from '../Varios/Requests'
 import { Loader } from '../Errores/Loader'
 import { SubNotFound } from '../Errores/NotFound'
 import { EditPetButton } from './EditPet'
-import { decodeJWT,errorStatusHandler } from '../Varios/Util'
-import '../../../public/styles/InterfazUsuario/pets.css'
+import { decodeJWT} from '../Varios/Util'
 // import NavBar from './NavBarAdmi'
+
+// Import Styles 
+import '../../../public/styles/InterfazUsuario/pets.css'
+import '../../../public/styles/InterfazUsuario/petDetails.css'
 
 // Librarys 
 import React, { useState, useEffect } from "react"
@@ -31,16 +34,7 @@ export const Pets = ({ token, all = false}) => {
             setLoading(false)
             setPetsData(pets)
             if(pets[0]) setfound(true)
-        } catch (err) {
-            // if(err.status) {
-            //     const message = errorStatusHandler(err.status)
-            //     swal({
-            //       title: 'Error',
-            //       text: `${message}`,
-            //       icon: 'warning',
-            //     })
-            // } else
-             
+        } catch (err) {             
             console.log(err)
         }
     }
@@ -77,8 +71,6 @@ export const Pets = ({ token, all = false}) => {
       
         fetchData(URL)
     }, [])
-
-    
 
     return (
         <>

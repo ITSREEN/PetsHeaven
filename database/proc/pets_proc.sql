@@ -98,12 +98,14 @@ BEGIN
         m.gen_mas,
         m.est_rep_mas,
         m.fot_mas,
+        m.fec_cre_mas,
         u.nom_usu,
         u.ape_usu,
         u.doc_usu,
         u.cel_usu,
         u.email_usu,
-        u.gen_usu
+        u.gen_usu,
+        u.estado
     FROM 
         mascotas m
     JOIN
@@ -133,12 +135,14 @@ BEGIN
         m.gen_mas,
         m.est_rep_mas,
         m.fot_mas,
+        m.fec_cre_mas,
         u.nom_usu,
         u.ape_usu,
         u.doc_usu,
         u.cel_usu,
         u.email_usu,
-        u.gen_usu
+        u.gen_usu,
+        u.estado
     FROM 
         mascotas m
     JOIN
