@@ -240,6 +240,7 @@ input:focus {
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #fff;
 }
 
 .subtexto-cita-login {

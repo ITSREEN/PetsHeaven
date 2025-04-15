@@ -15,7 +15,7 @@ export function GesPropietario() {
               <Users className="iconotitulogespropietario" size={20} />
               Gestión de propietarios
             </h1>
-            <span className="subtitulogespropietario">Administración</span>
+            <span className="subtitulogespropietario">/ Administración</span>
           </div>
 
           <h2 className="subtitulopanelgespropietario">Propietarios registrados</h2>
@@ -49,46 +49,23 @@ export function GesPropietario() {
                   <th>Dirección</th>
                   <th>Celular</th>
                   <th>Correo</th>
-                  <th>Fecha creación</th>
                   <th>Opciones</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody> 
                 <tr>
-                  <td data-label="Nombres">Juan</td>
+                  <td className="nombrecontainergespropietario" data-label="Nombres">
+                        <div className="infogespropietario">
+                          <span className="nombregespropietario">Juan</span>
+                          <span className="infogespropietario">Creado el 20/05/2025</span>
+                        </div>
+                  </td>
                   <td data-label="Apellidos">Pérez</td>
                   <td data-label="T Doc">CC</td>
                   <td data-label="Documento">12345678</td>
                   <td data-label="Dirección">Calle 123 #45-67</td>
                   <td data-label="Celular">3001234567</td>
                   <td data-label="Correo">juan@example.com</td>
-                  <td data-label="Fecha creación">2023-05-15</td>
-                  <td data-label="Opciones" className="opcionesgespropietario">
-                    <Eye className="iconogespropietario" size={16} />
-                  </td>
-                </tr>
-                <tr>
-                  <td data-label="Nombres">María</td>
-                  <td data-label="Apellidos">López</td>
-                  <td data-label="T Doc">CC</td>
-                  <td data-label="Documento">87654321</td>
-                  <td data-label="Dirección">Av. Principal #98-76</td>
-                  <td data-label="Celular">3109876543</td>
-                  <td data-label="Correo">maria@example.com</td>
-                  <td data-label="Fecha creación">2023-06-20</td>
-                  <td data-label="Opciones" className="opcionesgespropietario">
-                    <Eye className="iconogespropietario" size={16} />
-                  </td>
-                </tr>
-                <tr>
-                  <td data-label="Nombres">Carlos</td>
-                  <td data-label="Apellidos">Rodríguez</td>
-                  <td data-label="T Doc">CC</td>
-                  <td data-label="Documento">45678912</td>
-                  <td data-label="Dirección">Carrera 45 #12-34</td>
-                  <td data-label="Celular">3204567891</td>
-                  <td data-label="Correo">carlos@example.com</td>
-                  <td data-label="Fecha creación">2023-07-10</td>
                   <td data-label="Opciones" className="opcionesgespropietario">
                     <Eye className="iconogespropietario" size={16} />
                   </td>

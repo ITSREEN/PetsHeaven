@@ -15,6 +15,7 @@ import { ErrorInternalServer } from "./Componentes/Errores/ErrorInternalServer"
 import { decodeJWT } from './Componentes/Varios/Util'
 import VeterinariaPage from "./Componentes/VeterinariaPage"
 import { GesPropietario } from "./Componentes/InterfazAdmin/GesPropietario"
+import { GesMascota } from "./Componentes/InterfazAdmin/GesMascota"
 
 // Main Component
 export default function App () {
@@ -64,6 +65,9 @@ export default function App () {
         </Route>
         <Route path="gestion/propietarios" element={
           <AdminRoute children={<GesPropietario/>} />} >
+        </Route>
+        <Route path="gestion/mascotas" element={
+          <AdminRoute children={<GesMascota/>} />} >
         </Route>
 
 
