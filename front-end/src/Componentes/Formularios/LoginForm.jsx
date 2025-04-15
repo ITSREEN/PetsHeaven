@@ -7,7 +7,7 @@ import swal from 'sweetalert'
 // Imports 
 import '../../../public/styles/Formularios/login.css'
 import { login } from '../Varios/Requests'
-import { errorStatusHandler } from '../Varios/Util'
+import { getRoles, errorStatusHandler } from '../Varios/Util'
 
 // Main component 
 export const LoginForm = () => {
@@ -41,8 +41,15 @@ export const LoginForm = () => {
       await login(url,firstData,secondData)
       
       const token = localStorage.getItem("token")
-
-      
+      const roles = getRoles(token)
+      let redire
+      if(roles.includes("Administrador")){
+        redire = () => window.location.href = "/gestion/usuarios"
+      } else if (roles.includes("Veterinario")) {
+        redire = () => window.location.href = "/admin/pet"
+      } else {
+        redire = () => window.location.href = "/user/pet"
+      }
       if(token){ 
         swal({
           title: 'Bienvenido',
@@ -51,7 +58,7 @@ export const LoginForm = () => {
           buttons: false
         })
         setTimeout(() => {
-          window.location.href = "/main"
+          redire()
         },2000)
       } 
 

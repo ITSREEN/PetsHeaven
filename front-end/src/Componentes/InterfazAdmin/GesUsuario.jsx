@@ -129,7 +129,9 @@ export function GesUsuario() {
                       </tr>
                     </thead>
                     <tbody>
-                      {users.map((usuario) => (
+                      {
+                      users &&
+                      users.map((usuario) => (
                         <tr key={usuario.doc_usu} className="filagesusuario">
                           <td className="celdagesusuario" data-label="Nombre">
                             <div className="usuarioinfogeneralgesusuario">
@@ -140,7 +142,7 @@ export function GesUsuario() {
                             {usuario.email_usu}
                           </td>
                           <td className="celdagesusuario" data-label="Rol">
-                            <span className={`rolgesusuario ${usuario.roles.toLowerCase()}`}>{usuario.roles}</span>
+                            <span className={`rolgesusuario ${usuario.roles}`}>{usuario.roles}</span>
                           </td>
                           <td className="celdagesusuario" data-label="Creación">
                             {usuario.fec_cre_usu}

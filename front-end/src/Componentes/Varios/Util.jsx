@@ -22,6 +22,12 @@ export const decodeJWT = (token) => {
       return null
     }
 }
+
+export const getRoles = (token = "") => {
+  const tokenData = decodeJWT(token)
+  return Array(tokenData.roles)
+}
+
 export const errorStatusHandler = (errStatus) => {
   let message = 'Error interno'
 
