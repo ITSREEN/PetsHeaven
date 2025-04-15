@@ -7,6 +7,6 @@ boxicons
 #Dev Dep
 vite
 
-npm i react react-dom react-hook-form boxicons react-router lucide-react @supabase/supabase-js emailjs-com
+npm i react react-dom react-hook-form boxicons react-router lucide-react @supabase/supabase-js emailjs-com sweetalert
 npm i -D vite
 npm install firebase @react-firebase/auth

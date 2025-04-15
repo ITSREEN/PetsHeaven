@@ -2,7 +2,6 @@
 const HeaderWeb = {
     "Content-Type": "application/json",
     "x-api-key": "pets_heaven_vite",
-    // 'Authorization': `Bearer ${localStorage.getItem('token')}`,
     "User": "Cristian_Admin"
 }
 
@@ -12,19 +11,20 @@ export async function GetData(URL) {
     try {
         const response = await fetch(URL,{
             method: "GET",
-            headers: HeaderWeb,
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                ...HeaderWeb
+            }
         })
+
         if (!response.ok) {
-            // response.status >= 500? window.location.href = "/internal":
-            // window.location.href = "/notfound"
-            throw new Error(`HTTP error! status: ${response.status}`)
+            throw response
         }
+
         const data = await response.json()
         return data.result[0]
     } catch (error) {
-        // window.location.href = "/internal"
-        console.error("Error:", error)
-        throw new Error(error)
+        throw error
     }
 }
 // Enviar datos 
@@ -33,7 +33,10 @@ export async function PostData(URL, datas) {
     try {
         const response = await fetch(URL, {
             method: "POST",
-            headers: HeaderWeb,
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                ...HeaderWeb
+            },
             body: JSON.stringify(datas)
         })
   
@@ -43,7 +46,7 @@ export async function PostData(URL, datas) {
         const error = new Error(errorData.message || `HTTP error! status: ${response.status}`)
         error.status = response.status
         error.data = errorData
-        throw new Error(error)
+        throw error
       }
   
       // Parsear la respuesta como JSON
@@ -51,21 +54,7 @@ export async function PostData(URL, datas) {
       return data
   
     } catch (error) {
-        
-        // Manejo de errores
-        if (error.status) {
-
-            if (error.status >= 500) {
-                navigate('/internal')
-                throw Error('Error del servidor:', error)
-            }
-
-            else if (error.status === 404) console.log("No estas en mi corazon")
-            else if (error.status === 302) console.log("Ya estas en mi corazon")
-
-        } else throw Error('Error de conexión:', error)
-        
-        throw new Error(error)
+        throw error
     }
 }
 // Modificar datos
@@ -73,37 +62,23 @@ export async function ModifyData(URL,datas) {
     try {
         const response = await fetch(URL,{
             method:"PUT",
-            headers: HeaderWeb,
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                ...HeaderWeb
+            },
             body: JSON.stringify(datas),
         })
 
         if (!response.ok) {
-            const errorData = await response.json().catch(() => ({}))
-            const error = new Error(errorData.message || `HTTP error! status: ${response.status}`)
-            error.status = response.status
-            error.data = errorData
-            throw new Error(error)
+            throw response
         }
 
         // Parsear la respuesta como JSON
-        const data = await response
+        const data = await response.json()
         return data
 
     } catch (error) {
-        // Manejo de errores
-        if (error.status) {
-            
-            if (error.status >= 500) {
-                navigate('/internal')
-                throw Error('Error del servidor:', error)
-            }
-
-            else if (error.status === 404) console.log("No estas en mi corazon")
-            else if (error.status === 302) console.log("Ya estas en mi corazon")
-
-        } else throw Error('Error de conexión:', error)
-        
-        throw new Error(error)
+        throw error
     }
 }
 
@@ -119,24 +94,13 @@ export async function login(url, first, second) {
         })
   
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`)
+            throw response
         }
   
         const data = await response.json()
         localStorage.setItem("token",data.token)
   
     } catch (error) {
-        // Manejo de errores
-        if (error.status) {
-            
-            if (error.status >= 500) {
-                navigate('/internal')
-                throw Error('Error del servidor:', error)
-            }
-            throw error
-
-        } else throw Error('Error de conexión:', error)
-        
         throw error
     }
 }

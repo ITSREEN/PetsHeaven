@@ -23,5 +23,10 @@ function validatorHeaders (req,res,next) {
     next()
 }
 
+function ValidatorToken(req,res,next) {
+    const token = req.headers['token']
+
+}
+
 // export middleware 
-module.exports = { validatorHeaders }
+module.exports = { validatorHeaders, ValidatorToken }

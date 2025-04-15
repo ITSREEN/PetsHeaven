@@ -47,15 +47,14 @@ export default function App () {
       <Routes>
         {/* Private routes */}
         <Route path="user/pets" element={
-          <PrivateRoute children={<Pets />}/>}>
+          <PrivateRoute children={<Pets token={token} />}/>}>
         </Route>
         <Route path="user/pets/register" element={
           <PrivateRoute children={<RegistroMascota />} />} />
-        <Route path="veterinario/pets" element={<Pets />} ></Route>
 
         {/* Admin routes  */}
         <Route path="admin/pets" element={
-          <AdminRoute children={<Pets />} />}>
+          <AdminRoute children={<Pets all={true}/>} />}>
         </Route>
         <Route path="consultorio" element={
           <AdminRoute children={<HomeAdmin />} />}>  
