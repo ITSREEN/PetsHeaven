@@ -15,6 +15,6 @@
     "react-hook-form": "^7.55.0",
     "react-router": "^7.5.0",
     "sweetalert": "^2.1.2",
-    "sweetalert2": "^11.18.0"
+    "sweetalert2": "^11.19.0"
   }
 }

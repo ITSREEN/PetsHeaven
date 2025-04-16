@@ -37,7 +37,7 @@ export const SubNotFound = () => {
       <div className="pet-glitch-container">
         <h1 className="title-num glitch" data-text="404">404</h1>
         <h2 className="sub-title">¡Huellita no encontrada!</h2>
-        <p className="text">
+        <p className="text-error-not">
           Lo que buscas se fue de paseo con las mascotas.
         </p>
         
