@@ -51,9 +51,8 @@ export const EditPetButton = ({ petData, onSave, open = false }) => {
     return (
       <section>
         {isOpen && (
-            <section className="modal-overlay" onClick={() => setIsOpen(false)}>
-            <section className="modal-content" onClick={e => e.stopPropagation()}>
-                <button className="modal-close" onClick={() => setIsOpen(false)}>&times</button>
+            <section className="modal-overlay" >
+            <section className="modal-content" >
                 
                 <h2>Editar información</h2>
                 
