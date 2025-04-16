@@ -90,7 +90,7 @@ const FormularioMascotas = ({ onClose }) => { // Agregamos onClose como prop par
       setIsLoading(false);
     }
   };
-
+ 
   return (
     <main className="login-container-m">
       <section className="login-formulario-container-m">

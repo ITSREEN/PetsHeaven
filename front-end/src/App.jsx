@@ -69,9 +69,9 @@ export default function App () {
         <Route path="gestion/mascotas" element={
           <AdminRoute children={<GesMascota/>} />} >
         </Route>
-        <Route path="usuario/registro" element={
+        {/* <Route path="usuario/registro" element={
           <AdminRoute children={<RegistroUsu/>} />} >
-        </Route>
+        </Route> */}
 
 
         {/* Routes */}
