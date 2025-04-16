@@ -3,7 +3,7 @@ import "../../../public/styles/Errores/Loader.css";
 
 export const Loader = () => {
   return (
-    <>
+    <main className="main-container-loader">
       <div className="back">
         <div className="escena">
           <div className="cielo">
@@ -65,6 +65,6 @@ export const Loader = () => {
         </div>
         <div className="spoke"></div>
       </div>
-    </>
+    </main>
   );
 };

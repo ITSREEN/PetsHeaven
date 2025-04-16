@@ -1,11 +1,11 @@
-/* body{
+.main-container-loader {
   margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   background-color: #383838; 
-} */
+}
 .back{
   position: absolute;
   top: 0;
@@ -415,6 +415,7 @@
 }
 
 .pastizal{
+  padding: 10px;
   position: absolute;
   bottom: 0;
   width: 100%;
