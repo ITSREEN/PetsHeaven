@@ -188,5 +188,3 @@ BEGIN
     WHERE 
         hm.id_mas_his = p_pet_id;
 END //
-
-CALL SearchPetsBy("98765432","leo");

@@ -41,5 +41,3 @@ BEGIN
     GROUP BY u.nom_usu
     LIMIT 40;
 END //
-
-CALL `Login` ("perra@gmail.com");

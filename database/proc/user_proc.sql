@@ -146,6 +146,3 @@ BEGIN
         u.nom_usu
     LIMIT 100;
 END //
-
-
-CALL `SearchPeopleBy`("juan.perez@email.com");
