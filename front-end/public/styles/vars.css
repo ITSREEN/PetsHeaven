@@ -46,7 +46,7 @@
     --notfoundimg: url("../imgs/notfound.jpg") center no-repeat;
 }
 html {
-    font-size: 18px;
+    font-size: 6px;
 }
 @media (700px < width) {
     html {
