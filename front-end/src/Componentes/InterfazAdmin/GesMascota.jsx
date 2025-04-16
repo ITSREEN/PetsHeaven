@@ -55,12 +55,6 @@ export function GesMascota() {
     document.body.style.overflow = 'auto' // Habilita el scroll del body
   }
 
-  // cambiar a modo edicion 
-  const changeEditMode = (pet) => {
-    setSelectedPet(pet)
-    setEditMode(true)
-  }
-
   // Manejar busqueda 
   const handleSearch = term => {
     const termLower = term.toLowerCase()
@@ -194,7 +188,7 @@ export function GesMascota() {
                 datas={selectedPet} 
                 open={showModal} 
                 ready={(state) => setShowModal(state)}
-                editMode={() => changeEditMode()} />
+                editMode={() => setEditMode(true)} />
         )}
         {editMode && (
             <EditPetButton 

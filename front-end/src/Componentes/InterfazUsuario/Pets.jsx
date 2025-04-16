@@ -43,10 +43,6 @@ export const Pets = ({ token, all = false}) => {
         setShowModal(true)
         document.body.style.overflow = 'hidden' // Deshabilita el scroll del body
     }
-
-    const changeEditMode = () => {
-        setEditMode(true)
-    }
     
     // Ejecutar el fetch para traer datos
     useEffect(() => {
@@ -117,7 +113,7 @@ export const Pets = ({ token, all = false}) => {
                             datas={selectedPet} 
                             open={showModal} 
                             ready={(state) => setShowModal(state)}
-                            editMode={() => changeEditMode()} />
+                            editMode={() => setEditMode(true)} />
                     )}
 
                     {editMode && (
