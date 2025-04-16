@@ -1,0 +1,77 @@
+.cont-regusu {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 25px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  }
+  
+  .titulo-principal-regusu {
+    font-size: 24px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0 0 20px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e1e1e1;
+  }
+  
+  .seccion-regusu {
+    margin-bottom: 15px;
+  }
+  
+  .subtitulo-regusu {
+    font-size: 18px;
+    font-weight: 600;
+    color: #34495e;
+    margin: 0 0 10px 0;
+  }
+  
+  .lista-principal-regusu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0 0 15px;
+  }
+  
+  .lista-principal-regusu li {
+    padding: 6px 0;
+    color: #4a4a4a;
+  }
+  
+  .lista-regusu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0 0 15px;
+  }
+  
+  .lista-regusu li {
+    padding: 6px 0;
+    color: #4a4a4a;
+  }
+  
+  .item-destacado-regusu {
+    background-color: #f8f9fa;
+    padding: 12px;
+    border-radius: 5px;
+    margin-left: 15px;
+  }
+  
+  .item-destacado-regusu strong {
+    color: #2c3e50;
+    font-weight: 600;
+  }
+  
+  .texto-secundario-regusu {
+    font-size: 13px;
+    color: #7f8c8d;
+    margin-top: 5px;
+    line-height: 1.4;
+  }
+  
+  .separador-regusu {
+    height: 1px;
+    background-color: #e1e1e1;
+    margin: 20px 0;
+    border: none;
+  }

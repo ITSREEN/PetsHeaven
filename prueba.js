@@ -1,3 +1,5 @@
+// const { hash } = require('bcrypt')
+
 const HeaderWeb = {
     "Content-Type": "application/json",
     "x-api-key": "pets_heaven_vite",
@@ -28,3 +30,8 @@ async function login(url, first, second) {
         throw error; // Propaga el error para manejo externo
     }
 }
+
+async function pas() {
+    console.log(await hash("admin123",12))
+}
+pas()

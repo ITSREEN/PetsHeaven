@@ -97,10 +97,9 @@ class User{
                 data.celular,
                 data.celular2,
                 data.email,
-                data.password,
+                data.hash_pass,
                 data.genero
             ]
-            console.log(newUser)
             let procedure = "CALL RegistPeoples(?,?,?,?,?,?,?,?,?,?,?);"
 
             // conect to database
@@ -158,6 +157,32 @@ class User{
             conection.end()
         })
     }
+
+    // async findAllTimeBy(data) {
+    //     return new Promise((res,rej) => {
+    //         // vars
+    //         const by = data.replace(":","").replace(" ","")
+    //         const proc = "CALL SearchPeoplesBy(?);"
+
+    //         // conect to database
+    //         let database = new DataBase()
+    //         database.conect()
+
+    //         if (database) database.conection.query(proc,by,(err,result) => {
+    //             if(err) {
+    //                 rej({ message: err })
+    //             } else setTimeout(() => {
+    //                 res({
+    //                     message: "Users found",
+    //                     result: result
+    //                 })
+    //             },100)
+    //         })
+
+    //         // close conection 
+    //         database.conection.end()
+    //     })
+    // }
 }
 
 // Export

@@ -28,16 +28,16 @@ class Global {
             database.conection.end()
         })
     }
-    async login(primaryData, secondData) {
+    async login(primaryData) {
         return new Promise((res,rej) => {
             // vars
-            const proc = "CALL Login(?,?);"
+            const proc = "CALL Login(?);"
 
             // conect to database
             let database = new DataBase()
             database.conect()
 
-            if (database) database.conection.query(proc,[primaryData,secondData],(err,result) => {
+            if (database) database.conection.query(proc,primaryData,(err,result) => {
                 if(err) {
                     rej({ message: err })
                 } else setTimeout(() => {

@@ -1,14 +1,66 @@
-import React from "react"
+// Librarys
+import React, { useState, useEffect } from "react"
 import { Users, Eye } from "lucide-react"
-import "../../../public/styles/InterfazAdmin/GesPropietario.css"
-import { NavBarAdmin } from '../BarrasNavegacion/NavBarAdmi';
 
+// Imports
+import "../../../public/styles/InterfazAdmin/GesPropietario.css"
+import { NavBarAdmin } from '../BarrasNavegacion/NavBarAdmi'
+import { GetData } from '../Varios/Requests'
+
+// Main component 
 export function GesPropietario() {
+  const URL = "http://localhost:3000/user/all"
+  const [users,setUsers] = useState([])
+  const [usersAlmac,setUsersAlmac] = useState([])
+  const [loading,setLoading] = useState(true)
+  
+  
+  const GetUsers = async () => {
+    try {
+      const data = await GetData(URL)
+      setUsers(data)
+      setUsersAlmac(data)
+      setLoading(false)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const handleSearch = term => {
+    const termLower = term.toLowerCase()
+  
+    const find = usersAlmac.filter(user => {
+      // Campos específicos donde buscar
+      const searchFields = ['nom_usu', 'email_usu', 'cel_usu', 'ape_usu']
+      return searchFields.some(field => 
+        user[field]?.toLowerCase().includes(termLower)
+      )
+    })
+
+    if (find) setUsers(find)
+  }
+  
+  useEffect(() => {
+    // Vars 
+    const REFRESH_INTERVAL = 2 * 60 * 1000 // 2 minutos
+    let intervalId
+
+    // Execute the request
+    GetUsers()
+
+    // Configure interval
+    intervalId = setInterval(GetUsers, REFRESH_INTERVAL)
+
+    // Clean
+    return () => clearInterval(intervalId)
+  }, [])
+  
+
   return (
-    <div className="appgespropietario">
+    <main className="appgespropietario">
       <NavBarAdmin />
 
-      <main className="contenedorgespropietario">
+      <section className="contenedorgespropietario">
         <div className="panelgespropietario">
           <div className="cabeceragespropietario">
             <h1 className="titulogespropietario">
@@ -34,7 +86,10 @@ export function GesPropietario() {
 
             <div className="buscargespropietario">
               <span>Buscar:</span>
-              <input type="text" className="inputgespropietario" />
+              <input 
+                type="text" 
+                className="inputgespropietario"
+                onChange={e => handleSearch(e.target.value)} />
             </div>
           </div>
 
@@ -52,41 +107,46 @@ export function GesPropietario() {
                   <th>Opciones</th>
                 </tr>
               </thead>
-              <tbody> 
-                <tr>
-                  <td className="nombrecontainergespropietario" data-label="Nombres">
+              <tbody>
+                {
+                  users.map(i => (
+                    <tr key={i.doc_usu}>
+                      <td className="nombrecontainergespropietario" data-label="Nombres">
                         <div className="infogespropietario">
-                          <span className="nombregespropietario">Juan</span>
-                          <span className="infogespropietario">Creado el 20/05/2025</span>
+                          <span className="nombregespropietario">{i.nom_usu}</span>
+                          <span className="infogespropietario"> Creado el 
+                            {new Date(i.fec_cre_usu).toLocaleDateString()}</span>
                         </div>
-                  </td>
-                  <td data-label="Apellidos">Pérez</td>
-                  <td data-label="T Doc">CC</td>
-                  <td data-label="Documento">12345678</td>
-                  <td data-label="Dirección">Calle 123 #45-67</td>
-                  <td data-label="Celular">3001234567</td>
-                  <td data-label="Correo">juan@example.com</td>
-                  <td data-label="Opciones" className="opcionesgespropietario">
-                    <Eye className="iconogespropietario" size={16} />
-                  </td>
-                </tr>
+                      </td>
+                      <td data-label="Apellidos">{i.ape_usu}</td>
+                      <td data-label="T Doc">{i.tip_doc_usu}</td>
+                      <td data-label="Documento">{i.doc_usu}</td>
+                      <td data-label="Dirección">{i.dir_usu}</td>
+                      <td data-label="Celular">{i.cel_usu}</td>
+                      <td data-label="Correo">{i.email_usu}</td>
+                      <td data-label="Opciones" className="opcionesgespropietario">
+                        <Eye className="iconogespropietario" size={16} />
+                      </td>
+                  </tr>
+                  ))
+                }
               </tbody>
             </table>
-          </div>
 
-          <div className="paginaciongespropietario">
-            <div className="infogespropietario">Mostrando registros del 1 al 3 de un total de 3 registros.</div>
-            <div className="botonesgespropietario">
-              <button className="btngespropietario" disabled>
-                Anterior
-              </button>
-              <button className="btngespropietario btnactivogespropietario">1</button>
-              <button className="btngespropietario">Siguiente</button>
+            <div className="paginaciongespropietario">
+              <div className="infogespropietario">Mostrando registros del 1 al 3 de un total de 3 registros.</div>
+              <div className="botonesgespropietario">
+                <button className="btngespropietario" disabled>
+                  Anterior
+                </button>
+                <button className="btngespropietario btnactivogespropietario">1</button>
+                <button className="btngespropietario">Siguiente</button>
+              </div>
             </div>
           </div>
         </div>
-      </main>
-    </div>
+      </section>
+    </main>
   )
 }
 
