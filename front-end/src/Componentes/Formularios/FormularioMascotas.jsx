@@ -1,19 +1,46 @@
 // Librarys
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { supabase } from "../../supabaseClient"; 
-import "../../../public/styles/Formularios/FormularioMascotas.css"
-import { Link } from 'react-router';
+import { supabase } from "../../supabaseClient";
+import "../../../public/styles/Formularios/FormularioMascotas.css";
 
+const DEFAULT_IMAGE_URL = 'https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/default_veterinario.png';
 
-// Main component 
-const FormularioMascotas = () => {
-  const imagenFondo = "/imgs/fondo.png";
-  const logoUrl = "https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/1.png";
+// Main component
+const FormularioMascotas = ({ onClose }) => { // Agregamos onClose como prop para el botón cerrar
   const [imagen, setImagen] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(DEFAULT_IMAGE_URL);
+  const fileInputRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const { register, handleSubmit, formState: { errors } } = useForm();
+
+  useEffect(() => {
+    if (imagen) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(imagen);
+    } else {
+      setPreviewUrl(DEFAULT_IMAGE_URL);
+    }
+  }, [imagen]);
+
+  const handleIconClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setImagen(file);
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setImagen(null);
+  };
 
   const onSubmit = async (formData) => {
     if (!imagen) {
@@ -43,6 +70,7 @@ const FormularioMascotas = () => {
       const { error: dbError } = await supabase
         .from('mascotas')
         .insert([{
+          ...formData, // Incluimos los otros datos del formulario
           imagen_url: publicUrl,
           creado_en: new Date().toISOString(),
         }]);
@@ -50,7 +78,11 @@ const FormularioMascotas = () => {
       if (dbError) throw dbError;
 
       alert('¡Mascota registrada con éxito!');
-        
+      // Puedes agregar aquí lógica para cerrar el formulario o redirigir
+      if (onClose) {
+        onClose(); // Llama a la función onClose si se proporciona
+      }
+
     } catch (error) {
       console.error('Error:', error);
       alert(`Error al registrar: ${error.message}`);
@@ -62,29 +94,73 @@ const FormularioMascotas = () => {
   return (
     <main className="login-container-m">
       <section className="login-formulario-container-m">
-        <figure className="contenedor-logo-externo-m">
-          <img
-            src={logoUrl || "/placeholder.svg"}
-            alt="Logo PetsHeaven"
-            className="logo-veterinaria-m"
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = "/placeholder.svg";
-            }}
-          />
-        </figure>
-
         <article className="formulario-card-m">
           <header className="encabezado-formulario-m">
             <h1 className="titulo-formulario-m">Registrar Mascota</h1>
             <p className="subtitulo-formulario-m">Completa los datos de tu mascota</p>
           </header>
 
+          {/* Contenedor de botones superior */}
+          <div className="contenedor-botones-superior-m">
+                    <div
+                    className="contenedor-preview-m-circular" // Nueva clase para el círculo
+                    onClick={handleIconClick}
+                    style={{
+                      backgroundImage: `url(${previewUrl})`,
+                    }}
+                  >
+                    {previewUrl === DEFAULT_IMAGE_URL && (
+                      <div className="icono-carga-m">
+                        {/* Puedes agregar aquí un icono SVG o texto que represente la carga */}
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style={{ width: '40%', height: '40%', opacity: 0.7 }}>
+                          
+                        </svg>
+                      </div>
+                    )}
+                  </div>
+            <button type="button" className="boton-cerrar-m" onClick={onClose}>
+              Cerrar
+            </button>
+            <button type="submit" className="boton-guardar-m" disabled={isLoading}>
+              {isLoading ? <span className="spinner" aria-hidden="true"></span> : "Guardar"}
+            </button>
+          </div>
+
           <form onSubmit={handleSubmit(onSubmit)}>
             <fieldset className="contenido-paso-m">
               <legend className="sr-only">Información de la mascota</legend>
 
-              {/* Campo Nombre */}
+              {/* Campo Imagen (al principio) */}
+              <div className="grupo-campo-completo">
+                <div className="contenedor-imagen-carga-m">
+                  <input
+                    id="imagen"
+                    type="file"
+                    onChange={handleImageChange}
+                    accept="image/*"
+                    disabled={isLoading}
+                    ref={fileInputRef}
+                    style={{ display: 'none' }}
+                    className={!imagen ? "campo-error-m" : ""}
+                  />
+                  {imagen && (
+                    <div className="opciones-imagen-m">
+                      <button
+                        type="button"
+                        className="btn-eliminar-imagen-m"
+                        onClick={handleRemoveImage}
+                        disabled={isLoading}
+                      >
+                        Cambiar imagen
+                      </button>
+                      <p className="nombre-archivo-m">Archivo: {imagen.name}</p>
+                    </div>
+                  )}
+                  {!imagen && <p className="mensaje-error-m">Debes subir una imagen</p>}
+                </div>
+              </div>
+
+              {/* Campos del formulario debajo de la imagen */}
               <div className="grupo-campo-m">
                 <label htmlFor="nombre">Nombre de la mascota <span className="obligatorio-m">*</span></label>
                 <input
@@ -107,7 +183,6 @@ const FormularioMascotas = () => {
                 {errors.nombre && <p className="mensaje-error-m">{errors.nombre.message}</p>}
               </div>
 
-              {/* Campo Especie */}
               <div className="grupo-campo-m">
                 <label htmlFor="especie">Especie <span className="obligatorio-m">*</span></label>
                 <select
@@ -128,7 +203,6 @@ const FormularioMascotas = () => {
                 {errors.especie && <p className="mensaje-error-m">{errors.especie.message}</p>}
               </div>
 
-              {/* Campo Raza */}
               <div className="grupo-campo-m">
                 <label htmlFor="raza">Raza de la mascota <span className="obligatorio-m">*</span></label>
                 <input
@@ -143,7 +217,6 @@ const FormularioMascotas = () => {
                 {errors.raza && <p className="mensaje-error-m">{errors.raza.message}</p>}
               </div>
 
-              {/* Campo Edad */}
               <div className="grupo-campo-m">
                 <label htmlFor="edad">Edad de la mascota <span className="obligatorio-m">*</span></label>
                 <input
@@ -162,7 +235,6 @@ const FormularioMascotas = () => {
                 {errors.edad && <p className="mensaje-error-m">{errors.edad.message}</p>}
               </div>
 
-              {/* Campo Peso */}
               <div className="grupo-campo-m">
                 <label htmlFor="peso">Peso de la mascota <span className="obligatorio-m">*</span></label>
                 <input
@@ -181,7 +253,6 @@ const FormularioMascotas = () => {
                 {errors.peso && <p className="mensaje-error-m">{errors.peso.message}</p>}
               </div>
 
-              {/* Campo Sexo */}
               <div className="grupo-campo-m">
                 <label htmlFor="sexo">Sexo de la mascota <span className="obligatorio-m">*</span></label>
                 <select
@@ -198,7 +269,6 @@ const FormularioMascotas = () => {
                 {errors.sexo && <p className="mensaje-error-m">{errors.sexo.message}</p>}
               </div>
 
-              {/* Campo ID Propietario */}
               <div className="grupo-campo-m">
                 <label htmlFor="idPropietario">Número de identidad <span className="obligatorio-m">*</span></label>
                 <input
@@ -213,44 +283,6 @@ const FormularioMascotas = () => {
                 {errors.idPropietario && <p className="mensaje-error-m">{errors.idPropietario.message}</p>}
               </div>
 
-              {/* Campo Imagen */}
-              <div className="grupo-campo-m">
-                <label htmlFor="imagen">Imagen de la mascota <span className="obligatorio-m">*</span></label>
-                <input
-                  id="imagen"
-                  type="file"
-                  onChange={(e) => setImagen(e.target.files[0])}
-                  accept="image/*"
-                  disabled={isLoading}
-                  className={!imagen ? "campo-error-m" : ""}
-                />
-                {!imagen && <p className="mensaje-error-m">Debes subir una imagen</p>}
-                {imagen && (
-                  <figure className="imagen-preview-m">
-                    <figcaption>Imagen seleccionada: {imagen.name}</figcaption>
-                    <button 
-                      type="button" 
-                      className="btn-eliminar-imagen-m"
-                      onClick={() => setImagen(null)}
-                    >
-                      Cambiar imagen
-                    </button>
-                  </figure>
-                )}
-              </div>
-
-              <button 
-                type="submit" 
-                className="boton-login-m" 
-                disabled={isLoading}
-                aria-busy={isLoading}
-              >
-                {isLoading ? (
-                  <span className="spinner" aria-hidden="true"></span>
-                ) : (
-                  "Registrar Mascota"
-                )}
-              </button>
             </fieldset>
           </form>
         </article>
