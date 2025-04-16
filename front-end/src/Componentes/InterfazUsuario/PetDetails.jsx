@@ -26,9 +26,7 @@ export const PetDetails = ({ datas, ready, editMode, open = false }) => {
             {isOpen && (
                 <section className="pet-modal-overlay" >
                     <div className="pet-modal-content" onClick={e => e.stopPropagation()}>
-                        <button className="pet-modal-close" onClick={closeModal}>
-                        
-                        </button>
+                        <button className="pet-modal-close" onClick={closeModal}>Exit</button>
                         
                         {/* Header con foto y datos principales */}
                         <header className="pet-header">
