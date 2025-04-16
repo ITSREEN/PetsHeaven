@@ -20,6 +20,19 @@ export const PetDetails = ({ datas, ready, editMode, open = false }) => {
         setIsOpen(false)
         document.body.style.overflow = 'auto' // Habilita el scroll del body
     }
+
+    const tabSelected = (e) => {
+        const infoPetContainer = document.getElementById("info-pet-container")
+
+        // remover la clase 'link-active' de todos los elementos
+        document.querySelectorAll('.tab-active').forEach(tab => {
+            tab.classList.remove('link-active')
+        })
+        infoPetContainer.children.remove()
+        
+        // Agregar la clase al elemento clickeado
+        e.currentTarget.classList.add('link-active')
+    }
     
     return (
         <main>
@@ -75,13 +88,13 @@ export const PetDetails = ({ datas, ready, editMode, open = false }) => {
 
                         {/* Navegación por pestañas */}
                         <nav className="pet-tabs">
-                            <button className="tab-active">Resumen</button>
-                            <button>Historial</button>
-                            <button>Consultas</button>    
+                            <a className='tab-active link-active' onClick={tabSelected} >Resumen</a>
+                            <a className='tab-active' onClick={tabSelected} >Historial</a>
+                            <a className='tab-active' onClick={tabSelected} >Consultas</a>    
                         </nav>
 
                         {/* Contenido principal organizado en tarjetas */}
-                        <div className="pet-content">
+                        <div id='info-pet-container' className="pet-content">
                         {/* Tarjeta de información básica */}
                         <section className="info-card">
                             <h2>
