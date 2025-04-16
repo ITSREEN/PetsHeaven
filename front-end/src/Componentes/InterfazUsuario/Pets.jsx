@@ -3,12 +3,13 @@ import { GetData } from '../Varios/Requests'
 import { Loader } from '../Errores/Loader'
 import { SubNotFound } from '../Errores/NotFound'
 import { EditPetButton } from './EditPet'
+import { PetDetails } from './PetDetails'
 import { decodeJWT} from '../Varios/Util'
 // import NavBar from './NavBarAdmi'
 
 // Import Styles 
 import '../../../public/styles/InterfazUsuario/pets.css'
-import '../../../public/styles/InterfazUsuario/petDetails.css'
+
 
 // Librarys 
 import React, { useState, useEffect } from "react"
@@ -37,10 +38,6 @@ export const Pets = ({ token, all = false}) => {
         } catch (err) {             
             console.log(err)
         }
-    }
-    
-    const namePro = gen => {
-        return gen === "Hombre" ? "Propietario" : "Propietaria"
     }
 
     const openModal = (pet) => {
@@ -131,55 +128,56 @@ export const Pets = ({ token, all = false}) => {
 
                     {/* Modal para mostrar detalles completos */}
                     {showModal && selectedPet && (
-                        <section className="pet-modal-overlay" onClick={closeModal}>
-                            <div className="pet-modal-content" onClick={e => e.stopPropagation()}>
-                                <button className="pet-modal-close" onClick={closeModal}>×</button>
+                        <PetDetails datas={selectedPet} />
+                        // <section className="pet-modal-overlay" onClick={closeModal}>
+                        //     <div className="pet-modal-content" onClick={e => e.stopPropagation()}>
+                        //         <button className="pet-modal-close" onClick={closeModal}>×</button>
                                 
-                                <section className="pet-modal-grid">
-                                    <picture className="pet-modal-image">
-                                        <img 
-                                            src={selectedPet.fot_mas} 
-                                            alt={`${selectedPet.esp_mas} ${selectedPet.nom_mas}`} 
-                                        />
-                                    </picture>
+                        //         <section className="pet-modal-grid">
+                        //             <picture className="pet-modal-image">
+                        //                 <img 
+                        //                     src={selectedPet.fot_mas} 
+                        //                     alt={`${selectedPet.esp_mas} ${selectedPet.nom_mas}`} 
+                        //                 />
+                        //             </picture>
                                     
-                                    <section className="pet-modal-info">
-                                        <h2>{selectedPet.nom_mas}</h2>
-                                        <aside className="pet-details-grid">
-                                            <article>
-                                                <h3>Información Básica</h3>
-                                                <p><strong>Especie: </strong> {selectedPet.esp_mas}</p>
-                                                <p><strong>Raza: </strong> {selectedPet.raz_mas}</p>
-                                                <p><strong>Color: </strong> {selectedPet.col_mas}</p>
-                                                <p><strong>Género: </strong> {selectedPet.gen_mas === 'M' ? 'Macho' : 'Hembra'}</p>
-                                                <p><strong>Fecha de Nacimiento: </strong> {new Date(selectedPet.fec_nac_mas).toLocaleDateString('en-CA')}</p>
-                                                <p><strong>Peso: </strong> {selectedPet.pes_mas} kg</p>
-                                            </article>
+                        //             <section className="pet-modal-info">
+                        //                 <h2>{selectedPet.nom_mas}</h2>
+                        //                 <aside className="pet-details-grid">
+                        //                     <article>
+                        //                         <h3>Información Básica</h3>
+                        //                         <p><strong>Especie: </strong> {selectedPet.esp_mas}</p>
+                        //                         <p><strong>Raza: </strong> {selectedPet.raz_mas}</p>
+                        //                         <p><strong>Color: </strong> {selectedPet.col_mas}</p>
+                        //                         <p><strong>Género: </strong> {selectedPet.gen_mas === 'M' ? 'Macho' : 'Hembra'}</p>
+                        //                         <p><strong>Fecha de Nacimiento: </strong> {new Date(selectedPet.fec_nac_mas).toLocaleDateString('en-CA')}</p>
+                        //                         <p><strong>Peso: </strong> {selectedPet.pes_mas} kg</p>
+                        //                     </article>
                                             
-                                            <article>
-                                                <h3>{namePro(selectedPet.gen_usu)}</h3>
-                                                <p><strong>{namePro(selectedPet.gen_usu)}: </strong> {selectedPet.nom_usu} {selectedPet.ape_usu}</p>
-                                                <p><strong>Documento: </strong> {selectedPet.doc_usu}</p>
-                                                <p><strong>Celular: </strong> {selectedPet.cel_usu}</p>
-                                                <p><strong>Email: </strong> {selectedPet.email_usu}</p>
-                                            </article>
+                        //                     <article>
+                        //                         <h3>{namePro(selectedPet.gen_usu)}</h3>
+                        //                         <p><strong>{namePro(selectedPet.gen_usu)}: </strong> {selectedPet.nom_usu} {selectedPet.ape_usu}</p>
+                        //                         <p><strong>Documento: </strong> {selectedPet.doc_usu}</p>
+                        //                         <p><strong>Celular: </strong> {selectedPet.cel_usu}</p>
+                        //                         <p><strong>Email: </strong> {selectedPet.email_usu}</p>
+                        //                     </article>
                                             
-                                            <article>
-                                                <h3>Salud</h3>
-                                                <p><strong>Estado reproductivo: </strong> {selectedPet.est_rep_mas}</p>
-                                                <p><strong>Alimento: </strong> {selectedPet.ali_mas}</p>
-                                            </article>
+                        //                     <article>
+                        //                         <h3>Salud</h3>
+                        //                         <p><strong>Estado reproductivo: </strong> {selectedPet.est_rep_mas}</p>
+                        //                         <p><strong>Alimento: </strong> {selectedPet.ali_mas}</p>
+                        //                     </article>
 
-                                            <article>
-                                                <h3>Historial Medico</h3>
-                                                <p><strong>Estado reproductivo: </strong> {selectedPet.est_rep_mas}</p>
-                                                <p><strong>Alimento: </strong> {selectedPet.ali_mas}</p>
-                                            </article>
-                                        </aside>
-                                    </section>
-                                </section>
-                            </div>
-                        </section>
+                        //                     <article>
+                        //                         <h3>Historial Medico</h3>
+                        //                         <p><strong>Estado reproductivo: </strong> {selectedPet.est_rep_mas}</p>
+                        //                         <p><strong>Alimento: </strong> {selectedPet.ali_mas}</p>
+                        //                     </article>
+                        //                 </aside>
+                        //             </section>
+                        //         </section>
+                        //     </div>
+                        // </section>
                     )}
 
                     {editMode && (

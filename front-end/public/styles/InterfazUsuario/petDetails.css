@@ -6,103 +6,336 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Estilos para el modal */
+/* Estructura principal */
 .pet-modal-overlay {
     position: fixed;
-    display: flex;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 1140;
+    align-items: center;
+    z-index: 1000;
+    padding: 1rem;
 }
 
 .pet-modal-content {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    width: 100%;
+    gap: 1.1rem;
+    max-width: 80vw;
+    max-height: 90vh;
     position: relative;
-    padding: 1.8rem;
-    width: 90%;
-    max-width: 90%;
-    height: 90vh;
-    font-size: var(--font-size);
-    border-radius: 0.7rem;
-    background-color: white;
-    box-shadow: 0 0.2rem 0.9rem rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-lg);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
     overflow-y: auto;
 }
 
 .pet-modal-close {
-    cursor: pointer;
-    position: fixed;
-    top: 6vh;
-    right: 7vw;
-    font-size: var(--icon-size);
-    font-weight: bold;
-    color: #333;
-    border: none;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
     background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    color: var(--black);
+    transition: all 0.2s;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.pet-modal-grid {
+.pet-modal-close:hover {
+    background-color: var(--gray-100);
+    color: var(--gray-700);
+}
+
+/* Header */
+.pet-header {
+    display: flex;
+    gap: -1rem;
+    align-items: center;
+}
+
+.pet-avatar-container {
+    position: relative;
+    padding: 1rem;
+    flex-shrink: 0;
+}
+
+.pet-avatar {
+    height: 8rem;
+    width: 8rem;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    border: 0.3rem solid var(--primary-light);
+}
+
+.pet-status {
+    position: absolute;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.2rem;
+}
+
+.status-badge, .weight-badge {
+    padding: 0.3rem 0.7rem;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.status-badge {
+    background-color: var(--gray-200);
+    color: var(--gray-700);
+    font-size: calc(var(--font-size) - 0.14rem);
+    font-weight: 520;
+}
+
+.status-active {
+    background-color: var(--primary-light);
+    color: var(--azulturquesa);
+}
+
+.weight-badge {
+    background-color: var(--primary);
+    color: var(--white);
+    font-weight: bold;
+    font-size: calc(var(--font-size) - 0.14rem);
+}
+
+.pet-main-info {
+    flex: 1;
+}
+
+.pet-main-info h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--gray-900);
+}
+
+.pet-meta {
+    display: flex;
+    gap: 8px;
+    margin: 8px 0;
+    flex-wrap: wrap;
+}
+
+.pet-meta span {
+    padding: 2px 8px;
+    background-color: var(--gray-100);
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--gray-700);
+}
+
+.species {
+    background-color: var(--primary-light) !important;
+    color: var(--azulturquesa) !important;
+}
+
+.pet-age {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    color: var(--gray-600);
+}
+
+/* Pestañas */
+.pet-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--gray-200);
+    margin: 0 -24px;
+    padding: 0 24px;
+}
+
+.pet-tabs button {
+    padding: 12px 16px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--gray-500);
+    transition: all 0.2s;
+    font-size: var(--font-size);
+}
+
+.pet-tabs button.tab-active {
+    color: var(--azulturquesa);
+    border-bottom-color: var(--primary);
+}
+
+/* Contenido */
+.pet-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.info-card {
+    background-color: var(--gray-50);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    border: 1px solid var(--gray-200);
+}
+
+.info-card h2 {
+    margin: 0 0 1rem 0;
+    font-size: var(--font-size);
+    font-weight: 600;
+    color: var(--azulturquesa);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-grid {
     display: grid;
     grid-template-columns: 1fr;
-    align-items: start;
-    gap: 1.9rem;
+    gap: 12px;
 }
 
-.pet-modal-image img {
-    width: 100%;
-    max-height: 50vh;
-    object-fit: cover;
-    border-radius: 0.7rem;
-    box-shadow: 0 0.2rem 0.7rem rgba(0, 0, 0, 0.2);
+.info-item {
+    display: flex;
+    justify-content: space-between;
 }
 
-.pet-details-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-    gap: 1.2rem;
-    margin-top: 1.2rem;
+.info-label {
+    font-size: var(--font-size);
+    color: var(--gray-600);
 }
 
-.pet-details-grid h3 {
-    color: var(--verdeaguamarina);
-    margin-bottom: 0.9rem;
-    border-bottom: 0.1rem solid #eee;
-    padding-bottom: 0.3rem;
+.info-value {
+    font-size: var(--font-size);
+    font-weight: bold;
+    color: var(--gray-800);
+    text-align: right;
 }
 
-.pet-details-grid p {
-    margin-bottom: 0.7rem;
-    line-height: 1.5;
+/* Tarjeta de propietario */
+.owner-card {
+    grid-column: span 2;
 }
 
-/* medias */
+.owner-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.owner-main {
+    flex: 1;
+}
+
+.owner-name {
+    display: block;
+    font-size: var(--font-size);
+    font-weight: bold;
+    color: var(--gray-900);
+    margin-bottom: 4px;
+}
+
+.owner-type {
+    display: inline-block;
+    font-size: var(--font-size);
+    color: var(--gray-600);
+    background-color: var(--gray-100);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.owner-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: var(--font-size);
+    color: var(--gray-700);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.contact-item:hover {
+    color: var(--azulturquesa);
+}
+
+/* Acciones rápidas */
+.quick-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 1rem;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 1rem;
+    border-radius: var(--border-radius);
+    font-size: var(--font-size);
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+}
+
+.action-btn.primary {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.action-btn.primary:hover {
+    background-color: var(--azulturquesa);
+}
+
+.action-btn.secondary {
+    background-color: var(--white);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+}
+
+.action-btn.secondary:hover {
+    background-color: var(--primary-light);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-    
-    .pet-modal-grid {
+    .pet-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .pet-content {
         grid-template-columns: 1fr;
     }
-    
-    .pet-modal-image {
-        padding: 1rem;
+
+    .owner-info {
+        flex-direction: column;
+        align-items: flex-start;
     }
-    
-    .pet-modal-info {
-        padding: 1rem;
-    }
-    
-    .pet-details-grid {
-        grid-template-columns: 1fr;
-    }
-}
-@media (width > 1000px) {
-    .pet-modal-grid {
-        grid-template-columns: 1fr 2fr;
-    }
-    .pet-modal-image img {
-        max-height: 75vh;
+
+    .quick-actions {
+        justify-content: center;
     }
 }
