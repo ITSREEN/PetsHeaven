@@ -1,7 +1,7 @@
 // Librarys 
 import React, {useEffect, useState} from "react"
-import { Dog, Eye } from "lucide-react"
-
+import { Dog, Eye, Plus } from "lucide-react"
+ 
 // Imports 
 import { NavBarAdmin } from '../BarrasNavegacion/NavBarAdmi';
 import { Loader } from '../Errores/Loader'
@@ -108,7 +108,10 @@ export function GesMascota() {
                     <Dog className="iconotitulogesmascota" size={20} />
                     Gestión de mascotas
                   </h1>
-                  <span className="subtitulogesmascota">/ Administración</span>
+                  <button className="botongesmascota">
+                    <Plus size={16} className="iconoplusadminhome" />
+                    Registrar mascota
+                  </button>
                 </div>
 
                 <h2 className="subtitulopanelgesmascota">Mascotas registradas</h2>
