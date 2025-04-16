@@ -181,8 +181,9 @@ const FormularioRegMascota = ({ onClose }) => {
                   {...register("especie", {
                     required: "Este campo es obligatorio",
                   })}
+                  defaultValue={""}
                 >
-                  <option value="">Selecciona una especie</option>
+                  <option value="" disabled>Selecciona una especie</option>
                   <option value="Perro">Perro</option>
                   <option value="Gato">Gato</option>
                   <option value="Ave">Ave</option>

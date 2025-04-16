@@ -1,23 +1,18 @@
 {
-  "devDependencies": {
-    "sass-embedded": "^1.86.3",
-    "vite": "^6.2.6"
-  },
   "dependencies": {
-    "@react-firebase/auth": "^0.2.10",
+    "@emailjs/browser": "^4.4.1",
     "@supabase/supabase-js": "^2.49.4",
     "boxicons": "^2.1.4",
-    "emailjs-com": "^3.2.0",
-    "firebase": "^11.6.0",
     "framer-motion": "^12.7.3",
-    "lodash": "^4.17.21",
-    "lucide-react": "^0.487.0",
-    "motion": "^12.7.3",
+    "lucide-react": "^0.488.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.55.0",
     "react-router": "^7.5.0",
     "sweetalert": "^2.1.2",
-    "sweetalert2": "^11.19.1"
+    "sweetalert2": "^11.6.13"
+  },
+  "devDependencies": {
+    "sass-embedded": "^1.86.3"
   }
 }

@@ -4,12 +4,10 @@ import { Loader } from '../Errores/Loader'
 import { SubNotFound } from '../Errores/NotFound'
 import { EditPetButton } from './EditPet'
 import { PetDetails } from './PetDetails'
-import { decodeJWT} from '../Varios/Util'
-// import NavBar from './NavBarAdmi'
+import { getRoles } from '../Varios/Util'
 
 // Import Styles 
 import '../../../public/styles/InterfazUsuario/pets.css'
-
 
 // Librarys 
 import React, { useState, useEffect } from "react"
@@ -52,9 +50,8 @@ export const Pets = ({ token, all = false}) => {
     
     // Ejecutar el fetch para traer datos
     useEffect(() => {
-        // Vars 
-        const tokenData = decodeJWT(token)
-        const roles = Array(tokenData.roles)
+        // Vars
+        const roles = getRoles(token)
 
         // verify rol
         const URL = roles.includes("Administrador")? mainURL: `${mainURL}:${by}`

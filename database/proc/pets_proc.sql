@@ -1,4 +1,4 @@
--- Active: 1743971322762@@127.0.0.1@3306@pets_heaven
+-- Active: 1740114802630@@127.0.0.1@3306@pets_heaven
 CREATE PROCEDURE pets_heaven.RegistPets(
     IN p_nom_mas VARCHAR(100),
     IN p_esp_mas VARCHAR(100),
@@ -188,5 +188,3 @@ BEGIN
     WHERE 
         hm.id_mas_his = p_pet_id;
 END //
-
-CALL SearchPetsBy("98765432","leo");
