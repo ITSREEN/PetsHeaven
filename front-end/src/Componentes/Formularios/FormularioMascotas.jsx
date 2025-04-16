@@ -1,75 +1,77 @@
 // Librarys
-import React, { useState, useRef, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { supabase } from "../../supabaseClient";
-import "../../../public/styles/Formularios/FormularioMascotas.css";
+import React, { useState, useRef, useEffect } from "react"
+import { useForm } from "react-hook-form"
+import { supabase } from "../../supabaseClient"
+
+// Import Styles
+import "../../../public/styles/Formularios/FormularioMascotas.css"
 
 // Main component
 const FormularioRegMascota = ({ onClose }) => {
   // States
-  const [imagen, setImagen] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState(null); // Inicialmente sin previsualización
-  const fileInputRef = useRef(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [imagen, setImagen] = useState(null)
+  const [previewUrl, setPreviewUrl] = useState(null) // Inicialmente sin previsualización
+  const fileInputRef = useRef(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   // Form hook
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm()
 
   // Effects
   useEffect(() => {
     if (imagen) {
-      const reader = new FileReader();
+      const reader = new FileReader()
       reader.onloadend = () => {
-        setPreviewUrl(reader.result);
-      };
-      reader.readAsDataURL(imagen);
+        setPreviewUrl(reader.result)
+      }
+      reader.readAsDataURL(imagen)
     } else {
-      setPreviewUrl(null); // Limpiar la previsualización si no hay imagen
+      setPreviewUrl(null) // Limpiar la previsualización si no hay imagen
     }
-  }, [imagen]);
+  }, [imagen])
 
   // Handlers
   const handleIconClick = () => {
-    fileInputRef.current.click();
-  };
+    fileInputRef.current.click()
+  }
 
   const handleImagenChange = (event) => {
-    const file = event.target.files[0];
+    const file = event.target.files[0]
     if (file) {
-      setImagen(file);
+      setImagen(file)
     }
-  };
+  }
 
   const handleRemoverImagen = () => {
-    setImagen(null);
-  };
+    setImagen(null)
+  }
 
   const onSubmit = async (formData) => {
     if (!imagen) {
-      alert("Por favor selecciona una imagen");
-      return;
+      alert("Por favor selecciona una imagen")
+      return
     }
 
-    setIsLoading(true);
+    setIsLoading(true)
 
     try {
-      let publicUrl = null;
+      let publicUrl = null
 
       // 1. Subir la imagen a Supabase Storage
-      const fileExt = imagen.name.split('.').pop();
-      const fileName = `${Date.now()}.${fileExt}`;
+      const fileExt = imagen.name.split('.').pop()
+      const fileName = `${Date.now()}.${fileExt}`
 
       const { data: uploadData, error: uploadError } = await supabase.storage
         .from('mascotas') // Usamos el bucket 'mascotas'
-        .upload(fileName, imagen);
+        .upload(fileName, imagen)
 
-      if (uploadError) throw uploadError;
+      if (uploadError) throw uploadError
 
       // 2. Obtener URL pública de la imagen
       const { data: { publicUrl: url } } = supabase.storage
         .from('mascotas')
-        .getPublicUrl(uploadData.path);
-      publicUrl = url;
+        .getPublicUrl(uploadData.path)
+      publicUrl = url
 
       // 3. Insertar datos en la base de datos de PetsHeaven (tabla 'mascotas')
       const { error: dbError } = await supabase
@@ -78,22 +80,22 @@ const FormularioRegMascota = ({ onClose }) => {
           ...formData, // Incluimos los otros datos del formulario
           imagen_url: publicUrl,
           creado_en: new Date().toISOString(),
-        }]);
+        }])
 
-      if (dbError) throw dbError;
+      if (dbError) throw dbError
 
-      alert('¡Mascota registrada con éxito!');
+      alert('¡Mascota registrada con éxito!')
       if (onClose) {
-        onClose(); // Llama a la función onClose si se proporciona
+        onClose() // Llama a la función onClose si se proporciona
       }
 
     } catch (error) {
-      console.error('Error:', error);
-      alert(`Error al registrar: ${error.message}`);
+      console.error('Error:', error)
+      alert(`Error al registrar: ${error.message}`)
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
 
   return (
     <main className="loginContMascota">
@@ -279,7 +281,7 @@ const FormularioRegMascota = ({ onClose }) => {
         </article>
       </section>
     </main>
-  );
+  )
 }
 
-export default FormularioRegMascota;
+export default FormularioRegMascota
