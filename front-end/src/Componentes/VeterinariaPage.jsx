@@ -6,7 +6,7 @@ import { diapositivas, promociones, testimonios } from './Varios/varios'
 import { Loader } from './Errores/Loader'
 import Footer from "./Varios/Footer2"
 
-
+// Librarys 
 import React,{ useState, useEffect} from "react"
 import { MapPin, Star, Phone, Mail, Clock, ChevronUp, Instagram, Facebook } from "lucide-react"
 import { motion } from "framer-motion"
@@ -18,7 +18,7 @@ const containerVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 1.6,
+      duration: 0.6,
       ease: "easeOut"
     }
   }
@@ -28,7 +28,7 @@ const fadeIn = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { duration: 1.0 }
+    transition: { duration: 0.8 }
   }
 };
 
