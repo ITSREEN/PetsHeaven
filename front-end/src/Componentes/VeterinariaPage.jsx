@@ -115,8 +115,10 @@ export default function VeterinariaPage( ) {
           <section className="carrusel">
             {diapositivas.map((dia, indice) => (
               <div key={indice} className={`dia-carrusel ${indice === diaActual ? "activo" : ""}`}>
-                <img src={dia.imagen || "/placeholder.svg"} alt="Imagen de carrusel" className="imagen-carrusel" />
-              </div>
+                <img  src={dia.imagen || "/placeholder.svg"}
+                    alt={dia.alt || "Imagen del carrusel de PetsHeaven"}
+                    className="imagen-carrusel" />
+                </div>
             ))}
             <div className="indicadores">
               {diapositivas.map((_, indice) => (
@@ -135,7 +137,7 @@ export default function VeterinariaPage( ) {
             <div className="contenedor">
               <div className="contenedor-nosotros">
                 <div className="imagen-nosotros">
-                  <img src="https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Fondos/NosotrosR.jpg" alt="Veterinarios con mascota" className="img-nosotros" />
+                  <img src="https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Fondos/NosotrosR.jpg" alt="cuatro veterinarios sonrientes posando con tres perros de tamaño medio en un fondo claro" className="img-nosotros" />
                 </div>
                 <div className="texto-nosotros">
                   <h2 className="titulo-seccion">Quienes somos</h2>
@@ -167,7 +169,16 @@ export default function VeterinariaPage( ) {
                       serData.map(i => (
                         <div key={i.img_ser} className="tarjeta-servicio">
                           <div className="imagen-servicio">
-                            <img src={i.img_ser || "/placeholder.svg"} alt={i.nom_ser} className="img-servicio" />
+                            <img src={i.img_ser || "/placeholder.svg"}
+                                      alt={
+                                        i.nom_ser === "Consulta General" ? "Veterinario revisando a un gato durante una consulta general" :
+                                        i.nom_ser === "Vacunación" ? "Veterinario aplicando vacuna a un cachorro" :
+                                        i.nom_ser === "Cirugía" ? "Veterinarios realizando una cirugía a una mascota en quirófano" :
+                                        i.nom_ser === "Emergencias 24h" ? "Atención veterinaria de emergencia a un perro por dos profesionales" :
+                                        i.nom_ser === "Spa y Baño" ? "Perro pequeño recibiendo baño con espuma en una clínica veterinaria" :
+                                        `Imagen representativa del servicio ${i.nom_ser}`
+                                         }
+                                className="img-servicio" />
                           </div>
                           <div className="contenido-servicio">
                             <h3 className="titulo-servicio">{i.nom_ser}</h3>
@@ -189,7 +200,7 @@ export default function VeterinariaPage( ) {
                     {promociones.map((promocion, indice) => (
                       <div key={indice} className="tarjeta-promocion">
                         <div className="imagen-promocion">
-                          <img src={promocion.imagen || "/placeholder.svg"} alt={promocion.titulo} className="img-promocion" />
+                          <img src={promocion.imagen || "/placeholder.svg"} alt={promocion.alt} className="img-promocion" />
                           <div className="etiqueta-fecha">Válido hasta: {promocion.fechaVencimiento}</div>
                         </div>
                         <div className="contenido-promocion">
