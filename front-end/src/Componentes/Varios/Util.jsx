@@ -28,6 +28,14 @@ export const getRoles = (token = "") => {
   return Array(tokenData.roles)
 }
 
+export const formatDate = (dateString = "") => {
+  if(dateString) {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('es-CO')
+  }
+  return false
+}
+
 export const errorStatusHandler = (errStatus) => {
   let message = 'Error interno'
 
