@@ -9,6 +9,7 @@ import { SubNotFound } from '../Errores/NotFound'
 import { GetData } from '../Varios/Requests'
 import { EditPetButton } from '../InterfazUsuario/EditPet'
 import { PetDetails } from '../InterfazUsuario/PetDetails'
+import { FormularioRegMascota } from '../Formularios/FormularioMascotas'
 
 // Import Styles 
 import "../../../public/styles/InterfazAdmin/GesMascota.css"
@@ -23,6 +24,7 @@ export function GesMascota() {
   const [selectedPet, setSelectedPet] = useState(null)
   const [showModal, setShowModal] = useState(false)
   const [editMode,setEditMode] = useState(false)
+  const [register,setRegister] = useState(false)
 
   // Functions
   const namePro = gen => {
@@ -103,7 +105,7 @@ export function GesMascota() {
                     Gestión de mascotas
                   </h1>
                   <button className="botongesmascota">
-                    <Plus size={16} className="iconoplusadminhome" />
+                    <Plus size={16} className="iconoplusadminhome" onClick={setRegister}/>
                     Registrar mascota
                   </button>
                 </div>
@@ -196,6 +198,10 @@ export function GesMascota() {
                 open={editMode}
                 onSave={(state) => setEditMode(state)}
             />
+          )
+        }
+        {register && (
+            <FormularioRegMascota/>
           )
         }
       </main>

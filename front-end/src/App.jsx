@@ -5,17 +5,17 @@ import { BrowserRouter, Routes, Route,Navigate } from "react-router"
 // Imports
 import { LoginForm } from "./Componentes/Formularios/LoginForm"
 import Registro from "./Componentes/Formularios/Registro"
-import RegistroMascota from "./Componentes/Formularios/FormularioMascotas"
+import { FormularioRegMascota } from "./Componentes/Formularios/FormularioMascotas"
 import ForgotPassword from "./Componentes/Formularios/ForgotPassword"
 import { HomeAdmin } from "./Componentes/InterfazAdmin/HomeAdmin"
 import { GesUsuario } from "./Componentes/InterfazAdmin/GesUsuario"
+import { GesPropietario } from "./Componentes/InterfazAdmin/GesPropietario"
+import { GesMascota } from "./Componentes/InterfazAdmin/GesMascota"
 import { Pets } from "./Componentes/InterfazUsuario/Pets"
 import { NotFound } from "./Componentes/Errores/NotFound"
 import { ErrorInternalServer } from "./Componentes/Errores/ErrorInternalServer"
 import { getRoles } from './Componentes/Varios/Util'
 import VeterinariaPage from "./Componentes/VeterinariaPage"
-import { GesPropietario } from "./Componentes/InterfazAdmin/GesPropietario"
-import { GesMascota } from "./Componentes/InterfazAdmin/GesMascota"
 // import { RegistroUsu } from "./Componentes/InterfazAdmin/FormulariosAdmin/RegistroUsu"
 
 // Main Component
@@ -51,7 +51,7 @@ export default function App () {
           <PrivateRoute children={<Pets token={token} />}/>}>
         </Route>
         <Route path="user/pets/register" element={
-          <PrivateRoute children={<RegistroMascota />} />} />
+          <PrivateRoute children={<FormularioRegMascota />} />} />
 
         {/* Admin routes  */}
         <Route path="consultorio" element={

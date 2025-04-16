@@ -7,7 +7,7 @@ import { supabase } from "../../supabaseClient"
 import "../../../public/styles/Formularios/FormularioMascotas.css"
 
 // Main component
-const FormularioRegMascota = ({ onClose }) => {
+export const FormularioRegMascota = ({ onClose }) => {
   // States
   const [imagen, setImagen] = useState(null)
   const [previewUrl, setPreviewUrl] = useState(null) // Inicialmente sin previsualización
@@ -283,5 +283,3 @@ const FormularioRegMascota = ({ onClose }) => {
     </main>
   )
 }
-
-export default FormularioRegMascota
