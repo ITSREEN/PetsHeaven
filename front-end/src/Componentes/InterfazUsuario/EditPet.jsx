@@ -1,11 +1,13 @@
 // Imports 
-import '../../../public/styles/InterfazUsuario/editPets.css'
 import { errorStatusHandler,loadingAlert } from '../Varios/Util'
 import { ModifyData } from '../Varios/Requests'
-import swal from 'sweetalert'
 
 // Librarys 
 import React, { useState } from 'react'
+import swal from 'sweetalert'
+
+// Import Styles
+import '../../../public/styles/InterfazUsuario/editPets.css'
 
 // Main component 
 export const EditPetButton = ({ petData, onSave, open = false }) => {
