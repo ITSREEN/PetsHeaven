@@ -7,7 +7,5 @@ boxicons
 #Dev Dep
 vite
 
-npm i react react-dom react-hook-form boxicons react-router lucide-react @supabase/supabase-js emailjs-com sweetalert sweetalert2
+npm i react react-dom react-hook-form boxicons react-router lucide-react @supabase/supabase-js emailjs-com sweetalert sweetalert2 framer-motion firebase @react-firebase/auth
 npm i -D vite sass-embedded
-npm install firebase @react-firebase/auth
-npm install framer-motion
