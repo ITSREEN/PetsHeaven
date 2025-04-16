@@ -1,4 +1,3 @@
-/* Estilos generales */
 main.login-container-m {
     display: flex;
     justify-content: center;
@@ -41,7 +40,7 @@ main.login-container-m {
   .contenedor-botones-superior-m {
     display: flex;
     justify-content: flex-end;
-    gap: 8px; /* Reducir espacio entre botones */
+    gap: 10px; /* Reducir espacio entre botones */
     margin-bottom: 15px; /* Reducir margen inferior */
   }
   
@@ -253,3 +252,5 @@ main.login-container-m {
       font-size: 18px;
     }
   }
+
+  
