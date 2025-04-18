@@ -44,12 +44,15 @@ export const LoginForm = () => {
       if (log) {
         const token = localStorage.getItem("token")
         const roles = getRoles(token)
+        console.log(roles)
         let redirect
         if(roles.includes("Administrador")){
           redirect = () => window.location.href = "/gestion/usuarios"
-        } else if (roles.includes("Veterinario")) {
+        }
+        if (!roles.includes("Administrador") && roles.includes("Veterinario")) {
           redirect = () => window.location.href = "/gestion/mascotas"
-        } else {
+        }
+        if (!roles.includes("Administrador") || !roles.includes("Veterinario")) {
           redirect = () => window.location.href = "/user/pets"
         }
         if(token){ 

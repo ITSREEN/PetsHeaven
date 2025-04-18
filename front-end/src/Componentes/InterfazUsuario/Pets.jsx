@@ -54,7 +54,7 @@ export const Pets = () => {
             const by = getName(token)
             const roles =  getRoles(token)
 
-            const admin = roles.some(role => role.toLowerCase() === "administrador")
+            const admin = roles.some(role => role.toLowerCase() === "veterinario")
 
             admin?setIsAdmin(true):setIsAdmin(false)
 

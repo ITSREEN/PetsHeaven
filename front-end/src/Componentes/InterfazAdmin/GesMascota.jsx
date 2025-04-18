@@ -35,9 +35,9 @@ export function GesMascota() {
       try {
         if(token) {
           const pets = await GetData(mainURL,token)
-          const roles =  getRoles(token)
+          const roles = getRoles(token)
 
-          const admin = roles.some(role => role.toLowerCase() === "administrador")
+          const admin = roles.some(role => role.toLowerCase() === "veterinario")
           admin?setIsAdmin(true):setIsAdmin(false)
 
           setLoading(false)
