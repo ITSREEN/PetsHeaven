@@ -1,4 +1,4 @@
-const { hash } = require('bcrypt')
+// const { hash } = require('bcrypt')
 
 const HeaderWeb = {
     "Content-Type": "application/json",

@@ -38,20 +38,6 @@ BEGIN
     SET autocommit = 1;
 END //
 
-CALL `RegistPets`(
-  'Dani',
-  'Perro',
-  'blanco',
-  'nose',
-  'croquetas',
-  '2025-04-25',
-  '12',
-  'admin@gmail.com',
-  'Femenino',
-  'Esterilizado',
-  'https://ujrouzcdanfkdaawduml.supabase.co/storage/v1/object/public/mascotas/1744938532918.webp'
-);
-
 CREATE PROCEDURE pets_heaven.ModifyPets(
     IN p_nom_mas VARCHAR(100),
     IN p_esp_mas VARCHAR(100),
@@ -218,8 +204,6 @@ BEGIN
     ORDER BY m.nom_mas
     LIMIT 40;
 END //
-
-CALL `SearchPetBy`("sammy");
 
 CREATE PROCEDURE pets_heaven.DeletePetBy(
     IN p_first_by VARCHAR(100),
