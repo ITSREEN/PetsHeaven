@@ -39,36 +39,39 @@ export const LoginForm = () => {
     })
     
     try {
-      await login(url,firstData,secondData)
+      const log = await login(url,firstData,secondData)
+
+      if (log) {
+        const token = localStorage.getItem("token")
+        const roles = getRoles(token)
+        let redirect
+        if(roles.includes("Administrador")){
+          redirect = () => window.location.href = "/gestion/usuarios"
+        } else if (roles.includes("Veterinario")) {
+          redirect = () => window.location.href = "/gestion/mascotas"
+        } else {
+          redirect = () => window.location.href = "/user/pets"
+        }
+        if(token){ 
+          swal({
+            title: 'Bienvenido',
+            icon: 'success',
+            text: 'Gracias por visitar nuestra pagina web',
+            buttons: false
+          })
+          setTimeout(() => {
+            redirect() 
+          },2000)
+        } 
+      } else console.log(log)
       
-      const token = localStorage.getItem("token")
-      const roles = getRoles(token)
-      let redirect
-      if(roles.includes("Administrador")){
-        redirect = () => window.location.href = "/gestion/usuarios"
-      } else if (roles.includes("Veterinario")) {
-        redirect = () => window.location.href = "/gestion/mascotas"
-      } else {
-        redirect = () => window.location.href = "/user/pets"
-      }
-      if(token){ 
-        swal({
-          title: 'Bienvenido',
-          icon: 'success',
-          text: 'Gracias por visitar nuestra pagina web',
-          buttons: false
-        })
-        setTimeout(() => {
-          redirect() 
-        },2000)
-      } 
 
     } catch (err) {
       if(err.status) {
         const message = errorStatusHandler(err.status)
         swal({
           title: 'Error',
-          text: `${message}`,
+          text: `${message}. Intentalo de nueva mas tarde`,
           icon: 'warning',
         })
       } else console.log(err)

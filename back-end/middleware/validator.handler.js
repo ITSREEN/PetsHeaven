@@ -4,6 +4,7 @@ function validatorHeaders (req,res,next) {
     const apiKey = req.headers['x-api-key']
     const contentType = req.headers['content-type']
     const userAgent = req.headers['user-agent']
+    const user = req.headers['user']
 
     // Validation
     if (!apiKey || apiKey !== 'pets_heaven_vite' ) {
@@ -12,7 +13,7 @@ function validatorHeaders (req,res,next) {
     if (!contentType || contentType !== 'application/json' ) {
         return res.status(400).json({ error: 'Contenido invalido' })
     }
-    if (!userAgent ) {
+    if (!userAgent || !user ) {
         return res.status(401).json({ error: 'Usuario invalido' })
     }
 

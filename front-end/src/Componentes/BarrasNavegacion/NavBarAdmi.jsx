@@ -5,7 +5,7 @@ import {Settings,Users,User,Headset,ChevronDown,Syringe,Bath,Scissors,Cat,Calend
 
 // Imports
 import "../../../public/styles/BarrasNavegacion/NavBarAdmin.css"
-import { Logout, decodeJWT } from "../Varios/Util"
+import { Logout, decodeJWT,getRoles } from "../Varios/Util"
 
 export const NavBarAdmin = () => {
   const [serviciosAbierto, setServiciosAbierto] = useState(false)
@@ -13,6 +13,7 @@ export const NavBarAdmin = () => {
   const [menuMovilAbierto, setMenuMovilAbierto] = useState(false)
   const [esMovil, setEsMovil] = useState(false)
   const [user, setUser] = useState({})
+  const [isAdmin, setIsAdmin] = useState()
   const token = localStorage.getItem("token")
 
   // Detectar si es dispositivo móvil
@@ -42,8 +43,14 @@ export const NavBarAdmin = () => {
   }
 
   useEffect(() => {
-    const tokenJWT = decodeJWT(token)
-    setUser(tokenJWT)
+    if(token){
+      const tokenJWT = decodeJWT(token)
+      setUser(tokenJWT)
+      const roles = getRoles(token)
+      const admin = roles.some(role => role.toLowerCase() === "administrador")
+      setIsAdmin(admin)
+    }
+    
   }, [])
 
   return (
@@ -80,12 +87,16 @@ export const NavBarAdmin = () => {
  
         <nav className="menunavadmin">
           <ul className="listanavadmin">
-            <li className="itemnavadmin">
-              <a href="/administracion" className="enlacenavadmin">
-                <Settings className="icononavadmin" />
-                <span>Administración</span>
-              </a>
-            </li>
+            {
+              isAdmin && (
+                <li className="itemnavadmin">
+                  <a href="/administracion" className="enlacenavadmin">
+                    <Settings className="icononavadmin" />
+                    <span>Administración</span>
+                  </a>
+                </li>
+              )
+            }
 
             <li className="itemnavadmin">
               <a href="/consultorio" className="enlacenavadmin">
@@ -93,13 +104,17 @@ export const NavBarAdmin = () => {
                 <span>Consultorio</span>
               </a>
             </li>
-            
-            <li className="itemnavadmin">
-              <a href="/gestion/usuarios" className="enlacenavadmin">
-                <Users className="icononavadmin" />
-                <span>Usuarios</span>
-              </a>
-            </li>
+
+            {
+              isAdmin && (
+                <li className="itemnavadmin">
+                  <a href="/gestion/usuarios" className="enlacenavadmin">
+                    <Users className="icononavadmin" />
+                    <span>Usuarios</span>
+                  </a>
+                </li>
+              )
+            }
 
             <li className="itemnavadmin">
               <a href="/gestion/propietarios" className="enlacenavadmin">

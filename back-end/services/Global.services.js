@@ -14,9 +14,12 @@ class Global {
             database.conect()
 
             if (database) database.conection.query(proc,(err,result) => {
-                if(err) {
-                    rej({ message: err })
-                } else setTimeout(() => {
+                if(err) rej({ message: err })
+                if(!result[0][0]) rej({
+                    message: "Not found",
+                    status: 404
+                })
+                setTimeout(() => {
                     res({
                         message: "Pets found",
                         result: result
@@ -38,9 +41,12 @@ class Global {
             database.conect()
 
             if (database) database.conection.query(proc,primaryData,(err,result) => {
-                if(err) {
-                    rej({ message: err })
-                } else setTimeout(() => {
+                if(err) rej({ message: err }) 
+                if(!result[0][0]) rej({
+                    message: "Not found",
+                    status: 404
+                })
+                setTimeout(() => {
                     res({
                         message: "Authorized",
                         result: result

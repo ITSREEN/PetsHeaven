@@ -145,11 +145,13 @@ export async function login(url = "", first = "", second = "") {
         })
   
         if (!response.ok) {
-            throw response
+            throw await response
         }
   
         const data = await response.json()
         localStorage.setItem("token",data.token)
+
+        return true
   
     } catch (error) {
         throw error

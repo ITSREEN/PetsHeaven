@@ -17,7 +17,8 @@ Route.get('/all', ValidatorRol("veterinario"), async (req,res) => {
     try {
         res.status(200).json(pets)
     } catch (err) {
-        res.json({ message: err })
+        if(err.status) return res.status(err.status).json(err.message)
+        res.status(500).json({ message: err })
     }
 
 })
@@ -32,7 +33,8 @@ Route.get('/all:by', ValidatorRol("usuario"),async (req,res) => {
     try {
         res.status(200).json(pets)
     } catch (err) {
-        res.json({ message: err })
+        if(err.status) return res.status(err.status).json(err.message)
+        res.status(500).json({ message: err })
     }
 
 })
@@ -52,13 +54,13 @@ Route.post('/register', ValidatorRol("veterinario"), async (req,res) => {
 
     try{
         const created = await pet.create(body)
-        console.log(created)
         if (created.create) {
             return res.status(201).json(created)
         }
         res.status(500).json({message: "Error interno"})
     } catch (err) {
-        res.json({ message: err })
+        if(err.status) return res.status(err.status).json(err.message)
+        res.status(500).json({ message: err })
     }
 })
 
@@ -78,7 +80,8 @@ Route.put('/modify', ValidatorRol("usuario"), async (req,res) => {
         const petMod = await pet.modify(body)
         res.status(200).json(petMod)
     } catch (err) {
-        res.json({ message: err })
+        if(err.status) return res.status(err.status).json(err.message)
+        res.status(500).json({ message: err })
     }
 })
 
@@ -94,7 +97,8 @@ Route.get('/history:by', ValidatorRol("veterinario") ,async (req,res) => {
         const pets = await pet.findHistoryBy(toString(by))
         res.status(200).json(pets)
     } catch (err) {
-        res.json({ message: err })
+        if(err.status) return res.status(err.status).json(err.message)
+        res.status(500).json({ message: err })
     }
 })
 
@@ -118,7 +122,8 @@ Route.delete('/delete', ValidatorRol("administrador") ,async (req,res) => {
         return res.status(500).json({message: "Error interno"})
         
     } catch (err) {
-        res.json({ message: err })
+        if(err.status) return res.status(err.status).json(err.message)
+        res.status(500).json({ message: err })
     }
 })
 

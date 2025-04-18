@@ -21,7 +21,8 @@ Route.get('/services', async (req,res) => {
     try {
         res.status(200).json(services)
     } catch (err) {
-        res.json({ message: err })
+        if (err.status) return res.status(err.status).json({ message: err.message })
+        res.status(500).json({ message: err })
     }
 })
 
@@ -33,12 +34,13 @@ Route.post('/login',limiterLog, async (req,res) => {
         // Search in database
         let log = await global.login(firstData)
         let user = await log.result[0][0]
+
+        if(!user) return res.status(404).json({ message: 'Usuario no encontrado' })
         // Verify
         const coincide = await compare(secondData, user.cont_usu)
 
-        if (!user || !coincide) {
-            res.status(401).json({ message: 'Credenciales inválidas' })
-            return
+        if (!coincide) {
+            return res.status(401).json({ message: 'Credenciales inválidas' })
         }
         const token = jwt.sign(
             { 
@@ -52,7 +54,9 @@ Route.post('/login',limiterLog, async (req,res) => {
         res.status(200).json({ token: token })
 
     } catch (err) {
-        res.json({ message: err })
+        if (err.status) return res.status(err.status).json({ message: err.message })
+
+        res.status(500).json({ message: err })
     }
 })
 

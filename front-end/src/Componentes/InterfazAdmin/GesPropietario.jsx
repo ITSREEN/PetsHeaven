@@ -9,17 +9,17 @@ import { GetData } from '../Varios/Requests'
 
 // Main component 
 export function GesPropietario() {
-  const URL = "http://localhost:3000/user/all"
+  const URL = "http://localhost:3000/user/owner/all"
   const [users,setUsers] = useState([])
   const [usersAlmac,setUsersAlmac] = useState([])
   const [loading,setLoading] = useState(true)
   
   
-  const GetUsers = async () => {
+  const GetUsers = async (url) => {
     const token = localStorage.getItem("token")
     try {
       if(token) {
-        const data = await GetData(URL,token)
+        const data = await GetData(url,token)
         setUsers(data)
         setUsersAlmac(data)
         setLoading(false)
@@ -40,7 +40,7 @@ export function GesPropietario() {
       )
     })
 
-    if (find) setUsers(find)
+    if(find) setUsers(find)
   }
   
   useEffect(() => {
@@ -49,10 +49,10 @@ export function GesPropietario() {
     let intervalId
 
     // Execute the request
-    GetUsers()
+    GetUsers(URL)
 
     // Configure interval
-    intervalId = setInterval(GetUsers, REFRESH_INTERVAL)
+    intervalId = setInterval(() => GetUsers(URL), REFRESH_INTERVAL)
 
     // Clean
     return () => clearInterval(intervalId)

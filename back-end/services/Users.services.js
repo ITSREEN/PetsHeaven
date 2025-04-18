@@ -14,9 +14,12 @@ class User{
             database.conect()
 
             if (database) database.conection.query(proc,(err,result) => {
-                if(err) {
-                    rej({ message: err })
-                } else setTimeout(() => {
+                if(err) rej({ message: err })
+                if(!result[0][0]) rej({
+                    message: "Not found",
+                    status: 404
+                })
+                setTimeout(() => {
                     res({
                         message: "Users found",
                         result: result
@@ -41,9 +44,12 @@ class User{
             database.conect()
 
             if (database) database.conection.query(proc,by,(err,result) => {
-                if(err) {
-                    rej({ message: err })
-                } else setTimeout(() => {
+                if(err) rej({ message: err })
+                if(!result[0][0]) rej({
+                    message: "Not found",
+                    status: 404
+                })
+                setTimeout(() => {
                     res({
                         message: "Users found",
                         result: result
@@ -68,11 +74,42 @@ class User{
             database.conect()
 
             if (database) database.conection.query(proc,by,(err,result) => {
-                if(err) {
-                    rej({ message: err })
-                } else setTimeout(() => {
+                if(err) rej({ message: err })
+                if(!result[0][0]) rej({
+                    message: "Not found",
+                    status: 404
+                })
+                setTimeout(() => {
                     res({
                         message: "User found",
+                        result: result
+                    })
+                },2000)
+            })
+
+            // close conection 
+            database.conection.end()
+        })
+    }
+    // function to find owner
+    async findOwner() {
+        return new Promise((res,rej) => {
+            // vars
+            const proc = "CALL SearchPeoplesOwner();"
+
+            // conect to database
+            let database = new DataBase()
+            database.conect()
+
+            if (database) database.conection.query(proc,(err,result) => {
+                if(err) rej({ message: err })
+                if(!result[0][0]) rej({
+                    message: "Not found",
+                    status: 404
+                })
+                setTimeout(() => {
+                    res({
+                        message: "Owner founds",
                         result: result
                     })
                 },2000)
@@ -108,9 +145,8 @@ class User{
             
             // call procedure
             if (database) database.conection.query(procedure,newUser,err => { 
-                if(err) {
-                    rej(err) 
-                } else setTimeout(() => res({
+                if(err) rej(err) 
+                setTimeout(() => res({
                     message: "User Created",
                     ...data
                 }),2000)
@@ -145,9 +181,12 @@ class User{
 
             // call procedure
             if (conection) conection.query(procedure,newUser,err => { 
-                if(err) {
-                    rej(err) 
-                } else setTimeout(() => res({
+                if(err) rej(err) 
+                if(!result[0][0]) rej({
+                    message: "Not found",
+                    status: 404
+                })
+                setTimeout(() => res({
                     message: "User Modify",
                     ...data
                 }),2000)
@@ -169,9 +208,12 @@ class User{
     //         database.conect()
 
     //         if (database) database.conection.query(proc,by,(err,result) => {
-    //             if(err) {
-    //                 rej({ message: err })
-    //             } else setTimeout(() => {
+            //    rej({ message: err })
+        //     if(!result[0][0]) rej({
+        //             message: "Not found",
+        //             status: 404
+        //         })
+                // setTimeout(() => {
     //                 res({
     //                     message: "Users found",
     //                     result: result

@@ -30,9 +30,8 @@ class Pet {
 
             // Query
             if (database) database.conection.query(proc,pet,err => { 
-                if(err) {
-                    rej(err)
-                } else setTimeout(() => res({
+                if(err) rej(err)
+                setTimeout(() => res({
                     message: "Pet Created",
                     create: true
                 }),2000)
@@ -53,9 +52,12 @@ class Pet {
             database.conect()
 
             if (database) database.conection.query(proc,(err,result) => {
-                if(err) {
-                    rej({ message: err })
-                } else setTimeout(() => {
+                if(err) rej({ message: err })
+                if(!result[0][0]) rej({
+                    message: "Not found",
+                    status: 404
+                })
+                setTimeout(() => {
                     res({
                         message: "Pets found",
                         result: result
@@ -81,9 +83,12 @@ class Pet {
             database.conect()
             
             if (database) database.conection.query(proc,[by,secondBy],(err,result) => {
-                if(err) {
-                    rej({ message: err })
-                } else setTimeout(() => {
+                if(err) rej({ message: err })
+                if(!result[0][0]) rej({
+                    message: "Not found",
+                    status: 404
+                })
+                setTimeout(() => {
                     res({
                         message: "Pets found",
                         result: result
@@ -107,9 +112,12 @@ class Pet {
             database.conect()
             
             if (database) database.conection.query(proc,by,(err,result) => {
-                if(err) {
-                    rej({ message: err })
-                } else setTimeout(() => {
+                if(err) rej({ message: err })
+                if(!result[0][0]) rej({
+                    message: "Not found",
+                    status: 404
+                })
+                setTimeout(() => {
                     res({
                         message: "Pets found",
                         result: result
@@ -148,9 +156,8 @@ class Pet {
 
             // Query 
             if (database) database.conection.query(proc,moficatedData,err => {
-                if(err){
-                    rej(err)
-                } else setTimeout(() => res({
+                if(err) rej(err)
+                setTimeout(() => res({
                     message: "Pet Modify"
                 }),2000)
             })
@@ -171,9 +178,8 @@ class Pet {
             database.conect()
             
             if (database) database.conection.query(proc,[firstData,secondData],err => {
-                if(err) {
-                    rej({ message: err })
-                } else setTimeout(() => {
+                if(err) rej({ message: err })
+                setTimeout(() => {
                     res({
                         message: "Pets deleted",
                         deleted: true
@@ -197,9 +203,12 @@ class Pet {
             database.conect()
             
             if (database) database.conection.query(proc,by,(err,result) => {
-                if(err) {
-                    rej({ message: err })
-                } else setTimeout(() => {
+                if(err) rej({ message: err })
+                if(!result[0][0]) rej({
+                    message: "Not found",
+                    status: 404
+                })
+                setTimeout(() => {
                     res({
                         message: "History found",
                         result: result
