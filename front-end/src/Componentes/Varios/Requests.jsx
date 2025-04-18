@@ -1,24 +1,46 @@
+import { getName, decodeJWT } from './Util'
+
 // Vars
 const HeaderWeb = {
     "Content-Type": "application/json",
     "x-api-key": "pets_heaven_vite",
-    "User": "Cristian_Admin"
 }
 
 // Functions 
 // Traer datos
-export async function GetData(URL) {
+export async function GetDataGlobal(URL = "") {
     try {
         const response = await fetch(URL,{
             method: "GET",
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`,
                 ...HeaderWeb
             }
         })
 
         if (!response.ok) {
-            throw response
+            throw await response.json()
+        }
+
+        const data = await response.json()
+        return data.result[0]
+    } catch (error) {
+        throw error
+    }
+}
+export async function GetData(URL = "",token = "") {
+    try {
+        const response = await fetch(URL,{
+            method: "GET",
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'User': getName(token),
+                'Roles': decodeJWT(token).roles,
+                ...HeaderWeb
+            }
+        })
+
+        if (!response.ok) {
+            throw await response.json()
         }
 
         const data = await response.json()
@@ -28,13 +50,14 @@ export async function GetData(URL) {
     }
 }
 // Enviar datos 
-export async function PostData(URL, datas) {
-    console.log(datas)
+export async function PostData(URL = "", token = "", datas = {}) {
     try {
         const response = await fetch(URL, {
             method: "POST",
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Authorization': `Bearer ${token}`,
+                'User': getName(token),
+                'Roles': decodeJWT(token).roles,
                 ...HeaderWeb
             },
             body: JSON.stringify(datas)
@@ -58,12 +81,14 @@ export async function PostData(URL, datas) {
     }
 }
 // Modificar datos
-export async function ModifyData(URL,datas) {
+export async function ModifyData(URL = "", token = "", datas = {}) {
     try {
         const response = await fetch(URL,{
             method:"PUT",
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Authorization': `Bearer ${token}`,
+                'User': getName(token),
+                'Roles': decodeJWT(token).roles,
                 ...HeaderWeb
             },
             body: JSON.stringify(datas),
@@ -74,7 +99,7 @@ export async function ModifyData(URL,datas) {
         }
 
         // Parsear la respuesta como JSON
-        const data = await response.json()
+        const data = await response
         return data
 
     } catch (error) {
@@ -82,7 +107,7 @@ export async function ModifyData(URL,datas) {
     }
 }
 
-export async function login(url, first, second) {
+export async function login(url = "", first = "", second = "") {
     try {
         const response = await fetch(url, {
             method: "POST",

@@ -36,14 +36,13 @@
     --gray-800: #424242;
     --gray-900: #212121;
     --border-radius: 0.7rem;
-    --shadow-sm: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.12);
-    --shadow-md: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 0.7rem 0.9rem rgba(0, 0, 0, 0.1);
+    --shadow-sm: 0 0.1rem 0.2rem #0000001f;
+    --shadow-md: 0 0.2rem 0.4rem #0000001a;
+    --shadow-lg: 0 0.7rem 0.9rem #0000001a;
     --font-size: 1rem;
     --font-size-title: 2rem;
     --icon-size: 2.5rem;
     --font-general: "Zain", sans-serif;
-    --notfoundimg: url("../imgs/notfound.jpg") center no-repeat;
 }
 html {
     font-size: 6px;

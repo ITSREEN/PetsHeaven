@@ -1,4 +1,4 @@
--- Active: 1740114802630@@127.0.0.1@3306@pets_heaven
+-- Active: 1743971322762@@127.0.0.1@3306@pets_heaven
 CREATE PROCEDURE pets_heaven.RegistPets(
     IN p_nom_mas VARCHAR(100),
     IN p_esp_mas VARCHAR(100),
@@ -8,8 +8,8 @@ CREATE PROCEDURE pets_heaven.RegistPets(
     IN p_fec_nac_mas DATE,
     IN p_pes_mas FLOAT,
     IN p_usuario VARCHAR(100),
-    IN p_gen_mas VARCHAR(2),
-    IN p_est_rep_mas VARCHAR(100),
+    IN p_gen_mas VARCHAR(20),
+    IN p_est_rep_mas VARCHAR(50),
     IN p_fot_mas TEXT
 )
 BEGIN
@@ -32,11 +32,26 @@ BEGIN
         OR u.email_usu = p_usuario;
 
     INSERT INTO pets_heaven.mascotas (nom_mas,esp_mas,col_mas,raz_mas,ali_mas,fec_nac_mas,pes_mas,gen_mas,id_pro_mas,est_rep_mas,fot_mas)
-    VALUES(p_nom_mas,p_esp_mas,p_col_mas,p_raz_mas,p_ali_mas,p_fec_nac_mas,p_pes_mas,p_gen_mas,p_id_pro,p_est_rep_mas,p_fot_mas);
+    VALUES(p_nom_mas,p_esp_mas,p_col_mas,p_raz_mas,p_ali_mas,p_fec_nac_mas,p_pes_mas,p_gen_mas,p_id_pro_mas,p_est_rep_mas,p_fot_mas);
 
     COMMIT;
     SET autocommit = 1;
 END //
+
+CALL `RegistPets`(
+  'Dani',
+  'Perro',
+  'blanco',
+  'nose',
+  'croquetas',
+  '2025-04-25',
+  '12',
+  'admin@gmail.com',
+  'Femenino',
+  'Esterilizado',
+  'https://ujrouzcdanfkdaawduml.supabase.co/storage/v1/object/public/mascotas/1744938532918.webp'
+);
+
 CREATE PROCEDURE pets_heaven.ModifyPets(
     IN p_nom_mas VARCHAR(100),
     IN p_esp_mas VARCHAR(100),
@@ -46,8 +61,8 @@ CREATE PROCEDURE pets_heaven.ModifyPets(
     IN p_fec_nac_mas DATE,
     IN p_pes_mas FLOAT,
     IN p_usuario VARCHAR(100),
-    IN p_gen_mas VARCHAR(2),
-    IN p_est_rep_mas VARCHAR(100),
+    IN p_gen_mas VARCHAR(20),
+    IN p_est_rep_mas VARCHAR(50),
     IN p_fot_mas TEXT
 )
 BEGIN

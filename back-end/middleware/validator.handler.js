@@ -4,9 +4,6 @@ function validatorHeaders (req,res,next) {
     const apiKey = req.headers['x-api-key']
     const contentType = req.headers['content-type']
     const userAgent = req.headers['user-agent']
-    const user = req.headers['user']
-
-    console.log(contentType,apiKey,user,userAgent)
 
     // Validation
     if (!apiKey || apiKey !== 'pets_heaven_vite' ) {
@@ -15,7 +12,7 @@ function validatorHeaders (req,res,next) {
     if (!contentType || contentType !== 'application/json' ) {
         return res.status(400).json({ error: 'Contenido invalido' })
     }
-    if (!userAgent || !user) {
+    if (!userAgent ) {
         return res.status(401).json({ error: 'Usuario invalido' })
     }
 
@@ -23,10 +20,27 @@ function validatorHeaders (req,res,next) {
     next()
 }
 
-function ValidatorToken(req,res,next) {
-    const token = req.headers['token']
-
+function ValidatorRol(requireRol = "") {
+    return (req,res,next) => {
+        const rolesHeader = req.headers['roles']
+        // Verificación más robusta del header
+        if (!rolesHeader || typeof rolesHeader !== 'string') {
+            return res.status(403).json({ message: 'Roles perdidos o invalidos' })
+        }
+      
+        const roles = rolesHeader.split(",").map(role => role.trim())
+        
+        // Comparación case-insensitive
+        const isAdmin = roles.some(role => 
+            role.toLowerCase() === requireRol
+        )
+        
+        // Manejo de acceso
+        if (!isAdmin) return res.status(401).json({ message: 'No tienes permisos para esta acción' })
+    
+        next()
+    }
 }
 
 // export middleware 
-module.exports = { validatorHeaders, ValidatorToken }
+module.exports = { validatorHeaders, ValidatorRol }

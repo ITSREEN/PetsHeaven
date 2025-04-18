@@ -16,11 +16,14 @@ export function GesUsuario() {
   const [loading,setLoading] = useState(true)
 
   const GetUsers = async () => {
+    const token = localStorage.getItem("token")
     try {
-      const data = await GetData(URL)
-      setUsers(data)
-      setUsersAlmac(data)
-      setLoading(false)
+      if (token){
+        const data = await GetData(URL,token)
+        setUsers(data)
+        setUsersAlmac(data)
+        setLoading(false)
+      } else window.location.href = "/34"
     } catch (err) {
       console.log(err)
     }

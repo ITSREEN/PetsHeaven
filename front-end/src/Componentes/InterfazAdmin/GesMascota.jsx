@@ -27,19 +27,22 @@ export function GesMascota() {
   const [register,setRegister] = useState(false)
 
   // Functions
-  const namePro = gen => {
-    return gen === "Hombre" ? "Padre" : "Madre"
-  }
-
   // fetch para traer datos
   const fetchData = async () => {
+    const token = localStorage.getItem("token")
       try {
-          const pets = await GetData(mainURL)
+        if(token) {
+          const pets = await GetData(mainURL,token)
           setLoading(false)
           setPetsData(pets)
           setPetsAlmac(pets)
-      } catch (err) {             
-          console.log(err)
+        } else window.location.href = "/34"
+      } catch (err) {
+        err.message? swal({
+            icon: "error",
+            title: "Error",
+            text: err.message
+        }): console.log(err)
       }
   }
 
@@ -104,8 +107,8 @@ export function GesMascota() {
                     <Dog className="iconotitulogesmascota" size={20} />
                     Gestión de mascotas
                   </h1>
-                  <button className="botongesmascota">
-                    <Plus size={16} className="iconoplusadminhome" onClick={setRegister}/>
+                  <button className="botongesmascota" onClick={() => setRegister(true)}>
+                    <Plus size={16} className="iconoplusadminhome" />
                     Registrar mascota
                   </button>
                 </div>
@@ -201,7 +204,10 @@ export function GesMascota() {
           )
         }
         {register && (
-            <FormularioRegMascota/>
+            <FormularioRegMascota 
+              open={register}
+              onRegist={state => setRegister(state)}
+            />
           )
         }
       </main>

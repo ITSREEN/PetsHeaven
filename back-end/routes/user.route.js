@@ -4,13 +4,14 @@ const { hash } = require('bcrypt')
 
 // Imports
 const User = require('../services/Users.services')
+const { ValidatorRol } = require('../middleware/validator.handler')
 
 // vars
 const user = new User()
 const Route = Router()
 
 // Routes
-Route.get('/all', async (req,res) => {
+Route.get('/all', ValidatorRol("veterinario"), async (req,res) => {
     const search = await user.findAll()
 
     // Verifiy if exists
@@ -22,7 +23,7 @@ Route.get('/all', async (req,res) => {
         res.json({ message: err })
     }
 })
-Route.get('/all:by', async (req,res) => {
+Route.get('/all:by', ValidatorRol("veterinario"), async (req,res) => {
     // Vars 
     const by = req.params.by
     const search = await user.findAllBy(by)
@@ -37,7 +38,7 @@ Route.get('/all:by', async (req,res) => {
     }
 })
 
-Route.get('/by:by', async (req,res) => {
+Route.get('/by:by', ValidatorRol("veterinario"), async (req,res) => {
     // Vars 
     const by = req.params.by
     const search = await user.findBy(by)
@@ -52,7 +53,7 @@ Route.get('/by:by', async (req,res) => {
     }
 })
 
-Route.post('/register', async (req,res) => {
+Route.post('/register', ValidatorRol("veterinario"), async (req,res) => {
     // Vars 
     const saltRounds = 15
     const body = req.body
@@ -69,7 +70,7 @@ Route.post('/register', async (req,res) => {
     }
 })
 
-Route.put('/modify', async (req,res) => {
+Route.put('/modify', ValidatorRol("administrador"), async (req,res) => {
     // Vars 
     const { body } = req
     const saltRounds = 15

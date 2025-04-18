@@ -41,7 +41,6 @@ class Global {
                 if(err) {
                     rej({ message: err })
                 } else setTimeout(() => {
-                    // if(!validPassword) rej({ message: "Contraseña Invalida" })
                     res({
                         message: "Authorized",
                         result: result

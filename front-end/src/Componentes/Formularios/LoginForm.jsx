@@ -35,6 +35,7 @@ export const LoginForm = () => {
     swal({
       title: 'Validando..',
       text: 'Verificando datos de inicio de sesión',
+      buttons: false
     })
     
     try {
@@ -42,13 +43,13 @@ export const LoginForm = () => {
       
       const token = localStorage.getItem("token")
       const roles = getRoles(token)
-      let redire
+      let redirect
       if(roles.includes("Administrador")){
-        redire = () => window.location.href = "/gestion/usuarios"
+        redirect = () => window.location.href = "/gestion/usuarios"
       } else if (roles.includes("Veterinario")) {
-        redire = () => window.location.href = "/admin/pet"
+        redirect = () => window.location.href = "/gestion/mascotas"
       } else {
-        redire = () => window.location.href = "/user/pet"
+        redirect = () => window.location.href = "/user/pets"
       }
       if(token){ 
         swal({
@@ -58,7 +59,7 @@ export const LoginForm = () => {
           buttons: false
         })
         setTimeout(() => {
-          redire()
+          redirect() 
         },2000)
       } 
 

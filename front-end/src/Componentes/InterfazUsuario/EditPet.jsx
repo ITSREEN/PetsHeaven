@@ -1,5 +1,5 @@
 // Imports 
-import { errorStatusHandler,loadingAlert } from '../Varios/Util'
+import { errorStatusHandler,loadingAlert,formatDate } from '../Varios/Util'
 import { ModifyData } from '../Varios/Requests'
 
 // Librarys 
@@ -18,7 +18,7 @@ export const EditPetButton = ({ petData, onSave, open = false }) => {
 
     // Handle values
     const handleChange = (e) => {
-        const { name, value } = e.target
+        let { name, value } = e.target
         setFormData(prev => ({ ...prev, [name]: value }))
     }
 
@@ -31,13 +31,18 @@ export const EditPetButton = ({ petData, onSave, open = false }) => {
 
     const modifyData = async () => {
         try {
-            loadingAlert("Validando...",)
-            const mod = await ModifyData(URL,formData)
-            mod && swal({
-                icon: 'success',
-                title: 'Modificado',
-                text: 'Los datos de la mascota han sido modificados',
-            })
+            const token = localStorage.getItem("token")
+            if (token) {
+                loadingAlert("Validando...",)
+                formData.fec_nac_mas = formatDate(formData.fec_nac_mas)
+                formData.fec_cre_mas = formatDate(formData.fec_cre_mas)
+                const mod = await ModifyData(URL, token, formData)
+                mod.ok && swal({
+                    icon: 'success',
+                    title: 'Modificado',
+                    text: 'Los datos de la mascota han sido modificados',
+                })
+            }
         } catch (err) {
             if(err.status) {
                 const message = errorStatusHandler(err.status)
@@ -99,14 +104,9 @@ export const EditPetButton = ({ petData, onSave, open = false }) => {
                         <select
                             name="gen_mas"
                             onChange={handleChange}
-                            className="form-input"
-                        >
-                            <option value={formData.gen_mas}>{formData.gen_mas}</option>
-                            {
-                                formData.gen_mas === "M"?
-                                <option value="H">Hembra</option>
-                                :<option value="M">Macho</option>
-                            }
+                            className="form-input">
+                            <option value="Femenino">Femenino</option>
+                            <option value="Masculino">Masculino</option>
                         </select>
                     </div>
 
@@ -115,7 +115,7 @@ export const EditPetButton = ({ petData, onSave, open = false }) => {
                         <input
                             type="date"
                             name="fec_nac_mas"
-                            value={new Date(formData.fec_nac_mas).toLocaleDateString('en-CA')}
+                            value={formatDate(formData.fec_nac_mas)}
                             onChange={handleChange}
                             className="form-input"
                         />

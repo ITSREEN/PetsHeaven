@@ -3,16 +3,16 @@ const { Router } = require('express')
 
 // Imports
 const Pet = require('../services/Pets.services')
-
+const { ValidatorRol } = require('../middleware/validator.handler')
 // vars
 const pet = new Pet()
 const Route = Router()
 
 // Routes 
-Route.get('/all', async (req,res) => {
+Route.get('/all', ValidatorRol("veterinario"), async (req,res) => {
     // Vars 
     const pets = await pet.findAll()
-    if (!pets.result) res.status(404).json({message: "Mascotas no encontradas"})
+    if (!pets.result) res.status(404).json({ message: "Mascotas no encontradas" })
 
     try {
         res.status(200).json(pets)
@@ -22,7 +22,7 @@ Route.get('/all', async (req,res) => {
 
 })
 
-Route.get('/all:by', async (req,res) => {
+Route.get('/all:by', ValidatorRol("usuario"),async (req,res) => {
     // Vars
     const by = req.params.by
     
@@ -37,23 +37,32 @@ Route.get('/all:by', async (req,res) => {
 
 })
 
-Route.post('/register',async (req,res) => {
+Route.post('/register', ValidatorRol("veterinario"), async (req,res) => {
     // Vars
     const { body } = req
 
     // Verify if exist
     // const find = pet.findAllBy(toString(body.name))
-    // if (find) res.status(404).json({message: "Mascota no encontrada"})
+    // const findPet = await find.result[0][0]
+
+    // if (findPet) {
+    //     return res.status(404).json({message: "La mascota ya existe"})
+    // }
+    console.log(body)
 
     try{
-        const pets = await pet.create(body)
-        res.status(201).json(pets)
+        const created = await pet.create(body)
+        console.log(created)
+        if (created.create) {
+            return res.status(201).json(created)
+        }
+        res.status(500).json({message: "Error interno"})
     } catch (err) {
         res.json({ message: err })
     }
 })
 
-Route.put('/modify',async (req,res) => {
+Route.put('/modify', ValidatorRol("usuario"), async (req,res) => {
     // Vars 
     const body = req.body
 
@@ -62,20 +71,18 @@ Route.put('/modify',async (req,res) => {
     const findOne = await find.result[0][0]
 
     if (!findOne) {
-        res.status(404).json({message: "Mascota no encontrada"})
-        return
+        return res.status(404).json({message: "Mascota no encontrada"})
     }
 
     try {
         const petMod = await pet.modify(body)
-        console.log(petMod)
         res.status(200).json(petMod)
     } catch (err) {
         res.json({ message: err })
     }
 })
 
-Route.get('/history:by', async (req,res) => {
+Route.get('/history:by', ValidatorRol("veterinario") ,async (req,res) => {
     // Vars 
     const by = req.params.by
 

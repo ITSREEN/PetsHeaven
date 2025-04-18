@@ -5,7 +5,7 @@ import React from "react"
 export const Resumen = ({ datas }) => {
     // Functions 
     const namePro = gen => {
-        return gen === "Hombre" ? "Propietario" : "Propietaria"
+        return gen === "Hombre" ? "Padre" : "Madre"
     }
 
     return (
@@ -71,8 +71,8 @@ export const Resumen = ({ datas }) => {
                 </h2>
                 <div className="owner-info">
                 <div className="owner-main">
-                    <span className="owner-name">{datas.nom_usu} {datas.ape_usu}</span>
                     <span className="owner-type">{namePro(datas.gen_usu)}</span>
+                    <span className="owner-name"> {datas.nom_usu} {datas.ape_usu}</span>
                 </div>
                 <div className="owner-contact">
                     <a href={`tel:${datas.cel_usu}`} className="contact-item">

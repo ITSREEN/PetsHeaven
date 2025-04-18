@@ -31,7 +31,7 @@ Route.post('/login',limiterLog, async (req,res) => {
     
     try {
         // Search in database
-        let log = await global.login(firstData, secondData)
+        let log = await global.login(firstData)
         let user = await log.result[0][0]
         // Verify
         const coincide = await compare(secondData, user.cont_usu)
@@ -40,14 +40,13 @@ Route.post('/login',limiterLog, async (req,res) => {
             res.status(401).json({ message: 'Credenciales inválidas' })
             return
         }
-
         const token = jwt.sign(
             { 
                 names: user.nom_usu,
                 lastNames: user.ape_usu,
                 roles: user.roles
             },
-            'pets_heaven',
+            'pets_heaven_vite_gestion',
             { expiresIn: '1h' }
         )
         res.status(200).json({ token: token })

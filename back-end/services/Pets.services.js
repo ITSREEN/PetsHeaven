@@ -8,17 +8,33 @@ class Pet {
         return new Promise((res,rej) => {
             // vars
             const proc = "CALL RegistPets(?,?,?,?,?,?,?,?,?,?,?)"
+            const pet = [
+                data.nom_mas,
+                data.esp_mas,
+                data.col_mas,
+                data.raz_mas,
+                data.ali_mas,
+                data.fec_nac_mas,
+                data.pes_mas,
+                data.doc_usu,
+                data.gen_mas,
+                data.est_rep_mas,
+                data.fot_mas
+            ]
+
+            console.log(pet)
 
             // conect to database
             let database = new DataBase()
             database.conect()
 
             // Query
-            if (database) database.conection.query(proc,[data.nom,data.ape,data.dir,data.tel,data.email,data.cont],err => { 
-                err? rej(err)
-                :setTimeout(() => res({
+            if (database) database.conection.query(proc,pet,err => { 
+                if(err) {
+                    rej(err)
+                } else setTimeout(() => res({
                     message: "Pet Created",
-                    ...data
+                    create: true
                 }),2000)
             })
 
@@ -98,6 +114,7 @@ class Pet {
                 data.est_rep_mas,
                 data.fot_mas
             ]
+            console.log(moficatedData)
 
             // conect to database
             let database = new DataBase()

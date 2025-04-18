@@ -31,7 +31,26 @@ async function login(url, first, second) {
     }
 }
 
-async function pas() {
-    console.log(await hash("admin123",12))
+const decodeJWT = (token) => {
+    try {
+      // Dividir el token y decodificar el payload
+      const base64Url = token.split('.')[1]
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+      const payload = JSON.parse(atob(base64))
+      
+      return payload
+    } catch (error) {
+      console.error('Error decodificando el token:', error)
+      return null
+    }
 }
-pas()
+
+const getRoles = (token = "") => {
+  const tokenData = decodeJWT(token)
+  return Array(tokenData.roles)
+}
+
+const getName = (token) => {
+    const decodeToken = decodeJWT(token)
+    return `${decodeToken.names}_${decodeToken.lastNames}`
+}
