@@ -10,7 +10,7 @@ const { corsOptions, limiter } = require('./middleware/varios.handler')
 
 // vars
 const app = express()
-const port = process.env.PORT || 1969
+const port = process.env.PORT || 3000
 
 // desativar header extra 
 app.disable('x-powered-by')

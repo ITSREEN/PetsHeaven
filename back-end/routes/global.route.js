@@ -8,7 +8,7 @@ const Global = require('../services/Global.services')
 const { limiterLog } = require('../middleware/varios.handler')
 
 // Env vars
-const secret = process.env.JWT_SECRET
+const secret = process.env.JWT_SECRET || "pets_heaven_vite"
 
 // vars
 const global = new Global()
