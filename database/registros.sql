@@ -1,8 +1,8 @@
 -- Active: 1740114802630@@127.0.0.1@3306@pets_heaven
-INSERT INTO pets_heaven.roles (nom_rol) VALUES
-('Administrador'),
-('Veterinario'),
-('Usuario');
+INSERT INTO pets_heaven.roles (nom_rol,fot_rol) VALUES
+('Administrador','https://imgs.search.brave.com/JheS1cTjYH1Y1E7rp1FADfQDL9uXw20FxZAFfjZwEaY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy9k/L2Q0L04uVGVzbGEu/SlBH'),
+('Veterinario','https://imgs.search.brave.com/rL6dnhwCDXLvz02lsRs2QjVj1F8o-8D0o4pTYhmHah8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy90/aHVtYi9jL2M4L01h/cmllX0N1cmllX2Mu/XzE5MjBzLmpwZy81/MTJweC1NYXJpZV9D/dXJpZV9jLl8xOTIw/cy5qcGc'),
+('Usuario','https://imgs.search.brave.com/kWZPq0vRV5Hl9y9RS9CtH5o-SRhsHFZfA8twL1VUavI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9oaXBz/LmhlYXJzdGFwcHMu/Y29tL2htZy1wcm9k/L2ltYWdlcy9nZXR0/eWltYWdlcy02MTUz/MTI2MzQuanBnP2Ny/b3A9MXh3OjEuMHho/O2NlbnRlcix0b3Am/cmVzaXplPTY0MDoq');
 
 INSERT INTO pets_heaven.permisos (nom_per) VALUES
 ('Gestionar usuarios'),
@@ -17,7 +17,9 @@ INSERT INTO pets_heaven.usuarios (nom_usu, ape_usu, fec_nac_usu, tip_doc_usu, do
 ('Carlos', 'Rodríguez',NOW(), 'CE', 'AB123456', 'Carrera 56 #78-90', '3154567890', NULL, 'carlos.rod@email.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','Hombre'),
 ('Ana', 'Martínez',NOW(), 'CC', '11223344', 'Diagonal 34 #56-78', '3175678901', NULL, 'ana.martinez@email.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','Mujer'),
 ('Luis', 'García',NOW(), 'TI', '98765432', 'Transversal 12 #34-56', '3186789012', '3197890123', 'luis.garcia@email.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','Hombre'),
-('Arnold', 'schwarzenegger',NOW(), 'CC', '1298765432', 'Transversal 12 #34-56', '3186789012', '3197890123', 'admin@gmail.com', '$2b$12$KLZHdr.5RRAK2st6zfAFN.rAhVdKTrJHn9c/d1yx0lganVi6XYeOO','Hombre');
+('Nikola', 'Tesla',NOW(), 'CC', '1298765432', 'Trasversal 12 #34-56', '3186789012', '', 'admin@gmail.com', '$2b$15$P3DlhprB7vdchCiVoGq7SOrvG/ZOJyVVyTInPk7QZPbaKbUNPPQa6','Hombre'),
+('Marie', 'Curie',NOW(), 'CC', '658790781', 'calle 12 #34-56', '3121141801', '', 'vet@gmail.com', '$2b$15$TDXtAUTWojmNW0MtBmCCQO4Y.6R9OzUAmg9QItKhQVqNUlOD/CTVe','Mujer'),
+('Thomas', 'Edison',NOW(), 'CC', '658790781', 'calle 34 #56', '3121141801', '', 'user@gmail.com', '$2b$15$CJPKQ4mThbjqddDlRrQOuu3QiwW9rpkOrq8E14l58de2S6jb7/JJa','Hombre');
 
 INSERT INTO pets_heaven.otorgar_roles (id_rol, id_usu) VALUES
 (1,1),
@@ -35,7 +37,10 @@ INSERT INTO pets_heaven.otorgar_roles (id_rol, id_usu) VALUES
 (3,5),
 (1,6),
 (2,6),
-(3,6);
+(3,6),
+(2,7),
+(3,7),
+(3,8);
 
 INSERT INTO pets_heaven.otorgar_permisos (id_per, id_usu) VALUES
 (1,1),
