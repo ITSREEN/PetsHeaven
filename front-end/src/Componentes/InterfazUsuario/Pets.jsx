@@ -4,20 +4,18 @@ import { Loader } from '../Errores/Loader'
 import { SubNotFound } from '../Errores/NotFound'
 import { EditPetButton } from './EditPet'
 import { PetDetails } from './PetDetails'
-import { decodeJWT} from '../Varios/Util'
-// import NavBar from './NavBarAdmi'
+import { getName,getRoles } from '../Varios/Util'
 
 // Import Styles 
 import '../../../public/styles/InterfazUsuario/pets.css'
-
 
 // Librarys 
 import React, { useState, useEffect } from "react"
 
 // Main component
-export const Pets = ({ token, all = false}) => {
+export const Pets = () => {
     // Declare Vars
-    const mainURL = "http://localhost:3000/pet/all/"
+    const mainURL = "http://localhost:3000/pet/all"
     const [petsData, setPetsData] = useState([])
     const [loading, setLoading] = useState(true)
     const [selectedPet, setSelectedPet] = useState(null)
@@ -25,13 +23,14 @@ export const Pets = ({ token, all = false}) => {
     const [searchBy,setSearchBy] = useState("")
     const [found,setfound] = useState(false)
     const [editMode,setEditMode] = useState(false)
+    const [isAdmin,setIsAdmin] = useState(false)
 
     // fetch para traer datos
-    const fetchData = async (url) => {
+    const fetchData = async (url = "", token = "") => {
         setfound(false)
         setLoading(true)
         try {
-            const pets = await GetData(url)
+            const pets = await GetData(url,token)
             setLoading(false)
             setPetsData(pets)
             if(pets[0]) setfound(true)
@@ -45,21 +44,24 @@ export const Pets = ({ token, all = false}) => {
         setShowModal(true)
         document.body.style.overflow = 'hidden' // Deshabilita el scroll del body
     }
-
-    const changeEditMode = () => {
-        setEditMode(true)
-    }
     
     // Ejecutar el fetch para traer datos
     useEffect(() => {
-        // Vars 
-        const tokenData = decodeJWT(token)
-        const roles = Array(tokenData.roles)
+        // Vars
+        const token = localStorage.getItem("token")
+        if(token) {
+            // Vars
+            const by = getName(token)
+            const roles =  getRoles(token)
 
-        // verify rol
-        const URL = roles.includes("Administrador")? mainURL: `${mainURL}:${by}`
-      
-        fetchData(URL)
+            const admin = roles.some(role => role.toLowerCase() === "veterinario")
+
+            admin?setIsAdmin(true):setIsAdmin(false)
+
+            const newUrl = admin? mainURL: `${mainURL}:${by}`
+
+            fetchData(newUrl,token)
+        } else window.location.href = "/user/login"
     }, [])
 
     return (
@@ -119,8 +121,9 @@ export const Pets = ({ token, all = false}) => {
                         <PetDetails 
                             datas={selectedPet} 
                             open={showModal} 
+                            admin={isAdmin}
                             ready={(state) => setShowModal(state)}
-                            editMode={() => changeEditMode()} />
+                            editMode={() => setEditMode(true)} />
                     )}
 
                     {editMode && (

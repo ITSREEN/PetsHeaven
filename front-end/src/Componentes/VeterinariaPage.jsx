@@ -1,7 +1,7 @@
 // Imports 
 import "../../public/styles/VeterinariaPage.css"
 import { NavBar } from "./BarrasNavegacion/NavBar"
-import { GetData } from "./Varios/Requests"
+import { GetDataGlobal } from "./Varios/Requests"
 import { diapositivas, promociones, testimonios } from './Varios/varios'
 import { Loader } from './Errores/Loader'
 import Footer from "./Varios/Footer2"
@@ -82,7 +82,7 @@ export default function VeterinariaPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const services = await GetData(URL)
+        const services = await GetDataGlobal(URL)
         setSerData(services)
         setLoading(false)
       } catch (error) {

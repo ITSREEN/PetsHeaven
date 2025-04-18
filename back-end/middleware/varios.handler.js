@@ -4,7 +4,7 @@ const rateLimit = require('express-rate-limit')
 const corsOptions = {
     origin:'http://localhost:5173',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'x-api-key', 'Authorization','User'],
+    allowedHeaders: ['Content-Type', 'x-api-key', 'Authorization','User','Roles'],
     credentials: true
 }
 

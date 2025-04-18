@@ -4,13 +4,14 @@ import { Menu, X } from "lucide-react"
 
 // Imports 
 import '../../../public/styles/BarrasNavegacion/NavBar.css'
-import { Logout } from '../Varios/Util'
+import { Logout, getRoles } from '../Varios/Util'
 
 // Main component 
 export const NavBar = () => {
   // Vars 
   const [menuAbierto, setMenuAbierto] = useState(false)
   const [isAutenticate, setIsAutenticate] = useState(false)
+  const [petsUrl, setPetsUrl] = useState("/user/pets")
   const refNav = useRef(null)
   
   // Función para manejar el scroll a secciones
@@ -39,7 +40,15 @@ export const NavBar = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token")
-    token ? setIsAutenticate(true) : setIsAutenticate(false)
+    if(token){
+      const roles = getRoles(token)
+      setIsAutenticate(true) 
+
+      if(roles.includes("Administrador") || roles.includes("Veterinario")) {
+        setPetsUrl("/gestion/mascotas")
+      } else setPetsUrl("/user/pets")
+
+    } else setIsAutenticate(false)
   }, [])
 
   return (  
@@ -71,7 +80,7 @@ export const NavBar = () => {
           </a>
           {
             isAutenticate && (
-              <a href="/user/pets" className="enlace-nav">
+              <a href={petsUrl} className="enlace-nav">
                 Mascotas
               </a>
             )

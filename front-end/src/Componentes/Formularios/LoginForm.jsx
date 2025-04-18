@@ -35,39 +35,46 @@ export const LoginForm = () => {
     swal({
       title: 'Validando..',
       text: 'Verificando datos de inicio de sesión',
+      buttons: false
     })
     
     try {
-      await login(url,firstData,secondData)
+      const log = await login(url,firstData,secondData)
+
+      if (log) {
+        const token = localStorage.getItem("token")
+        const roles = getRoles(token)
+        console.log(roles)
+        let redirect
+        if(roles.includes("Administrador")){
+          redirect = () => window.location.href = "/gestion/usuarios"
+        }
+        if (!roles.includes("Administrador") && roles.includes("Veterinario")) {
+          redirect = () => window.location.href = "/gestion/mascotas"
+        }
+        if (!roles.includes("Administrador") || !roles.includes("Veterinario")) {
+          redirect = () => window.location.href = "/user/pets"
+        }
+        if(token){ 
+          swal({
+            title: 'Bienvenido',
+            icon: 'success',
+            text: 'Gracias por visitar nuestra pagina web',
+            buttons: false
+          })
+          setTimeout(() => {
+            redirect() 
+          },2000)
+        } 
+      } else console.log(log)
       
-      const token = localStorage.getItem("token")
-      const roles = getRoles(token)
-      let redire
-      if(roles.includes("Administrador")){
-        redire = () => window.location.href = "/gestion/usuarios"
-      } else if (roles.includes("Veterinario")) {
-        redire = () => window.location.href = "/admin/pet"
-      } else {
-        redire = () => window.location.href = "/user/pet"
-      }
-      if(token){ 
-        swal({
-          title: 'Bienvenido',
-          icon: 'success',
-          text: 'Gracias por visitar nuestra pagina web',
-          buttons: false
-        })
-        setTimeout(() => {
-          redire()
-        },2000)
-      } 
 
     } catch (err) {
       if(err.status) {
         const message = errorStatusHandler(err.status)
         swal({
           title: 'Error',
-          text: `${message}`,
+          text: `${message}. Intentalo de nueva mas tarde`,
           icon: 'warning',
         })
       } else console.log(err)
@@ -96,101 +103,137 @@ export const LoginForm = () => {
 
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className='contenido-paso-login'>
-                <div className='grupo-campo-login'>
-                  <label>
-                    Documento o Email <span className='obligatorio-login'>*</span>
-                  </label>
+              <div className='grupo-campo-login'>
+                <label htmlFor="docEmail">
+                  Documento o Email <span className='obligatorio-login'>*</span>
+                </label>
+                <input
+                  id="docEmail"
+                  type='text'
+                  placeholder='Número de documento o email'
+                  className={errors.docEmail ? 'campo-error-login' : ''}
+                  {...register('docEmail', {
+                    required: 'Este campo es obligatorio',
+                    minLength: {
+                      value: 6,
+                      message: 'Debe contener al menos 6 caracteres',
+                    },
+                    maxLength: {
+                      value: 100,
+                      message: 'Debe contener menos de 100 caracteres',
+                    },
+                  })}
+                  aria-describedby={errors.docEmail ? "docEmail-error" : undefined}
+                  aria-invalid={!!errors.docEmail}
+                  autoFocus
+                  onFocus={(e) => e.target.focus()} // Refuerza el enfoque
+                />
+                {errors.docEmail && (
+                  <p id="docEmail-error" className='mensaje-error-login' role="alert" aria-live="assertive">
+                    {errors.docEmail.message}
+                  </p>
+                )}
+              </div>
+
+              <div className='grupo-campo-login'>
+                <label htmlFor="password">
+                  Contraseña <span className='obligatorio-login'>*</span>
+                </label>
+                <div className='contenedor-input-password-login'>
                   <input
-                    type='text'
-                    placeholder='Número de documento o email'
-                    className={errors.docEmail ? 'campo-error-login' : ''}
-                    {...register('docEmail', {
+                    id="password"
+                    type={verPassword ? 'text' : 'password'}
+                    placeholder='Contraseña'
+                    className={errors.password ? 'campo-error-login' : ''}
+                    {...register('password', {
                       required: 'Este campo es obligatorio',
                       minLength: {
-                        value: 6,
-                        message: 'Debe contener al menos 6 caracteres',
+                        value: 8,
+                        message: 'La contraseña debe tener al menos 8 caracteres',
                       },
                       maxLength: {
                         value: 100,
                         message: 'Debe contener menos de 100 caracteres',
                       },
                     })}
+                    aria-describedby={errors.password ? "password-error" : undefined}
+                    aria-invalid={!!errors.password}
                   />
-                  {errors.docEmail && <p className='mensaje-error-login'>{errors.docEmail.message}</p>}
+                  <button 
+                    type='button' 
+                    className='boton-toggle-password-login' 
+                    onClick={cambiarVisibilidadPassword}
+                    aria-label={verPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                    aria-controls="password"
+                  >
+                    {verPassword ? (
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        width='20'
+                        height='20'
+                        viewBox='0 0 24 24'
+                        fill='none'
+                        stroke='currentColor'
+                        strokeWidth='2'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        className='icono-ojo-login'
+                        aria-hidden="true"
+                      >
+                        <path d='M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24'></path>
+                        <line x1='1' y1='1' x2='23' y2='23'></line>
+                      </svg>
+                    ) : (
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        width='20'
+                        height='20'
+                        viewBox='0 0 24 24'
+                        fill='none'
+                        stroke='currentColor'
+                        strokeWidth='2'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        className='icono-ojo-login'
+                        aria-hidden="true"
+                      >
+                        <path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'></path>
+                        <circle cx='12' cy='12' r='3'></circle>
+                      </svg>
+                    )}
+                  </button>
                 </div>
+                {errors.password && (
+                  <p id="password-error" className='mensaje-error-login' role="alert" aria-live="assertive">
+                    {errors.password.message}
+                  </p>
+                )}
+              </div>
 
-                <div className='grupo-campo-login'>
-                  <label>
-                    Contraseña <span className='obligatorio-login'>*</span>
-                  </label>
-                  <div className='contenedor-input-password-login'>
-                    <input
-                      type={verPassword ? 'text' : 'password'}
-                      placeholder='Contraseña'
-                      className={errors.password ? 'campo-error-login' : ''}
-                      {...register('password', {
-                        required: 'Este campo es obligatorio',
-                        minLength: {
-                          value: 8,
-                          message: 'La contraseña debe tener al menos 8 caracteres',
-                        },
-                        maxLength: {
-                          value: 100,
-                          message: 'Debe contener menos de 100 caracteres',
-                        },
-                      })}
-                    />
-                    <button type='button' className='boton-toggle-password-login' onClick={cambiarVisibilidadPassword}>
-                      {verPassword ? (
-                        <svg
-                          xmlns='http://www.w3.org/2000/svg'
-                          width='20'
-                          height='20'
-                          viewBox='0 0 24 24'
-                          fill='none'
-                          stroke='currentColor'
-                          strokeWidth='2'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                          className='icono-ojo-login'
-                        >
-                          <path d='M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24'></path>
-                          <line x1='1' y1='1' x2='23' y2='23'></line>
-                        </svg>
-                      ) : (
-                        <svg
-                          xmlns='http://www.w3.org/2000/svg'
-                          width='20'
-                          height='20'
-                          viewBox='0 0 24 24'
-                          fill='none'
-                          stroke='currentColor'
-                          strokeWidth='2'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                          className='icono-ojo-login'
-                        >
-                          <path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'></path>
-                          <circle cx='12' cy='12' r='3'></circle>
-                        </svg>
-                      )}
-                    </button>
-                  </div>
-                  {errors.password && <p className='mensaje-error-login'>{errors.password.message}</p>}
-                </div>
+              <button 
+                type='submit' 
+                className='boton-login'
+                aria-label="Iniciar sesión"
+              >
+                Entrar
+              </button>
 
-                <button type='submit' className='boton-login'>
-                  Entrar
-                </button>
-
-                <div className='enlaces-container-login'>
-                  <Link to='/user/recuperar' className='enlace-login'>
-                    ¿Olvidaste tu contraseña?
-                  </Link>
-                  <Link to='/user/register' className='enlace-login'>
-                    ¿No tienes una cuenta?
-                  </Link>
-                </div>
+              <div className='enlaces-container-login'>
+                <Link 
+                  to='/user/recuperar' 
+                  className='enlace-login'
+                  aria-label="Recuperar contraseña"
+                >
+                  ¿Olvidaste tu contraseña?
+                </Link>
+                <Link 
+                  to='/user/register' 
+                  className='enlace-login'
+                  aria-label="Registrarse como nuevo usuario"
+                >
+                  ¿No tienes una cuenta?
+                </Link>
+              </div>
               </div>
             </form>
           </div>

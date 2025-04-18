@@ -5,31 +5,29 @@ import { BrowserRouter, Routes, Route,Navigate } from "react-router"
 // Imports
 import { LoginForm } from "./Componentes/Formularios/LoginForm"
 import Registro from "./Componentes/Formularios/Registro"
-import RegistroMascota from "./Componentes/Formularios/FormularioMascotas"
 import ForgotPassword from "./Componentes/Formularios/ForgotPassword"
 import { HomeAdmin } from "./Componentes/InterfazAdmin/HomeAdmin"
 import { GesUsuario } from "./Componentes/InterfazAdmin/GesUsuario"
+import { GesPropietario } from "./Componentes/InterfazAdmin/GesPropietario"
+import { GesMascota } from "./Componentes/InterfazAdmin/GesMascota"
 import { Pets } from "./Componentes/InterfazUsuario/Pets"
 import { NotFound } from "./Componentes/Errores/NotFound"
 import { ErrorInternalServer } from "./Componentes/Errores/ErrorInternalServer"
 import { getRoles } from './Componentes/Varios/Util'
 import VeterinariaPage from "./Componentes/VeterinariaPage"
-import { GesPropietario } from "./Componentes/InterfazAdmin/GesPropietario"
-import { GesMascota } from "./Componentes/InterfazAdmin/GesMascota"
-import { RegistroUsu } from "./Componentes/InterfazAdmin/FormulariosAdmin/RegistroUsu"
 
 // Main Component
 export default function App () {
-  // Vars 
-  const token = localStorage.getItem('token');
-
+  
   // Route types
   const PrivateRoute = ({ children }) => {
-    return token ? children : <Navigate to="/user/login" />
+    const token = localStorage.getItem('token');
+    return token? children : <Navigate to="/user/login" />
   }
-
+  
   const AdminRoute = ({ children }) => {
     // Vars
+    const token = localStorage.getItem('token');
     if (token) {
       const roles = getRoles(token)
       return roles.includes('Administrador')? children :<Navigate to="/user/login" />
@@ -48,15 +46,10 @@ export default function App () {
       <Routes>
         {/* Private routes */}
         <Route path="user/pets" element={
-          <PrivateRoute children={<Pets token={token} />}/>}>
+          <PrivateRoute children={<Pets />}/>}>
         </Route>
-        <Route path="user/pets/register" element={
-          <PrivateRoute children={<RegistroMascota />} />} />
 
         {/* Admin routes  */}
-        <Route path="admin/pets" element={
-          <AdminRoute children={<Pets all={true}/>} />}>
-        </Route>
         <Route path="consultorio" element={
           <AdminRoute children={<HomeAdmin />} />}>  
         </Route>

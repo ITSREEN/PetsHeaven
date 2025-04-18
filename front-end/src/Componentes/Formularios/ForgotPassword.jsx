@@ -1,5 +1,5 @@
 import React from "react"
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import '../../../public/styles/Formularios/ForgotPassword.css'
 
@@ -41,7 +41,7 @@ const ForgotPassword = () => {
         </div>
 
         {/* Contenedor del formulario */}
-        <div className="formulario-card-forgot">
+        <div className="formulario-card-forgot" aria-live="polite">
           <div className="contenido-formulario-forgot">
             <div className="encabezado-formulario-forgot">
               <h2 className="titulo-formulario-forgot">Recuperar Contraseña</h2>
@@ -53,10 +53,13 @@ const ForgotPassword = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="contenido-paso-forgot">
                 <div className="grupo-campo-forgot">
-                  <label>
+                  <label htmlFor="email">
                     Correo Electrónico <span className="obligatorio">*</span>
                   </label>
                   <input
+                    autoFocus // Soporte nativo de react para el focus 
+                    onFocus={(e) => e.target.focus()} // Refuerza el enfoque
+                    id="email"
                     type="email"
                     placeholder="Ingresa tu correo electrónico"
                     className={errors.email ? "campo-error-forgot" : ""}
@@ -67,8 +70,13 @@ const ForgotPassword = () => {
                         message: "Ingresa un correo electrónico válido",
                       },
                     })}
-                  />
-                  {errors.email && <p className="mensaje-error">{errors.email.message}</p>}
+                    aria-describedby={errors.email ? "error-email" : undefined}
+                    />
+                  {errors.email && <p 
+                  className="mensaje-error"
+                  aria-live="assertive" // Solo anuncia este mensaje
+                  role="alert"
+                  >{errors.email.message}</p>}
                 </div>
 
                 {exito && (
@@ -83,10 +91,10 @@ const ForgotPassword = () => {
                 </button>
 
                 <div className="enlaces-container-forgot">
-                  <a href="/login" className="enlace">
+                  <a href="/user/login" className="enlace">
                     Volver a Iniciar Sesión
                   </a>
-                  <a href="/registro" className="enlace-forgot">
+                  <a href="/user/registro" className="enlace-forgot">
                     ¿No tienes una cuenta? Regístrate
                   </a>
                 </div>

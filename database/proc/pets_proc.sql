@@ -8,8 +8,8 @@ CREATE PROCEDURE pets_heaven.RegistPets(
     IN p_fec_nac_mas DATE,
     IN p_pes_mas FLOAT,
     IN p_usuario VARCHAR(100),
-    IN p_gen_mas VARCHAR(2),
-    IN p_est_rep_mas VARCHAR(100),
+    IN p_gen_mas VARCHAR(20),
+    IN p_est_rep_mas VARCHAR(50),
     IN p_fot_mas TEXT
 )
 BEGIN
@@ -32,11 +32,12 @@ BEGIN
         OR u.email_usu = p_usuario;
 
     INSERT INTO pets_heaven.mascotas (nom_mas,esp_mas,col_mas,raz_mas,ali_mas,fec_nac_mas,pes_mas,gen_mas,id_pro_mas,est_rep_mas,fot_mas)
-    VALUES(p_nom_mas,p_esp_mas,p_col_mas,p_raz_mas,p_ali_mas,p_fec_nac_mas,p_pes_mas,p_gen_mas,p_id_pro,p_est_rep_mas,p_fot_mas);
+    VALUES(p_nom_mas,p_esp_mas,p_col_mas,p_raz_mas,p_ali_mas,p_fec_nac_mas,p_pes_mas,p_gen_mas,p_id_pro_mas,p_est_rep_mas,p_fot_mas);
 
     COMMIT;
     SET autocommit = 1;
 END //
+
 CREATE PROCEDURE pets_heaven.ModifyPets(
     IN p_nom_mas VARCHAR(100),
     IN p_esp_mas VARCHAR(100),
@@ -46,8 +47,8 @@ CREATE PROCEDURE pets_heaven.ModifyPets(
     IN p_fec_nac_mas DATE,
     IN p_pes_mas FLOAT,
     IN p_usuario VARCHAR(100),
-    IN p_gen_mas VARCHAR(2),
-    IN p_est_rep_mas VARCHAR(100),
+    IN p_gen_mas VARCHAR(20),
+    IN p_est_rep_mas VARCHAR(50),
     IN p_fot_mas TEXT
 )
 BEGIN
@@ -162,6 +163,66 @@ BEGIN
     LIMIT 40;
 
 END //
+CREATE PROCEDURE pets_heaven.SearchPetBy(
+    IN p_by VARCHAR(100)
+)
+BEGIN
+    SELECT
+        m.nom_mas,
+        m.esp_mas,
+        m.col_mas,
+        m.raz_mas,
+        m.ali_mas,
+        m.fec_nac_mas,
+        m.pes_mas,
+        m.gen_mas,
+        m.est_rep_mas,
+        m.fot_mas,
+        m.fec_cre_mas,
+        u.nom_usu,
+        u.ape_usu,
+        u.doc_usu,
+        u.cel_usu,
+        u.email_usu,
+        u.gen_usu,
+        u.estado
+    FROM 
+        mascotas m
+    JOIN
+        usuarios u ON u.id_usu = m.id_pro_mas
+    WHERE 
+        m.estado = 1
+        AND u.estado = 1
+        AND (
+            m.nom_mas LIKE p_by
+            OR m.raz_mas LIKE p_by
+            OR m.esp_mas LIKE p_by
+            OR u.nom_usu LIKE p_by
+            OR u.email_usu LIKE p_by
+            OR u.doc_usu LIKE p_by
+        )
+    ORDER BY m.nom_mas
+    LIMIT 40;
+END //
+
+CREATE PROCEDURE pets_heaven.DeletePetBy(
+    IN p_first_by VARCHAR(100),
+    IN p_second_by VARCHAR(100)
+)
+BEGIN
+    UPDATE 
+        mascotas m, usuarios u
+    SET 
+        m.estado = 0
+    WHERE 
+        m.estado = 1
+        AND u.estado = 1
+        AND m.nom_mas LIKE p_second_by
+        AND ( 
+            u.email_usu LIKE p_first_by
+            OR u.doc_usu LIKE p_first_by
+        );
+END //
 
 CREATE PROCEDURE pets_heaven.SearchHistoryBy(
     IN p_pet_id INT
@@ -188,5 +249,3 @@ BEGIN
     WHERE 
         hm.id_mas_his = p_pet_id;
 END //
-
-CALL SearchPetsBy("98765432","leo");

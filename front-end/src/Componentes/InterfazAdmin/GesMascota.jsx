@@ -7,8 +7,10 @@ import { NavBarAdmin } from '../BarrasNavegacion/NavBarAdmi';
 import { Loader } from '../Errores/Loader'
 import { SubNotFound } from '../Errores/NotFound'
 import { GetData } from '../Varios/Requests'
+import { getRoles } from '../Varios/Util'
 import { EditPetButton } from '../InterfazUsuario/EditPet'
 import { PetDetails } from '../InterfazUsuario/PetDetails'
+import { FormularioRegMascota } from '../Formularios/FormularioMascotas'
 
 // Import Styles 
 import "../../../public/styles/InterfazAdmin/GesMascota.css"
@@ -23,21 +25,31 @@ export function GesMascota() {
   const [selectedPet, setSelectedPet] = useState(null)
   const [showModal, setShowModal] = useState(false)
   const [editMode,setEditMode] = useState(false)
+  const [register,setRegister] = useState(false)
+  const [isAdmin,setIsAdmin] = useState(false)
 
   // Functions
-  const namePro = gen => {
-    return gen === "Hombre" ? "Padre" : "Madre"
-  }
-
   // fetch para traer datos
   const fetchData = async () => {
+    const token = localStorage.getItem("token")
       try {
-          const pets = await GetData(mainURL)
+        if(token) {
+          const pets = await GetData(mainURL,token)
+          const roles = getRoles(token)
+
+          const admin = roles.some(role => role.toLowerCase() === "veterinario")
+          admin?setIsAdmin(true):setIsAdmin(false)
+
           setLoading(false)
           setPetsData(pets)
           setPetsAlmac(pets)
-      } catch (err) {             
-          console.log(err)
+        } else window.location.href = "/34"
+      } catch (err) {
+        err.message? swal({
+            icon: "error",
+            title: "Error",
+            text: err.message
+        }): console.log(err)
       }
   }
 
@@ -53,12 +65,6 @@ export function GesMascota() {
   const closeModal = () => {
     setShowModal(false)
     document.body.style.overflow = 'auto' // Habilita el scroll del body
-  }
-
-  // cambiar a modo edicion 
-  const changeEditMode = (pet) => {
-    setSelectedPet(pet)
-    setEditMode(true)
   }
 
   // Manejar busqueda 
@@ -108,7 +114,7 @@ export function GesMascota() {
                     <Dog className="iconotitulogesmascota" size={20} />
                     Gestión de mascotas
                   </h1>
-                  <button className="botongesmascota">
+                  <button className="botongesmascota" onClick={() => setRegister(true)}>
                     <Plus size={16} className="iconoplusadminhome" />
                     Registrar mascota
                   </button>
@@ -193,14 +199,22 @@ export function GesMascota() {
             <PetDetails 
                 datas={selectedPet} 
                 open={showModal} 
+                admin={isAdmin}
                 ready={(state) => setShowModal(state)}
-                editMode={() => changeEditMode()} />
+                editMode={() => setEditMode(true)} />
         )}
         {editMode && (
             <EditPetButton 
                 petData={selectedPet}
                 open={editMode}
                 onSave={(state) => setEditMode(state)}
+            />
+          )
+        }
+        {register && (
+            <FormularioRegMascota 
+              open={register}
+              onRegist={state => setRegister(state)}
             />
           )
         }

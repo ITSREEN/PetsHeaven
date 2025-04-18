@@ -106,6 +106,31 @@ BEGIN
         u.nom_usu
     LIMIT 50;
 END //
+CREATE PROCEDURE pets_heaven.SearchPeoplesOwner()
+BEGIN
+    SELECT
+        u.nom_usu,
+        u.ape_usu,
+        u.fec_nac_usu,
+        u.tip_doc_usu,
+        u.doc_usu,
+        u.dir_usu,
+        u.cel_usu,
+        u.cel2_usu,
+        u.email_usu,
+        u.cont_usu,
+        u.fec_cre_usu
+    FROM 
+        usuarios u
+    JOIN
+        mascotas m ON m.id_pro_mas = u.id_usu
+    WHERE
+        u.estado = 1
+        AND m.estado = 1
+    ORDER BY
+        u.nom_usu
+    LIMIT 50;
+END //
 
 CREATE PROCEDURE pets_heaven.SearchPeoplesBy(
     IN p_by VARCHAR(100)
@@ -146,6 +171,3 @@ BEGIN
         u.nom_usu
     LIMIT 100;
 END //
-
-
-CALL `SearchPeopleBy`("juan.perez@email.com");

@@ -4,13 +4,17 @@ const { hash } = require('bcrypt')
 
 // Imports
 const User = require('../services/Users.services')
+const { authenticateJWT, ValidatorRol } = require('../middleware/validator.handler')
 
 // vars
 const user = new User()
 const Route = Router()
 
+// Middleware 
+Route.use(authenticateJWT)
+
 // Routes
-Route.get('/all', async (req,res) => {
+Route.get('/all', ValidatorRol("administrador"), async (req,res) => {
     const search = await user.findAll()
 
     // Verifiy if exists
@@ -19,10 +23,11 @@ Route.get('/all', async (req,res) => {
     try {
         res.status(200).json(search)
     } catch (err) {
-        res.json({ message: err })
+        if(err.status) return res.status(err.status).json(err.message)
+        res.status(500).json({ message: err })
     }
 })
-Route.get('/all:by', async (req,res) => {
+Route.get('/all:by', ValidatorRol("administrador"), async (req,res) => {
     // Vars 
     const by = req.params.by
     const search = await user.findAllBy(by)
@@ -33,11 +38,12 @@ Route.get('/all:by', async (req,res) => {
     try {
         res.status(200).json(search)
     } catch (err) {
-        res.json({ message: err })
+        if(err.status) return res.status(err.status).json(err.message)
+        res.status(500).json({ message: err })
     }
 })
 
-Route.get('/by:by', async (req,res) => {
+Route.get('/by:by', ValidatorRol("administrador"), async (req,res) => {
     // Vars 
     const by = req.params.by
     const search = await user.findBy(by)
@@ -48,7 +54,8 @@ Route.get('/by:by', async (req,res) => {
     try {
         res.status(200).json(search)
     } catch (err) {
-        res.json({ message: err })
+        if(err.status) return res.status(err.status).json(err.message)
+        res.status(500).json({ message: err })
     }
 })
 
@@ -65,11 +72,12 @@ Route.post('/register', async (req,res) => {
         const create = await user.create({hash_pass: await hash(body.password,saltRounds), ...body})
         res.status(201).json(create)
     } catch(err) {
-        res.json({ message: err })
+        if(err.status) return res.status(err.status).json(err.message)
+        res.status(500).json({ message: err })
     }
 })
 
-Route.put('/modify', async (req,res) => {
+Route.put('/modify', ValidatorRol("administrador"), async (req,res) => {
     // Vars 
     const { body } = req
     const saltRounds = 15
@@ -82,7 +90,23 @@ Route.put('/modify', async (req,res) => {
         const modified = await user.modify({hash_pass: await hash(body.password,saltRounds), ...body})
         res.status(200).json(modified)
     } catch (err) {
-        res.json({ message: err })
+        if(err.status) return res.status(err.status).json(err.message)
+        res.status(500).json({ message: err })
+    }
+})
+
+Route.get('/owner/all', ValidatorRol("veterinario"), async (req,res) => {
+    // Vars 
+    const search = await user.findOwner()
+
+    // Verifiy if exist
+    if (!search.result) res.status(404).json({ message: "Owners no encontrados" })
+
+    try {
+        res.status(200).json(search)
+    } catch (err) {
+        if(err.status) return res.status(err.status).json(err.message)
+        res.status(500).json({ message: err })
     }
 })
 
@@ -97,7 +121,8 @@ Route.put('/modify', async (req,res) => {
 //     try {
 //         res.status(200).json(search)
 //     } catch (err) {
-//         res.json({ message: err })
+// if(err.status) return res.status(err.status).json(err.message)
+//.status(500)         res.json({ message: err })
 //     }
 // })
 
