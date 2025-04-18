@@ -95,6 +95,32 @@ class Pet {
             database.conection.end()
         })
     }
+    // function to find by
+    async findBy(data) {
+        return new Promise((res,rej) => {
+            // vars
+            const by = data.replace(":","").replace(" ","")
+            const proc = "CALL SearchPetBy(?)"
+
+            // conect to database
+            let database = new DataBase()
+            database.conect()
+            
+            if (database) database.conection.query(proc,by,(err,result) => {
+                if(err) {
+                    rej({ message: err })
+                } else setTimeout(() => {
+                    res({
+                        message: "Pets found",
+                        result: result
+                    })
+                },2000)
+            })
+
+            // close conection 
+            database.conection.end()
+        })
+    }
     
     // function to modify
     async modify(data) {
@@ -128,14 +154,39 @@ class Pet {
                     message: "Pet Modify"
                 }),2000)
             })
+            
+            // close conection 
+            database.conection.end()
+        })
+    }
+    
+    // function to delete by
+    async deleteBy(firstData,secondData = "") {
+        return new Promise((res,rej) => {
+            // vars
+            const proc = "CALL DeletePetBy(?,?)"
+
+            // conect to database
+            let database = new DataBase()
+            database.conect()
+            
+            if (database) database.conection.query(proc,[firstData,secondData],err => {
+                if(err) {
+                    rej({ message: err })
+                } else setTimeout(() => {
+                    res({
+                        message: "Pets deleted",
+                        deleted: true
+                    })
+                },2000)
+            })
 
             // close conection 
             database.conection.end()
         })
     }
-
-     // function to find all Medical History by Pet
-     async findHistoryBy(data) {
+    // function to find all Medical History by Pet
+    async findHistoryBy(data) {
         return new Promise((res,rej) => {
             // vars
             const by = data.replace(":","").replace(" ","")

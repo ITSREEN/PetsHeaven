@@ -177,6 +177,68 @@ BEGIN
     LIMIT 40;
 
 END //
+CREATE PROCEDURE pets_heaven.SearchPetBy(
+    IN p_by VARCHAR(100)
+)
+BEGIN
+    SELECT
+        m.nom_mas,
+        m.esp_mas,
+        m.col_mas,
+        m.raz_mas,
+        m.ali_mas,
+        m.fec_nac_mas,
+        m.pes_mas,
+        m.gen_mas,
+        m.est_rep_mas,
+        m.fot_mas,
+        m.fec_cre_mas,
+        u.nom_usu,
+        u.ape_usu,
+        u.doc_usu,
+        u.cel_usu,
+        u.email_usu,
+        u.gen_usu,
+        u.estado
+    FROM 
+        mascotas m
+    JOIN
+        usuarios u ON u.id_usu = m.id_pro_mas
+    WHERE 
+        m.estado = 1
+        AND u.estado = 1
+        AND (
+            m.nom_mas LIKE p_by
+            OR m.raz_mas LIKE p_by
+            OR m.esp_mas LIKE p_by
+            OR u.nom_usu LIKE p_by
+            OR u.email_usu LIKE p_by
+            OR u.doc_usu LIKE p_by
+        )
+    ORDER BY m.nom_mas
+    LIMIT 40;
+END //
+
+CALL `SearchPetBy`("sammy");
+
+CREATE PROCEDURE pets_heaven.DeletePetBy(
+    IN p_first_by VARCHAR(100),
+    IN p_second_by VARCHAR(100)
+)
+BEGIN
+    UPDATE 
+        mascotas m, usuarios u
+    SET 
+        m.estado = 0
+    WHERE 
+        m.estado = 1
+        AND u.estado = 1
+        AND m.nom_mas LIKE p_second_by
+        AND ( 
+            u.email_usu LIKE p_first_by
+            OR u.doc_usu LIKE p_first_by
+        );
+END //
 
 CREATE PROCEDURE pets_heaven.SearchHistoryBy(
     IN p_pet_id INT

@@ -1,10 +1,13 @@
 // Librarys 
 import React, { useState } from 'react'
+import swal from 'sweetalert'
 
 // Import
 import { Resumen } from './Details/Resumen'
 import { Historial } from './Details/Historial'
 import { Citas } from './Details/Citas'
+import { DeleteData } from '../Varios/Requests'
+import { getRoles,loadingAlert } from '../Varios/Util'
 
 // Import styles 
 import '../../../public/styles/InterfazUsuario/petDetails.css'
@@ -36,6 +39,40 @@ export const PetDetails = ({ datas, ready, editMode, open = false,admin = false 
         // Agregar la clase al elemento clickeado
         e.currentTarget.classList.add('link-active')
     }
+
+    const deletePet = async () => {
+        // Vars
+        const mainURL = "http://localhost:3000/pet/delete"
+        const token = localStorage.getItem("token")
+        try {
+            if(token) {
+                const roles =  getRoles(token)
+                const admin = roles.some(role => role.toLowerCase() === "administrador")
+                if (admin) {
+                loadingAlert("Validando...",)
+        
+                const deleted = await DeleteData(mainURL,token,{
+                    nom_mas: datas.nom_mas,
+                    doc_usu: datas.doc_usu
+                })
+                console.log(deleted)
+        
+                deleted.deleted && swal({
+                    icon: 'success',
+                    title: 'Eliminada',
+                    text: 'La mascota han sido eliminada correctamente.',
+                })
+            }
+    
+          } else window.location.href = "/34"
+        } catch (err) {
+            err.message? swal({
+                icon: "error",
+                title: "Error",
+                text: err.message
+            }): console.log(err)
+        }
+    }
     
     return (
         <main>
@@ -46,8 +83,8 @@ export const PetDetails = ({ datas, ready, editMode, open = false,admin = false 
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M18 6L6 18M6 6L18 18" 
                                     stroke="currentColor" 
-                                    stroke-width="2" 
-                                    stroke-linecap="round"/>
+                                    strokeWidth="2" 
+                                    strokeLinecap="round"/>
                             </svg>
                         </button>
                         
@@ -94,7 +131,7 @@ export const PetDetails = ({ datas, ready, editMode, open = false,admin = false 
                                 </button>
                                 {
                                     isAdmin && (
-                                        <button className="action-btn primary">
+                                        <button className="action-btn primary" onClick={deletePet}>
                                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M19 7L18.1327 19.1425C18.0579 20.1891 17.187 21 16.1378 21H7.86224C6.81296 21 5.94208 20.1891 5.86732 19.1425L5 7M10 11V17M14 11V17M15 7V4C15 3.44772 14.5523 3 14 3H10C9.44772 3 9 3.44772 9 4V7M4 7H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                             </svg>

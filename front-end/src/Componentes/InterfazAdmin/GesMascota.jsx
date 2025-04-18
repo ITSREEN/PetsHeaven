@@ -7,6 +7,7 @@ import { NavBarAdmin } from '../BarrasNavegacion/NavBarAdmi';
 import { Loader } from '../Errores/Loader'
 import { SubNotFound } from '../Errores/NotFound'
 import { GetData } from '../Varios/Requests'
+import { getRoles } from '../Varios/Util'
 import { EditPetButton } from '../InterfazUsuario/EditPet'
 import { PetDetails } from '../InterfazUsuario/PetDetails'
 import { FormularioRegMascota } from '../Formularios/FormularioMascotas'
@@ -25,6 +26,7 @@ export function GesMascota() {
   const [showModal, setShowModal] = useState(false)
   const [editMode,setEditMode] = useState(false)
   const [register,setRegister] = useState(false)
+  const [isAdmin,setIsAdmin] = useState(false)
 
   // Functions
   // fetch para traer datos
@@ -33,6 +35,11 @@ export function GesMascota() {
       try {
         if(token) {
           const pets = await GetData(mainURL,token)
+          const roles =  getRoles(token)
+
+          const admin = roles.some(role => role.toLowerCase() === "administrador")
+          admin?setIsAdmin(true):setIsAdmin(false)
+
           setLoading(false)
           setPetsData(pets)
           setPetsAlmac(pets)
@@ -192,6 +199,7 @@ export function GesMascota() {
             <PetDetails 
                 datas={selectedPet} 
                 open={showModal} 
+                admin={isAdmin}
                 ready={(state) => setShowModal(state)}
                 editMode={() => setEditMode(true)} />
         )}

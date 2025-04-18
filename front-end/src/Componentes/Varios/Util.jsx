@@ -15,7 +15,6 @@ export const Logout = () => {
 // decodificar token
 export const decodeJWT = (token = "") => {
   try {
-
     // Validación básica
     if (!token || typeof token !== "string") {
       console.error("Token no es un string válido")

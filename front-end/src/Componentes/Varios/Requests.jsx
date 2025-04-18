@@ -106,6 +106,32 @@ export async function ModifyData(URL = "", token = "", datas = {}) {
         throw error
     }
 }
+// Delete data
+export async function DeleteData(URL = "", token = "", datas = {}) {
+    try {
+        const response = await fetch(URL,{
+            method:"DELETE",
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'User': getName(token),
+                'Roles': decodeJWT(token).roles,
+                ...HeaderWeb
+            },
+            body: JSON.stringify(datas),
+        })
+
+        if (!response.ok) {
+            throw await response.json()
+        }
+
+        // Parsear la respuesta como JSON
+        const data = await response.json()
+        return data
+
+    } catch (error) {
+        throw await error.json()
+    }
+}
 
 export async function login(url = "", first = "", second = "") {
     try {

@@ -26,7 +26,7 @@ Route.get('/all:by', ValidatorRol("usuario"),async (req,res) => {
     // Vars
     const by = req.params.by
     
-    const pets = await pet.findAllBy(by)
+    const pets = await pet.findBy(by)
     if (!pets.result[0][0]) res.status(404).json({message: "mascotas no encontradas"})
 
     try {
@@ -93,6 +93,30 @@ Route.get('/history:by', ValidatorRol("veterinario") ,async (req,res) => {
     try {
         const pets = await pet.findHistoryBy(toString(by))
         res.status(200).json(pets)
+    } catch (err) {
+        res.json({ message: err })
+    }
+})
+
+Route.delete('/delete', ValidatorRol("administrador") ,async (req,res) => {
+    // Vars 
+    const body = req.body
+
+    // Verify if exist
+    const find = await pet.findAllBy(body.doc_usu,body.nom_mas)
+    const findOne = await find.result[0][0]
+
+    if (!findOne) {
+        return res.status(404).json({message: "Mascota no encontrada"})
+    }
+
+    try {
+        const petDeleted = await pet.deleteBy(body.doc_usu,body.nom_mas)
+        if (petDeleted.deleted){
+            return res.status(200).json(petDeleted)
+        }
+        return res.status(500).json({message: "Error interno"})
+        
     } catch (err) {
         res.json({ message: err })
     }
