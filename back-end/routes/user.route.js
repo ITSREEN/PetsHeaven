@@ -4,11 +4,14 @@ const { hash } = require('bcrypt')
 
 // Imports
 const User = require('../services/Users.services')
-const { ValidatorRol } = require('../middleware/validator.handler')
+const { authenticateJWT, ValidatorRol } = require('../middleware/validator.handler')
 
 // vars
 const user = new User()
 const Route = Router()
+
+// Middleware 
+Route.use(authenticateJWT)
 
 // Routes
 Route.get('/all', ValidatorRol("administrador"), async (req,res) => {

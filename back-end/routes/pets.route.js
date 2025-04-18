@@ -3,10 +3,14 @@ const { Router } = require('express')
 
 // Imports
 const Pet = require('../services/Pets.services')
-const { ValidatorRol } = require('../middleware/validator.handler')
+const { authenticateJWT, ValidatorRol } = require('../middleware/validator.handler')
+
 // vars
 const pet = new Pet()
 const Route = Router()
+
+// Middleware 
+Route.use(authenticateJWT)
 
 // Routes 
 Route.get('/all', ValidatorRol("veterinario"), async (req,res) => {

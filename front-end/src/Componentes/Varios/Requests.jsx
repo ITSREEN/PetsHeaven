@@ -13,6 +13,7 @@ export async function GetDataGlobal(URL = "") {
         const response = await fetch(URL,{
             method: "GET",
             headers: {
+                'User': "Desconocido",
                 ...HeaderWeb
             }
         })
@@ -137,7 +138,9 @@ export async function login(url = "", first = "", second = "") {
     try {
         const response = await fetch(url, {
             method: "POST",
-            headers: HeaderWeb,
+            headers: {
+                'User': "Desconocido",
+                ...HeaderWeb},
             body: JSON.stringify({
                 firstData: first, 
                 secondData: second 

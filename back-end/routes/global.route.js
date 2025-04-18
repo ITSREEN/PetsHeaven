@@ -7,6 +7,9 @@ const { Router } = require('express')
 const Global = require('../services/Global.services')
 const { limiterLog } = require('../middleware/varios.handler')
 
+// Env vars
+const secret = process.env.JWT_SECRET
+
 // vars
 const global = new Global()
 const Route = Router()
@@ -48,7 +51,7 @@ Route.post('/login',limiterLog, async (req,res) => {
                 lastNames: user.ape_usu,
                 roles: user.roles
             },
-            'pets_heaven_vite_gestion',
+            secret,
             { expiresIn: '1h' }
         )
         res.status(200).json({ token: token })

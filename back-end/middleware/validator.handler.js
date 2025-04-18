@@ -1,3 +1,9 @@
+// Librarys
+const jwt = require('jsonwebtoken')
+
+// Env vars
+const secret = process.env.JWT_SECRET || "pets_heaven_vite"
+
 // Handle Validations middlewares
 function validatorHeaders (req,res,next) {
     // Headers
@@ -19,6 +25,24 @@ function validatorHeaders (req,res,next) {
 
     // Next to
     next()
+}
+
+// Middleware de validación
+function authenticateJWT(req, res, next) {
+    const token = req.headers.authorization?.split(' ')[1]
+    
+    if (!token) {
+        return res.status(401).json({ error: 'Token no proporcionado' })
+    }
+  
+    jwt.verify(token, secret, (err, decoded) => {
+        if (err) {
+            return res.status(403).json({ error: 'Token inválido o expirado' })
+        }
+        
+        req.user = decoded // Almacena datos del usuario en la request
+        next()
+    })
 }
 
 function ValidatorRol(requireRol = "") {
@@ -44,4 +68,4 @@ function ValidatorRol(requireRol = "") {
 }
 
 // export middleware 
-module.exports = { validatorHeaders, ValidatorRol }
+module.exports = { validatorHeaders, ValidatorRol, authenticateJWT}

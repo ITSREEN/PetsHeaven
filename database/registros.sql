@@ -21,12 +21,21 @@ INSERT INTO pets_heaven.usuarios (nom_usu, ape_usu, fec_nac_usu, tip_doc_usu, do
 
 INSERT INTO pets_heaven.otorgar_roles (id_rol, id_usu) VALUES
 (1,1),
+(2,1),
+(3,1),
 (1,2),
 (2,2),
+(3,2),
 (1,3),
+(2,3),
+(3,3),
 (2,4),
 (1,5),
-(1,6);
+(2,5),
+(3,5),
+(1,6),
+(2,6),
+(3,6);
 
 INSERT INTO pets_heaven.otorgar_permisos (id_per, id_usu) VALUES
 (1,1),
