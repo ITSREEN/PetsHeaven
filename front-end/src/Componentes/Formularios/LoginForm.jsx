@@ -90,7 +90,7 @@ export const LoginForm = () => {
     <div className='login-container'>
       <div className='login-formulario-container'>
         <div className='contenedor-logo-externo-login'>
-          <img src={logoUrl || '/placeholder.svg'} alt='Logo PetsHeaven' className='logo-veterinaria-login' />
+          <img src={logoUrl || '/placeholder.svg'} alt='Logo de PetsHeaven con la palabra Pets en celeste y Heaven en negro, en una tipografía moderna.' className='logo-veterinaria-login' />
         </div>
 
         {/* Contenedor del formulario */}
@@ -243,7 +243,7 @@ export const LoginForm = () => {
       {/* Sección derecha - Imagen y cita */}
       <div className='login-imagen-container'>
         <div className='imagen-fondo-contenedor-login'>
-          <img src={imagenFondo || '/placeholder.svg'} alt='Imagen de fondo' className='imagen-fondo-login' />
+          <img src={imagenFondo || '/placeholder.svg'} alt='Una veterinaria sostiene con cuidado la pata de un perro tipo Border Collie mientras le colocan una inyección intravenosa. La persona lleva puesto un uniforme azul y guantes médicos, y tiene dos trenzas largas. El perro está recostado sobre una mesa blanca, mirando directamente a la cámara con expresión tranquila.' className='imagen-fondo-login' />
         </div>
         <div className='overlay-imagen-login'></div>
         <div className='contenedor-cita-login'>

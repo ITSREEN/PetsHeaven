@@ -288,7 +288,7 @@ const Registro = () => {
     {/* Sección derecha - Imagen y cita */}
     <div className="registro-imagen-container">
       <div className="imagen-fondo-contenedor">
-        <img src={imagenFondo || "/placeholder.svg"} alt="Imagen de fondo" className="imagen-fondo" />
+        <img src={imagenFondo || "/placeholder.svg"} alt="Una veterinaria sostiene con cuidado la pata de un perro tipo Border Collie mientras le colocan una inyección intravenosa. La persona lleva puesto un uniforme azul y guantes médicos, y tiene dos trenzas largas. El perro está recostado sobre una mesa blanca, mirando directamente a la cámara con expresión tranquila." className="imagen-fondo" />
       </div>
       <div className="overlay-imagen"></div>
       <div className="contenedor-cita">
@@ -301,7 +301,7 @@ const Registro = () => {
     <div className="registro-formulario-container">
       <div className="contenedor-logo-externo">
         <a href="/VeterinariaPage" className="cursor-pointer" aria-label="Regresar al inicio">
-          <img src={logoUrl || "/placeholder.svg"} alt="Logo PetsHeaven" className="logo-veterinaria" />
+          <img src={logoUrl || "/placeholder.svg"} alt="Logo de PetsHeaven con la palabra Pets en celeste y Heaven en negro, en una tipografía moderna." className="logo-veterinaria" />
         </a>
       </div>
 
