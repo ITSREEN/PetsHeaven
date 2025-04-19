@@ -55,7 +55,7 @@ export const NavBar = () => {
     <header className="encabezado" ref={refNav}>
       <div className="contenedor-header">
         <div className="logo-container">
-          <img src="https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/5.png" alt="Logo de PetsHeaven con la palabra Pets en celeste y Heaven en negro, en una tipografía moderna y sin serifas." width={50} height={50} className="logo-img" />
+          <img src="https://media.githubusercontent.com/media/Mogom/Imagenes_PetsHeaven/main/Logos/5.png" alt="Logo de PetsHeaven con la palabra Pets en celeste y Heaven en negro, en una tipografía moderna." width={50} height={50} className="logo-img" />
         </div>
 
         {/* Navegación Escritorio */}

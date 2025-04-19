@@ -156,6 +156,7 @@ export function GesMascota({ URL = "" }) {
                   <table className="tablagesmascota">
                     <thead>
                       <tr>
+                        
                         <th>Nombre</th>
                         <th>Especie</th>
                         <th>Raza</th>
