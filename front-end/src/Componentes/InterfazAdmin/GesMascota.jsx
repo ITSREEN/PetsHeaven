@@ -8,8 +8,8 @@ import { Loader } from '../Errores/Loader'
 import { SubNotFound } from '../Errores/NotFound'
 import { GetData } from '../Varios/Requests'
 import { getRoles } from '../Varios/Util'
-import { EditPetButton } from '../InterfazUsuario/EditPet'
-import { PetDetails } from '../InterfazUsuario/PetDetails'
+import { EditPetButton } from '../Pets/EditPet'
+import { PetDetails } from '../Pets/PetDetails'
 import { FormularioRegMascota } from '../Formularios/FormularioMascotas'
 
 // Import Styles 
@@ -217,6 +217,7 @@ export function GesMascota() {
         )}
         {editMode && (
             <EditPetButton 
+                url={mainURL}
                 petData={selectedPet}
                 open={editMode}
                 onSave={(state) => setEditMode(state)}

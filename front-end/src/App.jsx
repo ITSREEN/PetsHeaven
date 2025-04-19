@@ -10,7 +10,7 @@ import { HomeAdmin } from "./Componentes/InterfazAdmin/HomeAdmin"
 import { GesUsuario } from "./Componentes/InterfazAdmin/GesUsuario"
 import { GesPropietario } from "./Componentes/InterfazAdmin/GesPropietario"
 import { GesMascota } from "./Componentes/InterfazAdmin/GesMascota"
-import { Pets } from "./Componentes/InterfazUsuario/Pets"
+import { Pets } from "./Componentes/Pets/Pets"
 import { NotFound } from "./Componentes/Errores/NotFound"
 import { ErrorInternalServer } from "./Componentes/Errores/ErrorInternalServer"
 import { getRoles } from './Componentes/Varios/Util'
