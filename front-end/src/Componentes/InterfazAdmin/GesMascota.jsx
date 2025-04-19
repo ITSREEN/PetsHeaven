@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react"
 import { Dog, Eye, Plus } from "lucide-react"
  
 // Imports 
-import { NavBarAdmin } from '../BarrasNavegacion/NavBarAdmi';
+import { NavBarAdmin } from '../BarrasNavegacion/NavBarAdmi'
 import { Loader } from '../Errores/Loader'
 import { SubNotFound } from '../Errores/NotFound'
 import { GetData } from '../Varios/Requests'
@@ -27,8 +27,20 @@ export function GesMascota() {
   const [editMode,setEditMode] = useState(false)
   const [register,setRegister] = useState(false)
   const [isAdmin,setIsAdmin] = useState(false)
+  const [clickCount, setClickCount] = useState(0)
 
   // Functions
+  const handleClick = (pet) => {
+    setClickCount(prev => prev + 1)
+    
+    setTimeout(() => {
+        if (clickCount === 1) {
+          openModal(pet)
+        }
+        setClickCount(0)
+    }, 300)
+}
+
   // fetch para traer datos
   const fetchData = async () => {
     const token = localStorage.getItem("token")
@@ -156,7 +168,7 @@ export function GesMascota() {
                     <tbody> 
                       {
                         petsData.map((i,index) => (
-                          <tr key={index}>
+                          <tr key={index} onClick={() => handleClick(i)}>
                             <td className="nombrecontainergesmascota" data-label="Nombre">
                                   <div className="infogesmascota">
                                     <span className="nombregesmascota">{i.nom_mas}</span>
