@@ -281,8 +281,6 @@ const Registro = ({ URL = "" }) => {
     return `${minutos}:${segs < 10 ? "0" : ""}${segs}`
   }
 
-  
-
   return (
   <div className="registro-container">
     {/* Sección derecha - Imagen y cita */}
@@ -301,11 +299,7 @@ const Registro = ({ URL = "" }) => {
     <div className="registro-formulario-container">
       <div className="contenedor-logo-externo">
         <a href="/VeterinariaPage" className="cursor-pointer" aria-label="Regresar al inicio">
-<<<<<<< HEAD
-          <img src={logomainUrl || "/placeholder.svg"} alt="Logo PetsHeaven" className="logo-veterinaria" />
-=======
           <img src={logoUrl || "/placeholder.svg"} alt="Logo de PetsHeaven con la palabra Pets en celeste y Heaven en negro, en una tipografía moderna." className="logo-veterinaria" />
->>>>>>> 074d489c2abfe195da02a614c7ca58c2eb7fa478
         </a>
       </div>
 
