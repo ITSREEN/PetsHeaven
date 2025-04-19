@@ -16,9 +16,9 @@ import { FormularioRegMascota } from '../Formularios/FormularioMascotas'
 import "../../../public/styles/InterfazAdmin/GesMascota.css"
 
 // Main component 
-export function GesMascota() {
+export function GesMascota({ URL = "" }) {
   // Declare Vars
-  const mainURL = "http://localhost:3000/pet/all"
+  const mainURL = `${URL}/pet`
   const [petsData, setPetsData] = useState([])
   const [petsAlmac,setPetsAlmac] = useState([])
   const [loading, setLoading] = useState(false)
@@ -46,10 +46,10 @@ export function GesMascota() {
     const token = localStorage.getItem("token")
       try {
         if(token) {
-          const pets = await GetData(mainURL,token)
+          const pets = await GetData(`${mainURL}/all`,token)
           const roles = getRoles(token)
 
-          const admin = roles.some(role => role.toLowerCase() === "veterinario")
+          const admin = roles.some(role => role.toLowerCase() === "administrador")
           admin?setIsAdmin(true):setIsAdmin(false)
 
           setLoading(false)
@@ -217,7 +217,7 @@ export function GesMascota() {
         )}
         {editMode && (
             <EditPetButton 
-                url={mainURL}
+                URL={mainURL}
                 petData={selectedPet}
                 open={editMode}
                 onSave={(state) => setEditMode(state)}
@@ -227,6 +227,7 @@ export function GesMascota() {
         {register && (
             <FormularioRegMascota 
               open={register}
+              URL={mainURL}
               onRegist={state => setRegister(state)}
             />
           )

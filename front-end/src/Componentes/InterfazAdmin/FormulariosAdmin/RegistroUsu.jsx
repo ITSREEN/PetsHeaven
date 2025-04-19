@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../../../public/styles/InterfazAdmin/FormuariosAdmin/RegistroUsu.css';
 
-export const RegistroUsu = () => {
+export const RegistroUsu = ({ URL = "" }) => {
   return (
     <div className="cont-regusu">
       <h1 className="titulo-principal-regusu">Configuración de usuario</h1>
