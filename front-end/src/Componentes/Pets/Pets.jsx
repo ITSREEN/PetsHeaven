@@ -127,7 +127,8 @@ export const Pets = () => {
                     )}
 
                     {editMode && (
-                        <EditPetButton 
+                        <EditPetButton
+                            url={mainURL}
                             petData={selectedPet}
                             open={editMode}
                             onSave={(state) => setEditMode(state)}

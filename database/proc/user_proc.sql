@@ -123,10 +123,10 @@ BEGIN
     FROM 
         usuarios u
     JOIN
-        mascotas m ON m.id_pro_mas = u.id_usu
+        mascotas m
     WHERE
         u.estado = 1
-        AND m.estado = 1
+        AND u.id_usu = m.id_pro_mas
     ORDER BY
         u.nom_usu
     LIMIT 50;

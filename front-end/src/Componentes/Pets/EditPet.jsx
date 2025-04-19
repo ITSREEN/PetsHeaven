@@ -3,41 +3,52 @@ import { errorStatusHandler,loadingAlert,formatDate } from '../Varios/Util'
 import { ModifyData } from '../Varios/Requests'
 
 // Librarys 
-import React, { useState } from 'react'
+import React, { Component } from 'react'
 import swal from 'sweetalert'
 
 // Import Styles
 import '../../../public/styles/InterfazUsuario/editPets.css'
 
 // Main component 
-export const EditPetButton = ({ petData, onSave, open = false }) => {
-    // Vars 
-    const URL = 'http://localhost:3000/pet/modify'
-    const [isOpen, setIsOpen] = useState(open)
-    const [formData, setFormData] = useState(petData)
+export class EditPetButton extends Component {
+    constructor(props) {
+        super(props)
+        // Vars 
+        this.state = {
+            isOpen: this.props.open,
+            formData: this.props.petData || {},
+        }
+        
+        // Configuración
+        this.URL = `${this.props.url}modify`
+        this.token = localStorage.getItem("token")
+        this.onSave = this.props.onSave
+    }
 
     // Handle values
-    const handleChange = (e) => {
+    handleChange = (e) => {
         let { name, value } = e.target
-        setFormData(prev => ({ ...prev, [name]: value }))
+        this.setState(prev => ({ formData: {
+            ...prev.formData, [name]: value
+        } }))
     }
 
-    const handleSubmit = (e) => {
+    handleSubmit = (e) => {
         e.preventDefault()
-        modifyData()
-        onSave(false)
-        setIsOpen(false)
+        this.modifyData()
+        this.onSave(false)
+        this.setState({ isOpen: false })
     }
 
-    const modifyData = async () => {
+    modifyData = async () => {
+        const { formData } = this.state
         try {
-            const token = localStorage.getItem("token")
-            if (token) {
+            if (this.token) {
                 loadingAlert("Validando...",)
                 formData.fec_nac_mas = formatDate(formData.fec_nac_mas)
                 formData.fec_cre_mas = formatDate(formData.fec_cre_mas)
-                const mod = await ModifyData(URL, token, formData)
-                mod.ok && swal({
+                this.mod = await ModifyData(this.URL, this.token, formData)
+                this.mod.ok && swal({
                     icon: 'success',
                     title: 'Modificado',
                     text: 'Los datos de la mascota han sido modificados',
@@ -45,7 +56,7 @@ export const EditPetButton = ({ petData, onSave, open = false }) => {
             }
         } catch (err) {
             if(err.status) {
-                const message = errorStatusHandler(err.status)
+                this.message = errorStatusHandler(err.status)
                 swal({
                   title: 'Error',
                   text: `${message}`,
@@ -55,20 +66,24 @@ export const EditPetButton = ({ petData, onSave, open = false }) => {
         }
     }
 
-    return (
-      <section>
+    render = () => {
+        // Vars
+        const { formData,isOpen } = this.state
+
+        return (
+        <section>
         {isOpen && (
             <section className="modal-overlay" >
             <section className="modal-content" >
                 
                 <h2>Editar información</h2>
                 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={this.handleSubmit}>
                 <div className="form-grid">
                     <div className="form-group">
                         <label>Especie</label>
                         <select name="esp_mas" value={formData.esp_mas} 
-                            onChange={handleChange}
+                            onChange={this.handleChange}
                             className="form-input">
                             <option value="Perro">Perro</option>
                             <option value="Gato">Gato</option>
@@ -83,7 +98,7 @@ export const EditPetButton = ({ petData, onSave, open = false }) => {
                             type="text"
                             name="raz_mas"
                             value={formData.raz_mas}
-                            onChange={handleChange}
+                            onChange={this.handleChange}
                             className="form-input"
                         />
                     </div>
@@ -94,7 +109,7 @@ export const EditPetButton = ({ petData, onSave, open = false }) => {
                             type="text"
                             name="col_mas"
                             value={formData.col_mas}
-                            onChange={handleChange}
+                            onChange={this.handleChange}
                             className="form-input"
                         />
                     </div>
@@ -103,7 +118,7 @@ export const EditPetButton = ({ petData, onSave, open = false }) => {
                         <label>Género</label>
                         <select
                             name="gen_mas"
-                            onChange={handleChange}
+                            onChange={this.handleChange}
                             className="form-input">
                             <option value="Femenino">Femenino</option>
                             <option value="Masculino">Masculino</option>
@@ -116,7 +131,7 @@ export const EditPetButton = ({ petData, onSave, open = false }) => {
                             type="date"
                             name="fec_nac_mas"
                             value={formatDate(formData.fec_nac_mas)}
-                            onChange={handleChange}
+                            onChange={this.handleChange}
                             className="form-input"
                         />
                     </div>
@@ -127,7 +142,7 @@ export const EditPetButton = ({ petData, onSave, open = false }) => {
                             type="number"
                             name="pes_mas"
                             value={formData.pes_mas}
-                            onChange={handleChange}
+                            onChange={this.handleChange}
                             className="form-input"
                             step="0.1"
                         />
@@ -137,7 +152,7 @@ export const EditPetButton = ({ petData, onSave, open = false }) => {
                         <label>Estado Reproductivo</label>
                         <select
                             name="est_rep_mas"
-                            onChange={handleChange}
+                            onChange={this.handleChange}
                             className="form-input"
                         >
                             <option value={formData.est_rep_mas}>{formData.est_rep_mas}</option>
@@ -155,7 +170,7 @@ export const EditPetButton = ({ petData, onSave, open = false }) => {
                             type="text"
                             name="ali_mas"
                             value={formData.ali_mas}
-                            onChange={handleChange}
+                            onChange={this.handleChange}
                             className="form-input"
                         />
                     </div>
@@ -166,7 +181,7 @@ export const EditPetButton = ({ petData, onSave, open = false }) => {
                             type="text"
                             name="fot_mas"
                             value={formData.fot_mas}
-                            onChange={handleChange}
+                            onChange={this.handleChange}
                             className="form-input"
                         />
                     </div>
@@ -174,8 +189,8 @@ export const EditPetButton = ({ petData, onSave, open = false }) => {
 
                 <div className="form-actions">
                     <button type="button" className="cancel-button" onClick={() => {
-                        setIsOpen(false)
-                        onSave(false)}}>
+                        this.setState({ isOpen: false })
+                        this.onSave(false)}}>
                         Cancelar
                     </button>
                     <button type="submit" className="save-button">
@@ -186,6 +201,7 @@ export const EditPetButton = ({ petData, onSave, open = false }) => {
             </section>
             </section>
         )}
-    </section>
-  )
+        </section>
+        )
+    }   
 }
