@@ -11,7 +11,30 @@ import '../../../public/styles/InterfazAdmin/GlobalTable.css'
 export class GlobalTable extends Component {
     constructor (props) {
         super(props)
+
+        this.state = {
+          clickCount: 0
+        }
         // Declare params
+        this.void = () => console.log("ver")
+        this.onMore = this.props.watch || this.void
+        this.onEdit = this.props.edit || this.void
+    }
+
+    handleClick = (pet) => {
+      const { clickCount } = this.state
+      this.setState( prev => ({
+        clickCount: prev + 1
+      }))
+      
+      setTimeout(() => {
+        if (clickCount === 1) {
+          this.onMore(pet)
+        }
+        this.setState( () => ({
+          clickCount: 0
+        }))
+      }, 300)
     }
 
     renderCell = (item, header) => {
@@ -29,13 +52,15 @@ export class GlobalTable extends Component {
     }
 
     render () {
-        const { headers,data } = this.props
+        const { headers, data } = this.props
+        const headersKeys = Object.keys(headers)
+        const headersValues = Object.values(headers)
         return (
             <section className={`global-table-container`}>
               <table className="global-table">
                 <thead>
                   <tr key={112309}>
-                    {headers.map((header, index) => (
+                    {headersKeys.map((header, index) => (
                       <th key={index}>
                         <div className="header-content">
                           {header}
@@ -48,16 +73,16 @@ export class GlobalTable extends Component {
                 <tbody>
                   {data?.map((item,index) => (
                     <tr key={index}>
-                      {headers.map((header) => (
+                      {headersValues.map((header) => (
                         <td>
                           {this.renderCell(item, header)}
                         </td>
                       ))}
                       <td className="actions-cell">
-                        <button onClick={() => console.log("editar")}>
+                        <button onClick={this.onEdit}>
                           <Edit size={16} />
                         </button>
-                        <button onClick={() => console.log("ver")}>
+                        <button onClick={() => this.onMore(item)}>
                           <MoreHorizontal size={16} />
                         </button>
                       </td>

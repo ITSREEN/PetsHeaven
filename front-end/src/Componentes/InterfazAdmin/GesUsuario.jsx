@@ -15,7 +15,6 @@ export function GesUsuario({ URL = "" }) {
   const [usersAlmac,setUsersAlmac] = useState([])
   const [loading,setLoading] = useState(true)
   const [headers,setHeaders] = useState([])
-  const [headerData,setHeaderData] = useState([])
 
   const GetUsers = async () => {
     const token = localStorage.getItem("token")
@@ -25,7 +24,15 @@ export function GesUsuario({ URL = "" }) {
         setUsers(data)
         setUsersAlmac(data)
         setLoading(false)
-        defineTableData(data)
+        setHeaders({
+          'Nombres': 'nom_usu',
+          'Apellidos': 'ape_usu',
+          'T. Doc': 'tip_doc_usu',
+          'Documento': 'doc_usu',
+          'Direccion': 'dir_usu',
+          'Celular': 'cel_usu',
+          'Correo': 'email_usu'
+        })
       } else window.location.href = "/34"
     } catch (err) {
       console.log(err)
@@ -60,25 +67,6 @@ export function GesUsuario({ URL = "" }) {
     return () => clearInterval(intervalId)
   }, [])
 
-  const defineTableData = (data) => {
-    const datas = []
-    data.map(item => {
-      datas.push({
-        Nombres: Object.values(item)[0],
-        Apellidos: Object.values(item)[1],
-        'T. Doc': Object.values(item)[3],
-        Documento: Object.values(item)[4],
-        Direccion: Object.values(item)[5],
-        Celular: Object.values(item)[6],
-        Correo: Object.values(item)[8],
-        key:Object.values(item)[4]
-      })
-    })
-    setHeaders([
-      'Nombres','Apellidos','T. Doc','Documento','Direccion','Celular','Correo'
-    ])
-    setHeaderData(datas)
-  }
 
   return (
     <>
@@ -135,7 +123,7 @@ export function GesUsuario({ URL = "" }) {
 
                 {/* Table  */}
                 <GlobalTable 
-                  data={headerData}
+                  data={users}
                   headers={headers} 
                 /> 
 
